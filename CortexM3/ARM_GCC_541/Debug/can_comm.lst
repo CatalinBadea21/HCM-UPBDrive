@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
   28:src/can_comm.c ****  *   - Data is packed into CAN transmit buffer and sent via ESC control mailbox.
   29:src/can_comm.c ****  */
   30:src/can_comm.c **** void CAN_Transmit_To_ESC(uint8_t driving_mode, int8_t duty_cycle)
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 2
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 2
 
 
   31:src/can_comm.c **** {
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
   72              		.cfi_endproc
   73              	.LFE63:
   74              		.size	CAN_Transmit_To_ESC, .-CAN_Transmit_To_ESC
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 3
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 3
 
 
   75              		.section	.text.CAN_Read_From_ECU,"ax",%progbits
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  108              		.loc 1 61 0
  109 002a 0122     		movs	r2, #1
  110 002c 1F4B     		ldr	r3, .L15
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 4
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 4
 
 
  111 002e 1A71     		strb	r2, [r3, #4]
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  152 0068 9BB2     		uxth	r3, r3
  153 006a 43F2B062 		movw	r2, #14000
  154 006e 9342     		cmp	r3, r2
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 5
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 5
 
 
  155 0070 13D8     		bhi	.L11
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  199 00ac 00000000 		.word	.LANCHOR0
  200 00b0 A0A00040 		.word	1073782944
  201              		.cfi_endproc
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 6
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 6
 
 
  202              	.LFE64:
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  242              		.bss
  243              		.align	2
  244              		.set	.LANCHOR0,. + 0
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 7
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 7
 
 
  245              		.type	CANisrFlag, %object
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  298 004f 29       		.byte	0x29
  299 0050 54000000 		.4byte	0x54
  300 0054 03       		.uleb128 0x3
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 8
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 8
 
 
  301 0055 02       		.byte	0x2
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  355 00be 20       		.byte	0x20
  356 00bf 49000000 		.4byte	0x49
  357 00c3 02       		.uleb128 0x2
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 9
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 9
 
 
  358 00c4 E5020000 		.4byte	.LASF17
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  412 012f FA000000 		.4byte	0xfa
  413 0133 3E010000 		.4byte	0x13e
  414 0137 0A       		.uleb128 0xa
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 10
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 10
 
 
  415 0138 12010000 		.4byte	0x112
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  469 01a4 D8000000 		.4byte	.LASF31
  470 01a8 05       		.byte	0x5
  471 01a9 A4       		.byte	0xa4
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 11
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 11
 
 
  472 01aa 43010000 		.4byte	0x143
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  526 0216 08       		.byte	0x8
  527 0217 00       		.byte	0
  528 0218 02       		.uleb128 0x2
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 12
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 12
 
 
  529 0219 01020000 		.4byte	.LASF40
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  583 0285 7A020000 		.4byte	.LASF57
  584 0289 01       		.byte	0x1
  585 028a 1E       		.byte	0x1e
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 13
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 13
 
 
  586 028b 00000000 		.4byte	.LFB63
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  640 0309 1207     		.2byte	0x712
  641 030b 0F030000 		.4byte	0x30f
  642 030f 06       		.uleb128 0x6
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 14
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 14
 
 
  643 0310 CE000000 		.4byte	0xce
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  697 0016 03       		.uleb128 0x3
  698 0017 0E       		.uleb128 0xe
  699 0018 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 15
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 15
 
 
  700 0019 0B       		.uleb128 0xb
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  754 004f 3A       		.uleb128 0x3a
  755 0050 0B       		.uleb128 0xb
  756 0051 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 16
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 16
 
 
  757 0052 0B       		.uleb128 0xb
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  811 0088 2E       		.uleb128 0x2e
  812 0089 01       		.byte	0x1
  813 008a 3F       		.uleb128 0x3f
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 17
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 17
 
 
  814 008b 19       		.uleb128 0x19
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  868 00c4 11       		.uleb128 0x11
  869 00c5 01       		.uleb128 0x1
  870 00c6 31       		.uleb128 0x31
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 18
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 18
 
 
  871 00c7 13       		.uleb128 0x13
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  925 00ff 3A       		.uleb128 0x3a
  926 0100 0B       		.uleb128 0xb
  927 0101 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 19
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 19
 
 
  928 0102 05       		.uleb128 0x5
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  982 0138 3A       		.uleb128 0x3a
  983 0139 0B       		.uleb128 0xb
  984 013a 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 20
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 20
 
 
  985 013b 05       		.uleb128 0x5
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  1039 0008 00000000 		.4byte	.LFB64
  1040 000c B4000000 		.4byte	.LFE64
  1041 0010 00000000 		.4byte	.LFB65
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 21
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 21
 
 
  1042 0014 24000000 		.4byte	.LFE65
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  1066      72697665 
  1066      2E637964 
  1066      736E00
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 22
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 22
 
 
  1067              	.LASF7:
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  1096      20636861 
  1096      7200
  1097              	.LASF54:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 23
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 23
 
 
  1098 0138 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  1119              	.LASF5:
  1120 022c 73686F72 		.ascii	"short int\000"
  1120      7420696E 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 24
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 24
 
 
  1120      7400
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 1
  1146      726400
  1147              	.LASF11:
  1148 02cc 6C6F6E67 		.ascii	"long long int\000"
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccm7rWUj.s 			page 25
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccUj17si.s 			page 25
 
 
  1148      206C6F6E 
