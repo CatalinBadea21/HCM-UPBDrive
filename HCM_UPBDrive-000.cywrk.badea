@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CyXmlSerializer>
+<!--This file is machine generated and read. It is not intended to be edited by hand.-->
+<!--Due to this, there is no schema for this file.-->
+<CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWrkspcCustomData" version="4">
+<CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997 type_name="CyDesigner.Common.Base.CyCustomData" version="2">
+<userData>
+<dataGuid v="5f2be1a5-0687-4501-bb8c-cf21cb8211bf">
+<CyGuid_5f2be1a5-0687-4501-bb8c-cf21cb8211bf type_name="CyDesigner.Common.ProjMgmt.GUI.CyBookmarkData" version="1">
+<indicators />
+</CyGuid_5f2be1a5-0687-4501-bb8c-cf21cb8211bf>
+</dataGuid>
+<dataGuid v="1b906a0f-a7b6-4e4d-a428-82f98b53cb35">
+<CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35 type_name="CyDesigner.Common.ProjMgmt.GUI.CyExplorerWindow+CyExplorerWindowState" version="3" SelectedTab="Source">
+<TreeKeys>
+<v>Source</v>
+<v>Components</v>
+<v>Output</v>
+</TreeKeys>
+<TreeStates>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="HCM_UPBDrive-000\HCM_UPBDrive\Source Files\main.c">
+<ExpandedNodeIds>
+<v>HCM_UPBDrive-000</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\TopDesign</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\Pins</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\Analog</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\Clocks</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\Interrupts</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\DMA</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\System</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\Directives</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\Flash Security</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\EEPROM</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cyre</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Header Files</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Header Files\can_comm.h</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Header Files\cyapicallbacks.h</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Header Files\hybrid_mode.h</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Header Files\user_input.h</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Source Files</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Source Files\can_comm.c</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Source Files\hybrid_mode.c</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Source Files\main.c</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Source Files\user_input.c</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>HCM_UPBDrive-000</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\TopDesign</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\Pins</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\Analog</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\Clocks</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\Interrupts</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\DMA</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\System</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\Directives</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\Flash Security</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cydwr\EEPROM</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.cyre</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Header Files</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Header Files\can_comm.h</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Header Files\cyapicallbacks.h</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Header Files\hybrid_mode.h</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Header Files\user_input.h</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Source Files</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Source Files\can_comm.c</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Source Files\hybrid_mode.c</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Source Files\main.c</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Source Files\user_input.c</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>HCM_UPBDrive-000</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\TopDesign</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\TopDesign\TopDesign.cysch</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>HCM_UPBDrive-000</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\TopDesign</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\TopDesign\TopDesign.cysch</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>HCM_UPBDrive-000</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\AIR_enable.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\Boost_Button.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\can_comm.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN_INT.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN_PM.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN_RX.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN_TX.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN_TX_RX_func.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\Cm3Start.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CyDmac.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CySpc.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\hybrid_mode.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\main.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\Selector_In.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\user_input.lst</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.elf</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.hex</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.map</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.gpdsc</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.rpt</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive_timing.html</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>HCM_UPBDrive-000</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.rpt</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive_timing.html</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStates>
+<TreeKeysV2>
+<v>Datasheet</v>
+</TreeKeysV2>
+<TreeStatesV2>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>HCM_UPBDrive-000</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\PSoC 5LP Architecture TRM</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CY8C58LP Family Datasheet</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\System Reference Guides</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\System Reference Guides\cy_boot_v5_60</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CAN_v3_0.pdf</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\cy_pins_v2_20</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>HCM_UPBDrive-000</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\PSoC 5LP Architecture TRM</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CY8C58LP Family Datasheet</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\System Reference Guides</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\System Reference Guides\cy_boot_v5_60</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\CAN_v3_0.pdf</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\cy_pins_v2_20</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStatesV2>
+</CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
+</dataGuid>
+</userData>
+</CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
+<Unloaded />
+<OpenDocs />
+<config v="" />
+<AutoUpdate v="true" />
+</CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
+</CyXmlSerializer>

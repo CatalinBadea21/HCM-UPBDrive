@@ -1,0 +1,7 @@
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|5fa6fd04-1f0a-41cb-9325-1af18bc3965e
+C:\Users\badea\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|f0ed83c1-57f3-4e30-9077-3fa492377fa0
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|7180a813-01bb-40db-83ae-87ee84754927
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|7794de0a-9dde-41df-9294-f3bff4834ffc
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|4ed8b34d-6cc9-46a5-bd33-d2edbc769880
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|5e34797b-7b22-4b25-b593-d872da44539b
+C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\HCM_UPBDrive.cyprj|98188d90-34d5-4015-99b3-a9f1cf74cf4d
