@@ -2,7 +2,7 @@
 --	Conversion of HCM_UPBDrive.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Mon May 26 17:32:50 2025
+--	Mon May 26 22:30:26 2025
 --
 
 USE cypress.cypress.all;
@@ -40,21 +40,24 @@ SIGNAL tmpFB_0__AIR_enable_net_0 : bit;
 SIGNAL tmpIO_0__AIR_enable_net_0 : bit;
 TERMINAL tmpSIOVREF__AIR_enable_net_0 : bit;
 SIGNAL tmpINTERRUPT_0__AIR_enable_net_0 : bit;
+SIGNAL tmpOE__Selector_In_net_5 : bit;
 SIGNAL tmpOE__Selector_In_net_4 : bit;
 SIGNAL tmpOE__Selector_In_net_3 : bit;
 SIGNAL tmpOE__Selector_In_net_2 : bit;
 SIGNAL tmpOE__Selector_In_net_1 : bit;
 SIGNAL tmpOE__Selector_In_net_0 : bit;
+SIGNAL Net_428 : bit;
 SIGNAL Net_422 : bit;
 SIGNAL Net_421 : bit;
 SIGNAL Net_420 : bit;
 SIGNAL Net_414 : bit;
 SIGNAL Net_413 : bit;
-SIGNAL tmpIO_4__Selector_In_net_4 : bit;
-SIGNAL tmpIO_4__Selector_In_net_3 : bit;
-SIGNAL tmpIO_4__Selector_In_net_2 : bit;
-SIGNAL tmpIO_4__Selector_In_net_1 : bit;
-SIGNAL tmpIO_4__Selector_In_net_0 : bit;
+SIGNAL tmpIO_5__Selector_In_net_5 : bit;
+SIGNAL tmpIO_5__Selector_In_net_4 : bit;
+SIGNAL tmpIO_5__Selector_In_net_3 : bit;
+SIGNAL tmpIO_5__Selector_In_net_2 : bit;
+SIGNAL tmpIO_5__Selector_In_net_1 : bit;
+SIGNAL tmpIO_5__Selector_In_net_0 : bit;
 TERMINAL tmpSIOVREF__Selector_In_net_0 : bit;
 SIGNAL tmpINTERRUPT_0__Selector_In_net_0 : bit;
 BEGIN
@@ -366,73 +369,73 @@ AIR_enable:cy_psoc3_pins_v1_10
 		interrupt=>tmpINTERRUPT_0__AIR_enable_net_0);
 Selector_In:cy_psoc3_pins_v1_10
 	GENERIC MAP(id=>"8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba",
-		drive_mode=>"001001001001001",
-		ibuf_enabled=>"11111",
-		init_dr_st=>"00000",
-		input_sync=>"00000",
+		drive_mode=>"001001001001001001",
+		ibuf_enabled=>"111111",
+		init_dr_st=>"000000",
+		input_sync=>"000000",
 		input_clk_en=>'0',
-		input_sync_mode=>"00000",
-		intr_mode=>"0000000000",
+		input_sync_mode=>"000000",
+		intr_mode=>"000000000000",
 		invert_in_clock=>'0',
 		invert_in_clock_en=>'0',
 		invert_in_reset=>'0',
 		invert_out_clock=>'0',
 		invert_out_clock_en=>'0',
 		invert_out_reset=>'0',
-		io_voltage=>",,,,",
+		io_voltage=>",,,,,",
 		layout_mode=>"CONTIGUOUS",
-		output_conn=>"00000",
-		output_sync=>"00000",
+		output_conn=>"000000",
+		output_sync=>"000000",
 		output_clk_en=>'0',
-		output_mode=>"00000",
+		output_mode=>"000000",
 		output_reset=>'0',
-		output_clock_mode=>"00000",
-		oe_sync=>"00000",
-		oe_conn=>"00000",
+		output_clock_mode=>"000000",
+		oe_sync=>"000000",
+		oe_conn=>"000000",
 		oe_reset=>'0',
-		pin_aliases=>",,,,",
-		pin_mode=>"IIIII",
+		pin_aliases=>",,,,,",
+		pin_mode=>"IIIIII",
 		por_state=>4,
 		sio_group_cnt=>0,
 		sio_hifreq=>"00000000",
-		sio_hyst=>"11111",
+		sio_hyst=>"111111",
 		sio_ibuf=>"00000000",
-		sio_info=>"0000000000",
+		sio_info=>"000000000000",
 		sio_obuf=>"00000000",
 		sio_refsel=>"00000000",
 		sio_vtrip=>"00000000",
 		sio_vohsel=>"00000000",
-		slew_rate=>"00000",
+		slew_rate=>"000000",
 		spanning=>'0',
 		sw_only=>'0',
-		vtrip=>"0000000000",
-		width=>5,
+		vtrip=>"000000000000",
+		width=>6,
 		port_alias_required=>'0',
 		port_alias_group=>"",
-		use_annotation=>"00000",
+		use_annotation=>"000000",
 		pa_in_clock=>-1,
 		pa_in_clock_en=>-1,
 		pa_in_reset=>-1,
 		pa_out_clock=>-1,
 		pa_out_clock_en=>-1,
 		pa_out_reset=>-1,
-		ovt_needed=>"00000",
-		ovt_slew_control=>"0000000000",
-		ovt_hyst_trim=>"00000",
-		input_buffer_sel=>"0000000000")
+		ovt_needed=>"000000",
+		ovt_slew_control=>"000000000000",
+		ovt_hyst_trim=>"000000",
+		input_buffer_sel=>"000000000000")
 	PORT MAP(oe=>(tmpOE__CAN_RX_net_0, tmpOE__CAN_RX_net_0, tmpOE__CAN_RX_net_0, tmpOE__CAN_RX_net_0,
-			tmpOE__CAN_RX_net_0),
+			tmpOE__CAN_RX_net_0, tmpOE__CAN_RX_net_0),
 		y=>(zero, zero, zero, zero,
-			zero),
-		fb=>(Net_422, Net_421, Net_420, Net_414,
-			Net_413),
+			zero, zero),
+		fb=>(Net_428, Net_422, Net_421, Net_420,
+			Net_414, Net_413),
 		analog=>(open, open, open, open,
-			open),
-		io=>(tmpIO_4__Selector_In_net_4, tmpIO_4__Selector_In_net_3, tmpIO_4__Selector_In_net_2, tmpIO_4__Selector_In_net_1,
-			tmpIO_4__Selector_In_net_0),
+			open, open),
+		io=>(tmpIO_5__Selector_In_net_5, tmpIO_5__Selector_In_net_4, tmpIO_5__Selector_In_net_3, tmpIO_5__Selector_In_net_2,
+			tmpIO_5__Selector_In_net_1, tmpIO_5__Selector_In_net_0),
 		siovref=>(tmpSIOVREF__Selector_In_net_0),
 		annotation=>(open, open, open, open,
-			open),
+			open, open),
 		in_clock=>zero,
 		in_clock_en=>tmpOE__CAN_RX_net_0,
 		in_reset=>zero,

@@ -1,6 +1,6 @@
 (DELAYFILE
  (SDFVERSION "IEEE 1497 4.0")
- (DATE "2025-05-26T14:32:52Z")
+ (DATE "2025-05-26T19:30:28Z")
  (DESIGN "HCM_UPBDrive")
  (VENDOR "Cypress Semiconductor")
  (PROGRAM "PSoC Creator")
@@ -28,6 +28,7 @@
     (INTERCONNECT Selector_In\(2\)_PAD Selector_In\(2\).pad_in (0.000:0.000:0.000))
     (INTERCONNECT Selector_In\(3\)_PAD Selector_In\(3\).pad_in (0.000:0.000:0.000))
     (INTERCONNECT Selector_In\(4\)_PAD Selector_In\(4\).pad_in (0.000:0.000:0.000))
+    (INTERCONNECT Selector_In\(5\)_PAD Selector_In\(5\).pad_in (0.000:0.000:0.000))
    )
   )
  )

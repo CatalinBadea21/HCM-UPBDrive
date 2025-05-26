@@ -94,6 +94,7 @@ void Selector_In_SetDriveMode(uint8 mode)
 	CyPins_SetPinDriveMode(Selector_In_2, mode);
 	CyPins_SetPinDriveMode(Selector_In_3, mode);
 	CyPins_SetPinDriveMode(Selector_In_4, mode);
+	CyPins_SetPinDriveMode(Selector_In_5, mode);
 }
 
 
@@ -209,6 +210,10 @@ uint8 Selector_In_ReadDataReg(void)
 		if((position & Selector_In_4_INTR) != 0u) 
 		{ 
 			 Selector_In_4_INTTYPE_REG = (uint8)mode; 
+		} 
+		if((position & Selector_In_5_INTR) != 0u) 
+		{ 
+			 Selector_In_5_INTTYPE_REG = (uint8)mode; 
 		}
     }
     

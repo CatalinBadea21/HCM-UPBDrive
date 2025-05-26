@@ -5,11 +5,12 @@
 
 #include <include/user_input.h>
 
-uint8_t Binary_Selector_Used(uint8_t coded_strategy)
+uint8_t Read_Binary_Selector()
 {
     uint8_t decoded_strategy;
+    uint8_t coded_strategy = Read_Strategy_Selector();
 
-    if (coded_strategy > 8) // if out of bounds
+    if (coded_strategy > 6) // if out of bounds
         decoded_strategy = 0;
     else
         decoded_strategy = coded_strategy;
@@ -17,16 +18,13 @@ uint8_t Binary_Selector_Used(uint8_t coded_strategy)
     return decoded_strategy;
 }
 
-uint8_t Rotary_Switch_Used(uint8_t coded_strategy)
+uint8_t Read_Rotary_Switch()
 {
     uint8_t decoded_strategy;
+    uint8_t coded_strategy = Read_Strategy_Selector();
 
     switch (coded_strategy)
     {
-        case 0:
-            decoded_strategy = 0;
-            break;
-
         case 1:
             decoded_strategy = 1;
             break;
@@ -47,6 +45,10 @@ uint8_t Rotary_Switch_Used(uint8_t coded_strategy)
             decoded_strategy = 5;
             break;
 
+        case 32:
+            decoded_strategy = 6;
+            break;
+
         default:
             decoded_strategy = 0;
     }
@@ -64,14 +66,15 @@ uint8_t Read_Strategy_Selector()
         SELECTOR_BIT1 * CyPins_ReadPin(Selector_In_1) + \
         SELECTOR_BIT2 * CyPins_ReadPin(Selector_In_2) + \
         SELECTOR_BIT3 * CyPins_ReadPin(Selector_In_3) + \
-        SELECTOR_BIT4 * CyPins_ReadPin(Selector_In_4);
+        SELECTOR_BIT4 * CyPins_ReadPin(Selector_In_4) + \
+        SELECTOR_BIT5 * CyPins_ReadPin(Selector_In_5);
 
     return selected_strategy;
 }
 
 uint8_t Read_Boost_Button()
 {
-    uint8_t boost_button_state = CyPins_ReadPin(Boost_Button_0);
+    uint8_t boost_button_state = Boost_Button_Read();
 
     return boost_button_state;
 }

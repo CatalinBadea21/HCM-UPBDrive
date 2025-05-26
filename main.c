@@ -11,9 +11,6 @@
 #include <include/hybrid_mode.h>
 #include <include/user_input.h>
 
-// Global Variables
-volatile vehicle_status_t car_state = {0, 0, 0, 0, 0, 0};
-
 void init()
 {
     CAN_Start();
@@ -33,9 +30,13 @@ int main()
 
         if (CAN_Read_From_ECU()) //can read was successfull
         {
-            if (car_state.engine_state); //engine is on
+            if (car_state.engine_state) //engine is on
             {
                 //do smth
+            }
+            else
+            {
+                //turn HY off
             }
         }
 

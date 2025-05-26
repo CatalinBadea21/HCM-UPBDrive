@@ -40,7 +40,10 @@
 #define Selector_In_4			(Selector_In__4__PC)
 #define Selector_In_4_INTR	((uint16)((uint16)0x0001u << Selector_In__4__SHIFT))
 
-#define Selector_In_INTR_ALL	 ((uint16)(Selector_In_0_INTR| Selector_In_1_INTR| Selector_In_2_INTR| Selector_In_3_INTR| Selector_In_4_INTR))
+#define Selector_In_5			(Selector_In__5__PC)
+#define Selector_In_5_INTR	((uint16)((uint16)0x0001u << Selector_In__5__SHIFT))
+
+#define Selector_In_INTR_ALL	 ((uint16)(Selector_In_0_INTR| Selector_In_1_INTR| Selector_In_2_INTR| Selector_In_3_INTR| Selector_In_4_INTR| Selector_In_5_INTR))
 
 #endif /* End Pins Selector_In_ALIASES_H */
 

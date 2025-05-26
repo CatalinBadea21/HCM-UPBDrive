@@ -5,16 +5,14 @@
 
 #include <include/can_comm.h>
 
-volatile uint8_t CANisrFlag = 0u;
-
-vehicle_status_t car_state;
-
-void CAN_Transmit_To_ESC()
+// Functions
+void CAN_Transmit_To_ESC(uint8_t driving_mode, int16_t duty_cycle)
 {
     CAN_TX_DATA_BYTE1(CAN_TX_MAILBOX_ESC_control) = CMD_MODE;
-    CAN_TX_DATA_BYTE2(CAN_TX_MAILBOX_ESC_control) = 3u; //DRIVING MODE (0 - fw, 2 - curr, 8 - brk)
-    CAN_TX_DATA_BYTE3(CAN_TX_MAILBOX_ESC_control) = 0x0C; //duty cycle - first byte
-    CAN_TX_DATA_BYTE4(CAN_TX_MAILBOX_ESC_control) = 0xCC; //duty cycle - 2nd byte
+    CAN_TX_DATA_BYTE2(CAN_TX_MAILBOX_ESC_control) = driving_mode;
+    CAN_TX_DATA_BYTE3(CAN_TX_MAILBOX_ESC_control) = (duty_cycle >> 8) & 0x7F; // Dutycycle MSB
+    CAN_TX_DATA_BYTE4(CAN_TX_MAILBOX_ESC_control) = duty_cycle & 0xFF;        // Dutycycle LSB
+
     CAN_SendMsgESC_control();
 }
 

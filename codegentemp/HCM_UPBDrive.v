@@ -1,6 +1,6 @@
 // ======================================================================
 // HCM_UPBDrive.v generated from TopDesign.cysch
-// 05/26/2025 at 17:32
+// 05/26/2025 at 22:30
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
@@ -226,6 +226,7 @@ endmodule
 // top
 module top ;
 
+          wire  Net_428;
           wire  Net_422;
           wire  Net_421;
           wire  Net_420;
@@ -541,69 +542,69 @@ module top ;
 
 	assign tmpOE__AIR_enable_net = (`CYDEV_CHIP_MEMBER_USED == `CYDEV_CHIP_MEMBER_3A && `CYDEV_CHIP_REVISION_USED < `CYDEV_CHIP_REVISION_3A_ES3) ? ~{1'b1} : {1'b1};
 
-	wire [4:0] tmpOE__Selector_In_net;
-	wire [4:0] tmpIO_4__Selector_In_net;
+	wire [5:0] tmpOE__Selector_In_net;
+	wire [5:0] tmpIO_5__Selector_In_net;
 	wire [0:0] tmpINTERRUPT_0__Selector_In_net;
 	electrical [0:0] tmpSIOVREF__Selector_In_net;
 
 	cy_psoc3_pins_v1_10
 		#(.id("8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba"),
-		  .drive_mode(15'b001_001_001_001_001),
-		  .ibuf_enabled(5'b1_1_1_1_1),
-		  .init_dr_st(5'b0_0_0_0_0),
+		  .drive_mode(18'b001_001_001_001_001_001),
+		  .ibuf_enabled(6'b1_1_1_1_1_1),
+		  .init_dr_st(6'b0_0_0_0_0_0),
 		  .input_clk_en(0),
-		  .input_sync(5'b0_0_0_0_0),
-		  .input_sync_mode(5'b0_0_0_0_0),
-		  .intr_mode(10'b00_00_00_00_00),
+		  .input_sync(6'b0_0_0_0_0_0),
+		  .input_sync_mode(6'b0_0_0_0_0_0),
+		  .intr_mode(12'b00_00_00_00_00_00),
 		  .invert_in_clock(0),
 		  .invert_in_clock_en(0),
 		  .invert_in_reset(0),
 		  .invert_out_clock(0),
 		  .invert_out_clock_en(0),
 		  .invert_out_reset(0),
-		  .io_voltage(",,,,"),
+		  .io_voltage(",,,,,"),
 		  .layout_mode("CONTIGUOUS"),
-		  .oe_conn(5'b0_0_0_0_0),
+		  .oe_conn(6'b0_0_0_0_0_0),
 		  .oe_reset(0),
-		  .oe_sync(5'b0_0_0_0_0),
+		  .oe_sync(6'b0_0_0_0_0_0),
 		  .output_clk_en(0),
-		  .output_clock_mode(5'b0_0_0_0_0),
-		  .output_conn(5'b0_0_0_0_0),
-		  .output_mode(5'b0_0_0_0_0),
+		  .output_clock_mode(6'b0_0_0_0_0_0),
+		  .output_conn(6'b0_0_0_0_0_0),
+		  .output_mode(6'b0_0_0_0_0_0),
 		  .output_reset(0),
-		  .output_sync(5'b0_0_0_0_0),
+		  .output_sync(6'b0_0_0_0_0_0),
 		  .pa_in_clock(-1),
 		  .pa_in_clock_en(-1),
 		  .pa_in_reset(-1),
 		  .pa_out_clock(-1),
 		  .pa_out_clock_en(-1),
 		  .pa_out_reset(-1),
-		  .pin_aliases(",,,,"),
-		  .pin_mode("IIIII"),
+		  .pin_aliases(",,,,,"),
+		  .pin_mode("IIIIII"),
 		  .por_state(4),
 		  .sio_group_cnt(0),
-		  .sio_hyst(5'b1_1_1_1_1),
+		  .sio_hyst(6'b1_1_1_1_1_1),
 		  .sio_ibuf(""),
-		  .sio_info(10'b00_00_00_00_00),
+		  .sio_info(12'b00_00_00_00_00_00),
 		  .sio_obuf(""),
 		  .sio_refsel(""),
 		  .sio_vtrip(""),
 		  .sio_hifreq(""),
 		  .sio_vohsel(""),
-		  .slew_rate(5'b0_0_0_0_0),
+		  .slew_rate(6'b0_0_0_0_0_0),
 		  .spanning(0),
-		  .use_annotation(5'b0_0_0_0_0),
-		  .vtrip(10'b00_00_00_00_00),
-		  .width(5),
-		  .ovt_hyst_trim(5'b0_0_0_0_0),
-		  .ovt_needed(5'b0_0_0_0_0),
-		  .ovt_slew_control(10'b00_00_00_00_00),
-		  .input_buffer_sel(10'b00_00_00_00_00))
+		  .use_annotation(6'b0_0_0_0_0_0),
+		  .vtrip(12'b00_00_00_00_00_00),
+		  .width(6),
+		  .ovt_hyst_trim(6'b0_0_0_0_0_0),
+		  .ovt_needed(6'b0_0_0_0_0_0),
+		  .ovt_slew_control(12'b00_00_00_00_00_00),
+		  .input_buffer_sel(12'b00_00_00_00_00_00))
 		Selector_In
 		 (.oe(tmpOE__Selector_In_net),
-		  .y({5'b0}),
-		  .fb({Net_422, Net_421, Net_420, Net_414, Net_413}),
-		  .io({tmpIO_4__Selector_In_net[4:0]}),
+		  .y({6'b0}),
+		  .fb({Net_428, Net_422, Net_421, Net_420, Net_414, Net_413}),
+		  .io({tmpIO_5__Selector_In_net[5:0]}),
 		  .siovref(tmpSIOVREF__Selector_In_net),
 		  .interrupt({tmpINTERRUPT_0__Selector_In_net[0:0]}),
 		  .in_clock({1'b0}),
@@ -613,7 +614,7 @@ module top ;
 		  .out_clock_en({1'b1}),
 		  .out_reset({1'b0}));
 
-	assign tmpOE__Selector_In_net = (`CYDEV_CHIP_MEMBER_USED == `CYDEV_CHIP_MEMBER_3A && `CYDEV_CHIP_REVISION_USED < `CYDEV_CHIP_REVISION_3A_ES3) ? ~{5'b11111} : {5'b11111};
+	assign tmpOE__Selector_In_net = (`CYDEV_CHIP_MEMBER_USED == `CYDEV_CHIP_MEMBER_3A && `CYDEV_CHIP_REVISION_USED < `CYDEV_CHIP_REVISION_3A_ES3) ? ~{6'b111111} : {6'b111111};
 
 
 
