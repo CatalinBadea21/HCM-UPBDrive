@@ -7,9 +7,10 @@
 // Includes
 #include <project.h>
 #include <stdio.h>
-#include <include/can_comm.h>
+//#include <include/can_comm.h>
 #include <include/hybrid_mode.h>
 #include <include/user_input.h>
+#include <AIR_enable.h>
 
 void init()
 {
@@ -24,23 +25,22 @@ int main()
 {
     init();
 
-    for(;;)
+    while(1) // Infinite loop
     {
-        // my loop
-
-        if (CAN_Read_From_ECU()) //can read was successfull
+        if (CAN_Read_From_ECU()) // CAN read was successfull
         {
-            if (car_state.engine_state) //engine is on
+            if (car_state.engine_state) // ICE is running
             {
-                //do smth
+                AIR_enable_Write(STD_ON); // Enable the AIR
             }
             else
             {
-                //turn HY off
+                Set_Strategy_Freewheel();
+                AIR_enable_Write(STD_OFF); // Disable the AIR
             }
         }
 
-        CyDelay(50u);
+        CyDelay(50u); // Delay for 50ms
     }
 }
 

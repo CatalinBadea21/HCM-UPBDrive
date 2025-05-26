@@ -28,6 +28,9 @@ typedef struct {
     int8_t duty_cycle_percentage;
 } HY_strategy_t;
 
+// Global external variables
+extern volatile HY_strategy_t hybrid_state;
+
 // Function declarations
 uint8_t TPS_to_Duty_Cycle_Percentage(uint8_t tps_percentage);
 int16_t Map_Duty_Cycle(int8_t duty_cycle_percentage);

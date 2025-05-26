@@ -59,15 +59,24 @@ uint8_t Read_Rotary_Switch()
 uint8_t Read_Strategy_Selector()
 {
     uint8_t selected_strategy;
+    uint8_t input_value = Selector_In_Read();
+    uint8_t selector_array[7];
+
+    selector_array[0] = (input_value >> 0) & 0x01;
+    selector_array[1] = (input_value >> 1) & 0x01;
+    selector_array[2] = (input_value >> 2) & 0x01;
+    selector_array[3] = (input_value >> 3) & 0x01;
+    selector_array[4] = (input_value >> 4) & 0x01;
+    selector_array[5] = (input_value >> 5) & 0x01;
 
     // convert selector value to decimal
     selected_strategy = \
-        SELECTOR_BIT0 * CyPins_ReadPin(Selector_In_0) + \
-        SELECTOR_BIT1 * CyPins_ReadPin(Selector_In_1) + \
-        SELECTOR_BIT2 * CyPins_ReadPin(Selector_In_2) + \
-        SELECTOR_BIT3 * CyPins_ReadPin(Selector_In_3) + \
-        SELECTOR_BIT4 * CyPins_ReadPin(Selector_In_4) + \
-        SELECTOR_BIT5 * CyPins_ReadPin(Selector_In_5);
+        SELECTOR_BIT0 * selector_array[0] + \
+        SELECTOR_BIT1 * selector_array[1] + \
+        SELECTOR_BIT2 * selector_array[2] + \
+        SELECTOR_BIT3 * selector_array[3] + \
+        SELECTOR_BIT4 * selector_array[4] + \
+        SELECTOR_BIT5 * selector_array[5];
 
     return selected_strategy;
 }

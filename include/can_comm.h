@@ -15,7 +15,6 @@
 #define RPM_MULTIPLIER 100u // Multiplier for RPM according to ECU divider
 #define BRAKE_THRESHOLD 80u // Threshold for brake pedal state
 #define CMD_MODE 0u         // Can message command to write to ESC
-
 // CAN IDs (already set in configuration file)
 #define ESC_CAN_ID 207u     // SID (25) left shifted 3 bits (25*8) + sender address (7) -> 0xCF
 #define ECU_CAN_ID 1000u    // From EMU Master, CAN ID with message data for HCM is 0x3E8
@@ -30,9 +29,9 @@ typedef struct {
     uint8_t gear;           // current gear (0-5)
 } vehicle_status_t;
 
-// Global variables
-volatile uint8_t CANisrFlag = 0u;
-volatile vehicle_status_t car_state = {0, 0, 0, 0, 0, 0};
+// Global external variables
+extern volatile uint8_t CANisrFlag;
+extern volatile vehicle_status_t car_state;
 
 // Function declarations
 void CAN_Transmit_To_ESC(uint8_t driving_mode, int16_t duty_cycle);
