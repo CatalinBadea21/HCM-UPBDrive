@@ -11,15 +11,15 @@
 /*
  * Hybrid Strategies:
  * 0 - Freewheel
- * 1 - Manual mode (boost button)
- * 2 - Launch assist (<7500 RPM, <45 km/h, TPS >80%, 1st gear)
+ * 1 - Manual mode (Boost button)
+ * 2 - Launch assist (Under 7500 RPM and 45 km/h, TPS > 80%, 1st gear)
  * 3 - Auto, no regen
  * 4 - Auto, regen on brake press
- * 5 - Auto, regen for TPS<40%
- * 6 - Torque fill (2000-8000 RPM, TPS>60%) , regen on brake press
+ * 5 - Auto, regen for TPS < 50%
+ * 6 - Torque fill (2000-8000 RPM, TPS > 50%) , regen on brake press
  * 
  * Auto mode is mapping TPS from 50 to 100
- * !! Boost button overrides auto mode
+ * !! Boost button overrides auto mode !!
 */
 
 /**********************************************************************************************************************
@@ -62,19 +62,30 @@ int16_t Map_Duty_Cycle(int8_t duty_cycle_percentage)
 
 /*
  * Function:    Set_Strategy
- * Description: Main strategy dispatcher. Applies the appropriate hybrid driving mode based
- *              on selector input and vehicle state.
+ * Description: Applies the appropriate hybrid driving strategy based on selector input,
+ *              vehicle state, and driver override.
+ *
  * Parameters:
- *   - sel_strategy: Strategy index [0–6], corresponding to one of the predefined hybrid modes.
- * Behavior:
- *   - If the vehicle is not in a deployable state (neutral or too slow), forces Freewheel.
- *   - Otherwise, invokes the selected strategy.
- *   - Sends resulting driving mode and duty cycle to ESC over CAN.
+ *   - sel_strategy: User-selected strategy index [1–6].
+ *
+ * Logic:
+ *   - If gear is neutral or speed is too low/high -> Freewheel.
+ *   - If boost button is pressed, brake is not, and sel_strategy > 0 -> Full torque.
+ *   - Otherwise, applies strategy based on sel_strategy.
+ *   - Defaults to Freewheel if sel_strategy is invalid.
+ *
+ * Sends the selected driving mode and duty cycle to the ESC via CAN.
  */
+
 void Set_Strategy(uint8_t sel_strategy)
 {
-    if ((car_state.gear == NEUTRAL_GEAR) || (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.vss <= MAX_VSS_TO_DEPLOY))
+    if ((car_state.gear == NEUTRAL_GEAR) || (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.vss > MAX_VSS_TO_DEPLOY))
         Set_Strategy_Freewheel();
+    else if ((Read_Boost_Button() == STD_ON) && (car_state.brake_state == STD_OFF) && (sel_strategy > 0))
+    {
+        hybrid_state.driving_mode = TORQUE_MODE;
+        hybrid_state.duty_cycle_percentage = 100;
+    }
     else
         switch (sel_strategy)
         {
@@ -126,13 +137,11 @@ void Set_Strategy_Freewheel()
  */
 void Set_Strategy_Manual()
 {
-    if ((Read_Boost_Button() == STD_ON) && (car_state.brake_state == STD_OFF))
-    {
-        hybrid_state.driving_mode = TORQUE_MODE;
-        hybrid_state.duty_cycle_percentage = 100;
-    }
-    else
-        Set_Strategy_Freewheel();
+    /* The logic for the boost button is in the main Set_Strategy() function;
+     * If the program enters here it means the selector is on manual,
+     * but boost button not pressed -> freewheel
+     */
+    Set_Strategy_Freewheel();
 }
 
 /*

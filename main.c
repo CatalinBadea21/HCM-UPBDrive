@@ -40,7 +40,7 @@ void init()
  */
 int main()
 {
-    volatile uint8_t user_strategy;
+    uint8_t user_strategy;
     init(); // Initialize CAN and interrupts
 
     while(1) // Infinite loop

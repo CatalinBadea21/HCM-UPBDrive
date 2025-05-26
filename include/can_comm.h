@@ -20,6 +20,9 @@
 #define MAX_RPM 14000u      // ICE Maximum RPM
 #define RPM_THRESHOLD 1000u // Threshold for the engine state
 #define RPM_MULTIPLIER 100u // Multiplier for RPM according to ECU divider
+#define MAX_GEAR 5u         // Gearbox maximum value
+#define MAX_VSS 130u        // Vehicle maximum speed
+#define MAX_TPS 100u        // Maximum throttle since it's percentage
 #define BRAKE_THRESHOLD 80u // Threshold for brake pedal state
 #define CMD_MODE 0u         // Can message command to write to ESC
 // __________ CAN IDs (already set in configuration file) __________

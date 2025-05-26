@@ -82,36 +82,15 @@ uint8_t Read_Rotary_Switch()
 
 /*
  * Function:    Read_Strategy_Selector
- * Description: Reads the 6-bit input from the digital selector pins and constructs the
- *              corresponding numeric strategy value.
+ * Description: Reads and decodes the 6-bit strategy selector input from digital pins.
  * Returns:
- *   - Strategy index (raw value) in the range [0–63] based on active pin combinations.
- * Notes:
- *   - This function performs bit extraction and reassembly using predefined bit weights.
+ *   - An unsigned 6-bit value (range 0–63) representing the user-selected strategy.
  */
 uint8_t Read_Strategy_Selector()
 {
-    volatile uint8_t selected_strategy;
-    volatile uint8_t input_value = Selector_In_Read();
-    volatile uint8_t selector_array[6];
-
-    // Read selector pins into an array
-    selector_array[0] = (input_value >> 0) & 0x01;
-    selector_array[1] = (input_value >> 1) & 0x01;
-    selector_array[2] = (input_value >> 2) & 0x01;
-    selector_array[3] = (input_value >> 3) & 0x01;
-    selector_array[4] = (input_value >> 4) & 0x01;
-    selector_array[5] = (input_value >> 5) & 0x01;
-
-    // Convert selector value to decimal
-    selected_strategy = \
-        SELECTOR_BIT0 * selector_array[0] + \
-        SELECTOR_BIT1 * selector_array[1] + \
-        SELECTOR_BIT2 * selector_array[2] + \
-        SELECTOR_BIT3 * selector_array[3] + \
-        SELECTOR_BIT4 * selector_array[4] + \
-        SELECTOR_BIT5 * selector_array[5];
-
+    uint8_t selected_strategy;
+    selected_strategy = Selector_In_Read() & 0x3F; // Mask to 6 bits
+    
     return selected_strategy;
 }
 

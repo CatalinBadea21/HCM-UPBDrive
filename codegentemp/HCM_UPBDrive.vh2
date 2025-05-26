@@ -2,7 +2,7 @@
 --	Conversion of HCM_UPBDrive.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Tue May 27 00:49:15 2025
+--	Tue May 27 01:50:21 2025
 --
 
 USE cypress.cypress.all;
