@@ -56,15 +56,13 @@ Discarded input sections
  .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_541\Debug\main.o
  .text          0x00000000        0x0 .\CortexM3\ARM_GCC_541\Debug\can_comm.o
  .data          0x00000000        0x0 .\CortexM3\ARM_GCC_541\Debug\can_comm.o
- .text.CAN_Transmit_To_ESC
-                0x00000000       0x38 .\CortexM3\ARM_GCC_541\Debug\can_comm.o
  .text          0x00000000        0x0 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
  .data          0x00000000        0x0 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
- .text.Map_Duty_Cycle
-                0x00000000       0x14 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
  .text          0x00000000        0x0 .\CortexM3\ARM_GCC_541\Debug\user_input.o
  .data          0x00000000        0x0 .\CortexM3\ARM_GCC_541\Debug\user_input.o
  .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_541\Debug\user_input.o
+ .text.Read_Binary_Selector
+                0x00000000       0x10 .\CortexM3\ARM_GCC_541\Debug\user_input.o
  .text          0x00000000        0x0 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
  .data          0x00000000        0x0 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
  .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
@@ -108,8 +106,6 @@ Discarded input sections
                 0x00000000       0xdc .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_TX_RX_func.o)
  .text.CAN_TxCancel
                 0x00000000       0x1c .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_TX_RX_func.o)
- .text.CAN_SendMsgESC_control
-                0x00000000       0x20 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_TX_RX_func.o)
  .text.CAN_ReceiveMsg
                 0x00000000       0x1c .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_TX_RX_func.o)
  .text.CAN_ReceiveMsgECU_receive
@@ -485,7 +481,7 @@ END GROUP
                 0x00000800                ee_size = (CY_APPL_LOADABLE && ! (CY_EE_IN_BTLDR))?(CY_EE_SIZE / CY_APPL_MAX):CY_EE_SIZE
                 [!provide]                PROVIDE (CY_ECC_OFFSET, ecc_offset)
 
-.text           0x00000000      0xd0e
+.text           0x00000000      0xd76
  CREATE_OBJECT_SYMBOLS
                 0x00000000                PROVIDE (__cy_interrupt_vector, RomVectors)
  *(.romvectors)
@@ -504,237 +500,243 @@ END GROUP
  .text          0x00000028       0x5c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
  .text.init     0x00000084       0x18 .\CortexM3\ARM_GCC_541\Debug\main.o
                 0x00000084                init
- .text.main     0x0000009c       0x58 .\CortexM3\ARM_GCC_541\Debug\main.o
+ .text.main     0x0000009c       0x50 .\CortexM3\ARM_GCC_541\Debug\main.o
                 0x0000009c                main
+ .text.CAN_Transmit_To_ESC
+                0x000000ec       0x38 .\CortexM3\ARM_GCC_541\Debug\can_comm.o
+                0x000000ec                CAN_Transmit_To_ESC
  .text.CAN_Read_From_ECU
-                0x000000f4       0xb4 .\CortexM3\ARM_GCC_541\Debug\can_comm.o
-                0x000000f4                CAN_Read_From_ECU
- .text.ISR_CAN  0x000001a8       0x24 .\CortexM3\ARM_GCC_541\Debug\can_comm.o
-                0x000001a8                ISR_CAN
+                0x00000124       0xb4 .\CortexM3\ARM_GCC_541\Debug\can_comm.o
+                0x00000124                CAN_Read_From_ECU
+ .text.ISR_CAN  0x000001d8       0x24 .\CortexM3\ARM_GCC_541\Debug\can_comm.o
+                0x000001d8                ISR_CAN
  .text.TPS_to_Duty_Cycle_Percentage
-                0x000001cc        0xc .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
-                0x000001cc                TPS_to_Duty_Cycle_Percentage
+                0x000001fc       0x10 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
+                0x000001fc                TPS_to_Duty_Cycle_Percentage
+ .text.Map_Duty_Cycle
+                0x0000020c       0x14 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
+                0x0000020c                Map_Duty_Cycle
  .text.Set_Strategy_Freewheel
-                0x000001d8       0x10 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
-                0x000001d8                Set_Strategy_Freewheel
+                0x00000220       0x10 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
+                0x00000220                Set_Strategy_Freewheel
  .text.Set_Strategy_Manual
-                0x000001e8       0x30 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
-                0x000001e8                Set_Strategy_Manual
+                0x00000230       0x30 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
+                0x00000230                Set_Strategy_Manual
  .text.Set_Strategy_Launch_Assist
-                0x00000218       0x54 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
-                0x00000218                Set_Strategy_Launch_Assist
+                0x00000260       0x54 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
+                0x00000260                Set_Strategy_Launch_Assist
  .text.Set_Strategy_Auto_No_Regen
-                0x0000026c       0x30 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
-                0x0000026c                Set_Strategy_Auto_No_Regen
+                0x000002b4       0x30 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
+                0x000002b4                Set_Strategy_Auto_No_Regen
  .text.Set_Strategy_Auto_Brake_Regen
-                0x0000029c       0x34 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
-                0x0000029c                Set_Strategy_Auto_Brake_Regen
+                0x000002e4       0x34 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
+                0x000002e4                Set_Strategy_Auto_Brake_Regen
  .text.Set_Strategy_Auto_Always_Regen
-                0x000002d0       0x40 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
-                0x000002d0                Set_Strategy_Auto_Always_Regen
+                0x00000318       0x40 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
+                0x00000318                Set_Strategy_Auto_Always_Regen
  .text.Set_Strategy_Torque_Fill
-                0x00000310       0x60 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
-                0x00000310                Set_Strategy_Torque_Fill
+                0x00000358       0x60 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
+                0x00000358                Set_Strategy_Torque_Fill
  .text.Set_Strategy
-                0x00000370       0x64 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
-                0x00000370                Set_Strategy
+                0x000003b8       0x74 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
+                0x000003b8                Set_Strategy
  .text.Read_Strategy_Selector
-                0x000003d4       0x90 .\CortexM3\ARM_GCC_541\Debug\user_input.o
-                0x000003d4                Read_Strategy_Selector
- .text.Read_Binary_Selector
-                0x00000464       0x10 .\CortexM3\ARM_GCC_541\Debug\user_input.o
-                0x00000464                Read_Binary_Selector
+                0x0000042c       0x90 .\CortexM3\ARM_GCC_541\Debug\user_input.o
+                0x0000042c                Read_Strategy_Selector
  .text.Read_Rotary_Switch
-                0x00000474       0x4c .\CortexM3\ARM_GCC_541\Debug\user_input.o
-                0x00000474                Read_Rotary_Switch
+                0x000004bc       0x4c .\CortexM3\ARM_GCC_541\Debug\user_input.o
+                0x000004bc                Read_Rotary_Switch
  .text.Read_Boost_Button
-                0x000004c0        0x8 .\CortexM3\ARM_GCC_541\Debug\user_input.o
-                0x000004c0                Read_Boost_Button
+                0x00000508        0x8 .\CortexM3\ARM_GCC_541\Debug\user_input.o
+                0x00000508                Read_Boost_Button
  .text.CyClockStartupError
-                0x000004c8        0x4 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+                0x00000510        0x4 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
  .text.cfg_write_bytes32
-                0x000004cc       0x34 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+                0x00000514       0x34 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
  .text.AnalogSetDefault
-                0x00000500       0x28 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+                0x00000548       0x28 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
  .text.CYMEMZERO
-                0x00000528        0xc .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+                0x00000570        0xc .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
  .text.ClockSetup
-                0x00000534       0x9c .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+                0x0000057c       0x9c .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
  .text.CYCONFIGCPY
-                0x000005d0        0x8 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+                0x00000618        0x8 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
  .text.cyfitter_cfg
-                0x000005d8       0xd8 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
-                0x000005d8                cyfitter_cfg
+                0x00000620       0xd8 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+                0x00000620                cyfitter_cfg
  .text.IntDefaultHandler
-                0x000006b0       0x10 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
-                0x000006b0                IntDefaultHandler
- .text.Start_c  0x000006c0       0x4c .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
-                0x000006c0                Start_c
+                0x000006f8       0x10 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
+                0x000006f8                IntDefaultHandler
+ .text.Start_c  0x00000708       0x4c .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
+                0x00000708                Start_c
  .text.initialize_psoc
-                0x0000070c       0x68 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
-                0x0000070c                initialize_psoc
+                0x00000754       0x68 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
+                0x00000754                initialize_psoc
  .text.CAN_GlobalIntEnable
-                0x00000774       0x20 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
-                0x00000774                CAN_GlobalIntEnable
+                0x000007bc       0x20 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+                0x000007bc                CAN_GlobalIntEnable
  .text.CAN_Enable
-                0x00000794       0x6c .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
-                0x00000794                CAN_Enable
+                0x000007dc       0x6c .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+                0x000007dc                CAN_Enable
  .text.CAN_SetPreScaler
-                0x00000800       0x24 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
-                0x00000800                CAN_SetPreScaler
+                0x00000848       0x24 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+                0x00000848                CAN_SetPreScaler
  .text.CAN_SetArbiter
-                0x00000824       0x3c .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
-                0x00000824                CAN_SetArbiter
+                0x0000086c       0x3c .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+                0x0000086c                CAN_SetArbiter
  .text.CAN_SetTsegSample
-                0x00000860       0x84 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
-                0x00000860                CAN_SetTsegSample
+                0x000008a8       0x84 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+                0x000008a8                CAN_SetTsegSample
  .text.CAN_SetRestartType
-                0x000008e4       0x3c .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
-                0x000008e4                CAN_SetRestartType
+                0x0000092c       0x3c .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+                0x0000092c                CAN_SetRestartType
  .text.CAN_SetEdgeMode
-                0x00000920       0x3c .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
-                0x00000920                CAN_SetEdgeMode
+                0x00000968       0x3c .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+                0x00000968                CAN_SetEdgeMode
  .text.CAN_SetIrqMask
-                0x0000095c       0x18 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
-                0x0000095c                CAN_SetIrqMask
+                0x000009a4       0x18 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+                0x000009a4                CAN_SetIrqMask
  .text.CAN_RxBufConfig
-                0x00000974       0x90 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
-                0x00000974                CAN_RxBufConfig
+                0x000009bc       0x90 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+                0x000009bc                CAN_RxBufConfig
  .text.CAN_TxBufConfig
-                0x00000a04       0x54 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
-                0x00000a04                CAN_TxBufConfig
+                0x00000a4c       0x54 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+                0x00000a4c                CAN_TxBufConfig
  .text.CAN_RxTxBuffersConfig
-                0x00000a58       0x50 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
-                0x00000a58                CAN_RxTxBuffersConfig
+                0x00000aa0       0x50 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+                0x00000aa0                CAN_RxTxBuffersConfig
  .text.CAN_Init
-                0x00000aa8       0xe0 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
-                0x00000aa8                CAN_Init
+                0x00000af0       0xe0 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+                0x00000af0                CAN_Init
  .text.CAN_Start
-                0x00000b88       0x24 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
-                0x00000b88                CAN_Start
- .text.CAN_ISR  0x00000bac        0x4 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_INT.o)
-                0x00000bac                CAN_ISR
- .text.CyHalt   0x00000bb0        0x4 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
-                0x00000bb0                CyHalt
- .text.CyDelay  0x00000bb4       0x2c .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
-                0x00000bb4                CyDelay
+                0x00000bd0       0x24 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+                0x00000bd0                CAN_Start
+ .text.CAN_ISR  0x00000bf4        0x4 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_INT.o)
+                0x00000bf4                CAN_ISR
+ .text.CAN_SendMsgESC_control
+                0x00000bf8       0x20 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_TX_RX_func.o)
+                0x00000bf8                CAN_SendMsgESC_control
+ .text.CyHalt   0x00000c18        0x4 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
+                0x00000c18                CyHalt
+ .text.CyDelay  0x00000c1c       0x2c .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
+                0x00000c1c                CyDelay
  .text.CyIntSetVector
-                0x00000be0       0x28 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
-                0x00000be0                CyIntSetVector
+                0x00000c48       0x28 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
+                0x00000c48                CyIntSetVector
  .text.CyIntSetPriority
-                0x00000c08       0x30 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
-                0x00000c08                CyIntSetPriority
+                0x00000c70       0x30 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
+                0x00000c70                CyIntSetPriority
  .text.Selector_In_Read
-                0x00000c38       0x10 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Selector_In.o)
-                0x00000c38                Selector_In_Read
+                0x00000ca0       0x10 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Selector_In.o)
+                0x00000ca0                Selector_In_Read
  .text.Boost_Button_Read
-                0x00000c48        0xc .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Boost_Button.o)
-                0x00000c48                Boost_Button_Read
+                0x00000cb0        0xc .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Boost_Button.o)
+                0x00000cb0                Boost_Button_Read
  .text.AIR_enable_Write
-                0x00000c54       0x18 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(AIR_enable.o)
-                0x00000c54                AIR_enable_Write
- *fill*         0x00000c6c        0x4 
- .text          0x00000c70       0x20 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyBootAsmGnu.o)
-                0x00000c70                CyDelayCycles
-                0x00000c80                CyEnterCriticalSection
-                0x00000c88                CyExitCriticalSection
- .text.__errno  0x00000c90        0xc c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-errno.o)
-                0x00000c90                __errno
+                0x00000cbc       0x18 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(AIR_enable.o)
+                0x00000cbc                AIR_enable_Write
+ *fill*         0x00000cd4        0x4 
+ .text          0x00000cd8       0x20 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyBootAsmGnu.o)
+                0x00000cd8                CyDelayCycles
+                0x00000ce8                CyEnterCriticalSection
+                0x00000cf0                CyExitCriticalSection
+ .text.__errno  0x00000cf8        0xc c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-errno.o)
+                0x00000cf8                __errno
  .text.__libc_init_array
-                0x00000c9c       0x4c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-init.o)
-                0x00000c9c                __libc_init_array
- .text.memcpy   0x00000ce8       0x16 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memcpy-stub.o)
-                0x00000ce8                memcpy
- .text.memset   0x00000cfe       0x10 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memset.o)
-                0x00000cfe                memset
+                0x00000d04       0x4c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-init.o)
+                0x00000d04                __libc_init_array
+ .text.memcpy   0x00000d50       0x16 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memcpy-stub.o)
+                0x00000d50                memcpy
+ .text.memset   0x00000d66       0x10 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memset.o)
+                0x00000d66                memset
  *(.plt)
  *(.gnu.warning)
  *(.glue_7t)
- .glue_7t       0x00000d0e        0x0 linker stubs
+ .glue_7t       0x00000d76        0x0 linker stubs
  *(.glue_7)
- .glue_7        0x00000d0e        0x0 linker stubs
+ .glue_7        0x00000d76        0x0 linker stubs
  *(.vfp11_veneer)
- .vfp11_veneer  0x00000d0e        0x0 linker stubs
+ .vfp11_veneer  0x00000d76        0x0 linker stubs
  *(.bootloader)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
  *(.gcc_except_table)
 
-.v4_bx          0x00000d10        0x0
- .v4_bx         0x00000d10        0x0 linker stubs
+.v4_bx          0x00000d78        0x0
+ .v4_bx         0x00000d78        0x0 linker stubs
 
-.iplt           0x00000d10        0x0
- .iplt          0x00000d10        0x0 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
+.iplt           0x00000d78        0x0
+ .iplt          0x00000d78        0x0 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
 
 .eh_frame_hdr
  *(.eh_frame_hdr)
 
-.eh_frame       0x00000d10        0x4
+.eh_frame       0x00000d78        0x4
  *(.eh_frame)
- .eh_frame      0x00000d10        0x0 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
- .eh_frame      0x00000d10        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtend.o
+ .eh_frame      0x00000d78        0x0 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
+ .eh_frame      0x00000d78        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtend.o
                 [!provide]                PROVIDE (__exidx_start, .)
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x00000d14                __exidx_end = .
+                0x00000d7c                __exidx_end = .
 
-.rodata         0x00000d14      0x1cc
+.rodata         0x00000d7c      0x1cc
  *(.rodata .rodata.* .gnu.linkonce.r.*)
- .rodata        0x00000d14       0x30 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
- .rodata        0x00000d44      0x160 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+ .rodata        0x00000d7c       0x30 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .rodata        0x00000dac      0x160 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
  .rodata.str1.1
-                0x00000ea4        0x2 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-impure.o)
-                0x00000ea8                . = ALIGN (0x4)
- *fill*         0x00000ea6        0x2 
+                0x00000f0c        0x2 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-impure.o)
+                0x00000f10                . = ALIGN (0x4)
+ *fill*         0x00000f0e        0x2 
  *(.init)
- .init          0x00000ea8        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crti.o
-                0x00000ea8                _init
- .init          0x00000eac        0x8 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtn.o
-                0x00000eb4                . = ALIGN (0x4)
-                0x00000eb4                __preinit_array_start = .
+ .init          0x00000f10        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crti.o
+                0x00000f10                _init
+ .init          0x00000f14        0x8 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtn.o
+                0x00000f1c                . = ALIGN (0x4)
+                0x00000f1c                __preinit_array_start = .
  *(.preinit_array)
-                0x00000eb4                __preinit_array_end = .
-                0x00000eb4                . = ALIGN (0x4)
-                0x00000eb4                __init_array_start = .
+                0x00000f1c                __preinit_array_end = .
+                0x00000f1c                . = ALIGN (0x4)
+                0x00000f1c                __init_array_start = .
  *(SORT(.init_array.*))
  *(.init_array)
- .init_array    0x00000eb4        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
- .init_array    0x00000eb8        0x4 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
-                0x00000ebc                __init_array_end = .
-                0x00000ebc                . = ALIGN (0x4)
+ .init_array    0x00000f1c        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
+ .init_array    0x00000f20        0x4 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
+                0x00000f24                __init_array_end = .
+                0x00000f24                . = ALIGN (0x4)
  *(.fini)
- .fini          0x00000ebc        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crti.o
-                0x00000ebc                _fini
- .fini          0x00000ec0        0x8 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtn.o
-                0x00000ec8                . = ALIGN (0x4)
-                0x00000ec8                __fini_array_start = .
+ .fini          0x00000f24        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crti.o
+                0x00000f24                _fini
+ .fini          0x00000f28        0x8 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtn.o
+                0x00000f30                . = ALIGN (0x4)
+                0x00000f30                __fini_array_start = .
  *(.fini_array)
- .fini_array    0x00000ec8        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
+ .fini_array    0x00000f30        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
  *(SORT(.fini_array.*))
-                0x00000ecc                __fini_array_end = .
-                0x00000ecc                . = ALIGN (0x4)
+                0x00000f34                __fini_array_end = .
+                0x00000f34                . = ALIGN (0x4)
  *crtbegin.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o) .ctors)
  *(SORT(.ctors.*))
  *crtend.o(.ctors)
-                0x00000ecc                . = ALIGN (0x4)
+                0x00000f34                . = ALIGN (0x4)
  *crtbegin.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o) .dtors)
  *(SORT(.dtors.*))
  *crtend.o(.dtors)
-                0x00000ecc                . = ALIGN (0x4)
-                0x00000ecc                __cy_regions = .
-                0x00000ecc        0x4 LONG 0xee0 __cy_region_init_ram
-                0x00000ed0        0x4 LONG 0x1fff80c8 __cy_region_start_data
-                0x00000ed4        0x4 LONG 0x78 __cy_region_init_size_ram
-                0x00000ed8        0x4 LONG 0x30 __cy_region_zero_size_ram
-                0x00000edc                __cy_regions_end = .
-                0x00000ee0                . = ALIGN (0x8)
- *fill*         0x00000edc        0x4 
-                0x00000ee0                _etext = .
+                0x00000f34                . = ALIGN (0x4)
+                0x00000f34                __cy_regions = .
+                0x00000f34        0x4 LONG 0xf48 __cy_region_init_ram
+                0x00000f38        0x4 LONG 0x1fff80c8 __cy_region_start_data
+                0x00000f3c        0x4 LONG 0x78 __cy_region_init_size_ram
+                0x00000f40        0x4 LONG 0x30 __cy_region_zero_size_ram
+                0x00000f44                __cy_regions_end = .
+                0x00000f48                . = ALIGN (0x8)
+ *fill*         0x00000f44        0x4 
+                0x00000f48                _etext = .
 
 .cy_checksum_exclude
-                0x00000ee0        0x0
+                0x00000f48        0x0
  *(.cy_checksum_exclude)
 
 .ramvectors     0x1fff8000       0xc0
@@ -748,7 +750,7 @@ END GROUP
  .noinit        0x1fff80c0        0x1 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
                 0x1fff80c0                CyResetStatus
 
-.data           0x1fff80c8       0x78 load address 0x00000ee0
+.data           0x1fff80c8       0x78 load address 0x00000f48
                 0x1fff80c8                __cy_region_start_data = .
  *(.jcr)
  .jcr           0x1fff80c8        0x0 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
@@ -771,10 +773,10 @@ END GROUP
  *(.ram)
                 0x1fff8140                _edata = .
 
-.igot.plt       0x1fff8140        0x0 load address 0x00000f58
+.igot.plt       0x1fff8140        0x0 load address 0x00000fc0
  .igot.plt      0x1fff8140        0x0 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
 
-.bss            0x1fff8140       0x30 load address 0x00000f58
+.bss            0x1fff8140       0x30 load address 0x00000fc0
                 0x1fff8140                PROVIDE (__bss_start__, .)
  *(.shbss)
  *(.bss .bss.* .gnu.linkonce.b.*)
@@ -794,11 +796,11 @@ END GROUP
                 0x1fff8170                __end = .
                 0x1fff8170                PROVIDE (end, .)
                 0x1fff8170                PROVIDE (__bss_end__, .)
-                0x00000ee0                __cy_region_init_ram = LOADADDR (.data)
+                0x00000f48                __cy_region_init_ram = LOADADDR (.data)
                 0x00000078                __cy_region_init_size_ram = (_edata - ADDR (.data))
                 0x00000030                __cy_region_zero_size_ram = (_end - _edata)
 
-.heap           0x1fff8170       0x80 load address 0x00000f58
+.heap           0x1fff8170       0x80 load address 0x00000fc0
                 0x1fff8170                . = _end
                 0x1fff81f0                . = (. + 0x80)
  *fill*         0x1fff8170       0x80 
@@ -849,8 +851,8 @@ END GROUP
  .cymeta        0x90500000        0xc .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
                 0x90500000                cy_metadata
 
-.rel.dyn        0x00000f58        0x0 load address 0x9050000c
- .rel.iplt      0x00000f58        0x0 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
+.rel.dyn        0x00000fc0        0x0 load address 0x9050000c
+ .rel.iplt      0x00000fc0        0x0 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv7-m/crtbegin.o
 
 .stab
  *(.stab)
@@ -912,68 +914,68 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x4e4c
+.debug_info     0x00000000     0x4e3b
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0x296 .\CortexM3\ARM_GCC_541\Debug\main.o
- .debug_info    0x00000296      0x364 .\CortexM3\ARM_GCC_541\Debug\can_comm.o
- .debug_info    0x000005fa      0x363 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
- .debug_info    0x0000095d      0x1f9 .\CortexM3\ARM_GCC_541\Debug\user_input.o
- .debug_info    0x00000b56      0x4cc .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
- .debug_info    0x00001022      0x134 .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
- .debug_info    0x00001156      0x3bb .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
- .debug_info    0x00001511      0x8fb .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
- .debug_info    0x00001e0c       0xa0 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_INT.o)
- .debug_info    0x00001eac      0x375 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_TX_RX_func.o)
- .debug_info    0x00002221     0x1374 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
- .debug_info    0x00003595      0xa2a .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(cyPm.o)
- .debug_info    0x00003fbf      0x11f .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Selector_In.o)
- .debug_info    0x000040de      0x11f .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Boost_Button.o)
- .debug_info    0x000041fd      0x11f .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(AIR_enable.o)
- .debug_info    0x0000431c       0x8f .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyBootAsmGnu.o)
- .debug_info    0x000043ab      0x5b8 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyFlash.o)
- .debug_info    0x00004963      0x4e9 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CySpc.o)
+ .debug_info    0x00000000      0x282 .\CortexM3\ARM_GCC_541\Debug\main.o
+ .debug_info    0x00000282      0x353 .\CortexM3\ARM_GCC_541\Debug\can_comm.o
+ .debug_info    0x000005d5      0x377 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
+ .debug_info    0x0000094c      0x1f9 .\CortexM3\ARM_GCC_541\Debug\user_input.o
+ .debug_info    0x00000b45      0x4cc .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_info    0x00001011      0x134 .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
+ .debug_info    0x00001145      0x3bb .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
+ .debug_info    0x00001500      0x8fb .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+ .debug_info    0x00001dfb       0xa0 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_INT.o)
+ .debug_info    0x00001e9b      0x375 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_TX_RX_func.o)
+ .debug_info    0x00002210     0x1374 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
+ .debug_info    0x00003584      0xa2a .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(cyPm.o)
+ .debug_info    0x00003fae      0x11f .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Selector_In.o)
+ .debug_info    0x000040cd      0x11f .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Boost_Button.o)
+ .debug_info    0x000041ec      0x11f .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(AIR_enable.o)
+ .debug_info    0x0000430b       0x8f .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyBootAsmGnu.o)
+ .debug_info    0x0000439a      0x5b8 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyFlash.o)
+ .debug_info    0x00004952      0x4e9 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CySpc.o)
 
-.debug_abbrev   0x00000000     0x1498
+.debug_abbrev   0x00000000     0x1480
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x11c .\CortexM3\ARM_GCC_541\Debug\main.o
- .debug_abbrev  0x0000011c      0x157 .\CortexM3\ARM_GCC_541\Debug\can_comm.o
- .debug_abbrev  0x00000273      0x12b .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
- .debug_abbrev  0x0000039e       0xb5 .\CortexM3\ARM_GCC_541\Debug\user_input.o
- .debug_abbrev  0x00000453      0x1fe .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
- .debug_abbrev  0x00000651       0x5d .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
- .debug_abbrev  0x000006ae      0x1e8 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
- .debug_abbrev  0x00000896      0x195 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
- .debug_abbrev  0x00000a2b       0x42 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_INT.o)
- .debug_abbrev  0x00000a6d      0x13c .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_TX_RX_func.o)
- .debug_abbrev  0x00000ba9      0x254 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
- .debug_abbrev  0x00000dfd      0x1ab .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(cyPm.o)
- .debug_abbrev  0x00000fa8       0x90 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Selector_In.o)
- .debug_abbrev  0x00001038       0x90 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Boost_Button.o)
- .debug_abbrev  0x000010c8       0x90 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(AIR_enable.o)
- .debug_abbrev  0x00001158       0x14 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyBootAsmGnu.o)
- .debug_abbrev  0x0000116c      0x198 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyFlash.o)
- .debug_abbrev  0x00001304      0x194 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CySpc.o)
+ .debug_abbrev  0x0000011c      0x13f .\CortexM3\ARM_GCC_541\Debug\can_comm.o
+ .debug_abbrev  0x0000025b      0x12b .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
+ .debug_abbrev  0x00000386       0xb5 .\CortexM3\ARM_GCC_541\Debug\user_input.o
+ .debug_abbrev  0x0000043b      0x1fe .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_abbrev  0x00000639       0x5d .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
+ .debug_abbrev  0x00000696      0x1e8 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
+ .debug_abbrev  0x0000087e      0x195 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+ .debug_abbrev  0x00000a13       0x42 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_INT.o)
+ .debug_abbrev  0x00000a55      0x13c .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_TX_RX_func.o)
+ .debug_abbrev  0x00000b91      0x254 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
+ .debug_abbrev  0x00000de5      0x1ab .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(cyPm.o)
+ .debug_abbrev  0x00000f90       0x90 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Selector_In.o)
+ .debug_abbrev  0x00001020       0x90 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Boost_Button.o)
+ .debug_abbrev  0x000010b0       0x90 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(AIR_enable.o)
+ .debug_abbrev  0x00001140       0x14 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyBootAsmGnu.o)
+ .debug_abbrev  0x00001154      0x198 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyFlash.o)
+ .debug_abbrev  0x000012ec      0x194 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CySpc.o)
 
-.debug_line     0x00000000     0x243b
+.debug_line     0x00000000     0x2452
  *(.debug_line)
- .debug_line    0x00000000      0x1e0 .\CortexM3\ARM_GCC_541\Debug\main.o
- .debug_line    0x000001e0      0x1d8 .\CortexM3\ARM_GCC_541\Debug\can_comm.o
- .debug_line    0x000003b8      0x2a0 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
- .debug_line    0x00000658      0x1db .\CortexM3\ARM_GCC_541\Debug\user_input.o
- .debug_line    0x00000833      0x1d2 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
- .debug_line    0x00000a05      0x141 .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
- .debug_line    0x00000b46      0x234 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
- .debug_line    0x00000d7a      0x37e .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
- .debug_line    0x000010f8       0x50 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_INT.o)
- .debug_line    0x00001148      0x11e .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_TX_RX_func.o)
- .debug_line    0x00001266      0x816 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
- .debug_line    0x00001a7c      0x367 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(cyPm.o)
- .debug_line    0x00001de3       0x9d .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Selector_In.o)
- .debug_line    0x00001e80       0x99 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Boost_Button.o)
- .debug_line    0x00001f19       0x97 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(AIR_enable.o)
- .debug_line    0x00001fb0       0x66 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyBootAsmGnu.o)
- .debug_line    0x00002016      0x1e9 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyFlash.o)
- .debug_line    0x000021ff      0x23c .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CySpc.o)
+ .debug_line    0x00000000      0x1df .\CortexM3\ARM_GCC_541\Debug\main.o
+ .debug_line    0x000001df      0x1e9 .\CortexM3\ARM_GCC_541\Debug\can_comm.o
+ .debug_line    0x000003c8      0x2a4 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
+ .debug_line    0x0000066c      0x1de .\CortexM3\ARM_GCC_541\Debug\user_input.o
+ .debug_line    0x0000084a      0x1d2 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_line    0x00000a1c      0x141 .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
+ .debug_line    0x00000b5d      0x234 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
+ .debug_line    0x00000d91      0x37e .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+ .debug_line    0x0000110f       0x50 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_INT.o)
+ .debug_line    0x0000115f      0x11e .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_TX_RX_func.o)
+ .debug_line    0x0000127d      0x816 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
+ .debug_line    0x00001a93      0x367 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(cyPm.o)
+ .debug_line    0x00001dfa       0x9d .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Selector_In.o)
+ .debug_line    0x00001e97       0x99 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Boost_Button.o)
+ .debug_line    0x00001f30       0x97 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(AIR_enable.o)
+ .debug_line    0x00001fc7       0x66 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyBootAsmGnu.o)
+ .debug_line    0x0000202d      0x1e9 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyFlash.o)
+ .debug_line    0x00002216      0x23c .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CySpc.o)
 
 .debug_frame    0x00000000     0x13d8
  *(.debug_frame)
@@ -1001,13 +1003,13 @@ END GROUP
 
 .debug_str      0x00000000     0x1abd
  *(.debug_str)
- .debug_str     0x00000000      0x23d .\CortexM3\ARM_GCC_541\Debug\main.o
-                                0x296 (size before relaxing)
- .debug_str     0x0000023d      0x116 .\CortexM3\ARM_GCC_541\Debug\can_comm.o
+ .debug_str     0x00000000      0x228 .\CortexM3\ARM_GCC_541\Debug\main.o
+                                0x281 (size before relaxing)
+ .debug_str     0x00000228      0x116 .\CortexM3\ARM_GCC_541\Debug\can_comm.o
                                 0x335 (size before relaxing)
- .debug_str     0x00000353      0x145 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
-                                0x388 (size before relaxing)
- .debug_str     0x00000498       0x9c .\CortexM3\ARM_GCC_541\Debug\user_input.o
+ .debug_str     0x0000033e      0x145 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
+                                0x39c (size before relaxing)
+ .debug_str     0x00000483       0xb1 .\CortexM3\ARM_GCC_541\Debug\user_input.o
                                 0x290 (size before relaxing)
  .debug_str     0x00000534      0x176 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
                                 0x30e (size before relaxing)
@@ -1036,22 +1038,22 @@ END GROUP
  .debug_str     0x00001a11       0xac .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CySpc.o)
                                 0x329 (size before relaxing)
 
-.debug_loc      0x00000000     0x255b
+.debug_loc      0x00000000     0x2574
  *(.debug_loc)
  .debug_loc     0x00000000       0x42 .\CortexM3\ARM_GCC_541\Debug\can_comm.o
- .debug_loc     0x00000042       0x7c .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
- .debug_loc     0x000000be       0x75 .\CortexM3\ARM_GCC_541\Debug\user_input.o
- .debug_loc     0x00000133      0x1d7 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
- .debug_loc     0x0000030a      0x144 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
- .debug_loc     0x0000044e      0x980 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
- .debug_loc     0x00000dce      0x193 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_TX_RX_func.o)
- .debug_loc     0x00000f61      0xa11 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
- .debug_loc     0x00001972      0x1e4 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(cyPm.o)
- .debug_loc     0x00001b56       0x42 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Selector_In.o)
- .debug_loc     0x00001b98       0x42 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Boost_Button.o)
- .debug_loc     0x00001bda       0x42 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(AIR_enable.o)
- .debug_loc     0x00001c1c      0x2f2 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyFlash.o)
- .debug_loc     0x00001f0e      0x64d .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CySpc.o)
+ .debug_loc     0x00000042       0x95 .\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o
+ .debug_loc     0x000000d7       0x75 .\CortexM3\ARM_GCC_541\Debug\user_input.o
+ .debug_loc     0x0000014c      0x1d7 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_loc     0x00000323      0x144 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
+ .debug_loc     0x00000467      0x980 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN.o)
+ .debug_loc     0x00000de7      0x193 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CAN_TX_RX_func.o)
+ .debug_loc     0x00000f7a      0xa11 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyLib.o)
+ .debug_loc     0x0000198b      0x1e4 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(cyPm.o)
+ .debug_loc     0x00001b6f       0x42 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Selector_In.o)
+ .debug_loc     0x00001bb1       0x42 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(Boost_Button.o)
+ .debug_loc     0x00001bf3       0x42 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(AIR_enable.o)
+ .debug_loc     0x00001c35      0x2f2 .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CyFlash.o)
+ .debug_loc     0x00001f27      0x64d .\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a(CySpc.o)
 
 .debug_macinfo
  *(.debug_macinfo)

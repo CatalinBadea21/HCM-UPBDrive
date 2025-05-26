@@ -6,6 +6,7 @@
 */
 
 #include <include/can_comm.h>
+#include <include/hybrid_mode.h>
 
 /**********************************************************************************************************************
 * Global variables
@@ -30,12 +31,12 @@ void CAN_Transmit_To_ESC(uint8_t driving_mode, int8_t duty_cycle)
 {
     volatile int16_t duty_cycle_15bit = Map_Duty_Cycle(duty_cycle);
 
-    CAN_TX_DATA_BYTE1(CAN_TX_MAILBOX_ESC_control) = CMD_MODE;                       // Set the message as command
-    CAN_TX_DATA_BYTE2(CAN_TX_MAILBOX_ESC_control) = driving_mode;                   // Set the driving mode
+    CAN_TX_DATA_BYTE1(CAN_TX_MAILBOX_ESC_control) = CMD_MODE;
+    CAN_TX_DATA_BYTE2(CAN_TX_MAILBOX_ESC_control) = driving_mode;
     CAN_TX_DATA_BYTE3(CAN_TX_MAILBOX_ESC_control) = (duty_cycle_15bit >> 8) & 0x7F; // Dutycycle MSB; mask with 7 bits
     CAN_TX_DATA_BYTE4(CAN_TX_MAILBOX_ESC_control) = duty_cycle_15bit & 0xFF;        // Dutycycle LSB; mask with 8 bits
 
-    CAN_SendMsgESC_control();                                                       // Send the CAN message
+    CAN_SendMsgESC_control();
 }
 
 /*
