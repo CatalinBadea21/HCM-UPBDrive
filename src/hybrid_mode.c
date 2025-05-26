@@ -1,38 +1,76 @@
 /*
-* File:        hybrid_mode.c
-* Description: TBC
+ * File:        hybrid_mode.c
+ * Description: Implements the hybrid drive control strategies for the HCM project. Based on current
+ *              vehicle status (gear, RPM, speed, TPS, brake state) and user input, this module 
+ *              selects and applies the appropriate driving mode by updating the hybrid_state
+ *              and transmitting the command via CAN to the ESC.
 */
 
 #include <include/hybrid_mode.h>
 
 /*
-* Hybrid Strategies:
-* 0 - Freewheel
-* 1 - Manual mode (boost button)
-* 2 - Launch assist (<7500 RPM, <45 km/h, TPS >80%, 1st gear)
-* 3 - Auto, no regen
-* 4 - Auto, regen on brake press
-* 5 - Auto, regen for TPS<40%
-* 6 - Torque fill (2000-8000 RPM, TPS>60%) , regen on brake press
-* 
-* Auto mode is mapping TPS from 50 to 100
-* !! Boost button overrides auto mode
+ * Hybrid Strategies:
+ * 0 - Freewheel
+ * 1 - Manual mode (boost button)
+ * 2 - Launch assist (<7500 RPM, <45 km/h, TPS >80%, 1st gear)
+ * 3 - Auto, no regen
+ * 4 - Auto, regen on brake press
+ * 5 - Auto, regen for TPS<40%
+ * 6 - Torque fill (2000-8000 RPM, TPS>60%) , regen on brake press
+ * 
+ * Auto mode is mapping TPS from 50 to 100
+ * !! Boost button overrides auto mode
 */
 
-// Global variables
+/**********************************************************************************************************************
+* Global variables
+***********************************************************************************************************************/
 volatile HY_strategy_t hybrid_state = {0, 0};
 
-// Functions
+/**********************************************************************************************************************
+* Functions
+***********************************************************************************************************************/
+/*
+ * Function:    TPS_to_Duty_Cycle_Percentage
+ * Description: Converts the TPS value (50–100%) to a proportional duty cycle.
+ * Parameters:
+ *   - tps_percentage: Throttle position sensor value from ECU [0–100].
+ * Returns:
+ *   - A duty cycle percentage [0–100], mapped linearly for TPS ≥ 50.
+ *     Returns 0 for TPS < 50.
+ */
 uint8_t TPS_to_Duty_Cycle_Percentage(uint8_t tps_percentage)
 {
-    return 2 * (tps_percentage - 50);
+    if (tps_percentage >= 50)
+        return 2 * (tps_percentage - 50);
+    else
+        return 0;
 }
 
+/*
+ * Function:    Map_Duty_Cycle
+ * Description: Converts a duty cycle percentage to a 15-bit signed integer for CAN transmission.
+ * Parameters:
+ *   - duty_cycle_percentage: Desired motor duty (in percent, −100 to 100).
+ * Returns:
+ *   - 15-bit signed value scaled to match ESC input format.
+ */
 int16_t Map_Duty_Cycle(int8_t duty_cycle_percentage)
 {
     return (int16_t)((duty_cycle_percentage * MAX_VALUE_15BIT) / 100);
 }
 
+/*
+ * Function:    Set_Strategy
+ * Description: Main strategy dispatcher. Applies the appropriate hybrid driving mode based
+ *              on selector input and vehicle state.
+ * Parameters:
+ *   - sel_strategy: Strategy index [0–6], corresponding to one of the predefined hybrid modes.
+ * Behavior:
+ *   - If the vehicle is not in a deployable state (neutral or too slow), forces Freewheel.
+ *   - Otherwise, invokes the selected strategy.
+ *   - Sends resulting driving mode and duty cycle to ESC over CAN.
+ */
 void Set_Strategy(uint8_t sel_strategy)
 {
     if ((car_state.gear == NEUTRAL_GEAR) || (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.vss <= MAX_VSS_TO_DEPLOY))
@@ -67,95 +105,134 @@ void Set_Strategy(uint8_t sel_strategy)
             default:
                 Set_Strategy_Freewheel();
         }
+    
+    CAN_Transmit_To_ESC(hybrid_state.driving_mode, hybrid_state.duty_cycle_percentage);
 }
 
+/*
+ * Function:    Set_Strategy_Freewheel
+ * Description: Disables hybrid power by setting mode to Freewheel and zero duty cycle.
+ */
 void Set_Strategy_Freewheel()
 {
     hybrid_state.driving_mode = FREEWHEEL_MODE;
     hybrid_state.duty_cycle_percentage = 0;
 }
 
+/*
+ * Function:    Set_Strategy_Manual
+ * Description: Enables full power (boost mode) if the boost button is pressed and the brake is not.
+ *              Falls back to Freewheel otherwise.
+ */
 void Set_Strategy_Manual()
 {
-    // Boost button pressed and brake not pressed
     if ((Read_Boost_Button() == STD_ON) && (car_state.brake_state == STD_OFF))
     {
         hybrid_state.driving_mode = TORQUE_MODE;
         hybrid_state.duty_cycle_percentage = 100;
     }
-    else // Freewheel in rest
+    else
         Set_Strategy_Freewheel();
 }
 
+/*
+ * Function:    Set_Strategy_Launch_Assist
+ * Description: Engages full torque at launch under these conditions:
+ *              - RPM ≤ 7500
+ *              - VSS ≤ 45 km/h
+ *              - TPS ≥ 80%
+ *              - Gear = 1
+ *              - Brake not pressed
+ *              Falls back to Freewheel otherwise.
+ */
 void Set_Strategy_Launch_Assist()
 {
-    // RPM under 7500, VSS under 45 km/h, TPS over 80%, 1st gear and brake not pressed
     if ((car_state.rpm <= 7500) && (car_state.vss <= 45) && (car_state.tps >= 80) \
         && (car_state.gear == 1) && (car_state.brake_state == STD_OFF))
     {
         hybrid_state.driving_mode = TORQUE_MODE;
         hybrid_state.duty_cycle_percentage = 100;
     }
-    else // Freewheel in rest
+    else
         Set_Strategy_Freewheel();
 }
 
+/*
+ * Function:    Set_Strategy_Auto_No_Regen
+ * Description: Applies torque proportional to TPS when brake is not pressed.
+ *              Falls back to Freewheel if brake is active.
+ */
 void Set_Strategy_Auto_No_Regen()
 {
-    // Proportional to TPS, brake not pressed
     if ((car_state.brake_state == STD_OFF))
     {
         hybrid_state.driving_mode = TORQUE_MODE;
         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
     }
-    else // Freewheel in rest
+    else
         Set_Strategy_Freewheel();
 }
 
+/*
+ * Function:    Set_Strategy_Auto_Brake_Regen
+ * Description: Applies torque proportional to TPS when brake is not pressed.
+ *              Switches to full regenerative braking (BRAKE mode) when brake is pressed.
+ */
 void Set_Strategy_Auto_Brake_Regen()
 {
-    // Proportional to TPS, brake not pressed
     if ((car_state.brake_state == STD_OFF))
     {
         hybrid_state.driving_mode = TORQUE_MODE;
         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
     }
-    else // Regen on braking
+    else
     {
         hybrid_state.driving_mode = BRAKE_MODE;
         hybrid_state.duty_cycle_percentage = 100u;
     }
 }
 
+/*
+ * Function:    Set_Strategy_Auto_Always_Regen
+ * Description: Applies torque proportional to TPS if TPS > 50 and brake is not pressed.
+ *              Applies full regenerative braking otherwise (coasting or braking).
+ */
 void Set_Strategy_Auto_Always_Regen()
 {
-    // Proportional to TPS, brake not pressed
     if ((car_state.brake_state == STD_OFF) && (car_state.tps > 50))
     {
         hybrid_state.driving_mode = TORQUE_MODE;
         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
     }
-    else // Regen on coasting
+    else
     {
         hybrid_state.driving_mode = BRAKE_MODE;
         hybrid_state.duty_cycle_percentage = 100u;
     }
 }
 
+/*
+ * Function:    Set_Strategy_Torque_Fill
+ * Description: Provides full torque when:
+ *              - TPS > 50
+ *              - RPM ∈ [2000, 8000]
+ *              - Brake is not pressed
+ *              Applies regenerative braking when brake is pressed.
+ *              Falls back to Freewheel otherwise.
+ */
 void Set_Strategy_Torque_Fill()
 {
-    // TPS > 50, RPM between 2000-8000, brake not pressed
     if ((car_state.brake_state == STD_OFF) && (car_state.tps > 50) && (car_state.rpm >= 2000) && (car_state.rpm <= 8000))
     {
         hybrid_state.driving_mode = TORQUE_MODE;
         hybrid_state.duty_cycle_percentage = 100u;
     }
-    else if (car_state.brake_state == STD_ON) // Regen on braking
+    else if (car_state.brake_state == STD_ON)
     {
         hybrid_state.driving_mode = BRAKE_MODE;
         hybrid_state.duty_cycle_percentage = 100u;
     }
-    else // Freewheel in rest
+    else
         Set_Strategy_Freewheel();
 }
 
