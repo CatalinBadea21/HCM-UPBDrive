@@ -9,17 +9,21 @@
 #include <include/hybrid_mode.h>
 
 /*
- * Hybrid Strategies:
- * 0 - Freewheel
- * 1 - Manual mode (Boost button)
- * 2 - Launch assist (Under 7500 RPM and 45 km/h, TPS > 80%, 1st gear)
- * 3 - Auto, no regen
- * 4 - Auto, regen on brake press
- * 5 - Auto, regen for TPS < 50%
- * 6 - Torque fill (2000-8000 RPM, TPS > 50%) , regen on brake press
- * 
- * Auto mode is mapping TPS from 50 to 100
- * !! Boost button overrides auto mode !!
+** Hybrid Strategy Modes **
+  |----|-----------------------|-------------------------------------------------------|
+  | ID | Name                  | Description                                           |
+  |----|-----------------------|-------------------------------------------------------|
+  | 0  | Freewheel             | Default idle mode                                     |
+  | 1  | Manual (Boost)        | Full torque if boost button is active                 |
+  | 2  | Launch Assist         | Active at low RPM, low speed, high TPS, gear 1        |
+  | 3  | Auto No Regen         | Proportional torque, no regen                         |
+  | 4  | Auto Brake Regen      | Regen on brake press                                  |
+  | 5  | Auto TPS-Based Regen  | Regen when TPS < 50% or braking                       |
+  | 6  | Torque Fill           | Full torque between 2000–8000 RPM, regen on brake     |
+  |----|-----------------------|-------------------------------------------------------|
+  *
+  * Auto mode is mapping TPS from 50 to 100
+  * ! Boost button overrides auto mode
 */
 
 /**********************************************************************************************************************
@@ -76,7 +80,6 @@ int16_t Map_Duty_Cycle(int8_t duty_cycle_percentage)
  *
  * Sends the selected driving mode and duty cycle to the ESC via CAN.
  */
-
 void Set_Strategy(uint8_t sel_strategy)
 {
     if ((car_state.gear == NEUTRAL_GEAR) || (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.vss > MAX_VSS_TO_DEPLOY))

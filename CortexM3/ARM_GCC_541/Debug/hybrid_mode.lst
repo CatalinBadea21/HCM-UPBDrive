@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 1
 
 
    1              		.syntax unified
@@ -39,53 +39,57 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
    9:src/hybrid_mode.c **** #include <include/hybrid_mode.h>
   10:src/hybrid_mode.c **** 
   11:src/hybrid_mode.c **** /*
-  12:src/hybrid_mode.c ****  * Hybrid Strategies:
-  13:src/hybrid_mode.c ****  * 0 - Freewheel
-  14:src/hybrid_mode.c ****  * 1 - Manual mode (Boost button)
-  15:src/hybrid_mode.c ****  * 2 - Launch assist (Under 7500 RPM and 45 km/h, TPS > 80%, 1st gear)
-  16:src/hybrid_mode.c ****  * 3 - Auto, no regen
-  17:src/hybrid_mode.c ****  * 4 - Auto, regen on brake press
-  18:src/hybrid_mode.c ****  * 5 - Auto, regen for TPS < 50%
-  19:src/hybrid_mode.c ****  * 6 - Torque fill (2000-8000 RPM, TPS > 50%) , regen on brake press
-  20:src/hybrid_mode.c ****  * 
-  21:src/hybrid_mode.c ****  * Auto mode is mapping TPS from 50 to 100
-  22:src/hybrid_mode.c ****  * !! Boost button overrides auto mode !!
-  23:src/hybrid_mode.c **** */
-  24:src/hybrid_mode.c **** 
-  25:src/hybrid_mode.c **** /**************************************************************************************************
-  26:src/hybrid_mode.c **** * Global variables
-  27:src/hybrid_mode.c **** ***************************************************************************************************
-  28:src/hybrid_mode.c **** volatile HY_strategy_t hybrid_state = {0, 0};
-  29:src/hybrid_mode.c **** 
-  30:src/hybrid_mode.c **** /**************************************************************************************************
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 2
+  12:src/hybrid_mode.c **** ** Hybrid Strategy Modes **
+  13:src/hybrid_mode.c ****   |----|-----------------------|-------------------------------------------------------|
+  14:src/hybrid_mode.c ****   | ID | Name                  | Description                                           |
+  15:src/hybrid_mode.c ****   |----|-----------------------|-------------------------------------------------------|
+  16:src/hybrid_mode.c ****   | 0  | Freewheel             | Default idle mode                                     |
+  17:src/hybrid_mode.c ****   | 1  | Manual (Boost)        | Full torque if boost button is active                 |
+  18:src/hybrid_mode.c ****   | 2  | Launch Assist         | Active at low RPM, low speed, high TPS, gear 1        |
+  19:src/hybrid_mode.c ****   | 3  | Auto No Regen         | Proportional torque, no regen                         |
+  20:src/hybrid_mode.c ****   | 4  | Auto Brake Regen      | Regen on brake press                                  |
+  21:src/hybrid_mode.c ****   | 5  | Auto TPS-Based Regen  | Regen when TPS < 50% or braking                       |
+  22:src/hybrid_mode.c ****   | 6  | Torque Fill           | Full torque between 2000–8000 RPM, regen on brake     |
+  23:src/hybrid_mode.c ****   |----|-----------------------|-------------------------------------------------------|
+  24:src/hybrid_mode.c ****   *
+  25:src/hybrid_mode.c ****   * Auto mode is mapping TPS from 50 to 100
+  26:src/hybrid_mode.c ****   * ! Boost button overrides auto mode
+  27:src/hybrid_mode.c **** */
+  28:src/hybrid_mode.c **** 
+  29:src/hybrid_mode.c **** /**************************************************************************************************
+  30:src/hybrid_mode.c **** * Global variables
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 2
 
 
-  31:src/hybrid_mode.c **** * Functions
-  32:src/hybrid_mode.c **** ***************************************************************************************************
-  33:src/hybrid_mode.c **** /*
-  34:src/hybrid_mode.c ****  * Function:    TPS_to_Duty_Cycle_Percentage
-  35:src/hybrid_mode.c ****  * Description: Converts the TPS value (50–100%) to a proportional duty cycle.
-  36:src/hybrid_mode.c ****  * Parameters:
-  37:src/hybrid_mode.c ****  *   - tps_percentage: Throttle position sensor value from ECU [0–100].
-  38:src/hybrid_mode.c ****  * Returns:
-  39:src/hybrid_mode.c ****  *   - A duty cycle percentage [0–100], mapped linearly for TPS ≥ 50.
-  40:src/hybrid_mode.c ****  *     Returns 0 for TPS < 50.
-  41:src/hybrid_mode.c ****  */
-  42:src/hybrid_mode.c **** uint8_t TPS_to_Duty_Cycle_Percentage(uint8_t tps_percentage)
-  43:src/hybrid_mode.c **** {
-  28              		.loc 1 43 0
+  31:src/hybrid_mode.c **** ***************************************************************************************************
+  32:src/hybrid_mode.c **** volatile HY_strategy_t hybrid_state = {0, 0};
+  33:src/hybrid_mode.c **** 
+  34:src/hybrid_mode.c **** /**************************************************************************************************
+  35:src/hybrid_mode.c **** * Functions
+  36:src/hybrid_mode.c **** ***************************************************************************************************
+  37:src/hybrid_mode.c **** /*
+  38:src/hybrid_mode.c ****  * Function:    TPS_to_Duty_Cycle_Percentage
+  39:src/hybrid_mode.c ****  * Description: Converts the TPS value (50–100%) to a proportional duty cycle.
+  40:src/hybrid_mode.c ****  * Parameters:
+  41:src/hybrid_mode.c ****  *   - tps_percentage: Throttle position sensor value from ECU [0–100].
+  42:src/hybrid_mode.c ****  * Returns:
+  43:src/hybrid_mode.c ****  *   - A duty cycle percentage [0–100], mapped linearly for TPS ≥ 50.
+  44:src/hybrid_mode.c ****  *     Returns 0 for TPS < 50.
+  45:src/hybrid_mode.c ****  */
+  46:src/hybrid_mode.c **** uint8_t TPS_to_Duty_Cycle_Percentage(uint8_t tps_percentage)
+  47:src/hybrid_mode.c **** {
+  28              		.loc 1 47 0
   29              		.cfi_startproc
   30              		@ args = 0, pretend = 0, frame = 0
   31              		@ frame_needed = 0, uses_anonymous_args = 0
   32              		@ link register save eliminated.
   33              	.LVL0:
-  44:src/hybrid_mode.c ****     if (tps_percentage >= 50)
-  34              		.loc 1 44 0
+  48:src/hybrid_mode.c ****     if (tps_percentage >= 50)
+  34              		.loc 1 48 0
   35 0000 3128     		cmp	r0, #49
   36 0002 03D9     		bls	.L3
-  45:src/hybrid_mode.c ****         return 2 * (tps_percentage - 50);
-  37              		.loc 1 45 0
+  49:src/hybrid_mode.c ****         return 2 * (tps_percentage - 50);
+  37              		.loc 1 49 0
   38 0004 3238     		subs	r0, r0, #50
   39              	.LVL1:
   40 0006 4000     		lsls	r0, r0, #1
@@ -93,13 +97,13 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
   42 000a 7047     		bx	lr
   43              	.LVL2:
   44              	.L3:
-  46:src/hybrid_mode.c ****     else
-  47:src/hybrid_mode.c ****         return 0;
-  45              		.loc 1 47 0
+  50:src/hybrid_mode.c ****     else
+  51:src/hybrid_mode.c ****         return 0;
+  45              		.loc 1 51 0
   46 000c 0020     		movs	r0, #0
   47              	.LVL3:
-  48:src/hybrid_mode.c **** }
-  48              		.loc 1 48 0
+  52:src/hybrid_mode.c **** }
+  48              		.loc 1 52 0
   49 000e 7047     		bx	lr
   50              		.cfi_endproc
   51              	.LFE63:
@@ -112,34 +116,34 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
   58              		.type	Map_Duty_Cycle, %function
   59              	Map_Duty_Cycle:
   60              	.LFB64:
-  49:src/hybrid_mode.c **** 
-  50:src/hybrid_mode.c **** /*
-  51:src/hybrid_mode.c ****  * Function:    Map_Duty_Cycle
-  52:src/hybrid_mode.c ****  * Description: Converts a duty cycle percentage to a 15-bit signed integer for CAN transmission.
-  53:src/hybrid_mode.c ****  * Parameters:
-  54:src/hybrid_mode.c ****  *   - duty_cycle_percentage: Desired motor duty (in percent, −100 to 100).
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 3
+  53:src/hybrid_mode.c **** 
+  54:src/hybrid_mode.c **** /*
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 3
 
 
-  55:src/hybrid_mode.c ****  * Returns:
-  56:src/hybrid_mode.c ****  *   - 15-bit signed value scaled to match ESC input format.
-  57:src/hybrid_mode.c ****  */
-  58:src/hybrid_mode.c **** int16_t Map_Duty_Cycle(int8_t duty_cycle_percentage)
-  59:src/hybrid_mode.c **** {
-  61              		.loc 1 59 0
+  55:src/hybrid_mode.c ****  * Function:    Map_Duty_Cycle
+  56:src/hybrid_mode.c ****  * Description: Converts a duty cycle percentage to a 15-bit signed integer for CAN transmission.
+  57:src/hybrid_mode.c ****  * Parameters:
+  58:src/hybrid_mode.c ****  *   - duty_cycle_percentage: Desired motor duty (in percent, −100 to 100).
+  59:src/hybrid_mode.c ****  * Returns:
+  60:src/hybrid_mode.c ****  *   - 15-bit signed value scaled to match ESC input format.
+  61:src/hybrid_mode.c ****  */
+  62:src/hybrid_mode.c **** int16_t Map_Duty_Cycle(int8_t duty_cycle_percentage)
+  63:src/hybrid_mode.c **** {
+  61              		.loc 1 63 0
   62              		.cfi_startproc
   63              		@ args = 0, pretend = 0, frame = 0
   64              		@ frame_needed = 0, uses_anonymous_args = 0
   65              		@ link register save eliminated.
   66              	.LVL4:
-  60:src/hybrid_mode.c ****     return (int16_t)((duty_cycle_percentage * MAX_VALUE_15BIT) / 100);
-  67              		.loc 1 60 0
+  64:src/hybrid_mode.c ****     return (int16_t)((duty_cycle_percentage * MAX_VALUE_15BIT) / 100);
+  67              		.loc 1 64 0
   68 0000 C0EBC030 		rsb	r0, r0, r0, lsl #15
   69              	.LVL5:
   70 0004 024B     		ldr	r3, .L5
   71 0006 A3FB0030 		umull	r3, r0, r3, r0
-  61:src/hybrid_mode.c **** }
-  72              		.loc 1 61 0
+  65:src/hybrid_mode.c **** }
+  72              		.loc 1 65 0
   73 000a 40F34F10 		sbfx	r0, r0, #5, #16
   74 000e 7047     		bx	lr
   75              	.L6:
@@ -157,91 +161,90 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
   87              		.type	Set_Strategy_Freewheel, %function
   88              	Set_Strategy_Freewheel:
   89              	.LFB66:
-  62:src/hybrid_mode.c **** 
-  63:src/hybrid_mode.c **** /*
-  64:src/hybrid_mode.c ****  * Function:    Set_Strategy
-  65:src/hybrid_mode.c ****  * Description: Applies the appropriate hybrid driving strategy based on selector input,
-  66:src/hybrid_mode.c ****  *              vehicle state, and driver override.
-  67:src/hybrid_mode.c ****  *
-  68:src/hybrid_mode.c ****  * Parameters:
-  69:src/hybrid_mode.c ****  *   - sel_strategy: User-selected strategy index [1–6].
-  70:src/hybrid_mode.c ****  *
-  71:src/hybrid_mode.c ****  * Logic:
-  72:src/hybrid_mode.c ****  *   - If gear is neutral or speed is too low/high -> Freewheel.
-  73:src/hybrid_mode.c ****  *   - If boost button is pressed, brake is not, and sel_strategy > 0 -> Full torque.
-  74:src/hybrid_mode.c ****  *   - Otherwise, applies strategy based on sel_strategy.
-  75:src/hybrid_mode.c ****  *   - Defaults to Freewheel if sel_strategy is invalid.
-  76:src/hybrid_mode.c ****  *
-  77:src/hybrid_mode.c ****  * Sends the selected driving mode and duty cycle to the ESC via CAN.
-  78:src/hybrid_mode.c ****  */
-  79:src/hybrid_mode.c **** 
-  80:src/hybrid_mode.c **** void Set_Strategy(uint8_t sel_strategy)
-  81:src/hybrid_mode.c **** {
-  82:src/hybrid_mode.c ****     if ((car_state.gear == NEUTRAL_GEAR) || (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.vss 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 4
+  66:src/hybrid_mode.c **** 
+  67:src/hybrid_mode.c **** /*
+  68:src/hybrid_mode.c ****  * Function:    Set_Strategy
+  69:src/hybrid_mode.c ****  * Description: Applies the appropriate hybrid driving strategy based on selector input,
+  70:src/hybrid_mode.c ****  *              vehicle state, and driver override.
+  71:src/hybrid_mode.c ****  *
+  72:src/hybrid_mode.c ****  * Parameters:
+  73:src/hybrid_mode.c ****  *   - sel_strategy: User-selected strategy index [1–6].
+  74:src/hybrid_mode.c ****  *
+  75:src/hybrid_mode.c ****  * Logic:
+  76:src/hybrid_mode.c ****  *   - If gear is neutral or speed is too low/high -> Freewheel.
+  77:src/hybrid_mode.c ****  *   - If boost button is pressed, brake is not, and sel_strategy > 0 -> Full torque.
+  78:src/hybrid_mode.c ****  *   - Otherwise, applies strategy based on sel_strategy.
+  79:src/hybrid_mode.c ****  *   - Defaults to Freewheel if sel_strategy is invalid.
+  80:src/hybrid_mode.c ****  *
+  81:src/hybrid_mode.c ****  * Sends the selected driving mode and duty cycle to the ESC via CAN.
+  82:src/hybrid_mode.c ****  */
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 4
 
 
-  83:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
-  84:src/hybrid_mode.c ****     else if ((Read_Boost_Button() == STD_ON) && (car_state.brake_state == STD_OFF) && (sel_strategy
-  85:src/hybrid_mode.c ****     {
-  86:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
-  87:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100;
-  88:src/hybrid_mode.c ****     }
-  89:src/hybrid_mode.c ****     else
-  90:src/hybrid_mode.c ****         switch (sel_strategy)
-  91:src/hybrid_mode.c ****         {
-  92:src/hybrid_mode.c ****             case 1:
-  93:src/hybrid_mode.c ****                 Set_Strategy_Manual();
-  94:src/hybrid_mode.c ****                 break;
-  95:src/hybrid_mode.c **** 
-  96:src/hybrid_mode.c ****             case 2:
-  97:src/hybrid_mode.c ****                 Set_Strategy_Launch_Assist();
-  98:src/hybrid_mode.c ****                 break;
-  99:src/hybrid_mode.c **** 
- 100:src/hybrid_mode.c ****             case 3:
- 101:src/hybrid_mode.c ****                 Set_Strategy_Auto_No_Regen();
- 102:src/hybrid_mode.c ****                 break;
- 103:src/hybrid_mode.c **** 
- 104:src/hybrid_mode.c ****             case 4:
- 105:src/hybrid_mode.c ****                 Set_Strategy_Auto_Brake_Regen();
- 106:src/hybrid_mode.c ****                 break;
- 107:src/hybrid_mode.c **** 
- 108:src/hybrid_mode.c ****             case 5:
- 109:src/hybrid_mode.c ****                 Set_Strategy_Auto_Always_Regen();
- 110:src/hybrid_mode.c ****                 break;
- 111:src/hybrid_mode.c **** 
- 112:src/hybrid_mode.c ****             case 6:
- 113:src/hybrid_mode.c ****                 Set_Strategy_Torque_Fill();
- 114:src/hybrid_mode.c ****                 break;
- 115:src/hybrid_mode.c **** 
- 116:src/hybrid_mode.c ****             default:
- 117:src/hybrid_mode.c ****                 Set_Strategy_Freewheel();
- 118:src/hybrid_mode.c ****         }
- 119:src/hybrid_mode.c ****     
- 120:src/hybrid_mode.c ****     CAN_Transmit_To_ESC(hybrid_state.driving_mode, hybrid_state.duty_cycle_percentage);
- 121:src/hybrid_mode.c **** }
- 122:src/hybrid_mode.c **** 
- 123:src/hybrid_mode.c **** /*
- 124:src/hybrid_mode.c ****  * Function:    Set_Strategy_Freewheel
- 125:src/hybrid_mode.c ****  * Description: Disables hybrid power by setting mode to Freewheel and zero duty cycle.
- 126:src/hybrid_mode.c ****  */
- 127:src/hybrid_mode.c **** void Set_Strategy_Freewheel()
- 128:src/hybrid_mode.c **** {
-  90              		.loc 1 128 0
+  83:src/hybrid_mode.c **** void Set_Strategy(uint8_t sel_strategy)
+  84:src/hybrid_mode.c **** {
+  85:src/hybrid_mode.c ****     if ((car_state.gear == NEUTRAL_GEAR) || (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.vss 
+  86:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
+  87:src/hybrid_mode.c ****     else if ((Read_Boost_Button() == STD_ON) && (car_state.brake_state == STD_OFF) && (sel_strategy
+  88:src/hybrid_mode.c ****     {
+  89:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
+  90:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100;
+  91:src/hybrid_mode.c ****     }
+  92:src/hybrid_mode.c ****     else
+  93:src/hybrid_mode.c ****         switch (sel_strategy)
+  94:src/hybrid_mode.c ****         {
+  95:src/hybrid_mode.c ****             case 1:
+  96:src/hybrid_mode.c ****                 Set_Strategy_Manual();
+  97:src/hybrid_mode.c ****                 break;
+  98:src/hybrid_mode.c **** 
+  99:src/hybrid_mode.c ****             case 2:
+ 100:src/hybrid_mode.c ****                 Set_Strategy_Launch_Assist();
+ 101:src/hybrid_mode.c ****                 break;
+ 102:src/hybrid_mode.c **** 
+ 103:src/hybrid_mode.c ****             case 3:
+ 104:src/hybrid_mode.c ****                 Set_Strategy_Auto_No_Regen();
+ 105:src/hybrid_mode.c ****                 break;
+ 106:src/hybrid_mode.c **** 
+ 107:src/hybrid_mode.c ****             case 4:
+ 108:src/hybrid_mode.c ****                 Set_Strategy_Auto_Brake_Regen();
+ 109:src/hybrid_mode.c ****                 break;
+ 110:src/hybrid_mode.c **** 
+ 111:src/hybrid_mode.c ****             case 5:
+ 112:src/hybrid_mode.c ****                 Set_Strategy_Auto_Always_Regen();
+ 113:src/hybrid_mode.c ****                 break;
+ 114:src/hybrid_mode.c **** 
+ 115:src/hybrid_mode.c ****             case 6:
+ 116:src/hybrid_mode.c ****                 Set_Strategy_Torque_Fill();
+ 117:src/hybrid_mode.c ****                 break;
+ 118:src/hybrid_mode.c **** 
+ 119:src/hybrid_mode.c ****             default:
+ 120:src/hybrid_mode.c ****                 Set_Strategy_Freewheel();
+ 121:src/hybrid_mode.c ****         }
+ 122:src/hybrid_mode.c ****     
+ 123:src/hybrid_mode.c ****     CAN_Transmit_To_ESC(hybrid_state.driving_mode, hybrid_state.duty_cycle_percentage);
+ 124:src/hybrid_mode.c **** }
+ 125:src/hybrid_mode.c **** 
+ 126:src/hybrid_mode.c **** /*
+ 127:src/hybrid_mode.c ****  * Function:    Set_Strategy_Freewheel
+ 128:src/hybrid_mode.c ****  * Description: Disables hybrid power by setting mode to Freewheel and zero duty cycle.
+ 129:src/hybrid_mode.c ****  */
+ 130:src/hybrid_mode.c **** void Set_Strategy_Freewheel()
+ 131:src/hybrid_mode.c **** {
+  90              		.loc 1 131 0
   91              		.cfi_startproc
   92              		@ args = 0, pretend = 0, frame = 0
   93              		@ frame_needed = 0, uses_anonymous_args = 0
   94              		@ link register save eliminated.
- 129:src/hybrid_mode.c ****     hybrid_state.driving_mode = FREEWHEEL_MODE;
-  95              		.loc 1 129 0
+ 132:src/hybrid_mode.c ****     hybrid_state.driving_mode = FREEWHEEL_MODE;
+  95              		.loc 1 132 0
   96 0000 024B     		ldr	r3, .L8
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 5
+
+
   97 0002 0022     		movs	r2, #0
   98 0004 1A70     		strb	r2, [r3]
- 130:src/hybrid_mode.c ****     hybrid_state.duty_cycle_percentage = 0;
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 5
-
-
-  99              		.loc 1 130 0
+ 133:src/hybrid_mode.c ****     hybrid_state.duty_cycle_percentage = 0;
+  99              		.loc 1 133 0
  100 0006 5A70     		strb	r2, [r3, #1]
  101 0008 7047     		bx	lr
  102              	.L9:
@@ -259,16 +262,16 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  114              		.type	Set_Strategy_Manual, %function
  115              	Set_Strategy_Manual:
  116              	.LFB67:
- 131:src/hybrid_mode.c **** }
- 132:src/hybrid_mode.c **** 
- 133:src/hybrid_mode.c **** /*
- 134:src/hybrid_mode.c ****  * Function:    Set_Strategy_Manual
- 135:src/hybrid_mode.c ****  * Description: Enables full power (boost mode) if the boost button is pressed and the brake is not
- 136:src/hybrid_mode.c ****  *              Falls back to Freewheel otherwise.
- 137:src/hybrid_mode.c ****  */
- 138:src/hybrid_mode.c **** void Set_Strategy_Manual()
- 139:src/hybrid_mode.c **** {
- 117              		.loc 1 139 0
+ 134:src/hybrid_mode.c **** }
+ 135:src/hybrid_mode.c **** 
+ 136:src/hybrid_mode.c **** /*
+ 137:src/hybrid_mode.c ****  * Function:    Set_Strategy_Manual
+ 138:src/hybrid_mode.c ****  * Description: Enables full power (boost mode) if the boost button is pressed and the brake is not
+ 139:src/hybrid_mode.c ****  *              Falls back to Freewheel otherwise.
+ 140:src/hybrid_mode.c ****  */
+ 141:src/hybrid_mode.c **** void Set_Strategy_Manual()
+ 142:src/hybrid_mode.c **** {
+ 117              		.loc 1 142 0
  118              		.cfi_startproc
  119              		@ args = 0, pretend = 0, frame = 0
  120              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -276,12 +279,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  122              		.cfi_def_cfa_offset 8
  123              		.cfi_offset 3, -8
  124              		.cfi_offset 14, -4
- 140:src/hybrid_mode.c ****     /* The logic for the boost button is in the main Set_Strategy() function;
- 141:src/hybrid_mode.c ****      * If the program enters here it means the selector is on manual,
- 142:src/hybrid_mode.c ****      * but boost button not pressed -> freewheel
- 143:src/hybrid_mode.c ****      */
- 144:src/hybrid_mode.c ****     Set_Strategy_Freewheel();
- 125              		.loc 1 144 0
+ 143:src/hybrid_mode.c ****     /* The logic for the boost button is in the main Set_Strategy() function;
+ 144:src/hybrid_mode.c ****      * If the program enters here it means the selector is on manual,
+ 145:src/hybrid_mode.c ****      * but boost button not pressed -> freewheel
+ 146:src/hybrid_mode.c ****      */
+ 147:src/hybrid_mode.c ****     Set_Strategy_Freewheel();
+ 125              		.loc 1 147 0
  126 0002 FFF7FEFF 		bl	Set_Strategy_Freewheel
  127              	.LVL6:
  128 0006 08BD     		pop	{r3, pc}
@@ -295,25 +298,25 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  136              		.thumb_func
  137              		.type	Set_Strategy_Launch_Assist, %function
  138              	Set_Strategy_Launch_Assist:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 6
+
+
  139              	.LFB68:
- 145:src/hybrid_mode.c **** }
- 146:src/hybrid_mode.c **** 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 6
-
-
- 147:src/hybrid_mode.c **** /*
- 148:src/hybrid_mode.c ****  * Function:    Set_Strategy_Launch_Assist
- 149:src/hybrid_mode.c ****  * Description: Engages full torque at launch under these conditions:
- 150:src/hybrid_mode.c ****  *              - RPM ≤ 7500
- 151:src/hybrid_mode.c ****  *              - VSS ≤ 45 km/h
- 152:src/hybrid_mode.c ****  *              - TPS ≥ 80%
- 153:src/hybrid_mode.c ****  *              - Gear = 1
- 154:src/hybrid_mode.c ****  *              - Brake not pressed
- 155:src/hybrid_mode.c ****  *              Falls back to Freewheel otherwise.
- 156:src/hybrid_mode.c ****  */
- 157:src/hybrid_mode.c **** void Set_Strategy_Launch_Assist()
- 158:src/hybrid_mode.c **** {
- 140              		.loc 1 158 0
+ 148:src/hybrid_mode.c **** }
+ 149:src/hybrid_mode.c **** 
+ 150:src/hybrid_mode.c **** /*
+ 151:src/hybrid_mode.c ****  * Function:    Set_Strategy_Launch_Assist
+ 152:src/hybrid_mode.c ****  * Description: Engages full torque at launch under these conditions:
+ 153:src/hybrid_mode.c ****  *              - RPM ≤ 7500
+ 154:src/hybrid_mode.c ****  *              - VSS ≤ 45 km/h
+ 155:src/hybrid_mode.c ****  *              - TPS ≥ 80%
+ 156:src/hybrid_mode.c ****  *              - Gear = 1
+ 157:src/hybrid_mode.c ****  *              - Brake not pressed
+ 158:src/hybrid_mode.c ****  *              Falls back to Freewheel otherwise.
+ 159:src/hybrid_mode.c ****  */
+ 160:src/hybrid_mode.c **** void Set_Strategy_Launch_Assist()
+ 161:src/hybrid_mode.c **** {
+ 140              		.loc 1 161 0
  141              		.cfi_startproc
  142              		@ args = 0, pretend = 0, frame = 0
  143              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -321,57 +324,57 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  145              		.cfi_def_cfa_offset 8
  146              		.cfi_offset 3, -8
  147              		.cfi_offset 14, -4
- 159:src/hybrid_mode.c ****     if ((car_state.rpm <= 7500) && (car_state.vss <= 45) && (car_state.tps >= 80) \
- 148              		.loc 1 159 0
+ 162:src/hybrid_mode.c ****     if ((car_state.rpm <= 7500) && (car_state.vss <= 45) && (car_state.tps >= 80) \
+ 148              		.loc 1 162 0
  149 0002 124B     		ldr	r3, .L16
  150 0004 5B88     		ldrh	r3, [r3, #2]
  151 0006 9BB2     		uxth	r3, r3
  152 0008 41F64C52 		movw	r2, #7500
  153 000c 9342     		cmp	r3, r2
  154 000e 19D8     		bhi	.L13
- 155              		.loc 1 159 0 is_stmt 0 discriminator 1
+ 155              		.loc 1 162 0 is_stmt 0 discriminator 1
  156 0010 0E4B     		ldr	r3, .L16
  157 0012 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
  158 0014 DBB2     		uxtb	r3, r3
  159 0016 2D2B     		cmp	r3, #45
  160 0018 14D8     		bhi	.L13
- 161              		.loc 1 159 0 discriminator 2
+ 161              		.loc 1 162 0 discriminator 2
  162 001a 0C4B     		ldr	r3, .L16
  163 001c 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
  164 001e DBB2     		uxtb	r3, r3
  165 0020 4F2B     		cmp	r3, #79
  166 0022 0FD9     		bls	.L13
- 160:src/hybrid_mode.c ****         && (car_state.gear == 1) && (car_state.brake_state == STD_OFF))
- 167              		.loc 1 160 0 is_stmt 1
+ 163:src/hybrid_mode.c ****         && (car_state.gear == 1) && (car_state.brake_state == STD_OFF))
+ 167              		.loc 1 163 0 is_stmt 1
  168 0024 094B     		ldr	r3, .L16
  169 0026 DB79     		ldrb	r3, [r3, #7]	@ zero_extendqisi2
  170 0028 DBB2     		uxtb	r3, r3
  171 002a 012B     		cmp	r3, #1
  172 002c 0AD1     		bne	.L13
- 173              		.loc 1 160 0 is_stmt 0 discriminator 1
+ 173              		.loc 1 163 0 is_stmt 0 discriminator 1
  174 002e 074B     		ldr	r3, .L16
  175 0030 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
  176 0032 13F0FF0F 		tst	r3, #255
  177 0036 05D1     		bne	.L13
- 161:src/hybrid_mode.c ****     {
- 162:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
- 178              		.loc 1 162 0 is_stmt 1
+ 164:src/hybrid_mode.c ****     {
+ 165:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 7
+
+
+ 178              		.loc 1 165 0 is_stmt 1
  179 0038 054B     		ldr	r3, .L16+4
  180 003a 0222     		movs	r2, #2
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 7
-
-
  181 003c 1A70     		strb	r2, [r3]
- 163:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100;
- 182              		.loc 1 163 0
+ 166:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100;
+ 182              		.loc 1 166 0
  183 003e 6422     		movs	r2, #100
  184 0040 5A70     		strb	r2, [r3, #1]
  185 0042 08BD     		pop	{r3, pc}
  186              	.L13:
- 164:src/hybrid_mode.c ****     }
- 165:src/hybrid_mode.c ****     else
- 166:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
- 187              		.loc 1 166 0
+ 167:src/hybrid_mode.c ****     }
+ 168:src/hybrid_mode.c ****     else
+ 169:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
+ 187              		.loc 1 169 0
  188 0044 FFF7FEFF 		bl	Set_Strategy_Freewheel
  189              	.LVL7:
  190 0048 08BD     		pop	{r3, pc}
@@ -391,16 +394,16 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  204              		.type	Set_Strategy_Auto_No_Regen, %function
  205              	Set_Strategy_Auto_No_Regen:
  206              	.LFB69:
- 167:src/hybrid_mode.c **** }
- 168:src/hybrid_mode.c **** 
- 169:src/hybrid_mode.c **** /*
- 170:src/hybrid_mode.c ****  * Function:    Set_Strategy_Auto_No_Regen
- 171:src/hybrid_mode.c ****  * Description: Applies torque proportional to TPS when brake is not pressed.
- 172:src/hybrid_mode.c ****  *              Falls back to Freewheel if brake is active.
- 173:src/hybrid_mode.c ****  */
- 174:src/hybrid_mode.c **** void Set_Strategy_Auto_No_Regen()
- 175:src/hybrid_mode.c **** {
- 207              		.loc 1 175 0
+ 170:src/hybrid_mode.c **** }
+ 171:src/hybrid_mode.c **** 
+ 172:src/hybrid_mode.c **** /*
+ 173:src/hybrid_mode.c ****  * Function:    Set_Strategy_Auto_No_Regen
+ 174:src/hybrid_mode.c ****  * Description: Applies torque proportional to TPS when brake is not pressed.
+ 175:src/hybrid_mode.c ****  *              Falls back to Freewheel if brake is active.
+ 176:src/hybrid_mode.c ****  */
+ 177:src/hybrid_mode.c **** void Set_Strategy_Auto_No_Regen()
+ 178:src/hybrid_mode.c **** {
+ 207              		.loc 1 178 0
  208              		.cfi_startproc
  209              		@ args = 0, pretend = 0, frame = 0
  210              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -408,23 +411,23 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  212              		.cfi_def_cfa_offset 8
  213              		.cfi_offset 4, -8
  214              		.cfi_offset 14, -4
- 176:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF))
- 215              		.loc 1 176 0
+ 179:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF))
+ 215              		.loc 1 179 0
  216 0002 094B     		ldr	r3, .L22
  217 0004 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
  218 0006 13F0FF0F 		tst	r3, #255
  219 000a 09D1     		bne	.L19
- 177:src/hybrid_mode.c ****     {
- 178:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
- 220              		.loc 1 178 0
+ 180:src/hybrid_mode.c ****     {
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 8
+
+
+ 181:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
+ 220              		.loc 1 181 0
  221 000c 074C     		ldr	r4, .L22+4
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 8
-
-
  222 000e 0223     		movs	r3, #2
  223 0010 2370     		strb	r3, [r4]
- 179:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
- 224              		.loc 1 179 0
+ 182:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
+ 224              		.loc 1 182 0
  225 0012 054B     		ldr	r3, .L22
  226 0014 1879     		ldrb	r0, [r3, #4]	@ zero_extendqisi2
  227 0016 FFF7FEFF 		bl	TPS_to_Duty_Cycle_Percentage
@@ -433,10 +436,10 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  230 001c 6070     		strb	r0, [r4, #1]
  231 001e 10BD     		pop	{r4, pc}
  232              	.L19:
- 180:src/hybrid_mode.c ****     }
- 181:src/hybrid_mode.c ****     else
- 182:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
- 233              		.loc 1 182 0
+ 183:src/hybrid_mode.c ****     }
+ 184:src/hybrid_mode.c ****     else
+ 185:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
+ 233              		.loc 1 185 0
  234 0020 FFF7FEFF 		bl	Set_Strategy_Freewheel
  235              	.LVL9:
  236 0024 10BD     		pop	{r4, pc}
@@ -456,42 +459,42 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  250              		.type	Set_Strategy_Auto_Brake_Regen, %function
  251              	Set_Strategy_Auto_Brake_Regen:
  252              	.LFB70:
- 183:src/hybrid_mode.c **** }
- 184:src/hybrid_mode.c **** 
- 185:src/hybrid_mode.c **** /*
- 186:src/hybrid_mode.c ****  * Function:    Set_Strategy_Auto_Brake_Regen
- 187:src/hybrid_mode.c ****  * Description: Applies torque proportional to TPS when brake is not pressed.
- 188:src/hybrid_mode.c ****  *              Switches to full regenerative braking (BRAKE mode) when brake is pressed.
- 189:src/hybrid_mode.c ****  */
- 190:src/hybrid_mode.c **** void Set_Strategy_Auto_Brake_Regen()
- 191:src/hybrid_mode.c **** {
- 253              		.loc 1 191 0
+ 186:src/hybrid_mode.c **** }
+ 187:src/hybrid_mode.c **** 
+ 188:src/hybrid_mode.c **** /*
+ 189:src/hybrid_mode.c ****  * Function:    Set_Strategy_Auto_Brake_Regen
+ 190:src/hybrid_mode.c ****  * Description: Applies torque proportional to TPS when brake is not pressed.
+ 191:src/hybrid_mode.c ****  *              Switches to full regenerative braking (BRAKE mode) when brake is pressed.
+ 192:src/hybrid_mode.c ****  */
+ 193:src/hybrid_mode.c **** void Set_Strategy_Auto_Brake_Regen()
+ 194:src/hybrid_mode.c **** {
+ 253              		.loc 1 194 0
  254              		.cfi_startproc
  255              		@ args = 0, pretend = 0, frame = 0
  256              		@ frame_needed = 0, uses_anonymous_args = 0
- 192:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF))
- 257              		.loc 1 192 0
+ 195:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF))
+ 257              		.loc 1 195 0
  258 0000 0A4B     		ldr	r3, .L29
  259 0002 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
  260 0004 13F0FF0F 		tst	r3, #255
  261 0008 0AD1     		bne	.L25
- 191:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF))
- 262              		.loc 1 191 0
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 9
+
+
+ 194:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF))
+ 262              		.loc 1 194 0
  263 000a 10B5     		push	{r4, lr}
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 9
-
-
  264              		.cfi_def_cfa_offset 8
  265              		.cfi_offset 4, -8
  266              		.cfi_offset 14, -4
- 193:src/hybrid_mode.c ****     {
- 194:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
- 267              		.loc 1 194 0
+ 196:src/hybrid_mode.c ****     {
+ 197:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
+ 267              		.loc 1 197 0
  268 000c 084C     		ldr	r4, .L29+4
  269 000e 0223     		movs	r3, #2
  270 0010 2370     		strb	r3, [r4]
- 195:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
- 271              		.loc 1 195 0
+ 198:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
+ 271              		.loc 1 198 0
  272 0012 064B     		ldr	r3, .L29
  273 0014 1879     		ldrb	r0, [r3, #4]	@ zero_extendqisi2
  274 0016 FFF7FEFF 		bl	TPS_to_Duty_Cycle_Percentage
@@ -503,21 +506,21 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  280              		.cfi_def_cfa_offset 0
  281              		.cfi_restore 4
  282              		.cfi_restore 14
- 196:src/hybrid_mode.c ****     }
- 197:src/hybrid_mode.c ****     else
- 198:src/hybrid_mode.c ****     {
- 199:src/hybrid_mode.c ****         hybrid_state.driving_mode = BRAKE_MODE;
- 283              		.loc 1 199 0
+ 199:src/hybrid_mode.c ****     }
+ 200:src/hybrid_mode.c ****     else
+ 201:src/hybrid_mode.c ****     {
+ 202:src/hybrid_mode.c ****         hybrid_state.driving_mode = BRAKE_MODE;
+ 283              		.loc 1 202 0
  284 0020 034B     		ldr	r3, .L29+4
  285 0022 0822     		movs	r2, #8
  286 0024 1A70     		strb	r2, [r3]
- 200:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
- 287              		.loc 1 200 0
+ 203:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
+ 287              		.loc 1 203 0
  288 0026 6422     		movs	r2, #100
  289 0028 5A70     		strb	r2, [r3, #1]
- 201:src/hybrid_mode.c ****     }
- 202:src/hybrid_mode.c **** }
- 290              		.loc 1 202 0
+ 204:src/hybrid_mode.c ****     }
+ 205:src/hybrid_mode.c **** }
+ 290              		.loc 1 205 0
  291 002a 7047     		bx	lr
  292              	.L30:
  293              		.align	2
@@ -535,47 +538,47 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  305              		.type	Set_Strategy_Auto_Always_Regen, %function
  306              	Set_Strategy_Auto_Always_Regen:
  307              	.LFB71:
- 203:src/hybrid_mode.c **** 
- 204:src/hybrid_mode.c **** /*
- 205:src/hybrid_mode.c ****  * Function:    Set_Strategy_Auto_Always_Regen
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 10
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 10
 
 
- 206:src/hybrid_mode.c ****  * Description: Applies torque proportional to TPS if TPS > 50 and brake is not pressed.
- 207:src/hybrid_mode.c ****  *              Applies full regenerative braking otherwise (coasting or braking).
- 208:src/hybrid_mode.c ****  */
- 209:src/hybrid_mode.c **** void Set_Strategy_Auto_Always_Regen()
- 210:src/hybrid_mode.c **** {
- 308              		.loc 1 210 0
+ 206:src/hybrid_mode.c **** 
+ 207:src/hybrid_mode.c **** /*
+ 208:src/hybrid_mode.c ****  * Function:    Set_Strategy_Auto_Always_Regen
+ 209:src/hybrid_mode.c ****  * Description: Applies torque proportional to TPS if TPS > 50 and brake is not pressed.
+ 210:src/hybrid_mode.c ****  *              Applies full regenerative braking otherwise (coasting or braking).
+ 211:src/hybrid_mode.c ****  */
+ 212:src/hybrid_mode.c **** void Set_Strategy_Auto_Always_Regen()
+ 213:src/hybrid_mode.c **** {
+ 308              		.loc 1 213 0
  309              		.cfi_startproc
  310              		@ args = 0, pretend = 0, frame = 0
  311              		@ frame_needed = 0, uses_anonymous_args = 0
- 211:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF) && (car_state.tps > 50))
- 312              		.loc 1 211 0
+ 214:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF) && (car_state.tps > 50))
+ 312              		.loc 1 214 0
  313 0000 0D4B     		ldr	r3, .L36
  314 0002 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
  315 0004 13F0FF0F 		tst	r3, #255
  316 0008 0FD1     		bne	.L32
- 317              		.loc 1 211 0 is_stmt 0 discriminator 1
+ 317              		.loc 1 214 0 is_stmt 0 discriminator 1
  318 000a 0B4B     		ldr	r3, .L36
  319 000c 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
  320 000e DBB2     		uxtb	r3, r3
  321 0010 322B     		cmp	r3, #50
  322 0012 0AD9     		bls	.L32
- 210:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF) && (car_state.tps > 50))
- 323              		.loc 1 210 0 is_stmt 1
+ 213:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF) && (car_state.tps > 50))
+ 323              		.loc 1 213 0 is_stmt 1
  324 0014 10B5     		push	{r4, lr}
  325              		.cfi_def_cfa_offset 8
  326              		.cfi_offset 4, -8
  327              		.cfi_offset 14, -4
- 212:src/hybrid_mode.c ****     {
- 213:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
- 328              		.loc 1 213 0
+ 215:src/hybrid_mode.c ****     {
+ 216:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
+ 328              		.loc 1 216 0
  329 0016 094C     		ldr	r4, .L36+4
  330 0018 0223     		movs	r3, #2
  331 001a 2370     		strb	r3, [r4]
- 214:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
- 332              		.loc 1 214 0
+ 217:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
+ 332              		.loc 1 217 0
  333 001c 064B     		ldr	r3, .L36
  334 001e 1879     		ldrb	r0, [r3, #4]	@ zero_extendqisi2
  335 0020 FFF7FEFF 		bl	TPS_to_Duty_Cycle_Percentage
@@ -587,24 +590,24 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  341              		.cfi_def_cfa_offset 0
  342              		.cfi_restore 4
  343              		.cfi_restore 14
- 215:src/hybrid_mode.c ****     }
- 216:src/hybrid_mode.c ****     else
- 217:src/hybrid_mode.c ****     {
- 218:src/hybrid_mode.c ****         hybrid_state.driving_mode = BRAKE_MODE;
- 344              		.loc 1 218 0
+ 218:src/hybrid_mode.c ****     }
+ 219:src/hybrid_mode.c ****     else
+ 220:src/hybrid_mode.c ****     {
+ 221:src/hybrid_mode.c ****         hybrid_state.driving_mode = BRAKE_MODE;
+ 344              		.loc 1 221 0
  345 002a 044B     		ldr	r3, .L36+4
  346 002c 0822     		movs	r2, #8
  347 002e 1A70     		strb	r2, [r3]
- 219:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
- 348              		.loc 1 219 0
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 11
+
+
+ 222:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
+ 348              		.loc 1 222 0
  349 0030 6422     		movs	r2, #100
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 11
-
-
  350 0032 5A70     		strb	r2, [r3, #1]
- 220:src/hybrid_mode.c ****     }
- 221:src/hybrid_mode.c **** }
- 351              		.loc 1 221 0
+ 223:src/hybrid_mode.c ****     }
+ 224:src/hybrid_mode.c **** }
+ 351              		.loc 1 224 0
  352 0034 7047     		bx	lr
  353              	.L37:
  354 0036 00BF     		.align	2
@@ -622,19 +625,19 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  366              		.type	Set_Strategy_Torque_Fill, %function
  367              	Set_Strategy_Torque_Fill:
  368              	.LFB72:
- 222:src/hybrid_mode.c **** 
- 223:src/hybrid_mode.c **** /*
- 224:src/hybrid_mode.c ****  * Function:    Set_Strategy_Torque_Fill
- 225:src/hybrid_mode.c ****  * Description: Provides full torque when:
- 226:src/hybrid_mode.c ****  *              - TPS > 50
- 227:src/hybrid_mode.c ****  *              - RPM ∈ [2000, 8000]
- 228:src/hybrid_mode.c ****  *              - Brake is not pressed
- 229:src/hybrid_mode.c ****  *              Applies regenerative braking when brake is pressed.
- 230:src/hybrid_mode.c ****  *              Falls back to Freewheel otherwise.
- 231:src/hybrid_mode.c ****  */
- 232:src/hybrid_mode.c **** void Set_Strategy_Torque_Fill()
- 233:src/hybrid_mode.c **** {
- 369              		.loc 1 233 0
+ 225:src/hybrid_mode.c **** 
+ 226:src/hybrid_mode.c **** /*
+ 227:src/hybrid_mode.c ****  * Function:    Set_Strategy_Torque_Fill
+ 228:src/hybrid_mode.c ****  * Description: Provides full torque when:
+ 229:src/hybrid_mode.c ****  *              - TPS > 50
+ 230:src/hybrid_mode.c ****  *              - RPM ∈ [2000, 8000]
+ 231:src/hybrid_mode.c ****  *              - Brake is not pressed
+ 232:src/hybrid_mode.c ****  *              Applies regenerative braking when brake is pressed.
+ 233:src/hybrid_mode.c ****  *              Falls back to Freewheel otherwise.
+ 234:src/hybrid_mode.c ****  */
+ 235:src/hybrid_mode.c **** void Set_Strategy_Torque_Fill()
+ 236:src/hybrid_mode.c **** {
+ 369              		.loc 1 236 0
  370              		.cfi_startproc
  371              		@ args = 0, pretend = 0, frame = 0
  372              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -642,69 +645,69 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  374              		.cfi_def_cfa_offset 8
  375              		.cfi_offset 3, -8
  376              		.cfi_offset 14, -4
- 234:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF) && (car_state.tps > 50) && (car_state.rpm >= 2000) && (c
- 377              		.loc 1 234 0
+ 237:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF) && (car_state.tps > 50) && (car_state.rpm >= 2000) && (c
+ 377              		.loc 1 237 0
  378 0002 154B     		ldr	r3, .L43
  379 0004 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
  380 0006 13F0FF0F 		tst	r3, #255
  381 000a 16D1     		bne	.L39
- 382              		.loc 1 234 0 is_stmt 0 discriminator 1
+ 382              		.loc 1 237 0 is_stmt 0 discriminator 1
  383 000c 124B     		ldr	r3, .L43
  384 000e 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
  385 0010 DBB2     		uxtb	r3, r3
  386 0012 322B     		cmp	r3, #50
  387 0014 11D9     		bls	.L39
- 388              		.loc 1 234 0 discriminator 2
+ 388              		.loc 1 237 0 discriminator 2
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 12
+
+
  389 0016 104B     		ldr	r3, .L43
  390 0018 5B88     		ldrh	r3, [r3, #2]
  391 001a 9BB2     		uxth	r3, r3
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 12
-
-
  392 001c B3F5FA6F 		cmp	r3, #2000
  393 0020 0BD3     		bcc	.L39
- 394              		.loc 1 234 0 discriminator 3
+ 394              		.loc 1 237 0 discriminator 3
  395 0022 0D4B     		ldr	r3, .L43
  396 0024 5B88     		ldrh	r3, [r3, #2]
  397 0026 9BB2     		uxth	r3, r3
  398 0028 B3F5FA5F 		cmp	r3, #8000
  399 002c 05D8     		bhi	.L39
- 235:src/hybrid_mode.c ****     {
- 236:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
- 400              		.loc 1 236 0 is_stmt 1
+ 238:src/hybrid_mode.c ****     {
+ 239:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
+ 400              		.loc 1 239 0 is_stmt 1
  401 002e 0B4B     		ldr	r3, .L43+4
  402 0030 0222     		movs	r2, #2
  403 0032 1A70     		strb	r2, [r3]
- 237:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
- 404              		.loc 1 237 0
+ 240:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
+ 404              		.loc 1 240 0
  405 0034 6422     		movs	r2, #100
  406 0036 5A70     		strb	r2, [r3, #1]
  407 0038 08BD     		pop	{r3, pc}
  408              	.L39:
- 238:src/hybrid_mode.c ****     }
- 239:src/hybrid_mode.c ****     else if (car_state.brake_state == STD_ON)
- 409              		.loc 1 239 0
+ 241:src/hybrid_mode.c ****     }
+ 242:src/hybrid_mode.c ****     else if (car_state.brake_state == STD_ON)
+ 409              		.loc 1 242 0
  410 003a 074B     		ldr	r3, .L43
  411 003c 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
  412 003e DBB2     		uxtb	r3, r3
  413 0040 012B     		cmp	r3, #1
  414 0042 05D1     		bne	.L41
- 240:src/hybrid_mode.c ****     {
- 241:src/hybrid_mode.c ****         hybrid_state.driving_mode = BRAKE_MODE;
- 415              		.loc 1 241 0
+ 243:src/hybrid_mode.c ****     {
+ 244:src/hybrid_mode.c ****         hybrid_state.driving_mode = BRAKE_MODE;
+ 415              		.loc 1 244 0
  416 0044 054B     		ldr	r3, .L43+4
  417 0046 0822     		movs	r2, #8
  418 0048 1A70     		strb	r2, [r3]
- 242:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
- 419              		.loc 1 242 0
+ 245:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
+ 419              		.loc 1 245 0
  420 004a 6422     		movs	r2, #100
  421 004c 5A70     		strb	r2, [r3, #1]
  422 004e 08BD     		pop	{r3, pc}
  423              	.L41:
- 243:src/hybrid_mode.c ****     }
- 244:src/hybrid_mode.c ****     else
- 245:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
- 424              		.loc 1 245 0
+ 246:src/hybrid_mode.c ****     }
+ 247:src/hybrid_mode.c ****     else
+ 248:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
+ 424              		.loc 1 248 0
  425 0050 FFF7FEFF 		bl	Set_Strategy_Freewheel
  426              	.LVL12:
  427 0054 08BD     		pop	{r3, pc}
@@ -715,20 +718,20 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  432 005c 00000000 		.word	.LANCHOR0
  433              		.cfi_endproc
  434              	.LFE72:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 13
+
+
  435              		.size	Set_Strategy_Torque_Fill, .-Set_Strategy_Torque_Fill
  436              		.section	.text.Set_Strategy,"ax",%progbits
  437              		.align	2
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 13
-
-
  438              		.global	Set_Strategy
  439              		.thumb
  440              		.thumb_func
  441              		.type	Set_Strategy, %function
  442              	Set_Strategy:
  443              	.LFB65:
-  81:src/hybrid_mode.c ****     if ((car_state.gear == NEUTRAL_GEAR) || (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.vss 
- 444              		.loc 1 81 0
+  84:src/hybrid_mode.c ****     if ((car_state.gear == NEUTRAL_GEAR) || (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.vss 
+ 444              		.loc 1 84 0
  445              		.cfi_startproc
  446              		@ args = 0, pretend = 0, frame = 0
  447              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -737,66 +740,66 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  450              		.cfi_def_cfa_offset 8
  451              		.cfi_offset 4, -8
  452              		.cfi_offset 14, -4
-  82:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
- 453              		.loc 1 82 0
+  85:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
+ 453              		.loc 1 85 0
  454 0002 234B     		ldr	r3, .L59
  455 0004 DB79     		ldrb	r3, [r3, #7]	@ zero_extendqisi2
  456 0006 13F0FF0F 		tst	r3, #255
  457 000a 0AD0     		beq	.L46
  458 000c 0446     		mov	r4, r0
-  82:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
- 459              		.loc 1 82 0 is_stmt 0 discriminator 1
+  85:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
+ 459              		.loc 1 85 0 is_stmt 0 discriminator 1
  460 000e 204B     		ldr	r3, .L59
  461 0010 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
  462 0012 DBB2     		uxtb	r3, r3
  463 0014 052B     		cmp	r3, #5
  464 0016 04D9     		bls	.L46
-  82:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
- 465              		.loc 1 82 0 discriminator 2
+  85:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
+ 465              		.loc 1 85 0 discriminator 2
  466 0018 1D4B     		ldr	r3, .L59
  467 001a 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
  468 001c DBB2     		uxtb	r3, r3
  469 001e 5A2B     		cmp	r3, #90
  470 0020 02D9     		bls	.L47
  471              	.L46:
-  83:src/hybrid_mode.c ****     else if ((Read_Boost_Button() == STD_ON) && (car_state.brake_state == STD_OFF) && (sel_strategy
- 472              		.loc 1 83 0 is_stmt 1
+  86:src/hybrid_mode.c ****     else if ((Read_Boost_Button() == STD_ON) && (car_state.brake_state == STD_OFF) && (sel_strategy
+ 472              		.loc 1 86 0 is_stmt 1
  473 0022 FFF7FEFF 		bl	Set_Strategy_Freewheel
  474              	.LVL14:
  475 0026 2BE0     		b	.L48
  476              	.LVL15:
  477              	.L47:
-  84:src/hybrid_mode.c ****     {
- 478              		.loc 1 84 0
+  87:src/hybrid_mode.c ****     {
+ 478              		.loc 1 87 0
  479 0028 FFF7FEFF 		bl	Read_Boost_Button
  480              	.LVL16:
  481 002c 0128     		cmp	r0, #1
  482 002e 0BD1     		bne	.L49
-  84:src/hybrid_mode.c ****     {
- 483              		.loc 1 84 0 is_stmt 0 discriminator 1
+  87:src/hybrid_mode.c ****     {
+ 483              		.loc 1 87 0 is_stmt 0 discriminator 1
  484 0030 174B     		ldr	r3, .L59
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 14
+
+
  485 0032 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
  486 0034 13F0FF0F 		tst	r3, #255
  487 0038 06D1     		bne	.L49
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 14
-
-
-  84:src/hybrid_mode.c ****     {
- 488              		.loc 1 84 0 discriminator 2
+  87:src/hybrid_mode.c ****     {
+ 488              		.loc 1 87 0 discriminator 2
  489 003a 2CB1     		cbz	r4, .L49
-  86:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100;
- 490              		.loc 1 86 0 is_stmt 1
+  89:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100;
+ 490              		.loc 1 89 0 is_stmt 1
  491 003c 154B     		ldr	r3, .L59+4
  492 003e 0222     		movs	r2, #2
  493 0040 1A70     		strb	r2, [r3]
-  87:src/hybrid_mode.c ****     }
- 494              		.loc 1 87 0
+  90:src/hybrid_mode.c ****     }
+ 494              		.loc 1 90 0
  495 0042 6422     		movs	r2, #100
  496 0044 5A70     		strb	r2, [r3, #1]
  497 0046 1BE0     		b	.L48
  498              	.L49:
-  90:src/hybrid_mode.c ****         {
- 499              		.loc 1 90 0
+  93:src/hybrid_mode.c ****         {
+ 499              		.loc 1 93 0
  500 0048 013C     		subs	r4, r4, #1
  501 004a 052C     		cmp	r4, #5
  502 004c 16D8     		bhi	.L50
@@ -810,64 +813,64 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  510 0057 12       		.byte	(.L57-.L52)/2
  511              		.p2align 1
  512              	.L51:
-  93:src/hybrid_mode.c ****                 break;
- 513              		.loc 1 93 0
+  96:src/hybrid_mode.c ****                 break;
+ 513              		.loc 1 96 0
  514 0058 FFF7FEFF 		bl	Set_Strategy_Manual
  515              	.LVL17:
-  94:src/hybrid_mode.c **** 
- 516              		.loc 1 94 0
+  97:src/hybrid_mode.c **** 
+ 516              		.loc 1 97 0
  517 005c 10E0     		b	.L48
  518              	.L53:
-  97:src/hybrid_mode.c ****                 break;
- 519              		.loc 1 97 0
+ 100:src/hybrid_mode.c ****                 break;
+ 519              		.loc 1 100 0
  520 005e FFF7FEFF 		bl	Set_Strategy_Launch_Assist
  521              	.LVL18:
-  98:src/hybrid_mode.c **** 
- 522              		.loc 1 98 0
+ 101:src/hybrid_mode.c **** 
+ 522              		.loc 1 101 0
  523 0062 0DE0     		b	.L48
  524              	.L54:
- 101:src/hybrid_mode.c ****                 break;
- 525              		.loc 1 101 0
+ 104:src/hybrid_mode.c ****                 break;
+ 525              		.loc 1 104 0
  526 0064 FFF7FEFF 		bl	Set_Strategy_Auto_No_Regen
  527              	.LVL19:
- 102:src/hybrid_mode.c **** 
- 528              		.loc 1 102 0
+ 105:src/hybrid_mode.c **** 
+ 528              		.loc 1 105 0
  529 0068 0AE0     		b	.L48
  530              	.L55:
- 105:src/hybrid_mode.c ****                 break;
- 531              		.loc 1 105 0
+ 108:src/hybrid_mode.c ****                 break;
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 15
+
+
+ 531              		.loc 1 108 0
  532 006a FFF7FEFF 		bl	Set_Strategy_Auto_Brake_Regen
  533              	.LVL20:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 15
-
-
- 106:src/hybrid_mode.c **** 
- 534              		.loc 1 106 0
+ 109:src/hybrid_mode.c **** 
+ 534              		.loc 1 109 0
  535 006e 07E0     		b	.L48
  536              	.L56:
- 109:src/hybrid_mode.c ****                 break;
- 537              		.loc 1 109 0
+ 112:src/hybrid_mode.c ****                 break;
+ 537              		.loc 1 112 0
  538 0070 FFF7FEFF 		bl	Set_Strategy_Auto_Always_Regen
  539              	.LVL21:
- 110:src/hybrid_mode.c **** 
- 540              		.loc 1 110 0
+ 113:src/hybrid_mode.c **** 
+ 540              		.loc 1 113 0
  541 0074 04E0     		b	.L48
  542              	.L57:
- 113:src/hybrid_mode.c ****                 break;
- 543              		.loc 1 113 0
+ 116:src/hybrid_mode.c ****                 break;
+ 543              		.loc 1 116 0
  544 0076 FFF7FEFF 		bl	Set_Strategy_Torque_Fill
  545              	.LVL22:
- 114:src/hybrid_mode.c **** 
- 546              		.loc 1 114 0
+ 117:src/hybrid_mode.c **** 
+ 546              		.loc 1 117 0
  547 007a 01E0     		b	.L48
  548              	.L50:
- 117:src/hybrid_mode.c ****         }
- 549              		.loc 1 117 0
+ 120:src/hybrid_mode.c ****         }
+ 549              		.loc 1 120 0
  550 007c FFF7FEFF 		bl	Set_Strategy_Freewheel
  551              	.LVL23:
  552              	.L48:
- 120:src/hybrid_mode.c **** }
- 553              		.loc 1 120 0
+ 123:src/hybrid_mode.c **** }
+ 553              		.loc 1 123 0
  554 0080 044B     		ldr	r3, .L59+4
  555 0082 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
  556 0084 5978     		ldrb	r1, [r3, #1]	@ zero_extendqisi2
@@ -895,12 +898,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  578              	.Letext0:
  579              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
  580              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 16
+
+
  581              		.file 4 "./include/can_comm.h"
  582              		.file 5 "./include/hybrid_mode.h"
  583              		.file 6 "Generated_Source\\PSoC5/core_cm3.h"
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 16
-
-
  584              		.file 7 "./include/user_input.h"
  585              		.section	.debug_info,"",%progbits
  586              	.Ldebug_info0:
@@ -955,12 +958,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  635 006d 02       		.uleb128 0x2
  636 006e 6E000000 		.4byte	.LASF8
  637 0072 02       		.byte	0x2
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 17
+
+
  638 0073 3F       		.byte	0x3f
  639 0074 78000000 		.4byte	0x78
  640 0078 03       		.uleb128 0x3
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 17
-
-
  641 0079 04       		.byte	0x4
  642 007a 05       		.byte	0x5
  643 007b 38030000 		.4byte	.LASF9
@@ -1015,12 +1018,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  692 00dc 04010000 		.4byte	.LASF19
  693 00e0 03       		.uleb128 0x3
  694 00e1 08       		.byte	0x8
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 18
+
+
  695 00e2 04       		.byte	0x4
  696 00e3 1C020000 		.4byte	.LASF20
  697 00e7 03       		.uleb128 0x3
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 18
-
-
  698 00e8 01       		.byte	0x1
  699 00e9 08       		.byte	0x8
  700 00ea 10030000 		.4byte	.LASF21
@@ -1075,12 +1078,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  749 014b 07       		.byte	0x7
  750 014c 00       		.byte	0
  751 014d 02       		.uleb128 0x2
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 19
+
+
  752 014e 79030000 		.4byte	.LASF27
  753 0152 04       		.byte	0x4
  754 0153 2A       		.byte	0x2a
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 19
-
-
  755 0154 FC000000 		.4byte	0xfc
  756 0158 05       		.uleb128 0x5
  757 0159 02       		.byte	0x2
@@ -1108,7 +1111,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  779 0184 08       		.uleb128 0x8
  780 0185 AC020000 		.4byte	.LASF31
  781 0189 01       		.byte	0x1
- 782 018a 2A       		.byte	0x2a
+ 782 018a 2E       		.byte	0x2e
  783 018b AD000000 		.4byte	0xad
  784 018f 00000000 		.4byte	.LFB63
  785 0193 10000000 		.4byte	.LFE63-.LFB63
@@ -1118,14 +1121,14 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  789 019d 09       		.uleb128 0x9
  790 019e 47020000 		.4byte	.LASF33
  791 01a2 01       		.byte	0x1
- 792 01a3 2A       		.byte	0x2a
+ 792 01a3 2E       		.byte	0x2e
  793 01a4 AD000000 		.4byte	0xad
  794 01a8 00000000 		.4byte	.LLST0
  795 01ac 00       		.byte	0
  796 01ad 08       		.uleb128 0x8
  797 01ae 49000000 		.4byte	.LASF32
  798 01b2 01       		.byte	0x1
- 799 01b3 3A       		.byte	0x3a
+ 799 01b3 3E       		.byte	0x3e
  800 01b4 B8000000 		.4byte	0xb8
  801 01b8 00000000 		.4byte	.LFB64
  802 01bc 14000000 		.4byte	.LFE64-.LFB64
@@ -1135,17 +1138,17 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  806 01c6 09       		.uleb128 0x9
  807 01c7 DA000000 		.4byte	.LASF29
  808 01cb 01       		.byte	0x1
- 809 01cc 3A       		.byte	0x3a
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 20
+
+
+ 809 01cc 3E       		.byte	0x3e
  810 01cd A2000000 		.4byte	0xa2
  811 01d1 3A000000 		.4byte	.LLST1
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 20
-
-
  812 01d5 00       		.byte	0
  813 01d6 0A       		.uleb128 0xa
  814 01d7 C3000000 		.4byte	.LASF49
  815 01db 01       		.byte	0x1
- 816 01dc 7F       		.byte	0x7f
+ 816 01dc 82       		.byte	0x82
  817 01dd 00000000 		.4byte	.LFB66
  818 01e1 10000000 		.4byte	.LFE66-.LFB66
  819 01e5 01       		.uleb128 0x1
@@ -1153,7 +1156,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  821 01e7 0B       		.uleb128 0xb
  822 01e8 DE020000 		.4byte	.LASF34
  823 01ec 01       		.byte	0x1
- 824 01ed 8A       		.byte	0x8a
+ 824 01ed 8D       		.byte	0x8d
  825 01ee 00000000 		.4byte	.LFB67
  826 01f2 08000000 		.4byte	.LFE67-.LFB67
  827 01f6 01       		.uleb128 0x1
@@ -1166,7 +1169,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  834 0206 0B       		.uleb128 0xb
  835 0207 1B000000 		.4byte	.LASF35
  836 020b 01       		.byte	0x1
- 837 020c 9D       		.byte	0x9d
+ 837 020c A0       		.byte	0xa0
  838 020d 00000000 		.4byte	.LFB68
  839 0211 54000000 		.4byte	.LFE68-.LFB68
  840 0215 01       		.uleb128 0x1
@@ -1179,7 +1182,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  847 0225 0B       		.uleb128 0xb
  848 0226 56020000 		.4byte	.LASF36
  849 022a 01       		.byte	0x1
- 850 022b AE       		.byte	0xae
+ 850 022b B1       		.byte	0xb1
  851 022c 00000000 		.4byte	.LFB69
  852 0230 30000000 		.4byte	.LFE69-.LFB69
  853 0234 01       		.uleb128 0x1
@@ -1195,12 +1198,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  863 024d 0B       		.uleb128 0xb
  864 024e F2020000 		.4byte	.LASF37
  865 0252 01       		.byte	0x1
- 866 0253 BE       		.byte	0xbe
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 21
+
+
+ 866 0253 C1       		.byte	0xc1
  867 0254 00000000 		.4byte	.LFB70
  868 0258 34000000 		.4byte	.LFE70-.LFB70
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 21
-
-
  869 025c 01       		.uleb128 0x1
  870 025d 9C       		.byte	0x9c
  871 025e 6C020000 		.4byte	0x26c
@@ -1211,7 +1214,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  876 026c 0B       		.uleb128 0xb
  877 026d E5010000 		.4byte	.LASF38
  878 0271 01       		.byte	0x1
- 879 0272 D1       		.byte	0xd1
+ 879 0272 D4       		.byte	0xd4
  880 0273 00000000 		.4byte	.LFB71
  881 0277 40000000 		.4byte	.LFE71-.LFB71
  882 027b 01       		.uleb128 0x1
@@ -1224,7 +1227,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  889 028b 0B       		.uleb128 0xb
  890 028c 53030000 		.4byte	.LASF39
  891 0290 01       		.byte	0x1
- 892 0291 E8       		.byte	0xe8
+ 892 0291 EB       		.byte	0xeb
  893 0292 00000000 		.4byte	.LFB72
  894 0296 60000000 		.4byte	.LFE72-.LFB72
  895 029a 01       		.uleb128 0x1
@@ -1237,7 +1240,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  902 02aa 0D       		.uleb128 0xd
  903 02ab 15030000 		.4byte	.LASF50
  904 02af 01       		.byte	0x1
- 905 02b0 50       		.byte	0x50
+ 905 02b0 53       		.byte	0x53
  906 02b1 00000000 		.4byte	.LFB65
  907 02b5 98000000 		.4byte	.LFE65-.LFB65
  908 02b9 01       		.uleb128 0x1
@@ -1246,7 +1249,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  911 02bf 09       		.uleb128 0x9
  912 02c0 0E000000 		.4byte	.LASF40
  913 02c4 01       		.byte	0x1
- 914 02c5 50       		.byte	0x50
+ 914 02c5 53       		.byte	0x53
  915 02c6 AD000000 		.4byte	0xad
  916 02ca 5B000000 		.4byte	.LLST2
  917 02ce 0C       		.uleb128 0xc
@@ -1255,12 +1258,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  920 02d7 0C       		.uleb128 0xc
  921 02d8 2C000000 		.4byte	.LVL16
  922 02dc 60030000 		.4byte	0x360
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 22
+
+
  923 02e0 0C       		.uleb128 0xc
  924 02e1 5C000000 		.4byte	.LVL17
  925 02e5 E7010000 		.4byte	0x1e7
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 22
-
-
  926 02e9 0C       		.uleb128 0xc
  927 02ea 62000000 		.4byte	.LVL18
  928 02ee 06020000 		.4byte	0x206
@@ -1300,7 +1303,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  962 034a 11       		.uleb128 0x11
  963 034b 2B030000 		.4byte	.LASF43
  964 034f 01       		.byte	0x1
- 965 0350 1C       		.byte	0x1c
+ 965 0350 20       		.byte	0x20
  966 0351 5B030000 		.4byte	0x35b
  967 0355 05       		.uleb128 0x5
  968 0356 03       		.byte	0x3
@@ -1315,12 +1318,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  977 036b 12       		.uleb128 0x12
  978 036c 90020000 		.4byte	.LASF45
  979 0370 90020000 		.4byte	.LASF45
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 23
+
+
  980 0374 04       		.byte	0x4
  981 0375 35       		.byte	0x35
  982 0376 00       		.byte	0
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 23
-
-
  983              		.section	.debug_abbrev,"",%progbits
  984              	.Ldebug_abbrev0:
  985 0000 01       		.uleb128 0x1
@@ -1375,12 +1378,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  1034 0031 0B       		.uleb128 0xb
  1035 0032 03       		.uleb128 0x3
  1036 0033 08       		.uleb128 0x8
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 24
+
+
  1037 0034 00       		.byte	0
  1038 0035 00       		.byte	0
  1039 0036 05       		.uleb128 0x5
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 24
-
-
  1040 0037 13       		.uleb128 0x13
  1041 0038 01       		.byte	0x1
  1042 0039 0B       		.uleb128 0xb
@@ -1435,12 +1438,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  1091 006a 3B       		.uleb128 0x3b
  1092 006b 0B       		.uleb128 0xb
  1093 006c 27       		.uleb128 0x27
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 25
+
+
  1094 006d 19       		.uleb128 0x19
  1095 006e 49       		.uleb128 0x49
  1096 006f 13       		.uleb128 0x13
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 25
-
-
  1097 0070 11       		.uleb128 0x11
  1098 0071 01       		.uleb128 0x1
  1099 0072 12       		.uleb128 0x12
@@ -1495,12 +1498,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  1148 00a5 3F       		.uleb128 0x3f
  1149 00a6 19       		.uleb128 0x19
  1150 00a7 03       		.uleb128 0x3
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 26
+
+
  1151 00a8 0E       		.uleb128 0xe
  1152 00a9 3A       		.uleb128 0x3a
  1153 00aa 0B       		.uleb128 0xb
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 26
-
-
  1154 00ab 3B       		.uleb128 0x3b
  1155 00ac 0B       		.uleb128 0xb
  1156 00ad 11       		.uleb128 0x11
@@ -1555,12 +1558,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  1205 00e2 03       		.uleb128 0x3
  1206 00e3 0E       		.uleb128 0xe
  1207 00e4 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 27
+
+
  1208 00e5 0B       		.uleb128 0xb
  1209 00e6 3B       		.uleb128 0x3b
  1210 00e7 05       		.uleb128 0x5
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 27
-
-
  1211 00e8 49       		.uleb128 0x49
  1212 00e9 13       		.uleb128 0x13
  1213 00ea 3F       		.uleb128 0x3f
@@ -1615,12 +1618,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  1262 011b 00       		.byte	0
  1263 011c 3F       		.uleb128 0x3f
  1264 011d 19       		.uleb128 0x19
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 28
+
+
  1265 011e 3C       		.uleb128 0x3c
  1266 011f 19       		.uleb128 0x19
  1267 0120 6E       		.uleb128 0x6e
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 28
-
-
  1268 0121 0E       		.uleb128 0xe
  1269 0122 03       		.uleb128 0x3
  1270 0123 0E       		.uleb128 0xe
@@ -1675,12 +1678,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  1319              	.LLST2:
  1320 005b 00000000 		.4byte	.LVL13
  1321 005f 25000000 		.4byte	.LVL14-1
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 29
+
+
  1322 0063 0100     		.2byte	0x1
  1323 0065 50       		.byte	0x50
  1324 0066 25000000 		.4byte	.LVL14-1
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 29
-
-
  1325 006a 28000000 		.4byte	.LVL15
  1326 006e 0400     		.2byte	0x4
  1327 0070 F3       		.byte	0xf3
@@ -1735,12 +1738,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  1376 0000 00000000 		.4byte	.LFB63
  1377 0004 10000000 		.4byte	.LFE63
  1378 0008 00000000 		.4byte	.LFB64
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 30
+
+
  1379 000c 14000000 		.4byte	.LFE64
  1380 0010 00000000 		.4byte	.LFB66
  1381 0014 10000000 		.4byte	.LFE66
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 30
-
-
  1382 0018 00000000 		.4byte	.LFB67
  1383 001c 08000000 		.4byte	.LFE67
  1384 0020 00000000 		.4byte	.LFB68
@@ -1795,12 +1798,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  1412      6C6500
  1413              	.LASF25:
  1414 0058 6272616B 		.ascii	"brake_state\000"
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 31
+
+
  1414      655F7374 
  1414      61746500 
  1415              	.LASF4:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 31
-
-
  1416 0064 5F5F696E 		.ascii	"__int16_t\000"
  1416      7431365F 
  1416      7400
@@ -1855,12 +1858,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  1439 0116 48595F73 		.ascii	"HY_strategy_t\000"
  1439      74726174 
  1439      6567795F 
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 32
+
+
  1439      7400
  1440              	.LASF3:
  1441 0124 756E7369 		.ascii	"unsigned char\000"
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 32
-
-
  1441      676E6564 
  1441      20636861 
  1441      7200
@@ -1915,12 +1918,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  1459      7420696E 
  1459      7400
  1460              	.LASF41:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 33
+
+
  1461 022d 49544D5F 		.ascii	"ITM_RxBuffer\000"
  1461      52784275 
  1461      66666572 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 33
-
-
  1461      00
  1462              	.LASF13:
  1463 023a 756E7369 		.ascii	"unsigned int\000"
@@ -1975,12 +1978,12 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  1483      53747261 
  1483      74656779 
  1483      5F4D616E 
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 34
+
+
  1483      75616C00 
  1484              	.LASF37:
  1485 02f2 5365745F 		.ascii	"Set_Strategy_Auto_Brake_Regen\000"
-ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 34
-
-
  1485      53747261 
  1485      74656779 
  1485      5F417574 
@@ -2035,4 +2038,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\cclvnqHd.s 			page 1
  1505      73745F42 
  1505      7574746F 
  1505      6E00
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 35
+
+
  1506              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

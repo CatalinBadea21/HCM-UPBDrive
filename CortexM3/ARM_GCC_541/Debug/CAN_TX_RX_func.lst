@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
   28:Generated_Source\PSoC5/CAN_TX_RX_func.c **** 
   29:Generated_Source\PSoC5/CAN_TX_RX_func.c **** /* `#END` */
   30:Generated_Source\PSoC5/CAN_TX_RX_func.c **** 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 2
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 2
 
 
   31:Generated_Source\PSoC5/CAN_TX_RX_func.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
   63:Generated_Source\PSoC5/CAN_TX_RX_func.c ****         {
   64:Generated_Source\PSoC5/CAN_TX_RX_func.c ****             /* Find Basic TX mailboxes */
   65:Generated_Source\PSoC5/CAN_TX_RX_func.c ****             if ((CAN_TX_MAILBOX_TYPE & shift) == 0u)
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 3
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 3
 
 
   49              		.loc 1 65 0
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
   79              	.LVL6:
   90:Generated_Source\PSoC5/CAN_TX_RX_func.c ****                             CAN_SET_TX_ID_EXTENDED_MSG(i, message->id);
   80              		.loc 1 90 0
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 4
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 4
 
 
   81 0034 2649     		ldr	r1, .L22+4
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  115 0062 01EB0214 		add	r4, r1, r2, lsl #4
  116 0066 032B     		cmp	r3, #3
  117 0068 02D9     		bls	.L11
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 5
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 5
 
 
  118              		.loc 1 110 0 is_stmt 0 discriminator 1
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  156 00a0 0123     		movs	r3, #1
  157 00a2 4B51     		str	r3, [r1, r5]
  124:Generated_Source\PSoC5/CAN_TX_RX_func.c ****                         #else /* CY_PSOC4 */
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 6
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 6
 
 
  125:Generated_Source\PSoC5/CAN_TX_RX_func.c ****                             if (message->sst != CAN_STANDARD_MESSAGE)
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  147:Generated_Source\PSoC5/CAN_TX_RX_func.c ****             }
  148:Generated_Source\PSoC5/CAN_TX_RX_func.c ****         }
  149:Generated_Source\PSoC5/CAN_TX_RX_func.c ****         if (result == CYRET_SUCCESS)
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 7
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 7
 
 
  188              		.loc 1 149 0 is_stmt 1
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  168:Generated_Source\PSoC5/CAN_TX_RX_func.c **** *  This function cancels transmission of a message that has been queued to be
  169:Generated_Source\PSoC5/CAN_TX_RX_func.c **** *  transmitted. Values between 0 and 7 are valid.
  170:Generated_Source\PSoC5/CAN_TX_RX_func.c **** *
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 8
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 8
 
 
  171:Generated_Source\PSoC5/CAN_TX_RX_func.c **** * Parameters:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  191:Generated_Source\PSoC5/CAN_TX_RX_func.c ****     *
  192:Generated_Source\PSoC5/CAN_TX_RX_func.c ****     * Summary:
  193:Generated_Source\PSoC5/CAN_TX_RX_func.c ****     *  This function is the entry point to Transmit Message 0. The function checks
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 9
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 9
 
 
  194:Generated_Source\PSoC5/CAN_TX_RX_func.c ****     *  if mailbox 0 doesn't already have un-transmitted messages waiting for
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  273              		.loc 1 210 0
  274 0014 0020     		movs	r0, #0
  275 0016 7047     		bx	lr
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 10
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 10
 
 
  276              	.L30:
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  263:Generated_Source\PSoC5/CAN_TX_RX_func.c **** 
  264:Generated_Source\PSoC5/CAN_TX_RX_func.c ****         #if (CY_PSOC3 || CY_PSOC5)
  265:Generated_Source\PSoC5/CAN_TX_RX_func.c ****             if ((CAN_TX[1u].txcmd.byte[0u] & CAN_TX_REQUEST_PENDING) != 0u)
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 11
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 11
 
 
  266:Generated_Source\PSoC5/CAN_TX_RX_func.c ****         #else  /* CY_PSOC4 */
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  320:Generated_Source\PSoC5/CAN_TX_RX_func.c ****         #endif /* CY_PSOC3 || CY_PSOC5 */
  321:Generated_Source\PSoC5/CAN_TX_RX_func.c ****             {
  322:Generated_Source\PSoC5/CAN_TX_RX_func.c ****                 result = CAN_FAIL;
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 12
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 12
 
 
  323:Generated_Source\PSoC5/CAN_TX_RX_func.c ****             }
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  377:Generated_Source\PSoC5/CAN_TX_RX_func.c ****             {
  378:Generated_Source\PSoC5/CAN_TX_RX_func.c ****                 /* `#START MESSAGE_3_TRASMITTED` */
  379:Generated_Source\PSoC5/CAN_TX_RX_func.c **** 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 13
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 13
 
 
  380:Generated_Source\PSoC5/CAN_TX_RX_func.c ****                 /* `#END` */
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  434:Generated_Source\PSoC5/CAN_TX_RX_func.c ****                 #ifdef CAN_SEND_MSG_4_CALLBACK
  435:Generated_Source\PSoC5/CAN_TX_RX_func.c ****                     CAN_SendMsg_4_Callback();
  436:Generated_Source\PSoC5/CAN_TX_RX_func.c ****                 #endif /* CAN_SEND_MSG_4_CALLBACK */
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 14
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 14
 
 
  437:Generated_Source\PSoC5/CAN_TX_RX_func.c **** 
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  491:Generated_Source\PSoC5/CAN_TX_RX_func.c ****                 CY_GET_REG32(CAN_TX_CMD_PTR(5u)) | CAN_SEND_MESSAGE);
  492:Generated_Source\PSoC5/CAN_TX_RX_func.c ****             }
  493:Generated_Source\PSoC5/CAN_TX_RX_func.c **** 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 15
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 15
 
 
  494:Generated_Source\PSoC5/CAN_TX_RX_func.c ****         return (result);
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  548:Generated_Source\PSoC5/CAN_TX_RX_func.c **** #endif /* CAN_TX6_FUNC_ENABLE */
  549:Generated_Source\PSoC5/CAN_TX_RX_func.c **** 
  550:Generated_Source\PSoC5/CAN_TX_RX_func.c **** 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 16
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 16
 
 
  551:Generated_Source\PSoC5/CAN_TX_RX_func.c **** #if (CAN_TX7_FUNC_ENABLE)
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  605:Generated_Source\PSoC5/CAN_TX_RX_func.c **** ********************************************************************************
  606:Generated_Source\PSoC5/CAN_TX_RX_func.c **** *
  607:Generated_Source\PSoC5/CAN_TX_RX_func.c **** * Summary:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 17
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 17
 
 
  608:Generated_Source\PSoC5/CAN_TX_RX_func.c **** *  This function is the entry point to Receive Message Interrupt for Basic
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  319 0018 A0A00040 		.word	1073782944
  320              		.cfi_endproc
  321              	.LFE3:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 18
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 18
 
 
  322              		.size	CAN_ReceiveMsg, .-CAN_ReceiveMsg
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  338 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
  339 0004 43F00103 		orr	r3, r3, #1
  340 0008 1370     		strb	r3, [r2]
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 19
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 19
 
 
  341 000a 7047     		bx	lr
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  395 0056 02       		.uleb128 0x2
  396 0057 08       		.byte	0x8
  397 0058 07       		.byte	0x7
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 20
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 20
 
 
  398 0059 33020000 		.4byte	.LASF7
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  452 00c9 08       		.byte	0x8
  453 00ca 03       		.byte	0x3
  454 00cb 6F       		.byte	0x6f
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 21
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 21
 
 
  455 00cc DD000000 		.4byte	0xdd
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  509 013b 7D       		.byte	0x7d
  510 013c 52010000 		.4byte	0x152
  511 0140 00       		.byte	0
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 22
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 22
 
 
  512 0141 00       		.byte	0
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  566 01ac B2010000 		.4byte	0x1b2
  567 01b0 08       		.byte	0x8
  568 01b1 00       		.byte	0
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 23
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 23
 
 
  569 01b2 0C       		.uleb128 0xc
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  623 021e 1C       		.byte	0x1c
  624 021f 00       		.byte	0
  625 0220 0A       		.uleb128 0xa
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 24
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 24
 
 
  626 0221 5E020000 		.4byte	.LASF30
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  680 0294 21000000 		.4byte	.LLST1
  681 0298 0F       		.uleb128 0xf
  682 0299 6A00     		.ascii	"j\000"
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 25
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 25
 
 
  683 029b 01       		.byte	0x1
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  737 0319 6B000000 		.4byte	0x6b
  738 031d 00000000 		.4byte	.LFB2
  739 0321 20000000 		.4byte	.LFE2-.LFB2
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 26
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 26
 
 
  740 0325 01       		.uleb128 0x1
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  794 0011 00       		.byte	0
  795 0012 00       		.byte	0
  796 0013 02       		.uleb128 0x2
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 27
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 27
 
 
  797 0014 24       		.uleb128 0x24
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  851 004a 07       		.uleb128 0x7
  852 004b 0D       		.uleb128 0xd
  853 004c 00       		.byte	0
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 28
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 28
 
 
  854 004d 03       		.uleb128 0x3
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  908 0083 38       		.uleb128 0x38
  909 0084 0B       		.uleb128 0xb
  910 0085 00       		.byte	0
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 29
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 29
 
 
  911 0086 00       		.byte	0
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  965 00bd 00       		.byte	0
  966 00be 03       		.uleb128 0x3
  967 00bf 08       		.uleb128 0x8
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 30
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 30
 
 
  968 00c0 3A       		.uleb128 0x3a
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  1022 00f7 13       		.uleb128 0x13
  1023 00f8 00       		.byte	0
  1024 00f9 00       		.byte	0
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 31
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 31
 
 
  1025 00fa 13       		.uleb128 0x13
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  1079 0131 01       		.uleb128 0x1
  1080 0132 12       		.uleb128 0x12
  1081 0133 06       		.uleb128 0x6
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 32
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 32
 
 
  1082 0134 40       		.uleb128 0x40
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  1136              	.LLST3:
  1137 0074 08000000 		.4byte	.LVL2
  1138 0078 B6000000 		.4byte	.LVL20
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 33
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 33
 
 
  1139 007c 0100     		.2byte	0x1
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  1193 0108 53       		.byte	0x53
  1194 0109 4E000000 		.4byte	.LVL7
  1195 010d 50000000 		.4byte	.LVL8
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 34
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 34
 
 
  1196 0111 0100     		.2byte	0x1
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  1250 0004 0200     		.2byte	0x2
  1251 0006 00000000 		.4byte	.Ldebug_info0
  1252 000a 04       		.byte	0x4
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 35
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 35
 
 
  1253 000b 00       		.byte	0
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  1292      66756E63 
  1292      74696F6E 
  1292      2D736563 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 36
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 36
 
 
  1292      74696F6E 
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  1317      726400
  1318              	.LASF11:
  1319 0166 666C6F61 		.ascii	"float\000"
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 37
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 37
 
 
  1319      7400
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  1345 01fb 646F7562 		.ascii	"double\000"
  1345      6C6500
  1346              	.LASF38:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 38
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 38
 
 
  1347 0202 72656754 		.ascii	"regTemp\000"
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 1
  1373      65724964 
  1373      00
  1374              	.LASF45:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccXCuDaY.s 			page 39
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccgMSX2U.s 			page 39
 
 
  1375 0299 72784D61 		.ascii	"rxMailbox\000"
