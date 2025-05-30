@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 1
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 1
   28:src/hybrid_mode.c **** 
   29:src/hybrid_mode.c **** /**************************************************************************************************
   30:src/hybrid_mode.c **** * Global variables
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 2
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 2
 
 
   31:src/hybrid_mode.c **** ***************************************************************************************************
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 1
   60              	.LFB64:
   53:src/hybrid_mode.c **** 
   54:src/hybrid_mode.c **** /*
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 3
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 3
 
 
   55:src/hybrid_mode.c ****  * Function:    Map_Duty_Cycle
@@ -160,91 +160,106 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 1
   86              		.thumb_func
   87              		.type	Set_Strategy_Freewheel, %function
   88              	Set_Strategy_Freewheel:
-  89              	.LFB66:
+  89              	.LFB67:
   66:src/hybrid_mode.c **** 
   67:src/hybrid_mode.c **** /*
-  68:src/hybrid_mode.c ****  * Function:    Set_Strategy
-  69:src/hybrid_mode.c ****  * Description: Applies the appropriate hybrid driving strategy based on selector input,
-  70:src/hybrid_mode.c ****  *              vehicle state, and driver override.
-  71:src/hybrid_mode.c ****  *
-  72:src/hybrid_mode.c ****  * Parameters:
-  73:src/hybrid_mode.c ****  *   - sel_strategy: User-selected strategy index [1–6].
-  74:src/hybrid_mode.c ****  *
-  75:src/hybrid_mode.c ****  * Logic:
-  76:src/hybrid_mode.c ****  *   - If gear is neutral or speed is too low/high -> Freewheel.
-  77:src/hybrid_mode.c ****  *   - If boost button is pressed, brake is not, and sel_strategy > 0 -> Full torque.
-  78:src/hybrid_mode.c ****  *   - Otherwise, applies strategy based on sel_strategy.
-  79:src/hybrid_mode.c ****  *   - Defaults to Freewheel if sel_strategy is invalid.
-  80:src/hybrid_mode.c ****  *
-  81:src/hybrid_mode.c ****  * Sends the selected driving mode and duty cycle to the ESC via CAN.
-  82:src/hybrid_mode.c ****  */
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 4
+  68:src/hybrid_mode.c ****  * Function:    Emergency_Stop
+  69:src/hybrid_mode.c ****  * Description: Sets the hybrid mode to freewheel, then disables the AIR.
+  70:src/hybrid_mode.c ****  */
+  71:src/hybrid_mode.c **** void Emergency_Stop()
+  72:src/hybrid_mode.c **** {
+  73:src/hybrid_mode.c ****     Set_Strategy(FREEWHEEL_S); // Set the CAN message to freewheel before turn off
+  74:src/hybrid_mode.c ****     CyDelay(50u); // Wait 50 ms for the motor to slow down
+  75:src/hybrid_mode.c ****     AIR_enable_Write(STD_OFF); // Disable the AIR
+  76:src/hybrid_mode.c **** }
+  77:src/hybrid_mode.c **** 
+  78:src/hybrid_mode.c **** /*
+  79:src/hybrid_mode.c ****  * Function:    Set_Strategy
+  80:src/hybrid_mode.c ****  * Description: Applies the appropriate hybrid driving strategy based on selector input,
+  81:src/hybrid_mode.c ****  *              vehicle state, and driver override.
+  82:src/hybrid_mode.c ****  *
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 4
 
 
-  83:src/hybrid_mode.c **** void Set_Strategy(uint8_t sel_strategy)
-  84:src/hybrid_mode.c **** {
-  85:src/hybrid_mode.c ****     if ((car_state.gear == NEUTRAL_GEAR) || (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.vss 
-  86:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
-  87:src/hybrid_mode.c ****     else if ((Read_Boost_Button() == STD_ON) && (car_state.brake_state == STD_OFF) && (sel_strategy
-  88:src/hybrid_mode.c ****     {
-  89:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
-  90:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100;
-  91:src/hybrid_mode.c ****     }
-  92:src/hybrid_mode.c ****     else
-  93:src/hybrid_mode.c ****         switch (sel_strategy)
-  94:src/hybrid_mode.c ****         {
-  95:src/hybrid_mode.c ****             case 1:
-  96:src/hybrid_mode.c ****                 Set_Strategy_Manual();
-  97:src/hybrid_mode.c ****                 break;
-  98:src/hybrid_mode.c **** 
-  99:src/hybrid_mode.c ****             case 2:
- 100:src/hybrid_mode.c ****                 Set_Strategy_Launch_Assist();
- 101:src/hybrid_mode.c ****                 break;
- 102:src/hybrid_mode.c **** 
- 103:src/hybrid_mode.c ****             case 3:
- 104:src/hybrid_mode.c ****                 Set_Strategy_Auto_No_Regen();
- 105:src/hybrid_mode.c ****                 break;
- 106:src/hybrid_mode.c **** 
- 107:src/hybrid_mode.c ****             case 4:
- 108:src/hybrid_mode.c ****                 Set_Strategy_Auto_Brake_Regen();
- 109:src/hybrid_mode.c ****                 break;
- 110:src/hybrid_mode.c **** 
- 111:src/hybrid_mode.c ****             case 5:
- 112:src/hybrid_mode.c ****                 Set_Strategy_Auto_Always_Regen();
- 113:src/hybrid_mode.c ****                 break;
- 114:src/hybrid_mode.c **** 
- 115:src/hybrid_mode.c ****             case 6:
- 116:src/hybrid_mode.c ****                 Set_Strategy_Torque_Fill();
- 117:src/hybrid_mode.c ****                 break;
- 118:src/hybrid_mode.c **** 
- 119:src/hybrid_mode.c ****             default:
- 120:src/hybrid_mode.c ****                 Set_Strategy_Freewheel();
- 121:src/hybrid_mode.c ****         }
- 122:src/hybrid_mode.c ****     
- 123:src/hybrid_mode.c ****     CAN_Transmit_To_ESC(hybrid_state.driving_mode, hybrid_state.duty_cycle_percentage);
- 124:src/hybrid_mode.c **** }
+  83:src/hybrid_mode.c ****  * Parameters:
+  84:src/hybrid_mode.c ****  *   - sel_strategy: User-selected strategy index [1–6].
+  85:src/hybrid_mode.c ****  *
+  86:src/hybrid_mode.c ****  * Logic:
+  87:src/hybrid_mode.c ****  *   - If gear is neutral or speed is too low/high -> Freewheel.
+  88:src/hybrid_mode.c ****  *   - If boost button is pressed, brake is not, and sel_strategy > 0 -> Full torque.
+  89:src/hybrid_mode.c ****  *   - Otherwise, applies strategy based on sel_strategy.
+  90:src/hybrid_mode.c ****  *   - Defaults to Freewheel if sel_strategy is invalid.
+  91:src/hybrid_mode.c ****  *
+  92:src/hybrid_mode.c ****  * Sends the selected driving mode and duty cycle to the ESC via CAN.
+  93:src/hybrid_mode.c ****  */
+  94:src/hybrid_mode.c **** void Set_Strategy(uint8_t sel_strategy)
+  95:src/hybrid_mode.c **** {
+  96:src/hybrid_mode.c ****     if (/*(car_state.gear == NEUTRAL_GEAR) ||*/ (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.
+  97:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
+  98:src/hybrid_mode.c ****     else if ((Read_Boost_Button() == STD_ON) && (car_state.brake_state == STD_OFF) && (sel_strategy
+  99:src/hybrid_mode.c ****     {
+ 100:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
+ 101:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100;
+ 102:src/hybrid_mode.c ****     }
+ 103:src/hybrid_mode.c ****     else
+ 104:src/hybrid_mode.c ****         switch (sel_strategy)
+ 105:src/hybrid_mode.c ****         {
+ 106:src/hybrid_mode.c ****             case FREEWHEEL_S:
+ 107:src/hybrid_mode.c ****                 Set_Strategy_Freewheel();
+ 108:src/hybrid_mode.c ****                 break;
+ 109:src/hybrid_mode.c ****                 
+ 110:src/hybrid_mode.c ****             case MANUAL_S:
+ 111:src/hybrid_mode.c ****                 Set_Strategy_Manual();
+ 112:src/hybrid_mode.c ****                 break;
+ 113:src/hybrid_mode.c **** 
+ 114:src/hybrid_mode.c ****             case LAUNCH_S:
+ 115:src/hybrid_mode.c ****                 Set_Strategy_Launch_Assist();
+ 116:src/hybrid_mode.c ****                 break;
+ 117:src/hybrid_mode.c **** 
+ 118:src/hybrid_mode.c ****             case AUTO_NOREGEN_S:
+ 119:src/hybrid_mode.c ****                 Set_Strategy_Auto_No_Regen();
+ 120:src/hybrid_mode.c ****                 break;
+ 121:src/hybrid_mode.c **** 
+ 122:src/hybrid_mode.c ****             case AUTO_BRAKEREGEN_S:
+ 123:src/hybrid_mode.c ****                 Set_Strategy_Auto_Brake_Regen();
+ 124:src/hybrid_mode.c ****                 break;
  125:src/hybrid_mode.c **** 
- 126:src/hybrid_mode.c **** /*
- 127:src/hybrid_mode.c ****  * Function:    Set_Strategy_Freewheel
- 128:src/hybrid_mode.c ****  * Description: Disables hybrid power by setting mode to Freewheel and zero duty cycle.
- 129:src/hybrid_mode.c ****  */
- 130:src/hybrid_mode.c **** void Set_Strategy_Freewheel()
- 131:src/hybrid_mode.c **** {
-  90              		.loc 1 131 0
+ 126:src/hybrid_mode.c ****             case AUTO_ALLREGEN_S:
+ 127:src/hybrid_mode.c ****                 Set_Strategy_Auto_Always_Regen();
+ 128:src/hybrid_mode.c ****                 break;
+ 129:src/hybrid_mode.c **** 
+ 130:src/hybrid_mode.c ****             case TORQUE_FILL_S:
+ 131:src/hybrid_mode.c ****                 Set_Strategy_Torque_Fill();
+ 132:src/hybrid_mode.c ****                 break;
+ 133:src/hybrid_mode.c **** 
+ 134:src/hybrid_mode.c ****             default:
+ 135:src/hybrid_mode.c ****                 Set_Strategy_Freewheel();
+ 136:src/hybrid_mode.c ****         }
+ 137:src/hybrid_mode.c ****     
+ 138:src/hybrid_mode.c ****     CAN_Transmit_To_ESC(hybrid_state.driving_mode, hybrid_state.duty_cycle_percentage);
+ 139:src/hybrid_mode.c **** }
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 5
+
+
+ 140:src/hybrid_mode.c **** 
+ 141:src/hybrid_mode.c **** /*
+ 142:src/hybrid_mode.c ****  * Function:    Set_Strategy_Freewheel
+ 143:src/hybrid_mode.c ****  * Description: Disables hybrid power by setting mode to Freewheel and zero duty cycle.
+ 144:src/hybrid_mode.c ****  */
+ 145:src/hybrid_mode.c **** void Set_Strategy_Freewheel()
+ 146:src/hybrid_mode.c **** {
+  90              		.loc 1 146 0
   91              		.cfi_startproc
   92              		@ args = 0, pretend = 0, frame = 0
   93              		@ frame_needed = 0, uses_anonymous_args = 0
   94              		@ link register save eliminated.
- 132:src/hybrid_mode.c ****     hybrid_state.driving_mode = FREEWHEEL_MODE;
-  95              		.loc 1 132 0
+ 147:src/hybrid_mode.c ****     hybrid_state.driving_mode = FREEWHEEL_MODE;
+  95              		.loc 1 147 0
   96 0000 024B     		ldr	r3, .L8
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 5
-
-
   97 0002 0022     		movs	r2, #0
   98 0004 1A70     		strb	r2, [r3]
- 133:src/hybrid_mode.c ****     hybrid_state.duty_cycle_percentage = 0;
-  99              		.loc 1 133 0
+ 148:src/hybrid_mode.c ****     hybrid_state.duty_cycle_percentage = STD_OFF;
+  99              		.loc 1 148 0
  100 0006 5A70     		strb	r2, [r3, #1]
  101 0008 7047     		bx	lr
  102              	.L9:
@@ -252,7 +267,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 1
  104              	.L8:
  105 000c 00000000 		.word	.LANCHOR0
  106              		.cfi_endproc
- 107              	.LFE66:
+ 107              	.LFE67:
  108              		.size	Set_Strategy_Freewheel, .-Set_Strategy_Freewheel
  109              		.section	.text.Set_Strategy_Manual,"ax",%progbits
  110              		.align	2
@@ -261,17 +276,17 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 1
  113              		.thumb_func
  114              		.type	Set_Strategy_Manual, %function
  115              	Set_Strategy_Manual:
- 116              	.LFB67:
- 134:src/hybrid_mode.c **** }
- 135:src/hybrid_mode.c **** 
- 136:src/hybrid_mode.c **** /*
- 137:src/hybrid_mode.c ****  * Function:    Set_Strategy_Manual
- 138:src/hybrid_mode.c ****  * Description: Enables full power (boost mode) if the boost button is pressed and the brake is not
- 139:src/hybrid_mode.c ****  *              Falls back to Freewheel otherwise.
- 140:src/hybrid_mode.c ****  */
- 141:src/hybrid_mode.c **** void Set_Strategy_Manual()
- 142:src/hybrid_mode.c **** {
- 117              		.loc 1 142 0
+ 116              	.LFB68:
+ 149:src/hybrid_mode.c **** }
+ 150:src/hybrid_mode.c **** 
+ 151:src/hybrid_mode.c **** /*
+ 152:src/hybrid_mode.c ****  * Function:    Set_Strategy_Manual
+ 153:src/hybrid_mode.c ****  * Description: Enables full power (boost mode) if the boost button is pressed and the brake is not
+ 154:src/hybrid_mode.c ****  *              Falls back to Freewheel otherwise.
+ 155:src/hybrid_mode.c ****  */
+ 156:src/hybrid_mode.c **** void Set_Strategy_Manual()
+ 157:src/hybrid_mode.c **** {
+ 117              		.loc 1 157 0
  118              		.cfi_startproc
  119              		@ args = 0, pretend = 0, frame = 0
  120              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -279,17 +294,20 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 1
  122              		.cfi_def_cfa_offset 8
  123              		.cfi_offset 3, -8
  124              		.cfi_offset 14, -4
- 143:src/hybrid_mode.c ****     /* The logic for the boost button is in the main Set_Strategy() function;
- 144:src/hybrid_mode.c ****      * If the program enters here it means the selector is on manual,
- 145:src/hybrid_mode.c ****      * but boost button not pressed -> freewheel
- 146:src/hybrid_mode.c ****      */
- 147:src/hybrid_mode.c ****     Set_Strategy_Freewheel();
- 125              		.loc 1 147 0
+ 158:src/hybrid_mode.c ****     /* The logic for the boost button is in the main Set_Strategy() function;
+ 159:src/hybrid_mode.c ****      * If the program enters here it means the selector is on manual,
+ 160:src/hybrid_mode.c ****      * but boost button not pressed -> freewheel
+ 161:src/hybrid_mode.c ****      */
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 6
+
+
+ 162:src/hybrid_mode.c ****     Set_Strategy_Freewheel();
+ 125              		.loc 1 162 0
  126 0002 FFF7FEFF 		bl	Set_Strategy_Freewheel
  127              	.LVL6:
  128 0006 08BD     		pop	{r3, pc}
  129              		.cfi_endproc
- 130              	.LFE67:
+ 130              	.LFE68:
  131              		.size	Set_Strategy_Manual, .-Set_Strategy_Manual
  132              		.section	.text.Set_Strategy_Launch_Assist,"ax",%progbits
  133              		.align	2
@@ -298,25 +316,22 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 1
  136              		.thumb_func
  137              		.type	Set_Strategy_Launch_Assist, %function
  138              	Set_Strategy_Launch_Assist:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 6
-
-
- 139              	.LFB68:
- 148:src/hybrid_mode.c **** }
- 149:src/hybrid_mode.c **** 
- 150:src/hybrid_mode.c **** /*
- 151:src/hybrid_mode.c ****  * Function:    Set_Strategy_Launch_Assist
- 152:src/hybrid_mode.c ****  * Description: Engages full torque at launch under these conditions:
- 153:src/hybrid_mode.c ****  *              - RPM ≤ 7500
- 154:src/hybrid_mode.c ****  *              - VSS ≤ 45 km/h
- 155:src/hybrid_mode.c ****  *              - TPS ≥ 80%
- 156:src/hybrid_mode.c ****  *              - Gear = 1
- 157:src/hybrid_mode.c ****  *              - Brake not pressed
- 158:src/hybrid_mode.c ****  *              Falls back to Freewheel otherwise.
- 159:src/hybrid_mode.c ****  */
- 160:src/hybrid_mode.c **** void Set_Strategy_Launch_Assist()
- 161:src/hybrid_mode.c **** {
- 140              		.loc 1 161 0
+ 139              	.LFB69:
+ 163:src/hybrid_mode.c **** }
+ 164:src/hybrid_mode.c **** 
+ 165:src/hybrid_mode.c **** /*
+ 166:src/hybrid_mode.c ****  * Function:    Set_Strategy_Launch_Assist
+ 167:src/hybrid_mode.c ****  * Description: Engages full torque at launch under these conditions:
+ 168:src/hybrid_mode.c ****  *              - RPM ≤ 7500
+ 169:src/hybrid_mode.c ****  *              - VSS ≤ 45 km/h
+ 170:src/hybrid_mode.c ****  *              - TPS ≥ 80%
+ 171:src/hybrid_mode.c ****  *              - Gear = 1
+ 172:src/hybrid_mode.c ****  *              - Brake not pressed
+ 173:src/hybrid_mode.c ****  *              Falls back to Freewheel otherwise.
+ 174:src/hybrid_mode.c ****  */
+ 175:src/hybrid_mode.c **** void Set_Strategy_Launch_Assist()
+ 176:src/hybrid_mode.c **** {
+ 140              		.loc 1 176 0
  141              		.cfi_startproc
  142              		@ args = 0, pretend = 0, frame = 0
  143              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -324,57 +339,57 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 1
  145              		.cfi_def_cfa_offset 8
  146              		.cfi_offset 3, -8
  147              		.cfi_offset 14, -4
- 162:src/hybrid_mode.c ****     if ((car_state.rpm <= 7500) && (car_state.vss <= 45) && (car_state.tps >= 80) \
- 148              		.loc 1 162 0
+ 177:src/hybrid_mode.c ****     if ((car_state.rpm <= 7500) && (car_state.vss <= 45) && (car_state.tps >= 80) \
+ 148              		.loc 1 177 0
  149 0002 124B     		ldr	r3, .L16
- 150 0004 5B88     		ldrh	r3, [r3, #2]
+ 150 0004 1B88     		ldrh	r3, [r3]
  151 0006 9BB2     		uxth	r3, r3
  152 0008 41F64C52 		movw	r2, #7500
  153 000c 9342     		cmp	r3, r2
  154 000e 19D8     		bhi	.L13
- 155              		.loc 1 162 0 is_stmt 0 discriminator 1
+ 155              		.loc 1 177 0 is_stmt 0 discriminator 1
  156 0010 0E4B     		ldr	r3, .L16
  157 0012 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
  158 0014 DBB2     		uxtb	r3, r3
  159 0016 2D2B     		cmp	r3, #45
  160 0018 14D8     		bhi	.L13
- 161              		.loc 1 162 0 discriminator 2
+ 161              		.loc 1 177 0 discriminator 2
  162 001a 0C4B     		ldr	r3, .L16
  163 001c 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
  164 001e DBB2     		uxtb	r3, r3
  165 0020 4F2B     		cmp	r3, #79
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 7
+
+
  166 0022 0FD9     		bls	.L13
- 163:src/hybrid_mode.c ****         && (car_state.gear == 1) && (car_state.brake_state == STD_OFF))
- 167              		.loc 1 163 0 is_stmt 1
+ 178:src/hybrid_mode.c ****         && (car_state.gear == 1) && (car_state.brake_state == STD_OFF))
+ 167              		.loc 1 178 0 is_stmt 1
  168 0024 094B     		ldr	r3, .L16
- 169 0026 DB79     		ldrb	r3, [r3, #7]	@ zero_extendqisi2
+ 169 0026 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
  170 0028 DBB2     		uxtb	r3, r3
  171 002a 012B     		cmp	r3, #1
  172 002c 0AD1     		bne	.L13
- 173              		.loc 1 163 0 is_stmt 0 discriminator 1
+ 173              		.loc 1 178 0 is_stmt 0 discriminator 1
  174 002e 074B     		ldr	r3, .L16
  175 0030 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
  176 0032 13F0FF0F 		tst	r3, #255
  177 0036 05D1     		bne	.L13
- 164:src/hybrid_mode.c ****     {
- 165:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 7
-
-
- 178              		.loc 1 165 0 is_stmt 1
+ 179:src/hybrid_mode.c ****     {
+ 180:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
+ 178              		.loc 1 180 0 is_stmt 1
  179 0038 054B     		ldr	r3, .L16+4
  180 003a 0222     		movs	r2, #2
  181 003c 1A70     		strb	r2, [r3]
- 166:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100;
- 182              		.loc 1 166 0
+ 181:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100;
+ 182              		.loc 1 181 0
  183 003e 6422     		movs	r2, #100
  184 0040 5A70     		strb	r2, [r3, #1]
  185 0042 08BD     		pop	{r3, pc}
  186              	.L13:
- 167:src/hybrid_mode.c ****     }
- 168:src/hybrid_mode.c ****     else
- 169:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
- 187              		.loc 1 169 0
+ 182:src/hybrid_mode.c ****     }
+ 183:src/hybrid_mode.c ****     else
+ 184:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
+ 187              		.loc 1 184 0
  188 0044 FFF7FEFF 		bl	Set_Strategy_Freewheel
  189              	.LVL7:
  190 0048 08BD     		pop	{r3, pc}
@@ -384,7 +399,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 1
  194 004c 00000000 		.word	car_state
  195 0050 00000000 		.word	.LANCHOR0
  196              		.cfi_endproc
- 197              	.LFE68:
+ 197              	.LFE69:
  198              		.size	Set_Strategy_Launch_Assist, .-Set_Strategy_Launch_Assist
  199              		.section	.text.Set_Strategy_Auto_No_Regen,"ax",%progbits
  200              		.align	2
@@ -393,1652 +408,1791 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 1
  203              		.thumb_func
  204              		.type	Set_Strategy_Auto_No_Regen, %function
  205              	Set_Strategy_Auto_No_Regen:
- 206              	.LFB69:
- 170:src/hybrid_mode.c **** }
- 171:src/hybrid_mode.c **** 
- 172:src/hybrid_mode.c **** /*
- 173:src/hybrid_mode.c ****  * Function:    Set_Strategy_Auto_No_Regen
- 174:src/hybrid_mode.c ****  * Description: Applies torque proportional to TPS when brake is not pressed.
- 175:src/hybrid_mode.c ****  *              Falls back to Freewheel if brake is active.
- 176:src/hybrid_mode.c ****  */
- 177:src/hybrid_mode.c **** void Set_Strategy_Auto_No_Regen()
- 178:src/hybrid_mode.c **** {
- 207              		.loc 1 178 0
+ 206              	.LFB70:
+ 185:src/hybrid_mode.c **** }
+ 186:src/hybrid_mode.c **** 
+ 187:src/hybrid_mode.c **** /*
+ 188:src/hybrid_mode.c ****  * Function:    Set_Strategy_Auto_No_Regen
+ 189:src/hybrid_mode.c ****  * Description: Applies torque proportional to TPS when brake is not pressed.
+ 190:src/hybrid_mode.c ****  *              Falls back to Freewheel if brake is active.
+ 191:src/hybrid_mode.c ****  */
+ 192:src/hybrid_mode.c **** void Set_Strategy_Auto_No_Regen()
+ 193:src/hybrid_mode.c **** {
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 8
+
+
+ 207              		.loc 1 193 0
  208              		.cfi_startproc
  209              		@ args = 0, pretend = 0, frame = 0
  210              		@ frame_needed = 0, uses_anonymous_args = 0
- 211 0000 10B5     		push	{r4, lr}
+ 211 0000 08B5     		push	{r3, lr}
  212              		.cfi_def_cfa_offset 8
- 213              		.cfi_offset 4, -8
+ 213              		.cfi_offset 3, -8
  214              		.cfi_offset 14, -4
- 179:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF))
- 215              		.loc 1 179 0
- 216 0002 094B     		ldr	r3, .L22
+ 194:src/hybrid_mode.c ****     if (car_state.brake_state == STD_OFF)
+ 215              		.loc 1 194 0
+ 216 0002 074B     		ldr	r3, .L22
  217 0004 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
  218 0006 13F0FF0F 		tst	r3, #255
- 219 000a 09D1     		bne	.L19
- 180:src/hybrid_mode.c ****     {
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 8
+ 219 000a 05D1     		bne	.L19
+ 195:src/hybrid_mode.c ****     {
+ 196:src/hybrid_mode.c ****         hybrid_state.driving_mode = SPEED_MODE; //TORQUE_MODE;
+ 220              		.loc 1 196 0
+ 221 000c 054B     		ldr	r3, .L22+4
+ 222 000e 0322     		movs	r2, #3
+ 223 0010 1A70     		strb	r2, [r3]
+ 197:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 10; //TPS_to_Duty_Cycle_Percentage(car_state.tps);
+ 224              		.loc 1 197 0
+ 225 0012 0A22     		movs	r2, #10
+ 226 0014 5A70     		strb	r2, [r3, #1]
+ 227 0016 08BD     		pop	{r3, pc}
+ 228              	.L19:
+ 198:src/hybrid_mode.c ****     }
+ 199:src/hybrid_mode.c ****     else
+ 200:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
+ 229              		.loc 1 200 0
+ 230 0018 FFF7FEFF 		bl	Set_Strategy_Freewheel
+ 231              	.LVL8:
+ 232 001c 08BD     		pop	{r3, pc}
+ 233              	.L23:
+ 234 001e 00BF     		.align	2
+ 235              	.L22:
+ 236 0020 00000000 		.word	car_state
+ 237 0024 00000000 		.word	.LANCHOR0
+ 238              		.cfi_endproc
+ 239              	.LFE70:
+ 240              		.size	Set_Strategy_Auto_No_Regen, .-Set_Strategy_Auto_No_Regen
+ 241              		.section	.text.Set_Strategy_Auto_Brake_Regen,"ax",%progbits
+ 242              		.align	2
+ 243              		.global	Set_Strategy_Auto_Brake_Regen
+ 244              		.thumb
+ 245              		.thumb_func
+ 246              		.type	Set_Strategy_Auto_Brake_Regen, %function
+ 247              	Set_Strategy_Auto_Brake_Regen:
+ 248              	.LFB71:
+ 201:src/hybrid_mode.c **** }
+ 202:src/hybrid_mode.c **** 
+ 203:src/hybrid_mode.c **** /*
+ 204:src/hybrid_mode.c ****  * Function:    Set_Strategy_Auto_Brake_Regen
+ 205:src/hybrid_mode.c ****  * Description: Applies torque proportional to TPS when brake is not pressed.
+ 206:src/hybrid_mode.c ****  *              Switches to full regenerative braking (BRAKE mode) when brake is pressed.
+ 207:src/hybrid_mode.c ****  */
+ 208:src/hybrid_mode.c **** void Set_Strategy_Auto_Brake_Regen()
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 9
 
 
- 181:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
- 220              		.loc 1 181 0
- 221 000c 074C     		ldr	r4, .L22+4
- 222 000e 0223     		movs	r3, #2
- 223 0010 2370     		strb	r3, [r4]
- 182:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
- 224              		.loc 1 182 0
- 225 0012 054B     		ldr	r3, .L22
- 226 0014 1879     		ldrb	r0, [r3, #4]	@ zero_extendqisi2
- 227 0016 FFF7FEFF 		bl	TPS_to_Duty_Cycle_Percentage
- 228              	.LVL8:
- 229 001a 40B2     		sxtb	r0, r0
- 230 001c 6070     		strb	r0, [r4, #1]
- 231 001e 10BD     		pop	{r4, pc}
- 232              	.L19:
- 183:src/hybrid_mode.c ****     }
- 184:src/hybrid_mode.c ****     else
- 185:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
- 233              		.loc 1 185 0
- 234 0020 FFF7FEFF 		bl	Set_Strategy_Freewheel
- 235              	.LVL9:
- 236 0024 10BD     		pop	{r4, pc}
- 237              	.L23:
- 238 0026 00BF     		.align	2
- 239              	.L22:
- 240 0028 00000000 		.word	car_state
- 241 002c 00000000 		.word	.LANCHOR0
- 242              		.cfi_endproc
- 243              	.LFE69:
- 244              		.size	Set_Strategy_Auto_No_Regen, .-Set_Strategy_Auto_No_Regen
- 245              		.section	.text.Set_Strategy_Auto_Brake_Regen,"ax",%progbits
- 246              		.align	2
- 247              		.global	Set_Strategy_Auto_Brake_Regen
- 248              		.thumb
- 249              		.thumb_func
- 250              		.type	Set_Strategy_Auto_Brake_Regen, %function
- 251              	Set_Strategy_Auto_Brake_Regen:
- 252              	.LFB70:
- 186:src/hybrid_mode.c **** }
- 187:src/hybrid_mode.c **** 
- 188:src/hybrid_mode.c **** /*
- 189:src/hybrid_mode.c ****  * Function:    Set_Strategy_Auto_Brake_Regen
- 190:src/hybrid_mode.c ****  * Description: Applies torque proportional to TPS when brake is not pressed.
- 191:src/hybrid_mode.c ****  *              Switches to full regenerative braking (BRAKE mode) when brake is pressed.
- 192:src/hybrid_mode.c ****  */
- 193:src/hybrid_mode.c **** void Set_Strategy_Auto_Brake_Regen()
- 194:src/hybrid_mode.c **** {
- 253              		.loc 1 194 0
- 254              		.cfi_startproc
- 255              		@ args = 0, pretend = 0, frame = 0
- 256              		@ frame_needed = 0, uses_anonymous_args = 0
- 195:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF))
- 257              		.loc 1 195 0
- 258 0000 0A4B     		ldr	r3, .L29
- 259 0002 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
- 260 0004 13F0FF0F 		tst	r3, #255
- 261 0008 0AD1     		bne	.L25
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 9
+ 209:src/hybrid_mode.c **** {
+ 249              		.loc 1 209 0
+ 250              		.cfi_startproc
+ 251              		@ args = 0, pretend = 0, frame = 0
+ 252              		@ frame_needed = 0, uses_anonymous_args = 0
+ 210:src/hybrid_mode.c ****     if (car_state.brake_state == STD_OFF)
+ 253              		.loc 1 210 0
+ 254 0000 0A4B     		ldr	r3, .L29
+ 255 0002 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 256 0004 13F0FF0F 		tst	r3, #255
+ 257 0008 0AD1     		bne	.L25
+ 209:src/hybrid_mode.c ****     if (car_state.brake_state == STD_OFF)
+ 258              		.loc 1 209 0
+ 259 000a 10B5     		push	{r4, lr}
+ 260              		.cfi_def_cfa_offset 8
+ 261              		.cfi_offset 4, -8
+ 262              		.cfi_offset 14, -4
+ 211:src/hybrid_mode.c ****     {
+ 212:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
+ 263              		.loc 1 212 0
+ 264 000c 084C     		ldr	r4, .L29+4
+ 265 000e 0223     		movs	r3, #2
+ 266 0010 2370     		strb	r3, [r4]
+ 213:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
+ 267              		.loc 1 213 0
+ 268 0012 064B     		ldr	r3, .L29
+ 269 0014 1879     		ldrb	r0, [r3, #4]	@ zero_extendqisi2
+ 270 0016 FFF7FEFF 		bl	TPS_to_Duty_Cycle_Percentage
+ 271              	.LVL9:
+ 272 001a 40B2     		sxtb	r0, r0
+ 273 001c 6070     		strb	r0, [r4, #1]
+ 274 001e 10BD     		pop	{r4, pc}
+ 275              	.L25:
+ 276              		.cfi_def_cfa_offset 0
+ 277              		.cfi_restore 4
+ 278              		.cfi_restore 14
+ 214:src/hybrid_mode.c ****     }
+ 215:src/hybrid_mode.c ****     else
+ 216:src/hybrid_mode.c ****     {
+ 217:src/hybrid_mode.c ****         hybrid_state.driving_mode = BRAKE_MODE;
+ 279              		.loc 1 217 0
+ 280 0020 034B     		ldr	r3, .L29+4
+ 281 0022 0822     		movs	r2, #8
+ 282 0024 1A70     		strb	r2, [r3]
+ 218:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
+ 283              		.loc 1 218 0
+ 284 0026 6422     		movs	r2, #100
+ 285 0028 5A70     		strb	r2, [r3, #1]
+ 219:src/hybrid_mode.c ****     }
+ 220:src/hybrid_mode.c **** }
+ 286              		.loc 1 220 0
+ 287 002a 7047     		bx	lr
+ 288              	.L30:
+ 289              		.align	2
+ 290              	.L29:
+ 291 002c 00000000 		.word	car_state
+ 292 0030 00000000 		.word	.LANCHOR0
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 10
 
 
- 194:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF))
- 262              		.loc 1 194 0
- 263 000a 10B5     		push	{r4, lr}
- 264              		.cfi_def_cfa_offset 8
- 265              		.cfi_offset 4, -8
- 266              		.cfi_offset 14, -4
- 196:src/hybrid_mode.c ****     {
- 197:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
- 267              		.loc 1 197 0
- 268 000c 084C     		ldr	r4, .L29+4
- 269 000e 0223     		movs	r3, #2
- 270 0010 2370     		strb	r3, [r4]
- 198:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
- 271              		.loc 1 198 0
- 272 0012 064B     		ldr	r3, .L29
- 273 0014 1879     		ldrb	r0, [r3, #4]	@ zero_extendqisi2
- 274 0016 FFF7FEFF 		bl	TPS_to_Duty_Cycle_Percentage
- 275              	.LVL10:
- 276 001a 40B2     		sxtb	r0, r0
- 277 001c 6070     		strb	r0, [r4, #1]
- 278 001e 10BD     		pop	{r4, pc}
- 279              	.L25:
- 280              		.cfi_def_cfa_offset 0
- 281              		.cfi_restore 4
- 282              		.cfi_restore 14
- 199:src/hybrid_mode.c ****     }
- 200:src/hybrid_mode.c ****     else
- 201:src/hybrid_mode.c ****     {
- 202:src/hybrid_mode.c ****         hybrid_state.driving_mode = BRAKE_MODE;
- 283              		.loc 1 202 0
- 284 0020 034B     		ldr	r3, .L29+4
- 285 0022 0822     		movs	r2, #8
- 286 0024 1A70     		strb	r2, [r3]
- 203:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
- 287              		.loc 1 203 0
- 288 0026 6422     		movs	r2, #100
- 289 0028 5A70     		strb	r2, [r3, #1]
- 204:src/hybrid_mode.c ****     }
- 205:src/hybrid_mode.c **** }
- 290              		.loc 1 205 0
- 291 002a 7047     		bx	lr
- 292              	.L30:
- 293              		.align	2
- 294              	.L29:
- 295 002c 00000000 		.word	car_state
- 296 0030 00000000 		.word	.LANCHOR0
- 297              		.cfi_endproc
- 298              	.LFE70:
- 299              		.size	Set_Strategy_Auto_Brake_Regen, .-Set_Strategy_Auto_Brake_Regen
- 300              		.section	.text.Set_Strategy_Auto_Always_Regen,"ax",%progbits
- 301              		.align	2
- 302              		.global	Set_Strategy_Auto_Always_Regen
- 303              		.thumb
- 304              		.thumb_func
- 305              		.type	Set_Strategy_Auto_Always_Regen, %function
- 306              	Set_Strategy_Auto_Always_Regen:
- 307              	.LFB71:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 10
+ 293              		.cfi_endproc
+ 294              	.LFE71:
+ 295              		.size	Set_Strategy_Auto_Brake_Regen, .-Set_Strategy_Auto_Brake_Regen
+ 296              		.section	.text.Set_Strategy_Auto_Always_Regen,"ax",%progbits
+ 297              		.align	2
+ 298              		.global	Set_Strategy_Auto_Always_Regen
+ 299              		.thumb
+ 300              		.thumb_func
+ 301              		.type	Set_Strategy_Auto_Always_Regen, %function
+ 302              	Set_Strategy_Auto_Always_Regen:
+ 303              	.LFB72:
+ 221:src/hybrid_mode.c **** 
+ 222:src/hybrid_mode.c **** /*
+ 223:src/hybrid_mode.c ****  * Function:    Set_Strategy_Auto_Always_Regen
+ 224:src/hybrid_mode.c ****  * Description: Applies torque proportional to TPS if TPS > 50 and brake is not pressed.
+ 225:src/hybrid_mode.c ****  *              Applies full regenerative braking otherwise (coasting or braking).
+ 226:src/hybrid_mode.c ****  */
+ 227:src/hybrid_mode.c **** void Set_Strategy_Auto_Always_Regen()
+ 228:src/hybrid_mode.c **** {
+ 304              		.loc 1 228 0
+ 305              		.cfi_startproc
+ 306              		@ args = 0, pretend = 0, frame = 0
+ 307              		@ frame_needed = 0, uses_anonymous_args = 0
+ 229:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF) && (car_state.tps > 50))
+ 308              		.loc 1 229 0
+ 309 0000 0D4B     		ldr	r3, .L36
+ 310 0002 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 311 0004 13F0FF0F 		tst	r3, #255
+ 312 0008 0FD1     		bne	.L32
+ 313              		.loc 1 229 0 is_stmt 0 discriminator 1
+ 314 000a 0B4B     		ldr	r3, .L36
+ 315 000c 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 316 000e DBB2     		uxtb	r3, r3
+ 317 0010 322B     		cmp	r3, #50
+ 318 0012 0AD9     		bls	.L32
+ 228:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF) && (car_state.tps > 50))
+ 319              		.loc 1 228 0 is_stmt 1
+ 320 0014 10B5     		push	{r4, lr}
+ 321              		.cfi_def_cfa_offset 8
+ 322              		.cfi_offset 4, -8
+ 323              		.cfi_offset 14, -4
+ 230:src/hybrid_mode.c ****     {
+ 231:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
+ 324              		.loc 1 231 0
+ 325 0016 094C     		ldr	r4, .L36+4
+ 326 0018 0223     		movs	r3, #2
+ 327 001a 2370     		strb	r3, [r4]
+ 232:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
+ 328              		.loc 1 232 0
+ 329 001c 064B     		ldr	r3, .L36
+ 330 001e 1879     		ldrb	r0, [r3, #4]	@ zero_extendqisi2
+ 331 0020 FFF7FEFF 		bl	TPS_to_Duty_Cycle_Percentage
+ 332              	.LVL10:
+ 333 0024 40B2     		sxtb	r0, r0
+ 334 0026 6070     		strb	r0, [r4, #1]
+ 335 0028 10BD     		pop	{r4, pc}
+ 336              	.L32:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 11
 
 
- 206:src/hybrid_mode.c **** 
- 207:src/hybrid_mode.c **** /*
- 208:src/hybrid_mode.c ****  * Function:    Set_Strategy_Auto_Always_Regen
- 209:src/hybrid_mode.c ****  * Description: Applies torque proportional to TPS if TPS > 50 and brake is not pressed.
- 210:src/hybrid_mode.c ****  *              Applies full regenerative braking otherwise (coasting or braking).
- 211:src/hybrid_mode.c ****  */
- 212:src/hybrid_mode.c **** void Set_Strategy_Auto_Always_Regen()
- 213:src/hybrid_mode.c **** {
- 308              		.loc 1 213 0
- 309              		.cfi_startproc
- 310              		@ args = 0, pretend = 0, frame = 0
- 311              		@ frame_needed = 0, uses_anonymous_args = 0
- 214:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF) && (car_state.tps > 50))
- 312              		.loc 1 214 0
- 313 0000 0D4B     		ldr	r3, .L36
- 314 0002 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
- 315 0004 13F0FF0F 		tst	r3, #255
- 316 0008 0FD1     		bne	.L32
- 317              		.loc 1 214 0 is_stmt 0 discriminator 1
- 318 000a 0B4B     		ldr	r3, .L36
- 319 000c 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
- 320 000e DBB2     		uxtb	r3, r3
- 321 0010 322B     		cmp	r3, #50
- 322 0012 0AD9     		bls	.L32
- 213:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF) && (car_state.tps > 50))
- 323              		.loc 1 213 0 is_stmt 1
- 324 0014 10B5     		push	{r4, lr}
- 325              		.cfi_def_cfa_offset 8
- 326              		.cfi_offset 4, -8
- 327              		.cfi_offset 14, -4
- 215:src/hybrid_mode.c ****     {
- 216:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
- 328              		.loc 1 216 0
- 329 0016 094C     		ldr	r4, .L36+4
- 330 0018 0223     		movs	r3, #2
- 331 001a 2370     		strb	r3, [r4]
- 217:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
- 332              		.loc 1 217 0
- 333 001c 064B     		ldr	r3, .L36
- 334 001e 1879     		ldrb	r0, [r3, #4]	@ zero_extendqisi2
- 335 0020 FFF7FEFF 		bl	TPS_to_Duty_Cycle_Percentage
- 336              	.LVL11:
- 337 0024 40B2     		sxtb	r0, r0
- 338 0026 6070     		strb	r0, [r4, #1]
- 339 0028 10BD     		pop	{r4, pc}
- 340              	.L32:
- 341              		.cfi_def_cfa_offset 0
- 342              		.cfi_restore 4
- 343              		.cfi_restore 14
- 218:src/hybrid_mode.c ****     }
- 219:src/hybrid_mode.c ****     else
- 220:src/hybrid_mode.c ****     {
- 221:src/hybrid_mode.c ****         hybrid_state.driving_mode = BRAKE_MODE;
- 344              		.loc 1 221 0
- 345 002a 044B     		ldr	r3, .L36+4
- 346 002c 0822     		movs	r2, #8
- 347 002e 1A70     		strb	r2, [r3]
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 11
+ 337              		.cfi_def_cfa_offset 0
+ 338              		.cfi_restore 4
+ 339              		.cfi_restore 14
+ 233:src/hybrid_mode.c ****     }
+ 234:src/hybrid_mode.c ****     else
+ 235:src/hybrid_mode.c ****     {
+ 236:src/hybrid_mode.c ****         hybrid_state.driving_mode = BRAKE_MODE;
+ 340              		.loc 1 236 0
+ 341 002a 044B     		ldr	r3, .L36+4
+ 342 002c 0822     		movs	r2, #8
+ 343 002e 1A70     		strb	r2, [r3]
+ 237:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
+ 344              		.loc 1 237 0
+ 345 0030 6422     		movs	r2, #100
+ 346 0032 5A70     		strb	r2, [r3, #1]
+ 238:src/hybrid_mode.c ****     }
+ 239:src/hybrid_mode.c **** }
+ 347              		.loc 1 239 0
+ 348 0034 7047     		bx	lr
+ 349              	.L37:
+ 350 0036 00BF     		.align	2
+ 351              	.L36:
+ 352 0038 00000000 		.word	car_state
+ 353 003c 00000000 		.word	.LANCHOR0
+ 354              		.cfi_endproc
+ 355              	.LFE72:
+ 356              		.size	Set_Strategy_Auto_Always_Regen, .-Set_Strategy_Auto_Always_Regen
+ 357              		.section	.text.Set_Strategy_Torque_Fill,"ax",%progbits
+ 358              		.align	2
+ 359              		.global	Set_Strategy_Torque_Fill
+ 360              		.thumb
+ 361              		.thumb_func
+ 362              		.type	Set_Strategy_Torque_Fill, %function
+ 363              	Set_Strategy_Torque_Fill:
+ 364              	.LFB73:
+ 240:src/hybrid_mode.c **** 
+ 241:src/hybrid_mode.c **** /*
+ 242:src/hybrid_mode.c ****  * Function:    Set_Strategy_Torque_Fill
+ 243:src/hybrid_mode.c ****  * Description: Provides full torque when:
+ 244:src/hybrid_mode.c ****  *              - TPS > 50
+ 245:src/hybrid_mode.c ****  *              - RPM ∈ [2000, 8000]
+ 246:src/hybrid_mode.c ****  *              - Brake is not pressed
+ 247:src/hybrid_mode.c ****  *              Applies regenerative braking when brake is pressed.
+ 248:src/hybrid_mode.c ****  *              Falls back to Freewheel otherwise.
+ 249:src/hybrid_mode.c ****  */
+ 250:src/hybrid_mode.c **** void Set_Strategy_Torque_Fill()
+ 251:src/hybrid_mode.c **** {
+ 365              		.loc 1 251 0
+ 366              		.cfi_startproc
+ 367              		@ args = 0, pretend = 0, frame = 0
+ 368              		@ frame_needed = 0, uses_anonymous_args = 0
+ 369 0000 08B5     		push	{r3, lr}
+ 370              		.cfi_def_cfa_offset 8
+ 371              		.cfi_offset 3, -8
+ 372              		.cfi_offset 14, -4
+ 252:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF) && (car_state.tps > 50) && (car_state.rpm >= 2000) && (c
+ 373              		.loc 1 252 0
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 12
 
 
- 222:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
- 348              		.loc 1 222 0
- 349 0030 6422     		movs	r2, #100
- 350 0032 5A70     		strb	r2, [r3, #1]
- 223:src/hybrid_mode.c ****     }
- 224:src/hybrid_mode.c **** }
- 351              		.loc 1 224 0
- 352 0034 7047     		bx	lr
- 353              	.L37:
- 354 0036 00BF     		.align	2
- 355              	.L36:
- 356 0038 00000000 		.word	car_state
- 357 003c 00000000 		.word	.LANCHOR0
- 358              		.cfi_endproc
- 359              	.LFE71:
- 360              		.size	Set_Strategy_Auto_Always_Regen, .-Set_Strategy_Auto_Always_Regen
- 361              		.section	.text.Set_Strategy_Torque_Fill,"ax",%progbits
- 362              		.align	2
- 363              		.global	Set_Strategy_Torque_Fill
- 364              		.thumb
- 365              		.thumb_func
- 366              		.type	Set_Strategy_Torque_Fill, %function
- 367              	Set_Strategy_Torque_Fill:
- 368              	.LFB72:
- 225:src/hybrid_mode.c **** 
- 226:src/hybrid_mode.c **** /*
- 227:src/hybrid_mode.c ****  * Function:    Set_Strategy_Torque_Fill
- 228:src/hybrid_mode.c ****  * Description: Provides full torque when:
- 229:src/hybrid_mode.c ****  *              - TPS > 50
- 230:src/hybrid_mode.c ****  *              - RPM ∈ [2000, 8000]
- 231:src/hybrid_mode.c ****  *              - Brake is not pressed
- 232:src/hybrid_mode.c ****  *              Applies regenerative braking when brake is pressed.
- 233:src/hybrid_mode.c ****  *              Falls back to Freewheel otherwise.
- 234:src/hybrid_mode.c ****  */
- 235:src/hybrid_mode.c **** void Set_Strategy_Torque_Fill()
- 236:src/hybrid_mode.c **** {
- 369              		.loc 1 236 0
- 370              		.cfi_startproc
- 371              		@ args = 0, pretend = 0, frame = 0
- 372              		@ frame_needed = 0, uses_anonymous_args = 0
- 373 0000 08B5     		push	{r3, lr}
- 374              		.cfi_def_cfa_offset 8
- 375              		.cfi_offset 3, -8
- 376              		.cfi_offset 14, -4
- 237:src/hybrid_mode.c ****     if ((car_state.brake_state == STD_OFF) && (car_state.tps > 50) && (car_state.rpm >= 2000) && (c
- 377              		.loc 1 237 0
- 378 0002 154B     		ldr	r3, .L43
- 379 0004 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
- 380 0006 13F0FF0F 		tst	r3, #255
- 381 000a 16D1     		bne	.L39
- 382              		.loc 1 237 0 is_stmt 0 discriminator 1
- 383 000c 124B     		ldr	r3, .L43
- 384 000e 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
- 385 0010 DBB2     		uxtb	r3, r3
- 386 0012 322B     		cmp	r3, #50
- 387 0014 11D9     		bls	.L39
- 388              		.loc 1 237 0 discriminator 2
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 12
+ 374 0002 154B     		ldr	r3, .L43
+ 375 0004 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 376 0006 13F0FF0F 		tst	r3, #255
+ 377 000a 16D1     		bne	.L39
+ 378              		.loc 1 252 0 is_stmt 0 discriminator 1
+ 379 000c 124B     		ldr	r3, .L43
+ 380 000e 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 381 0010 DBB2     		uxtb	r3, r3
+ 382 0012 322B     		cmp	r3, #50
+ 383 0014 11D9     		bls	.L39
+ 384              		.loc 1 252 0 discriminator 2
+ 385 0016 104B     		ldr	r3, .L43
+ 386 0018 1B88     		ldrh	r3, [r3]
+ 387 001a 9BB2     		uxth	r3, r3
+ 388 001c B3F5FA6F 		cmp	r3, #2000
+ 389 0020 0BD3     		bcc	.L39
+ 390              		.loc 1 252 0 discriminator 3
+ 391 0022 0D4B     		ldr	r3, .L43
+ 392 0024 1B88     		ldrh	r3, [r3]
+ 393 0026 9BB2     		uxth	r3, r3
+ 394 0028 B3F5FA5F 		cmp	r3, #8000
+ 395 002c 05D8     		bhi	.L39
+ 253:src/hybrid_mode.c ****     {
+ 254:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
+ 396              		.loc 1 254 0 is_stmt 1
+ 397 002e 0B4B     		ldr	r3, .L43+4
+ 398 0030 0222     		movs	r2, #2
+ 399 0032 1A70     		strb	r2, [r3]
+ 255:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
+ 400              		.loc 1 255 0
+ 401 0034 6422     		movs	r2, #100
+ 402 0036 5A70     		strb	r2, [r3, #1]
+ 403 0038 08BD     		pop	{r3, pc}
+ 404              	.L39:
+ 256:src/hybrid_mode.c ****     }
+ 257:src/hybrid_mode.c ****     else if (car_state.brake_state == STD_ON)
+ 405              		.loc 1 257 0
+ 406 003a 074B     		ldr	r3, .L43
+ 407 003c 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 408 003e DBB2     		uxtb	r3, r3
+ 409 0040 012B     		cmp	r3, #1
+ 410 0042 05D1     		bne	.L41
+ 258:src/hybrid_mode.c ****     {
+ 259:src/hybrid_mode.c ****         hybrid_state.driving_mode = BRAKE_MODE;
+ 411              		.loc 1 259 0
+ 412 0044 054B     		ldr	r3, .L43+4
+ 413 0046 0822     		movs	r2, #8
+ 414 0048 1A70     		strb	r2, [r3]
+ 260:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
+ 415              		.loc 1 260 0
+ 416 004a 6422     		movs	r2, #100
+ 417 004c 5A70     		strb	r2, [r3, #1]
+ 418 004e 08BD     		pop	{r3, pc}
+ 419              	.L41:
+ 261:src/hybrid_mode.c ****     }
+ 262:src/hybrid_mode.c ****     else
+ 263:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 13
 
 
- 389 0016 104B     		ldr	r3, .L43
- 390 0018 5B88     		ldrh	r3, [r3, #2]
- 391 001a 9BB2     		uxth	r3, r3
- 392 001c B3F5FA6F 		cmp	r3, #2000
- 393 0020 0BD3     		bcc	.L39
- 394              		.loc 1 237 0 discriminator 3
- 395 0022 0D4B     		ldr	r3, .L43
- 396 0024 5B88     		ldrh	r3, [r3, #2]
- 397 0026 9BB2     		uxth	r3, r3
- 398 0028 B3F5FA5F 		cmp	r3, #8000
- 399 002c 05D8     		bhi	.L39
- 238:src/hybrid_mode.c ****     {
- 239:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
- 400              		.loc 1 239 0 is_stmt 1
- 401 002e 0B4B     		ldr	r3, .L43+4
- 402 0030 0222     		movs	r2, #2
- 403 0032 1A70     		strb	r2, [r3]
- 240:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
- 404              		.loc 1 240 0
- 405 0034 6422     		movs	r2, #100
- 406 0036 5A70     		strb	r2, [r3, #1]
- 407 0038 08BD     		pop	{r3, pc}
- 408              	.L39:
- 241:src/hybrid_mode.c ****     }
- 242:src/hybrid_mode.c ****     else if (car_state.brake_state == STD_ON)
- 409              		.loc 1 242 0
- 410 003a 074B     		ldr	r3, .L43
- 411 003c 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
- 412 003e DBB2     		uxtb	r3, r3
- 413 0040 012B     		cmp	r3, #1
- 414 0042 05D1     		bne	.L41
- 243:src/hybrid_mode.c ****     {
- 244:src/hybrid_mode.c ****         hybrid_state.driving_mode = BRAKE_MODE;
- 415              		.loc 1 244 0
- 416 0044 054B     		ldr	r3, .L43+4
- 417 0046 0822     		movs	r2, #8
- 418 0048 1A70     		strb	r2, [r3]
- 245:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
- 419              		.loc 1 245 0
- 420 004a 6422     		movs	r2, #100
- 421 004c 5A70     		strb	r2, [r3, #1]
- 422 004e 08BD     		pop	{r3, pc}
- 423              	.L41:
- 246:src/hybrid_mode.c ****     }
- 247:src/hybrid_mode.c ****     else
- 248:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
- 424              		.loc 1 248 0
- 425 0050 FFF7FEFF 		bl	Set_Strategy_Freewheel
- 426              	.LVL12:
- 427 0054 08BD     		pop	{r3, pc}
- 428              	.L44:
- 429 0056 00BF     		.align	2
- 430              	.L43:
- 431 0058 00000000 		.word	car_state
- 432 005c 00000000 		.word	.LANCHOR0
- 433              		.cfi_endproc
- 434              	.LFE72:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 13
+ 420              		.loc 1 263 0
+ 421 0050 FFF7FEFF 		bl	Set_Strategy_Freewheel
+ 422              	.LVL11:
+ 423 0054 08BD     		pop	{r3, pc}
+ 424              	.L44:
+ 425 0056 00BF     		.align	2
+ 426              	.L43:
+ 427 0058 00000000 		.word	car_state
+ 428 005c 00000000 		.word	.LANCHOR0
+ 429              		.cfi_endproc
+ 430              	.LFE73:
+ 431              		.size	Set_Strategy_Torque_Fill, .-Set_Strategy_Torque_Fill
+ 432              		.section	.text.Set_Strategy,"ax",%progbits
+ 433              		.align	2
+ 434              		.global	Set_Strategy
+ 435              		.thumb
+ 436              		.thumb_func
+ 437              		.type	Set_Strategy, %function
+ 438              	Set_Strategy:
+ 439              	.LFB66:
+  95:src/hybrid_mode.c ****     if (/*(car_state.gear == NEUTRAL_GEAR) ||*/ (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.
+ 440              		.loc 1 95 0
+ 441              		.cfi_startproc
+ 442              		@ args = 0, pretend = 0, frame = 0
+ 443              		@ frame_needed = 0, uses_anonymous_args = 0
+ 444              	.LVL12:
+ 445 0000 10B5     		push	{r4, lr}
+ 446              		.cfi_def_cfa_offset 8
+ 447              		.cfi_offset 4, -8
+ 448              		.cfi_offset 14, -4
+  96:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
+ 449              		.loc 1 96 0
+ 450 0002 224B     		ldr	r3, .L60
+ 451 0004 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 452 0006 DBB2     		uxtb	r3, r3
+ 453 0008 052B     		cmp	r3, #5
+ 454 000a 05D9     		bls	.L46
+ 455 000c 0446     		mov	r4, r0
+  96:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
+ 456              		.loc 1 96 0 is_stmt 0 discriminator 1
+ 457 000e 1F4B     		ldr	r3, .L60
+ 458 0010 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 459 0012 DBB2     		uxtb	r3, r3
+ 460 0014 5A2B     		cmp	r3, #90
+ 461 0016 02D9     		bls	.L47
+ 462              	.L46:
+  97:src/hybrid_mode.c ****     else if ((Read_Boost_Button() == STD_ON) && (car_state.brake_state == STD_OFF) && (sel_strategy
+ 463              		.loc 1 97 0 is_stmt 1
+ 464 0018 FFF7FEFF 		bl	Set_Strategy_Freewheel
+ 465              	.LVL13:
+ 466 001c 2EE0     		b	.L48
+ 467              	.LVL14:
+ 468              	.L47:
+  98:src/hybrid_mode.c ****     {
+ 469              		.loc 1 98 0
+ 470 001e FFF7FEFF 		bl	Read_Boost_Button
+ 471              	.LVL15:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 14
 
 
- 435              		.size	Set_Strategy_Torque_Fill, .-Set_Strategy_Torque_Fill
- 436              		.section	.text.Set_Strategy,"ax",%progbits
- 437              		.align	2
- 438              		.global	Set_Strategy
- 439              		.thumb
- 440              		.thumb_func
- 441              		.type	Set_Strategy, %function
- 442              	Set_Strategy:
- 443              	.LFB65:
-  84:src/hybrid_mode.c ****     if ((car_state.gear == NEUTRAL_GEAR) || (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.vss 
- 444              		.loc 1 84 0
- 445              		.cfi_startproc
- 446              		@ args = 0, pretend = 0, frame = 0
- 447              		@ frame_needed = 0, uses_anonymous_args = 0
- 448              	.LVL13:
- 449 0000 10B5     		push	{r4, lr}
- 450              		.cfi_def_cfa_offset 8
- 451              		.cfi_offset 4, -8
- 452              		.cfi_offset 14, -4
-  85:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
- 453              		.loc 1 85 0
- 454 0002 234B     		ldr	r3, .L59
- 455 0004 DB79     		ldrb	r3, [r3, #7]	@ zero_extendqisi2
- 456 0006 13F0FF0F 		tst	r3, #255
- 457 000a 0AD0     		beq	.L46
- 458 000c 0446     		mov	r4, r0
-  85:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
- 459              		.loc 1 85 0 is_stmt 0 discriminator 1
- 460 000e 204B     		ldr	r3, .L59
- 461 0010 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
- 462 0012 DBB2     		uxtb	r3, r3
- 463 0014 052B     		cmp	r3, #5
- 464 0016 04D9     		bls	.L46
-  85:src/hybrid_mode.c ****         Set_Strategy_Freewheel();
- 465              		.loc 1 85 0 discriminator 2
- 466 0018 1D4B     		ldr	r3, .L59
- 467 001a 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
- 468 001c DBB2     		uxtb	r3, r3
- 469 001e 5A2B     		cmp	r3, #90
- 470 0020 02D9     		bls	.L47
- 471              	.L46:
-  86:src/hybrid_mode.c ****     else if ((Read_Boost_Button() == STD_ON) && (car_state.brake_state == STD_OFF) && (sel_strategy
- 472              		.loc 1 86 0 is_stmt 1
- 473 0022 FFF7FEFF 		bl	Set_Strategy_Freewheel
- 474              	.LVL14:
- 475 0026 2BE0     		b	.L48
- 476              	.LVL15:
- 477              	.L47:
-  87:src/hybrid_mode.c ****     {
- 478              		.loc 1 87 0
- 479 0028 FFF7FEFF 		bl	Read_Boost_Button
- 480              	.LVL16:
- 481 002c 0128     		cmp	r0, #1
- 482 002e 0BD1     		bne	.L49
-  87:src/hybrid_mode.c ****     {
- 483              		.loc 1 87 0 is_stmt 0 discriminator 1
- 484 0030 174B     		ldr	r3, .L59
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 14
+ 472 0022 0128     		cmp	r0, #1
+ 473 0024 0BD1     		bne	.L49
+  98:src/hybrid_mode.c ****     {
+ 474              		.loc 1 98 0 is_stmt 0 discriminator 1
+ 475 0026 194B     		ldr	r3, .L60
+ 476 0028 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 477 002a 13F0FF0F 		tst	r3, #255
+ 478 002e 06D1     		bne	.L49
+  98:src/hybrid_mode.c ****     {
+ 479              		.loc 1 98 0 discriminator 2
+ 480 0030 2CB1     		cbz	r4, .L49
+ 100:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100;
+ 481              		.loc 1 100 0 is_stmt 1
+ 482 0032 174B     		ldr	r3, .L60+4
+ 483 0034 0222     		movs	r2, #2
+ 484 0036 1A70     		strb	r2, [r3]
+ 101:src/hybrid_mode.c ****     }
+ 485              		.loc 1 101 0
+ 486 0038 6422     		movs	r2, #100
+ 487 003a 5A70     		strb	r2, [r3, #1]
+ 488 003c 1EE0     		b	.L48
+ 489              	.L49:
+ 104:src/hybrid_mode.c ****         {
+ 490              		.loc 1 104 0
+ 491 003e 062C     		cmp	r4, #6
+ 492 0040 1AD8     		bhi	.L50
+ 493 0042 DFE804F0 		tbb	[pc, r4]
+ 494              	.L52:
+ 495 0046 04       		.byte	(.L51-.L52)/2
+ 496 0047 07       		.byte	(.L53-.L52)/2
+ 497 0048 0A       		.byte	(.L54-.L52)/2
+ 498 0049 0D       		.byte	(.L55-.L52)/2
+ 499 004a 10       		.byte	(.L56-.L52)/2
+ 500 004b 13       		.byte	(.L57-.L52)/2
+ 501 004c 16       		.byte	(.L58-.L52)/2
+ 502 004d 00       		.p2align 1
+ 503              	.L51:
+ 107:src/hybrid_mode.c ****                 break;
+ 504              		.loc 1 107 0
+ 505 004e FFF7FEFF 		bl	Set_Strategy_Freewheel
+ 506              	.LVL16:
+ 108:src/hybrid_mode.c ****                 
+ 507              		.loc 1 108 0
+ 508 0052 13E0     		b	.L48
+ 509              	.L53:
+ 111:src/hybrid_mode.c ****                 break;
+ 510              		.loc 1 111 0
+ 511 0054 FFF7FEFF 		bl	Set_Strategy_Manual
+ 512              	.LVL17:
+ 112:src/hybrid_mode.c **** 
+ 513              		.loc 1 112 0
+ 514 0058 10E0     		b	.L48
+ 515              	.L54:
+ 115:src/hybrid_mode.c ****                 break;
+ 516              		.loc 1 115 0
+ 517 005a FFF7FEFF 		bl	Set_Strategy_Launch_Assist
+ 518              	.LVL18:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 15
 
 
- 485 0032 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
- 486 0034 13F0FF0F 		tst	r3, #255
- 487 0038 06D1     		bne	.L49
-  87:src/hybrid_mode.c ****     {
- 488              		.loc 1 87 0 discriminator 2
- 489 003a 2CB1     		cbz	r4, .L49
-  89:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100;
- 490              		.loc 1 89 0 is_stmt 1
- 491 003c 154B     		ldr	r3, .L59+4
- 492 003e 0222     		movs	r2, #2
- 493 0040 1A70     		strb	r2, [r3]
-  90:src/hybrid_mode.c ****     }
- 494              		.loc 1 90 0
- 495 0042 6422     		movs	r2, #100
- 496 0044 5A70     		strb	r2, [r3, #1]
- 497 0046 1BE0     		b	.L48
- 498              	.L49:
-  93:src/hybrid_mode.c ****         {
- 499              		.loc 1 93 0
- 500 0048 013C     		subs	r4, r4, #1
- 501 004a 052C     		cmp	r4, #5
- 502 004c 16D8     		bhi	.L50
- 503 004e DFE804F0 		tbb	[pc, r4]
- 504              	.L52:
- 505 0052 03       		.byte	(.L51-.L52)/2
- 506 0053 06       		.byte	(.L53-.L52)/2
- 507 0054 09       		.byte	(.L54-.L52)/2
- 508 0055 0C       		.byte	(.L55-.L52)/2
- 509 0056 0F       		.byte	(.L56-.L52)/2
- 510 0057 12       		.byte	(.L57-.L52)/2
- 511              		.p2align 1
- 512              	.L51:
-  96:src/hybrid_mode.c ****                 break;
- 513              		.loc 1 96 0
- 514 0058 FFF7FEFF 		bl	Set_Strategy_Manual
- 515              	.LVL17:
-  97:src/hybrid_mode.c **** 
- 516              		.loc 1 97 0
- 517 005c 10E0     		b	.L48
- 518              	.L53:
- 100:src/hybrid_mode.c ****                 break;
- 519              		.loc 1 100 0
- 520 005e FFF7FEFF 		bl	Set_Strategy_Launch_Assist
- 521              	.LVL18:
- 101:src/hybrid_mode.c **** 
- 522              		.loc 1 101 0
- 523 0062 0DE0     		b	.L48
- 524              	.L54:
- 104:src/hybrid_mode.c ****                 break;
- 525              		.loc 1 104 0
- 526 0064 FFF7FEFF 		bl	Set_Strategy_Auto_No_Regen
- 527              	.LVL19:
- 105:src/hybrid_mode.c **** 
- 528              		.loc 1 105 0
- 529 0068 0AE0     		b	.L48
- 530              	.L55:
- 108:src/hybrid_mode.c ****                 break;
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 15
+ 116:src/hybrid_mode.c **** 
+ 519              		.loc 1 116 0
+ 520 005e 0DE0     		b	.L48
+ 521              	.L55:
+ 119:src/hybrid_mode.c ****                 break;
+ 522              		.loc 1 119 0
+ 523 0060 FFF7FEFF 		bl	Set_Strategy_Auto_No_Regen
+ 524              	.LVL19:
+ 120:src/hybrid_mode.c **** 
+ 525              		.loc 1 120 0
+ 526 0064 0AE0     		b	.L48
+ 527              	.L56:
+ 123:src/hybrid_mode.c ****                 break;
+ 528              		.loc 1 123 0
+ 529 0066 FFF7FEFF 		bl	Set_Strategy_Auto_Brake_Regen
+ 530              	.LVL20:
+ 124:src/hybrid_mode.c **** 
+ 531              		.loc 1 124 0
+ 532 006a 07E0     		b	.L48
+ 533              	.L57:
+ 127:src/hybrid_mode.c ****                 break;
+ 534              		.loc 1 127 0
+ 535 006c FFF7FEFF 		bl	Set_Strategy_Auto_Always_Regen
+ 536              	.LVL21:
+ 128:src/hybrid_mode.c **** 
+ 537              		.loc 1 128 0
+ 538 0070 04E0     		b	.L48
+ 539              	.L58:
+ 131:src/hybrid_mode.c ****                 break;
+ 540              		.loc 1 131 0
+ 541 0072 FFF7FEFF 		bl	Set_Strategy_Torque_Fill
+ 542              	.LVL22:
+ 132:src/hybrid_mode.c **** 
+ 543              		.loc 1 132 0
+ 544 0076 01E0     		b	.L48
+ 545              	.L50:
+ 135:src/hybrid_mode.c ****         }
+ 546              		.loc 1 135 0
+ 547 0078 FFF7FEFF 		bl	Set_Strategy_Freewheel
+ 548              	.LVL23:
+ 549              	.L48:
+ 138:src/hybrid_mode.c **** }
+ 550              		.loc 1 138 0
+ 551 007c 044B     		ldr	r3, .L60+4
+ 552 007e 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 553 0080 5978     		ldrb	r1, [r3, #1]	@ zero_extendqisi2
+ 554 0082 49B2     		sxtb	r1, r1
+ 555 0084 FFF7FEFF 		bl	CAN_Transmit_To_ESC
+ 556              	.LVL24:
+ 557 0088 10BD     		pop	{r4, pc}
+ 558              	.L61:
+ 559 008a 00BF     		.align	2
+ 560              	.L60:
+ 561 008c 00000000 		.word	car_state
+ 562 0090 00000000 		.word	.LANCHOR0
+ 563              		.cfi_endproc
+ 564              	.LFE66:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 16
 
 
- 531              		.loc 1 108 0
- 532 006a FFF7FEFF 		bl	Set_Strategy_Auto_Brake_Regen
- 533              	.LVL20:
- 109:src/hybrid_mode.c **** 
- 534              		.loc 1 109 0
- 535 006e 07E0     		b	.L48
- 536              	.L56:
- 112:src/hybrid_mode.c ****                 break;
- 537              		.loc 1 112 0
- 538 0070 FFF7FEFF 		bl	Set_Strategy_Auto_Always_Regen
- 539              	.LVL21:
- 113:src/hybrid_mode.c **** 
- 540              		.loc 1 113 0
- 541 0074 04E0     		b	.L48
- 542              	.L57:
- 116:src/hybrid_mode.c ****                 break;
- 543              		.loc 1 116 0
- 544 0076 FFF7FEFF 		bl	Set_Strategy_Torque_Fill
- 545              	.LVL22:
- 117:src/hybrid_mode.c **** 
- 546              		.loc 1 117 0
- 547 007a 01E0     		b	.L48
- 548              	.L50:
- 120:src/hybrid_mode.c ****         }
- 549              		.loc 1 120 0
- 550 007c FFF7FEFF 		bl	Set_Strategy_Freewheel
- 551              	.LVL23:
- 552              	.L48:
- 123:src/hybrid_mode.c **** }
- 553              		.loc 1 123 0
- 554 0080 044B     		ldr	r3, .L59+4
- 555 0082 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
- 556 0084 5978     		ldrb	r1, [r3, #1]	@ zero_extendqisi2
- 557 0086 49B2     		sxtb	r1, r1
- 558 0088 FFF7FEFF 		bl	CAN_Transmit_To_ESC
- 559              	.LVL24:
- 560 008c 10BD     		pop	{r4, pc}
- 561              	.L60:
- 562 008e 00BF     		.align	2
- 563              	.L59:
- 564 0090 00000000 		.word	car_state
- 565 0094 00000000 		.word	.LANCHOR0
- 566              		.cfi_endproc
- 567              	.LFE65:
- 568              		.size	Set_Strategy, .-Set_Strategy
- 569              		.global	hybrid_state
- 570              		.bss
- 571              		.align	2
- 572              		.set	.LANCHOR0,. + 0
- 573              		.type	hybrid_state, %object
- 574              		.size	hybrid_state, 2
- 575              	hybrid_state:
- 576 0000 0000     		.space	2
- 577              		.text
- 578              	.Letext0:
- 579              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
- 580              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 16
+ 565              		.size	Set_Strategy, .-Set_Strategy
+ 566              		.section	.text.Emergency_Stop,"ax",%progbits
+ 567              		.align	2
+ 568              		.global	Emergency_Stop
+ 569              		.thumb
+ 570              		.thumb_func
+ 571              		.type	Emergency_Stop, %function
+ 572              	Emergency_Stop:
+ 573              	.LFB65:
+  72:src/hybrid_mode.c ****     Set_Strategy(FREEWHEEL_S); // Set the CAN message to freewheel before turn off
+ 574              		.loc 1 72 0
+ 575              		.cfi_startproc
+ 576              		@ args = 0, pretend = 0, frame = 0
+ 577              		@ frame_needed = 0, uses_anonymous_args = 0
+ 578 0000 08B5     		push	{r3, lr}
+ 579              		.cfi_def_cfa_offset 8
+ 580              		.cfi_offset 3, -8
+ 581              		.cfi_offset 14, -4
+  73:src/hybrid_mode.c ****     CyDelay(50u); // Wait 50 ms for the motor to slow down
+ 582              		.loc 1 73 0
+ 583 0002 0020     		movs	r0, #0
+ 584 0004 FFF7FEFF 		bl	Set_Strategy
+ 585              	.LVL25:
+  74:src/hybrid_mode.c ****     AIR_enable_Write(STD_OFF); // Disable the AIR
+ 586              		.loc 1 74 0
+ 587 0008 3220     		movs	r0, #50
+ 588 000a FFF7FEFF 		bl	CyDelay
+ 589              	.LVL26:
+  75:src/hybrid_mode.c **** }
+ 590              		.loc 1 75 0
+ 591 000e 0020     		movs	r0, #0
+ 592 0010 FFF7FEFF 		bl	AIR_enable_Write
+ 593              	.LVL27:
+ 594 0014 08BD     		pop	{r3, pc}
+ 595              		.cfi_endproc
+ 596              	.LFE65:
+ 597              		.size	Emergency_Stop, .-Emergency_Stop
+ 598              		.global	hybrid_state
+ 599 0016 00BF     		.bss
+ 600              		.align	2
+ 601              		.set	.LANCHOR0,. + 0
+ 602              		.type	hybrid_state, %object
+ 603              		.size	hybrid_state, 2
+ 604              	hybrid_state:
+ 605 0000 0000     		.space	2
+ 606              		.text
+ 607              	.Letext0:
+ 608              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 609              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 610              		.file 4 "./include/can_comm.h"
+ 611              		.file 5 "./include/hybrid_mode.h"
+ 612              		.file 6 "Generated_Source\\PSoC5/core_cm3.h"
+ 613              		.file 7 "./include/user_input.h"
+ 614              		.file 8 "Generated_Source\\PSoC5/CyLib.h"
+ 615              		.file 9 "Generated_Source\\PSoC5/AIR_enable.h"
+ 616              		.section	.debug_info,"",%progbits
+ 617              	.Ldebug_info0:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 17
 
 
- 581              		.file 4 "./include/can_comm.h"
- 582              		.file 5 "./include/hybrid_mode.h"
- 583              		.file 6 "Generated_Source\\PSoC5/core_cm3.h"
- 584              		.file 7 "./include/user_input.h"
- 585              		.section	.debug_info,"",%progbits
- 586              	.Ldebug_info0:
- 587 0000 73030000 		.4byte	0x373
- 588 0004 0400     		.2byte	0x4
- 589 0006 00000000 		.4byte	.Ldebug_abbrev0
- 590 000a 04       		.byte	0x4
- 591 000b 01       		.uleb128 0x1
- 592 000c 32010000 		.4byte	.LASF46
- 593 0010 0C       		.byte	0xc
- 594 0011 41030000 		.4byte	.LASF47
- 595 0015 78000000 		.4byte	.LASF48
- 596 0019 00000000 		.4byte	.Ldebug_ranges0+0
- 597 001d 00000000 		.4byte	0
- 598 0021 00000000 		.4byte	.Ldebug_line0
- 599 0025 02       		.uleb128 0x2
- 600 0026 36000000 		.4byte	.LASF0
- 601 002a 02       		.byte	0x2
- 602 002b 1B       		.byte	0x1b
- 603 002c 30000000 		.4byte	0x30
- 604 0030 03       		.uleb128 0x3
- 605 0031 01       		.byte	0x1
- 606 0032 06       		.byte	0x6
- 607 0033 0A010000 		.4byte	.LASF2
- 608 0037 02       		.uleb128 0x2
- 609 0038 3F000000 		.4byte	.LASF1
- 610 003c 02       		.byte	0x2
- 611 003d 1D       		.byte	0x1d
- 612 003e 42000000 		.4byte	0x42
- 613 0042 03       		.uleb128 0x3
- 614 0043 01       		.byte	0x1
- 615 0044 08       		.byte	0x8
- 616 0045 24010000 		.4byte	.LASF3
- 617 0049 02       		.uleb128 0x2
- 618 004a 64000000 		.4byte	.LASF4
- 619 004e 02       		.byte	0x2
- 620 004f 29       		.byte	0x29
- 621 0050 54000000 		.4byte	0x54
- 622 0054 03       		.uleb128 0x3
- 623 0055 02       		.byte	0x2
- 624 0056 05       		.byte	0x5
- 625 0057 23020000 		.4byte	.LASF5
- 626 005b 02       		.uleb128 0x2
- 627 005c 11020000 		.4byte	.LASF6
- 628 0060 02       		.byte	0x2
- 629 0061 2B       		.byte	0x2b
- 630 0062 66000000 		.4byte	0x66
- 631 0066 03       		.uleb128 0x3
- 632 0067 02       		.byte	0x2
- 633 0068 07       		.byte	0x7
- 634 0069 D2010000 		.4byte	.LASF7
- 635 006d 02       		.uleb128 0x2
- 636 006e 6E000000 		.4byte	.LASF8
- 637 0072 02       		.byte	0x2
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 17
+ 618 0000 D5030000 		.4byte	0x3d5
+ 619 0004 0400     		.2byte	0x4
+ 620 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 621 000a 04       		.byte	0x4
+ 622 000b 01       		.uleb128 0x1
+ 623 000c 44010000 		.4byte	.LASF49
+ 624 0010 0C       		.byte	0xc
+ 625 0011 64030000 		.4byte	.LASF50
+ 626 0015 8A000000 		.4byte	.LASF51
+ 627 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 628 001d 00000000 		.4byte	0
+ 629 0021 00000000 		.4byte	.Ldebug_line0
+ 630 0025 02       		.uleb128 0x2
+ 631 0026 36000000 		.4byte	.LASF0
+ 632 002a 02       		.byte	0x2
+ 633 002b 1B       		.byte	0x1b
+ 634 002c 30000000 		.4byte	0x30
+ 635 0030 03       		.uleb128 0x3
+ 636 0031 01       		.byte	0x1
+ 637 0032 06       		.byte	0x6
+ 638 0033 1C010000 		.4byte	.LASF2
+ 639 0037 02       		.uleb128 0x2
+ 640 0038 3F000000 		.4byte	.LASF1
+ 641 003c 02       		.byte	0x2
+ 642 003d 1D       		.byte	0x1d
+ 643 003e 42000000 		.4byte	0x42
+ 644 0042 03       		.uleb128 0x3
+ 645 0043 01       		.byte	0x1
+ 646 0044 08       		.byte	0x8
+ 647 0045 36010000 		.4byte	.LASF3
+ 648 0049 02       		.uleb128 0x2
+ 649 004a 64000000 		.4byte	.LASF4
+ 650 004e 02       		.byte	0x2
+ 651 004f 29       		.byte	0x29
+ 652 0050 54000000 		.4byte	0x54
+ 653 0054 03       		.uleb128 0x3
+ 654 0055 02       		.byte	0x2
+ 655 0056 05       		.byte	0x5
+ 656 0057 35020000 		.4byte	.LASF5
+ 657 005b 02       		.uleb128 0x2
+ 658 005c 23020000 		.4byte	.LASF6
+ 659 0060 02       		.byte	0x2
+ 660 0061 2B       		.byte	0x2b
+ 661 0062 66000000 		.4byte	0x66
+ 662 0066 03       		.uleb128 0x3
+ 663 0067 02       		.byte	0x2
+ 664 0068 07       		.byte	0x7
+ 665 0069 E4010000 		.4byte	.LASF7
+ 666 006d 02       		.uleb128 0x2
+ 667 006e 80000000 		.4byte	.LASF8
+ 668 0072 02       		.byte	0x2
+ 669 0073 3F       		.byte	0x3f
+ 670 0074 78000000 		.4byte	0x78
+ 671 0078 03       		.uleb128 0x3
+ 672 0079 04       		.byte	0x4
+ 673 007a 05       		.byte	0x5
+ 674 007b 5B030000 		.4byte	.LASF9
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 18
 
 
- 638 0073 3F       		.byte	0x3f
- 639 0074 78000000 		.4byte	0x78
- 640 0078 03       		.uleb128 0x3
- 641 0079 04       		.byte	0x4
- 642 007a 05       		.byte	0x5
- 643 007b 38030000 		.4byte	.LASF9
- 644 007f 03       		.uleb128 0x3
- 645 0080 04       		.byte	0x4
- 646 0081 07       		.byte	0x7
- 647 0082 C0010000 		.4byte	.LASF10
- 648 0086 03       		.uleb128 0x3
- 649 0087 08       		.byte	0x8
- 650 0088 05       		.byte	0x5
- 651 0089 00000000 		.4byte	.LASF11
- 652 008d 03       		.uleb128 0x3
- 653 008e 08       		.byte	0x8
- 654 008f 07       		.byte	0x7
- 655 0090 71020000 		.4byte	.LASF12
- 656 0094 04       		.uleb128 0x4
- 657 0095 04       		.byte	0x4
- 658 0096 05       		.byte	0x5
- 659 0097 696E7400 		.ascii	"int\000"
- 660 009b 03       		.uleb128 0x3
- 661 009c 04       		.byte	0x4
- 662 009d 07       		.byte	0x7
- 663 009e 3A020000 		.4byte	.LASF13
- 664 00a2 02       		.uleb128 0x2
- 665 00a3 F5000000 		.4byte	.LASF14
- 666 00a7 03       		.byte	0x3
- 667 00a8 14       		.byte	0x14
- 668 00a9 25000000 		.4byte	0x25
- 669 00ad 02       		.uleb128 0x2
- 670 00ae 88020000 		.4byte	.LASF15
- 671 00b2 03       		.byte	0x3
- 672 00b3 18       		.byte	0x18
- 673 00b4 37000000 		.4byte	0x37
- 674 00b8 02       		.uleb128 0x2
- 675 00b9 A4020000 		.4byte	.LASF16
- 676 00bd 03       		.byte	0x3
- 677 00be 20       		.byte	0x20
- 678 00bf 49000000 		.4byte	0x49
- 679 00c3 02       		.uleb128 0x2
- 680 00c4 22030000 		.4byte	.LASF17
- 681 00c8 03       		.byte	0x3
- 682 00c9 24       		.byte	0x24
- 683 00ca 5B000000 		.4byte	0x5b
- 684 00ce 02       		.uleb128 0x2
- 685 00cf FC000000 		.4byte	.LASF18
- 686 00d3 03       		.byte	0x3
- 687 00d4 2C       		.byte	0x2c
- 688 00d5 6D000000 		.4byte	0x6d
- 689 00d9 03       		.uleb128 0x3
- 690 00da 04       		.byte	0x4
- 691 00db 04       		.byte	0x4
- 692 00dc 04010000 		.4byte	.LASF19
- 693 00e0 03       		.uleb128 0x3
- 694 00e1 08       		.byte	0x8
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 18
+ 675 007f 03       		.uleb128 0x3
+ 676 0080 04       		.byte	0x4
+ 677 0081 07       		.byte	0x7
+ 678 0082 D2010000 		.4byte	.LASF10
+ 679 0086 03       		.uleb128 0x3
+ 680 0087 08       		.byte	0x8
+ 681 0088 05       		.byte	0x5
+ 682 0089 00000000 		.4byte	.LASF11
+ 683 008d 03       		.uleb128 0x3
+ 684 008e 08       		.byte	0x8
+ 685 008f 07       		.byte	0x7
+ 686 0090 83020000 		.4byte	.LASF12
+ 687 0094 04       		.uleb128 0x4
+ 688 0095 04       		.byte	0x4
+ 689 0096 05       		.byte	0x5
+ 690 0097 696E7400 		.ascii	"int\000"
+ 691 009b 03       		.uleb128 0x3
+ 692 009c 04       		.byte	0x4
+ 693 009d 07       		.byte	0x7
+ 694 009e 4C020000 		.4byte	.LASF13
+ 695 00a2 02       		.uleb128 0x2
+ 696 00a3 07010000 		.4byte	.LASF14
+ 697 00a7 03       		.byte	0x3
+ 698 00a8 14       		.byte	0x14
+ 699 00a9 25000000 		.4byte	0x25
+ 700 00ad 02       		.uleb128 0x2
+ 701 00ae 9A020000 		.4byte	.LASF15
+ 702 00b2 03       		.byte	0x3
+ 703 00b3 18       		.byte	0x18
+ 704 00b4 37000000 		.4byte	0x37
+ 705 00b8 02       		.uleb128 0x2
+ 706 00b9 B6020000 		.4byte	.LASF16
+ 707 00bd 03       		.byte	0x3
+ 708 00be 20       		.byte	0x20
+ 709 00bf 49000000 		.4byte	0x49
+ 710 00c3 02       		.uleb128 0x2
+ 711 00c4 45030000 		.4byte	.LASF17
+ 712 00c8 03       		.byte	0x3
+ 713 00c9 24       		.byte	0x24
+ 714 00ca 5B000000 		.4byte	0x5b
+ 715 00ce 02       		.uleb128 0x2
+ 716 00cf 0E010000 		.4byte	.LASF18
+ 717 00d3 03       		.byte	0x3
+ 718 00d4 2C       		.byte	0x2c
+ 719 00d5 6D000000 		.4byte	0x6d
+ 720 00d9 03       		.uleb128 0x3
+ 721 00da 04       		.byte	0x4
+ 722 00db 04       		.byte	0x4
+ 723 00dc 16010000 		.4byte	.LASF19
+ 724 00e0 03       		.uleb128 0x3
+ 725 00e1 08       		.byte	0x8
+ 726 00e2 04       		.byte	0x4
+ 727 00e3 2E020000 		.4byte	.LASF20
+ 728 00e7 03       		.uleb128 0x3
+ 729 00e8 01       		.byte	0x1
+ 730 00e9 08       		.byte	0x8
+ 731 00ea 33030000 		.4byte	.LASF21
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 19
 
 
- 695 00e2 04       		.byte	0x4
- 696 00e3 1C020000 		.4byte	.LASF20
- 697 00e7 03       		.uleb128 0x3
- 698 00e8 01       		.byte	0x1
- 699 00e9 08       		.byte	0x8
- 700 00ea 10030000 		.4byte	.LASF21
- 701 00ee 03       		.uleb128 0x3
- 702 00ef 08       		.byte	0x8
- 703 00f0 04       		.byte	0x4
- 704 00f1 C9020000 		.4byte	.LASF22
- 705 00f5 03       		.uleb128 0x3
- 706 00f6 04       		.byte	0x4
- 707 00f7 07       		.byte	0x7
- 708 00f8 D5020000 		.4byte	.LASF23
- 709 00fc 05       		.uleb128 0x5
- 710 00fd 08       		.byte	0x8
- 711 00fe 04       		.byte	0x4
- 712 00ff 23       		.byte	0x23
- 713 0100 4D010000 		.4byte	0x14d
- 714 0104 06       		.uleb128 0x6
- 715 0105 6C030000 		.4byte	.LASF24
- 716 0109 04       		.byte	0x4
- 717 010a 24       		.byte	0x24
- 718 010b AD000000 		.4byte	0xad
- 719 010f 00       		.byte	0
- 720 0110 07       		.uleb128 0x7
- 721 0111 72706D00 		.ascii	"rpm\000"
- 722 0115 04       		.byte	0x4
- 723 0116 25       		.byte	0x25
- 724 0117 C3000000 		.4byte	0xc3
- 725 011b 02       		.byte	0x2
- 726 011c 07       		.uleb128 0x7
- 727 011d 74707300 		.ascii	"tps\000"
- 728 0121 04       		.byte	0x4
- 729 0122 26       		.byte	0x26
- 730 0123 AD000000 		.4byte	0xad
- 731 0127 04       		.byte	0x4
- 732 0128 07       		.uleb128 0x7
- 733 0129 76737300 		.ascii	"vss\000"
- 734 012d 04       		.byte	0x4
- 735 012e 27       		.byte	0x27
- 736 012f AD000000 		.4byte	0xad
- 737 0133 05       		.byte	0x5
- 738 0134 06       		.uleb128 0x6
- 739 0135 58000000 		.4byte	.LASF25
- 740 0139 04       		.byte	0x4
- 741 013a 28       		.byte	0x28
- 742 013b AD000000 		.4byte	0xad
- 743 013f 06       		.byte	0x6
- 744 0140 06       		.uleb128 0x6
- 745 0141 F0000000 		.4byte	.LASF26
- 746 0145 04       		.byte	0x4
- 747 0146 29       		.byte	0x29
- 748 0147 AD000000 		.4byte	0xad
- 749 014b 07       		.byte	0x7
- 750 014c 00       		.byte	0
- 751 014d 02       		.uleb128 0x2
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 19
+ 732 00ee 03       		.uleb128 0x3
+ 733 00ef 08       		.byte	0x8
+ 734 00f0 04       		.byte	0x4
+ 735 00f1 EC020000 		.4byte	.LASF22
+ 736 00f5 03       		.uleb128 0x3
+ 737 00f6 04       		.byte	0x4
+ 738 00f7 07       		.byte	0x7
+ 739 00f8 F8020000 		.4byte	.LASF23
+ 740 00fc 05       		.uleb128 0x5
+ 741 00fd 08       		.byte	0x8
+ 742 00fe 04       		.byte	0x4
+ 743 00ff 24       		.byte	0x24
+ 744 0100 4D010000 		.4byte	0x14d
+ 745 0104 06       		.uleb128 0x6
+ 746 0105 72706D00 		.ascii	"rpm\000"
+ 747 0109 04       		.byte	0x4
+ 748 010a 25       		.byte	0x25
+ 749 010b C3000000 		.4byte	0xc3
+ 750 010f 00       		.byte	0
+ 751 0110 07       		.uleb128 0x7
+ 752 0111 8F030000 		.4byte	.LASF24
+ 753 0115 04       		.byte	0x4
+ 754 0116 26       		.byte	0x26
+ 755 0117 AD000000 		.4byte	0xad
+ 756 011b 02       		.byte	0x2
+ 757 011c 07       		.uleb128 0x7
+ 758 011d 02010000 		.4byte	.LASF25
+ 759 0121 04       		.byte	0x4
+ 760 0122 27       		.byte	0x27
+ 761 0123 AD000000 		.4byte	0xad
+ 762 0127 03       		.byte	0x3
+ 763 0128 06       		.uleb128 0x6
+ 764 0129 74707300 		.ascii	"tps\000"
+ 765 012d 04       		.byte	0x4
+ 766 012e 28       		.byte	0x28
+ 767 012f AD000000 		.4byte	0xad
+ 768 0133 04       		.byte	0x4
+ 769 0134 06       		.uleb128 0x6
+ 770 0135 76737300 		.ascii	"vss\000"
+ 771 0139 04       		.byte	0x4
+ 772 013a 29       		.byte	0x29
+ 773 013b AD000000 		.4byte	0xad
+ 774 013f 05       		.byte	0x5
+ 775 0140 07       		.uleb128 0x7
+ 776 0141 58000000 		.4byte	.LASF26
+ 777 0145 04       		.byte	0x4
+ 778 0146 2A       		.byte	0x2a
+ 779 0147 AD000000 		.4byte	0xad
+ 780 014b 06       		.byte	0x6
+ 781 014c 00       		.byte	0
+ 782 014d 02       		.uleb128 0x2
+ 783 014e 9C030000 		.4byte	.LASF27
+ 784 0152 04       		.byte	0x4
+ 785 0153 2B       		.byte	0x2b
+ 786 0154 FC000000 		.4byte	0xfc
+ 787 0158 05       		.uleb128 0x5
+ 788 0159 02       		.byte	0x2
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 20
 
 
- 752 014e 79030000 		.4byte	.LASF27
- 753 0152 04       		.byte	0x4
- 754 0153 2A       		.byte	0x2a
- 755 0154 FC000000 		.4byte	0xfc
- 756 0158 05       		.uleb128 0x5
- 757 0159 02       		.byte	0x2
- 758 015a 05       		.byte	0x5
- 759 015b 24       		.byte	0x24
- 760 015c 79010000 		.4byte	0x179
- 761 0160 06       		.uleb128 0x6
- 762 0161 04020000 		.4byte	.LASF28
- 763 0165 05       		.byte	0x5
- 764 0166 25       		.byte	0x25
- 765 0167 AD000000 		.4byte	0xad
- 766 016b 00       		.byte	0
- 767 016c 06       		.uleb128 0x6
- 768 016d DA000000 		.4byte	.LASF29
- 769 0171 05       		.byte	0x5
- 770 0172 26       		.byte	0x26
- 771 0173 A2000000 		.4byte	0xa2
- 772 0177 01       		.byte	0x1
- 773 0178 00       		.byte	0
- 774 0179 02       		.uleb128 0x2
- 775 017a 16010000 		.4byte	.LASF30
- 776 017e 05       		.byte	0x5
- 777 017f 27       		.byte	0x27
- 778 0180 58010000 		.4byte	0x158
- 779 0184 08       		.uleb128 0x8
- 780 0185 AC020000 		.4byte	.LASF31
- 781 0189 01       		.byte	0x1
- 782 018a 2E       		.byte	0x2e
- 783 018b AD000000 		.4byte	0xad
- 784 018f 00000000 		.4byte	.LFB63
- 785 0193 10000000 		.4byte	.LFE63-.LFB63
- 786 0197 01       		.uleb128 0x1
- 787 0198 9C       		.byte	0x9c
- 788 0199 AD010000 		.4byte	0x1ad
- 789 019d 09       		.uleb128 0x9
- 790 019e 47020000 		.4byte	.LASF33
- 791 01a2 01       		.byte	0x1
- 792 01a3 2E       		.byte	0x2e
- 793 01a4 AD000000 		.4byte	0xad
- 794 01a8 00000000 		.4byte	.LLST0
- 795 01ac 00       		.byte	0
- 796 01ad 08       		.uleb128 0x8
- 797 01ae 49000000 		.4byte	.LASF32
- 798 01b2 01       		.byte	0x1
- 799 01b3 3E       		.byte	0x3e
- 800 01b4 B8000000 		.4byte	0xb8
- 801 01b8 00000000 		.4byte	.LFB64
- 802 01bc 14000000 		.4byte	.LFE64-.LFB64
- 803 01c0 01       		.uleb128 0x1
- 804 01c1 9C       		.byte	0x9c
- 805 01c2 D6010000 		.4byte	0x1d6
- 806 01c6 09       		.uleb128 0x9
- 807 01c7 DA000000 		.4byte	.LASF29
- 808 01cb 01       		.byte	0x1
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 20
+ 789 015a 05       		.byte	0x5
+ 790 015b 2C       		.byte	0x2c
+ 791 015c 79010000 		.4byte	0x179
+ 792 0160 07       		.uleb128 0x7
+ 793 0161 16020000 		.4byte	.LASF28
+ 794 0165 05       		.byte	0x5
+ 795 0166 2D       		.byte	0x2d
+ 796 0167 AD000000 		.4byte	0xad
+ 797 016b 00       		.byte	0
+ 798 016c 07       		.uleb128 0x7
+ 799 016d EC000000 		.4byte	.LASF29
+ 800 0171 05       		.byte	0x5
+ 801 0172 2E       		.byte	0x2e
+ 802 0173 A2000000 		.4byte	0xa2
+ 803 0177 01       		.byte	0x1
+ 804 0178 00       		.byte	0
+ 805 0179 02       		.uleb128 0x2
+ 806 017a 28010000 		.4byte	.LASF30
+ 807 017e 05       		.byte	0x5
+ 808 017f 2F       		.byte	0x2f
+ 809 0180 58010000 		.4byte	0x158
+ 810 0184 08       		.uleb128 0x8
+ 811 0185 BE020000 		.4byte	.LASF31
+ 812 0189 01       		.byte	0x1
+ 813 018a 2E       		.byte	0x2e
+ 814 018b AD000000 		.4byte	0xad
+ 815 018f 00000000 		.4byte	.LFB63
+ 816 0193 10000000 		.4byte	.LFE63-.LFB63
+ 817 0197 01       		.uleb128 0x1
+ 818 0198 9C       		.byte	0x9c
+ 819 0199 AD010000 		.4byte	0x1ad
+ 820 019d 09       		.uleb128 0x9
+ 821 019e 59020000 		.4byte	.LASF33
+ 822 01a2 01       		.byte	0x1
+ 823 01a3 2E       		.byte	0x2e
+ 824 01a4 AD000000 		.4byte	0xad
+ 825 01a8 00000000 		.4byte	.LLST0
+ 826 01ac 00       		.byte	0
+ 827 01ad 08       		.uleb128 0x8
+ 828 01ae 49000000 		.4byte	.LASF32
+ 829 01b2 01       		.byte	0x1
+ 830 01b3 3E       		.byte	0x3e
+ 831 01b4 B8000000 		.4byte	0xb8
+ 832 01b8 00000000 		.4byte	.LFB64
+ 833 01bc 14000000 		.4byte	.LFE64-.LFB64
+ 834 01c0 01       		.uleb128 0x1
+ 835 01c1 9C       		.byte	0x9c
+ 836 01c2 D6010000 		.4byte	0x1d6
+ 837 01c6 09       		.uleb128 0x9
+ 838 01c7 EC000000 		.4byte	.LASF29
+ 839 01cb 01       		.byte	0x1
+ 840 01cc 3E       		.byte	0x3e
+ 841 01cd A2000000 		.4byte	0xa2
+ 842 01d1 3A000000 		.4byte	.LLST1
+ 843 01d5 00       		.byte	0
+ 844 01d6 0A       		.uleb128 0xa
+ 845 01d7 D5000000 		.4byte	.LASF52
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 21
 
 
- 809 01cc 3E       		.byte	0x3e
- 810 01cd A2000000 		.4byte	0xa2
- 811 01d1 3A000000 		.4byte	.LLST1
- 812 01d5 00       		.byte	0
- 813 01d6 0A       		.uleb128 0xa
- 814 01d7 C3000000 		.4byte	.LASF49
- 815 01db 01       		.byte	0x1
- 816 01dc 82       		.byte	0x82
- 817 01dd 00000000 		.4byte	.LFB66
- 818 01e1 10000000 		.4byte	.LFE66-.LFB66
- 819 01e5 01       		.uleb128 0x1
- 820 01e6 9C       		.byte	0x9c
- 821 01e7 0B       		.uleb128 0xb
- 822 01e8 DE020000 		.4byte	.LASF34
- 823 01ec 01       		.byte	0x1
- 824 01ed 8D       		.byte	0x8d
- 825 01ee 00000000 		.4byte	.LFB67
- 826 01f2 08000000 		.4byte	.LFE67-.LFB67
- 827 01f6 01       		.uleb128 0x1
- 828 01f7 9C       		.byte	0x9c
- 829 01f8 06020000 		.4byte	0x206
- 830 01fc 0C       		.uleb128 0xc
- 831 01fd 06000000 		.4byte	.LVL6
- 832 0201 D6010000 		.4byte	0x1d6
- 833 0205 00       		.byte	0
- 834 0206 0B       		.uleb128 0xb
- 835 0207 1B000000 		.4byte	.LASF35
- 836 020b 01       		.byte	0x1
- 837 020c A0       		.byte	0xa0
- 838 020d 00000000 		.4byte	.LFB68
- 839 0211 54000000 		.4byte	.LFE68-.LFB68
- 840 0215 01       		.uleb128 0x1
- 841 0216 9C       		.byte	0x9c
- 842 0217 25020000 		.4byte	0x225
- 843 021b 0C       		.uleb128 0xc
- 844 021c 48000000 		.4byte	.LVL7
- 845 0220 D6010000 		.4byte	0x1d6
- 846 0224 00       		.byte	0
- 847 0225 0B       		.uleb128 0xb
- 848 0226 56020000 		.4byte	.LASF36
- 849 022a 01       		.byte	0x1
- 850 022b B1       		.byte	0xb1
- 851 022c 00000000 		.4byte	.LFB69
- 852 0230 30000000 		.4byte	.LFE69-.LFB69
- 853 0234 01       		.uleb128 0x1
- 854 0235 9C       		.byte	0x9c
- 855 0236 4D020000 		.4byte	0x24d
- 856 023a 0C       		.uleb128 0xc
- 857 023b 1A000000 		.4byte	.LVL8
- 858 023f 84010000 		.4byte	0x184
- 859 0243 0C       		.uleb128 0xc
- 860 0244 24000000 		.4byte	.LVL9
- 861 0248 D6010000 		.4byte	0x1d6
- 862 024c 00       		.byte	0
- 863 024d 0B       		.uleb128 0xb
- 864 024e F2020000 		.4byte	.LASF37
- 865 0252 01       		.byte	0x1
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 21
+ 846 01db 01       		.byte	0x1
+ 847 01dc 91       		.byte	0x91
+ 848 01dd 00000000 		.4byte	.LFB67
+ 849 01e1 10000000 		.4byte	.LFE67-.LFB67
+ 850 01e5 01       		.uleb128 0x1
+ 851 01e6 9C       		.byte	0x9c
+ 852 01e7 0B       		.uleb128 0xb
+ 853 01e8 01030000 		.4byte	.LASF34
+ 854 01ec 01       		.byte	0x1
+ 855 01ed 9C       		.byte	0x9c
+ 856 01ee 00000000 		.4byte	.LFB68
+ 857 01f2 08000000 		.4byte	.LFE68-.LFB68
+ 858 01f6 01       		.uleb128 0x1
+ 859 01f7 9C       		.byte	0x9c
+ 860 01f8 06020000 		.4byte	0x206
+ 861 01fc 0C       		.uleb128 0xc
+ 862 01fd 06000000 		.4byte	.LVL6
+ 863 0201 D6010000 		.4byte	0x1d6
+ 864 0205 00       		.byte	0
+ 865 0206 0B       		.uleb128 0xb
+ 866 0207 1B000000 		.4byte	.LASF35
+ 867 020b 01       		.byte	0x1
+ 868 020c AF       		.byte	0xaf
+ 869 020d 00000000 		.4byte	.LFB69
+ 870 0211 54000000 		.4byte	.LFE69-.LFB69
+ 871 0215 01       		.uleb128 0x1
+ 872 0216 9C       		.byte	0x9c
+ 873 0217 25020000 		.4byte	0x225
+ 874 021b 0C       		.uleb128 0xc
+ 875 021c 48000000 		.4byte	.LVL7
+ 876 0220 D6010000 		.4byte	0x1d6
+ 877 0224 00       		.byte	0
+ 878 0225 0B       		.uleb128 0xb
+ 879 0226 68020000 		.4byte	.LASF36
+ 880 022a 01       		.byte	0x1
+ 881 022b C0       		.byte	0xc0
+ 882 022c 00000000 		.4byte	.LFB70
+ 883 0230 28000000 		.4byte	.LFE70-.LFB70
+ 884 0234 01       		.uleb128 0x1
+ 885 0235 9C       		.byte	0x9c
+ 886 0236 44020000 		.4byte	0x244
+ 887 023a 0C       		.uleb128 0xc
+ 888 023b 1C000000 		.4byte	.LVL8
+ 889 023f D6010000 		.4byte	0x1d6
+ 890 0243 00       		.byte	0
+ 891 0244 0B       		.uleb128 0xb
+ 892 0245 15030000 		.4byte	.LASF37
+ 893 0249 01       		.byte	0x1
+ 894 024a D0       		.byte	0xd0
+ 895 024b 00000000 		.4byte	.LFB71
+ 896 024f 34000000 		.4byte	.LFE71-.LFB71
+ 897 0253 01       		.uleb128 0x1
+ 898 0254 9C       		.byte	0x9c
+ 899 0255 63020000 		.4byte	0x263
+ 900 0259 0C       		.uleb128 0xc
+ 901 025a 1A000000 		.4byte	.LVL9
+ 902 025e 84010000 		.4byte	0x184
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 22
 
 
- 866 0253 C1       		.byte	0xc1
- 867 0254 00000000 		.4byte	.LFB70
- 868 0258 34000000 		.4byte	.LFE70-.LFB70
- 869 025c 01       		.uleb128 0x1
- 870 025d 9C       		.byte	0x9c
- 871 025e 6C020000 		.4byte	0x26c
- 872 0262 0C       		.uleb128 0xc
- 873 0263 1A000000 		.4byte	.LVL10
- 874 0267 84010000 		.4byte	0x184
- 875 026b 00       		.byte	0
- 876 026c 0B       		.uleb128 0xb
- 877 026d E5010000 		.4byte	.LASF38
- 878 0271 01       		.byte	0x1
- 879 0272 D4       		.byte	0xd4
- 880 0273 00000000 		.4byte	.LFB71
- 881 0277 40000000 		.4byte	.LFE71-.LFB71
- 882 027b 01       		.uleb128 0x1
- 883 027c 9C       		.byte	0x9c
- 884 027d 8B020000 		.4byte	0x28b
- 885 0281 0C       		.uleb128 0xc
- 886 0282 24000000 		.4byte	.LVL11
- 887 0286 84010000 		.4byte	0x184
- 888 028a 00       		.byte	0
- 889 028b 0B       		.uleb128 0xb
- 890 028c 53030000 		.4byte	.LASF39
- 891 0290 01       		.byte	0x1
- 892 0291 EB       		.byte	0xeb
- 893 0292 00000000 		.4byte	.LFB72
- 894 0296 60000000 		.4byte	.LFE72-.LFB72
- 895 029a 01       		.uleb128 0x1
- 896 029b 9C       		.byte	0x9c
- 897 029c AA020000 		.4byte	0x2aa
- 898 02a0 0C       		.uleb128 0xc
- 899 02a1 54000000 		.4byte	.LVL12
- 900 02a5 D6010000 		.4byte	0x1d6
- 901 02a9 00       		.byte	0
- 902 02aa 0D       		.uleb128 0xd
- 903 02ab 15030000 		.4byte	.LASF50
- 904 02af 01       		.byte	0x1
- 905 02b0 53       		.byte	0x53
- 906 02b1 00000000 		.4byte	.LFB65
- 907 02b5 98000000 		.4byte	.LFE65-.LFB65
- 908 02b9 01       		.uleb128 0x1
- 909 02ba 9C       		.byte	0x9c
- 910 02bb 29030000 		.4byte	0x329
- 911 02bf 09       		.uleb128 0x9
- 912 02c0 0E000000 		.4byte	.LASF40
- 913 02c4 01       		.byte	0x1
- 914 02c5 53       		.byte	0x53
- 915 02c6 AD000000 		.4byte	0xad
- 916 02ca 5B000000 		.4byte	.LLST2
- 917 02ce 0C       		.uleb128 0xc
- 918 02cf 26000000 		.4byte	.LVL14
- 919 02d3 D6010000 		.4byte	0x1d6
- 920 02d7 0C       		.uleb128 0xc
- 921 02d8 2C000000 		.4byte	.LVL16
- 922 02dc 60030000 		.4byte	0x360
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 22
+ 903 0262 00       		.byte	0
+ 904 0263 0B       		.uleb128 0xb
+ 905 0264 F7010000 		.4byte	.LASF38
+ 906 0268 01       		.byte	0x1
+ 907 0269 E3       		.byte	0xe3
+ 908 026a 00000000 		.4byte	.LFB72
+ 909 026e 40000000 		.4byte	.LFE72-.LFB72
+ 910 0272 01       		.uleb128 0x1
+ 911 0273 9C       		.byte	0x9c
+ 912 0274 82020000 		.4byte	0x282
+ 913 0278 0C       		.uleb128 0xc
+ 914 0279 24000000 		.4byte	.LVL10
+ 915 027d 84010000 		.4byte	0x184
+ 916 0281 00       		.byte	0
+ 917 0282 0B       		.uleb128 0xb
+ 918 0283 76030000 		.4byte	.LASF39
+ 919 0287 01       		.byte	0x1
+ 920 0288 FA       		.byte	0xfa
+ 921 0289 00000000 		.4byte	.LFB73
+ 922 028d 60000000 		.4byte	.LFE73-.LFB73
+ 923 0291 01       		.uleb128 0x1
+ 924 0292 9C       		.byte	0x9c
+ 925 0293 A1020000 		.4byte	0x2a1
+ 926 0297 0C       		.uleb128 0xc
+ 927 0298 54000000 		.4byte	.LVL11
+ 928 029c D6010000 		.4byte	0x1d6
+ 929 02a0 00       		.byte	0
+ 930 02a1 0D       		.uleb128 0xd
+ 931 02a2 38030000 		.4byte	.LASF53
+ 932 02a6 01       		.byte	0x1
+ 933 02a7 5E       		.byte	0x5e
+ 934 02a8 00000000 		.4byte	.LFB66
+ 935 02ac 94000000 		.4byte	.LFE66-.LFB66
+ 936 02b0 01       		.uleb128 0x1
+ 937 02b1 9C       		.byte	0x9c
+ 938 02b2 29030000 		.4byte	0x329
+ 939 02b6 09       		.uleb128 0x9
+ 940 02b7 0E000000 		.4byte	.LASF40
+ 941 02bb 01       		.byte	0x1
+ 942 02bc 5E       		.byte	0x5e
+ 943 02bd AD000000 		.4byte	0xad
+ 944 02c1 5B000000 		.4byte	.LLST2
+ 945 02c5 0C       		.uleb128 0xc
+ 946 02c6 1C000000 		.4byte	.LVL13
+ 947 02ca D6010000 		.4byte	0x1d6
+ 948 02ce 0C       		.uleb128 0xc
+ 949 02cf 22000000 		.4byte	.LVL15
+ 950 02d3 AC030000 		.4byte	0x3ac
+ 951 02d7 0C       		.uleb128 0xc
+ 952 02d8 52000000 		.4byte	.LVL16
+ 953 02dc D6010000 		.4byte	0x1d6
+ 954 02e0 0C       		.uleb128 0xc
+ 955 02e1 58000000 		.4byte	.LVL17
+ 956 02e5 E7010000 		.4byte	0x1e7
+ 957 02e9 0C       		.uleb128 0xc
+ 958 02ea 5E000000 		.4byte	.LVL18
+ 959 02ee 06020000 		.4byte	0x206
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 23
 
 
- 923 02e0 0C       		.uleb128 0xc
- 924 02e1 5C000000 		.4byte	.LVL17
- 925 02e5 E7010000 		.4byte	0x1e7
- 926 02e9 0C       		.uleb128 0xc
- 927 02ea 62000000 		.4byte	.LVL18
- 928 02ee 06020000 		.4byte	0x206
- 929 02f2 0C       		.uleb128 0xc
- 930 02f3 68000000 		.4byte	.LVL19
- 931 02f7 25020000 		.4byte	0x225
- 932 02fb 0C       		.uleb128 0xc
- 933 02fc 6E000000 		.4byte	.LVL20
- 934 0300 4D020000 		.4byte	0x24d
- 935 0304 0C       		.uleb128 0xc
- 936 0305 74000000 		.4byte	.LVL21
- 937 0309 6C020000 		.4byte	0x26c
- 938 030d 0C       		.uleb128 0xc
- 939 030e 7A000000 		.4byte	.LVL22
- 940 0312 8B020000 		.4byte	0x28b
- 941 0316 0C       		.uleb128 0xc
- 942 0317 80000000 		.4byte	.LVL23
- 943 031b D6010000 		.4byte	0x1d6
- 944 031f 0C       		.uleb128 0xc
- 945 0320 8C000000 		.4byte	.LVL24
- 946 0324 6B030000 		.4byte	0x36b
- 947 0328 00       		.byte	0
- 948 0329 0E       		.uleb128 0xe
- 949 032a 2D020000 		.4byte	.LASF41
- 950 032e 06       		.byte	0x6
- 951 032f 1207     		.2byte	0x712
- 952 0331 35030000 		.4byte	0x335
- 953 0335 0F       		.uleb128 0xf
- 954 0336 CE000000 		.4byte	0xce
- 955 033a 10       		.uleb128 0x10
- 956 033b B9000000 		.4byte	.LASF42
- 957 033f 04       		.byte	0x4
- 958 0340 30       		.byte	0x30
- 959 0341 45030000 		.4byte	0x345
- 960 0345 0F       		.uleb128 0xf
- 961 0346 4D010000 		.4byte	0x14d
- 962 034a 11       		.uleb128 0x11
- 963 034b 2B030000 		.4byte	.LASF43
- 964 034f 01       		.byte	0x1
- 965 0350 20       		.byte	0x20
- 966 0351 5B030000 		.4byte	0x35b
- 967 0355 05       		.uleb128 0x5
- 968 0356 03       		.byte	0x3
- 969 0357 00000000 		.4byte	hybrid_state
- 970 035b 0F       		.uleb128 0xf
- 971 035c 79010000 		.4byte	0x179
- 972 0360 12       		.uleb128 0x12
- 973 0361 8A030000 		.4byte	.LASF44
- 974 0365 8A030000 		.4byte	.LASF44
- 975 0369 07       		.byte	0x7
- 976 036a 19       		.byte	0x19
- 977 036b 12       		.uleb128 0x12
- 978 036c 90020000 		.4byte	.LASF45
- 979 0370 90020000 		.4byte	.LASF45
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 23
+ 960 02f2 0C       		.uleb128 0xc
+ 961 02f3 64000000 		.4byte	.LVL19
+ 962 02f7 25020000 		.4byte	0x225
+ 963 02fb 0C       		.uleb128 0xc
+ 964 02fc 6A000000 		.4byte	.LVL20
+ 965 0300 44020000 		.4byte	0x244
+ 966 0304 0C       		.uleb128 0xc
+ 967 0305 70000000 		.4byte	.LVL21
+ 968 0309 63020000 		.4byte	0x263
+ 969 030d 0C       		.uleb128 0xc
+ 970 030e 76000000 		.4byte	.LVL22
+ 971 0312 82020000 		.4byte	0x282
+ 972 0316 0C       		.uleb128 0xc
+ 973 0317 7C000000 		.4byte	.LVL23
+ 974 031b D6010000 		.4byte	0x1d6
+ 975 031f 0C       		.uleb128 0xc
+ 976 0320 88000000 		.4byte	.LVL24
+ 977 0324 B7030000 		.4byte	0x3b7
+ 978 0328 00       		.byte	0
+ 979 0329 0B       		.uleb128 0xb
+ 980 032a AD030000 		.4byte	.LASF41
+ 981 032e 01       		.byte	0x1
+ 982 032f 47       		.byte	0x47
+ 983 0330 00000000 		.4byte	.LFB65
+ 984 0334 16000000 		.4byte	.LFE65-.LFB65
+ 985 0338 01       		.uleb128 0x1
+ 986 0339 9C       		.byte	0x9c
+ 987 033a 75030000 		.4byte	0x375
+ 988 033e 0E       		.uleb128 0xe
+ 989 033f 08000000 		.4byte	.LVL25
+ 990 0343 A1020000 		.4byte	0x2a1
+ 991 0347 51030000 		.4byte	0x351
+ 992 034b 0F       		.uleb128 0xf
+ 993 034c 01       		.uleb128 0x1
+ 994 034d 50       		.byte	0x50
+ 995 034e 01       		.uleb128 0x1
+ 996 034f 30       		.byte	0x30
+ 997 0350 00       		.byte	0
+ 998 0351 0E       		.uleb128 0xe
+ 999 0352 0E000000 		.4byte	.LVL26
+ 1000 0356 C2030000 		.4byte	0x3c2
+ 1001 035a 65030000 		.4byte	0x365
+ 1002 035e 0F       		.uleb128 0xf
+ 1003 035f 01       		.uleb128 0x1
+ 1004 0360 50       		.byte	0x50
+ 1005 0361 02       		.uleb128 0x2
+ 1006 0362 08       		.byte	0x8
+ 1007 0363 32       		.byte	0x32
+ 1008 0364 00       		.byte	0
+ 1009 0365 10       		.uleb128 0x10
+ 1010 0366 14000000 		.4byte	.LVL27
+ 1011 036a CD030000 		.4byte	0x3cd
+ 1012 036e 0F       		.uleb128 0xf
+ 1013 036f 01       		.uleb128 0x1
+ 1014 0370 50       		.byte	0x50
+ 1015 0371 01       		.uleb128 0x1
+ 1016 0372 30       		.byte	0x30
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 24
 
 
- 980 0374 04       		.byte	0x4
- 981 0375 35       		.byte	0x35
- 982 0376 00       		.byte	0
- 983              		.section	.debug_abbrev,"",%progbits
- 984              	.Ldebug_abbrev0:
- 985 0000 01       		.uleb128 0x1
- 986 0001 11       		.uleb128 0x11
- 987 0002 01       		.byte	0x1
- 988 0003 25       		.uleb128 0x25
- 989 0004 0E       		.uleb128 0xe
- 990 0005 13       		.uleb128 0x13
- 991 0006 0B       		.uleb128 0xb
- 992 0007 03       		.uleb128 0x3
- 993 0008 0E       		.uleb128 0xe
- 994 0009 1B       		.uleb128 0x1b
- 995 000a 0E       		.uleb128 0xe
- 996 000b 55       		.uleb128 0x55
- 997 000c 17       		.uleb128 0x17
- 998 000d 11       		.uleb128 0x11
- 999 000e 01       		.uleb128 0x1
- 1000 000f 10       		.uleb128 0x10
- 1001 0010 17       		.uleb128 0x17
- 1002 0011 00       		.byte	0
- 1003 0012 00       		.byte	0
- 1004 0013 02       		.uleb128 0x2
- 1005 0014 16       		.uleb128 0x16
- 1006 0015 00       		.byte	0
- 1007 0016 03       		.uleb128 0x3
- 1008 0017 0E       		.uleb128 0xe
- 1009 0018 3A       		.uleb128 0x3a
- 1010 0019 0B       		.uleb128 0xb
- 1011 001a 3B       		.uleb128 0x3b
- 1012 001b 0B       		.uleb128 0xb
- 1013 001c 49       		.uleb128 0x49
- 1014 001d 13       		.uleb128 0x13
- 1015 001e 00       		.byte	0
- 1016 001f 00       		.byte	0
- 1017 0020 03       		.uleb128 0x3
- 1018 0021 24       		.uleb128 0x24
- 1019 0022 00       		.byte	0
- 1020 0023 0B       		.uleb128 0xb
- 1021 0024 0B       		.uleb128 0xb
- 1022 0025 3E       		.uleb128 0x3e
- 1023 0026 0B       		.uleb128 0xb
- 1024 0027 03       		.uleb128 0x3
- 1025 0028 0E       		.uleb128 0xe
- 1026 0029 00       		.byte	0
- 1027 002a 00       		.byte	0
- 1028 002b 04       		.uleb128 0x4
- 1029 002c 24       		.uleb128 0x24
- 1030 002d 00       		.byte	0
- 1031 002e 0B       		.uleb128 0xb
- 1032 002f 0B       		.uleb128 0xb
- 1033 0030 3E       		.uleb128 0x3e
- 1034 0031 0B       		.uleb128 0xb
- 1035 0032 03       		.uleb128 0x3
- 1036 0033 08       		.uleb128 0x8
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 24
+ 1017 0373 00       		.byte	0
+ 1018 0374 00       		.byte	0
+ 1019 0375 11       		.uleb128 0x11
+ 1020 0376 3F020000 		.4byte	.LASF42
+ 1021 037a 06       		.byte	0x6
+ 1022 037b 1207     		.2byte	0x712
+ 1023 037d 81030000 		.4byte	0x381
+ 1024 0381 12       		.uleb128 0x12
+ 1025 0382 CE000000 		.4byte	0xce
+ 1026 0386 13       		.uleb128 0x13
+ 1027 0387 CB000000 		.4byte	.LASF43
+ 1028 038b 04       		.byte	0x4
+ 1029 038c 31       		.byte	0x31
+ 1030 038d 91030000 		.4byte	0x391
+ 1031 0391 12       		.uleb128 0x12
+ 1032 0392 4D010000 		.4byte	0x14d
+ 1033 0396 14       		.uleb128 0x14
+ 1034 0397 4E030000 		.4byte	.LASF44
+ 1035 039b 01       		.byte	0x1
+ 1036 039c 20       		.byte	0x20
+ 1037 039d A7030000 		.4byte	0x3a7
+ 1038 03a1 05       		.uleb128 0x5
+ 1039 03a2 03       		.byte	0x3
+ 1040 03a3 00000000 		.4byte	hybrid_state
+ 1041 03a7 12       		.uleb128 0x12
+ 1042 03a8 79010000 		.4byte	0x179
+ 1043 03ac 15       		.uleb128 0x15
+ 1044 03ad 6E000000 		.4byte	.LASF45
+ 1045 03b1 6E000000 		.4byte	.LASF45
+ 1046 03b5 07       		.byte	0x7
+ 1047 03b6 19       		.byte	0x19
+ 1048 03b7 15       		.uleb128 0x15
+ 1049 03b8 A2020000 		.4byte	.LASF46
+ 1050 03bc A2020000 		.4byte	.LASF46
+ 1051 03c0 04       		.byte	0x4
+ 1052 03c1 36       		.byte	0x36
+ 1053 03c2 15       		.uleb128 0x15
+ 1054 03c3 BC030000 		.4byte	.LASF47
+ 1055 03c7 BC030000 		.4byte	.LASF47
+ 1056 03cb 08       		.byte	0x8
+ 1057 03cc 76       		.byte	0x76
+ 1058 03cd 15       		.uleb128 0x15
+ 1059 03ce DB020000 		.4byte	.LASF48
+ 1060 03d2 DB020000 		.4byte	.LASF48
+ 1061 03d6 09       		.byte	0x9
+ 1062 03d7 26       		.byte	0x26
+ 1063 03d8 00       		.byte	0
+ 1064              		.section	.debug_abbrev,"",%progbits
+ 1065              	.Ldebug_abbrev0:
+ 1066 0000 01       		.uleb128 0x1
+ 1067 0001 11       		.uleb128 0x11
+ 1068 0002 01       		.byte	0x1
+ 1069 0003 25       		.uleb128 0x25
+ 1070 0004 0E       		.uleb128 0xe
+ 1071 0005 13       		.uleb128 0x13
+ 1072 0006 0B       		.uleb128 0xb
+ 1073 0007 03       		.uleb128 0x3
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 25
 
 
- 1037 0034 00       		.byte	0
- 1038 0035 00       		.byte	0
- 1039 0036 05       		.uleb128 0x5
- 1040 0037 13       		.uleb128 0x13
- 1041 0038 01       		.byte	0x1
- 1042 0039 0B       		.uleb128 0xb
- 1043 003a 0B       		.uleb128 0xb
- 1044 003b 3A       		.uleb128 0x3a
- 1045 003c 0B       		.uleb128 0xb
- 1046 003d 3B       		.uleb128 0x3b
- 1047 003e 0B       		.uleb128 0xb
- 1048 003f 01       		.uleb128 0x1
- 1049 0040 13       		.uleb128 0x13
- 1050 0041 00       		.byte	0
- 1051 0042 00       		.byte	0
- 1052 0043 06       		.uleb128 0x6
- 1053 0044 0D       		.uleb128 0xd
- 1054 0045 00       		.byte	0
- 1055 0046 03       		.uleb128 0x3
- 1056 0047 0E       		.uleb128 0xe
- 1057 0048 3A       		.uleb128 0x3a
- 1058 0049 0B       		.uleb128 0xb
- 1059 004a 3B       		.uleb128 0x3b
- 1060 004b 0B       		.uleb128 0xb
- 1061 004c 49       		.uleb128 0x49
- 1062 004d 13       		.uleb128 0x13
- 1063 004e 38       		.uleb128 0x38
- 1064 004f 0B       		.uleb128 0xb
- 1065 0050 00       		.byte	0
- 1066 0051 00       		.byte	0
- 1067 0052 07       		.uleb128 0x7
- 1068 0053 0D       		.uleb128 0xd
- 1069 0054 00       		.byte	0
- 1070 0055 03       		.uleb128 0x3
- 1071 0056 08       		.uleb128 0x8
- 1072 0057 3A       		.uleb128 0x3a
- 1073 0058 0B       		.uleb128 0xb
- 1074 0059 3B       		.uleb128 0x3b
- 1075 005a 0B       		.uleb128 0xb
- 1076 005b 49       		.uleb128 0x49
- 1077 005c 13       		.uleb128 0x13
- 1078 005d 38       		.uleb128 0x38
- 1079 005e 0B       		.uleb128 0xb
- 1080 005f 00       		.byte	0
- 1081 0060 00       		.byte	0
- 1082 0061 08       		.uleb128 0x8
- 1083 0062 2E       		.uleb128 0x2e
- 1084 0063 01       		.byte	0x1
- 1085 0064 3F       		.uleb128 0x3f
- 1086 0065 19       		.uleb128 0x19
- 1087 0066 03       		.uleb128 0x3
- 1088 0067 0E       		.uleb128 0xe
- 1089 0068 3A       		.uleb128 0x3a
- 1090 0069 0B       		.uleb128 0xb
- 1091 006a 3B       		.uleb128 0x3b
- 1092 006b 0B       		.uleb128 0xb
- 1093 006c 27       		.uleb128 0x27
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 25
+ 1074 0008 0E       		.uleb128 0xe
+ 1075 0009 1B       		.uleb128 0x1b
+ 1076 000a 0E       		.uleb128 0xe
+ 1077 000b 55       		.uleb128 0x55
+ 1078 000c 17       		.uleb128 0x17
+ 1079 000d 11       		.uleb128 0x11
+ 1080 000e 01       		.uleb128 0x1
+ 1081 000f 10       		.uleb128 0x10
+ 1082 0010 17       		.uleb128 0x17
+ 1083 0011 00       		.byte	0
+ 1084 0012 00       		.byte	0
+ 1085 0013 02       		.uleb128 0x2
+ 1086 0014 16       		.uleb128 0x16
+ 1087 0015 00       		.byte	0
+ 1088 0016 03       		.uleb128 0x3
+ 1089 0017 0E       		.uleb128 0xe
+ 1090 0018 3A       		.uleb128 0x3a
+ 1091 0019 0B       		.uleb128 0xb
+ 1092 001a 3B       		.uleb128 0x3b
+ 1093 001b 0B       		.uleb128 0xb
+ 1094 001c 49       		.uleb128 0x49
+ 1095 001d 13       		.uleb128 0x13
+ 1096 001e 00       		.byte	0
+ 1097 001f 00       		.byte	0
+ 1098 0020 03       		.uleb128 0x3
+ 1099 0021 24       		.uleb128 0x24
+ 1100 0022 00       		.byte	0
+ 1101 0023 0B       		.uleb128 0xb
+ 1102 0024 0B       		.uleb128 0xb
+ 1103 0025 3E       		.uleb128 0x3e
+ 1104 0026 0B       		.uleb128 0xb
+ 1105 0027 03       		.uleb128 0x3
+ 1106 0028 0E       		.uleb128 0xe
+ 1107 0029 00       		.byte	0
+ 1108 002a 00       		.byte	0
+ 1109 002b 04       		.uleb128 0x4
+ 1110 002c 24       		.uleb128 0x24
+ 1111 002d 00       		.byte	0
+ 1112 002e 0B       		.uleb128 0xb
+ 1113 002f 0B       		.uleb128 0xb
+ 1114 0030 3E       		.uleb128 0x3e
+ 1115 0031 0B       		.uleb128 0xb
+ 1116 0032 03       		.uleb128 0x3
+ 1117 0033 08       		.uleb128 0x8
+ 1118 0034 00       		.byte	0
+ 1119 0035 00       		.byte	0
+ 1120 0036 05       		.uleb128 0x5
+ 1121 0037 13       		.uleb128 0x13
+ 1122 0038 01       		.byte	0x1
+ 1123 0039 0B       		.uleb128 0xb
+ 1124 003a 0B       		.uleb128 0xb
+ 1125 003b 3A       		.uleb128 0x3a
+ 1126 003c 0B       		.uleb128 0xb
+ 1127 003d 3B       		.uleb128 0x3b
+ 1128 003e 0B       		.uleb128 0xb
+ 1129 003f 01       		.uleb128 0x1
+ 1130 0040 13       		.uleb128 0x13
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 26
 
 
- 1094 006d 19       		.uleb128 0x19
- 1095 006e 49       		.uleb128 0x49
- 1096 006f 13       		.uleb128 0x13
- 1097 0070 11       		.uleb128 0x11
- 1098 0071 01       		.uleb128 0x1
- 1099 0072 12       		.uleb128 0x12
- 1100 0073 06       		.uleb128 0x6
- 1101 0074 40       		.uleb128 0x40
- 1102 0075 18       		.uleb128 0x18
- 1103 0076 9742     		.uleb128 0x2117
- 1104 0078 19       		.uleb128 0x19
- 1105 0079 01       		.uleb128 0x1
- 1106 007a 13       		.uleb128 0x13
- 1107 007b 00       		.byte	0
- 1108 007c 00       		.byte	0
- 1109 007d 09       		.uleb128 0x9
- 1110 007e 05       		.uleb128 0x5
- 1111 007f 00       		.byte	0
- 1112 0080 03       		.uleb128 0x3
- 1113 0081 0E       		.uleb128 0xe
- 1114 0082 3A       		.uleb128 0x3a
- 1115 0083 0B       		.uleb128 0xb
- 1116 0084 3B       		.uleb128 0x3b
- 1117 0085 0B       		.uleb128 0xb
- 1118 0086 49       		.uleb128 0x49
- 1119 0087 13       		.uleb128 0x13
- 1120 0088 02       		.uleb128 0x2
- 1121 0089 17       		.uleb128 0x17
- 1122 008a 00       		.byte	0
- 1123 008b 00       		.byte	0
- 1124 008c 0A       		.uleb128 0xa
- 1125 008d 2E       		.uleb128 0x2e
- 1126 008e 00       		.byte	0
- 1127 008f 3F       		.uleb128 0x3f
- 1128 0090 19       		.uleb128 0x19
- 1129 0091 03       		.uleb128 0x3
- 1130 0092 0E       		.uleb128 0xe
- 1131 0093 3A       		.uleb128 0x3a
- 1132 0094 0B       		.uleb128 0xb
- 1133 0095 3B       		.uleb128 0x3b
- 1134 0096 0B       		.uleb128 0xb
- 1135 0097 11       		.uleb128 0x11
- 1136 0098 01       		.uleb128 0x1
- 1137 0099 12       		.uleb128 0x12
- 1138 009a 06       		.uleb128 0x6
- 1139 009b 40       		.uleb128 0x40
- 1140 009c 18       		.uleb128 0x18
- 1141 009d 9742     		.uleb128 0x2117
- 1142 009f 19       		.uleb128 0x19
- 1143 00a0 00       		.byte	0
- 1144 00a1 00       		.byte	0
- 1145 00a2 0B       		.uleb128 0xb
- 1146 00a3 2E       		.uleb128 0x2e
- 1147 00a4 01       		.byte	0x1
- 1148 00a5 3F       		.uleb128 0x3f
- 1149 00a6 19       		.uleb128 0x19
- 1150 00a7 03       		.uleb128 0x3
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 26
+ 1131 0041 00       		.byte	0
+ 1132 0042 00       		.byte	0
+ 1133 0043 06       		.uleb128 0x6
+ 1134 0044 0D       		.uleb128 0xd
+ 1135 0045 00       		.byte	0
+ 1136 0046 03       		.uleb128 0x3
+ 1137 0047 08       		.uleb128 0x8
+ 1138 0048 3A       		.uleb128 0x3a
+ 1139 0049 0B       		.uleb128 0xb
+ 1140 004a 3B       		.uleb128 0x3b
+ 1141 004b 0B       		.uleb128 0xb
+ 1142 004c 49       		.uleb128 0x49
+ 1143 004d 13       		.uleb128 0x13
+ 1144 004e 38       		.uleb128 0x38
+ 1145 004f 0B       		.uleb128 0xb
+ 1146 0050 00       		.byte	0
+ 1147 0051 00       		.byte	0
+ 1148 0052 07       		.uleb128 0x7
+ 1149 0053 0D       		.uleb128 0xd
+ 1150 0054 00       		.byte	0
+ 1151 0055 03       		.uleb128 0x3
+ 1152 0056 0E       		.uleb128 0xe
+ 1153 0057 3A       		.uleb128 0x3a
+ 1154 0058 0B       		.uleb128 0xb
+ 1155 0059 3B       		.uleb128 0x3b
+ 1156 005a 0B       		.uleb128 0xb
+ 1157 005b 49       		.uleb128 0x49
+ 1158 005c 13       		.uleb128 0x13
+ 1159 005d 38       		.uleb128 0x38
+ 1160 005e 0B       		.uleb128 0xb
+ 1161 005f 00       		.byte	0
+ 1162 0060 00       		.byte	0
+ 1163 0061 08       		.uleb128 0x8
+ 1164 0062 2E       		.uleb128 0x2e
+ 1165 0063 01       		.byte	0x1
+ 1166 0064 3F       		.uleb128 0x3f
+ 1167 0065 19       		.uleb128 0x19
+ 1168 0066 03       		.uleb128 0x3
+ 1169 0067 0E       		.uleb128 0xe
+ 1170 0068 3A       		.uleb128 0x3a
+ 1171 0069 0B       		.uleb128 0xb
+ 1172 006a 3B       		.uleb128 0x3b
+ 1173 006b 0B       		.uleb128 0xb
+ 1174 006c 27       		.uleb128 0x27
+ 1175 006d 19       		.uleb128 0x19
+ 1176 006e 49       		.uleb128 0x49
+ 1177 006f 13       		.uleb128 0x13
+ 1178 0070 11       		.uleb128 0x11
+ 1179 0071 01       		.uleb128 0x1
+ 1180 0072 12       		.uleb128 0x12
+ 1181 0073 06       		.uleb128 0x6
+ 1182 0074 40       		.uleb128 0x40
+ 1183 0075 18       		.uleb128 0x18
+ 1184 0076 9742     		.uleb128 0x2117
+ 1185 0078 19       		.uleb128 0x19
+ 1186 0079 01       		.uleb128 0x1
+ 1187 007a 13       		.uleb128 0x13
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 27
 
 
- 1151 00a8 0E       		.uleb128 0xe
- 1152 00a9 3A       		.uleb128 0x3a
- 1153 00aa 0B       		.uleb128 0xb
- 1154 00ab 3B       		.uleb128 0x3b
- 1155 00ac 0B       		.uleb128 0xb
- 1156 00ad 11       		.uleb128 0x11
- 1157 00ae 01       		.uleb128 0x1
- 1158 00af 12       		.uleb128 0x12
- 1159 00b0 06       		.uleb128 0x6
- 1160 00b1 40       		.uleb128 0x40
- 1161 00b2 18       		.uleb128 0x18
- 1162 00b3 9742     		.uleb128 0x2117
- 1163 00b5 19       		.uleb128 0x19
- 1164 00b6 01       		.uleb128 0x1
- 1165 00b7 13       		.uleb128 0x13
- 1166 00b8 00       		.byte	0
- 1167 00b9 00       		.byte	0
- 1168 00ba 0C       		.uleb128 0xc
- 1169 00bb 898201   		.uleb128 0x4109
- 1170 00be 00       		.byte	0
- 1171 00bf 11       		.uleb128 0x11
- 1172 00c0 01       		.uleb128 0x1
- 1173 00c1 31       		.uleb128 0x31
- 1174 00c2 13       		.uleb128 0x13
- 1175 00c3 00       		.byte	0
- 1176 00c4 00       		.byte	0
- 1177 00c5 0D       		.uleb128 0xd
- 1178 00c6 2E       		.uleb128 0x2e
- 1179 00c7 01       		.byte	0x1
- 1180 00c8 3F       		.uleb128 0x3f
- 1181 00c9 19       		.uleb128 0x19
- 1182 00ca 03       		.uleb128 0x3
- 1183 00cb 0E       		.uleb128 0xe
- 1184 00cc 3A       		.uleb128 0x3a
- 1185 00cd 0B       		.uleb128 0xb
- 1186 00ce 3B       		.uleb128 0x3b
- 1187 00cf 0B       		.uleb128 0xb
- 1188 00d0 27       		.uleb128 0x27
- 1189 00d1 19       		.uleb128 0x19
- 1190 00d2 11       		.uleb128 0x11
- 1191 00d3 01       		.uleb128 0x1
- 1192 00d4 12       		.uleb128 0x12
- 1193 00d5 06       		.uleb128 0x6
- 1194 00d6 40       		.uleb128 0x40
- 1195 00d7 18       		.uleb128 0x18
- 1196 00d8 9742     		.uleb128 0x2117
- 1197 00da 19       		.uleb128 0x19
- 1198 00db 01       		.uleb128 0x1
- 1199 00dc 13       		.uleb128 0x13
- 1200 00dd 00       		.byte	0
- 1201 00de 00       		.byte	0
- 1202 00df 0E       		.uleb128 0xe
- 1203 00e0 34       		.uleb128 0x34
- 1204 00e1 00       		.byte	0
- 1205 00e2 03       		.uleb128 0x3
- 1206 00e3 0E       		.uleb128 0xe
- 1207 00e4 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 27
+ 1188 007b 00       		.byte	0
+ 1189 007c 00       		.byte	0
+ 1190 007d 09       		.uleb128 0x9
+ 1191 007e 05       		.uleb128 0x5
+ 1192 007f 00       		.byte	0
+ 1193 0080 03       		.uleb128 0x3
+ 1194 0081 0E       		.uleb128 0xe
+ 1195 0082 3A       		.uleb128 0x3a
+ 1196 0083 0B       		.uleb128 0xb
+ 1197 0084 3B       		.uleb128 0x3b
+ 1198 0085 0B       		.uleb128 0xb
+ 1199 0086 49       		.uleb128 0x49
+ 1200 0087 13       		.uleb128 0x13
+ 1201 0088 02       		.uleb128 0x2
+ 1202 0089 17       		.uleb128 0x17
+ 1203 008a 00       		.byte	0
+ 1204 008b 00       		.byte	0
+ 1205 008c 0A       		.uleb128 0xa
+ 1206 008d 2E       		.uleb128 0x2e
+ 1207 008e 00       		.byte	0
+ 1208 008f 3F       		.uleb128 0x3f
+ 1209 0090 19       		.uleb128 0x19
+ 1210 0091 03       		.uleb128 0x3
+ 1211 0092 0E       		.uleb128 0xe
+ 1212 0093 3A       		.uleb128 0x3a
+ 1213 0094 0B       		.uleb128 0xb
+ 1214 0095 3B       		.uleb128 0x3b
+ 1215 0096 0B       		.uleb128 0xb
+ 1216 0097 11       		.uleb128 0x11
+ 1217 0098 01       		.uleb128 0x1
+ 1218 0099 12       		.uleb128 0x12
+ 1219 009a 06       		.uleb128 0x6
+ 1220 009b 40       		.uleb128 0x40
+ 1221 009c 18       		.uleb128 0x18
+ 1222 009d 9742     		.uleb128 0x2117
+ 1223 009f 19       		.uleb128 0x19
+ 1224 00a0 00       		.byte	0
+ 1225 00a1 00       		.byte	0
+ 1226 00a2 0B       		.uleb128 0xb
+ 1227 00a3 2E       		.uleb128 0x2e
+ 1228 00a4 01       		.byte	0x1
+ 1229 00a5 3F       		.uleb128 0x3f
+ 1230 00a6 19       		.uleb128 0x19
+ 1231 00a7 03       		.uleb128 0x3
+ 1232 00a8 0E       		.uleb128 0xe
+ 1233 00a9 3A       		.uleb128 0x3a
+ 1234 00aa 0B       		.uleb128 0xb
+ 1235 00ab 3B       		.uleb128 0x3b
+ 1236 00ac 0B       		.uleb128 0xb
+ 1237 00ad 11       		.uleb128 0x11
+ 1238 00ae 01       		.uleb128 0x1
+ 1239 00af 12       		.uleb128 0x12
+ 1240 00b0 06       		.uleb128 0x6
+ 1241 00b1 40       		.uleb128 0x40
+ 1242 00b2 18       		.uleb128 0x18
+ 1243 00b3 9742     		.uleb128 0x2117
+ 1244 00b5 19       		.uleb128 0x19
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 28
 
 
- 1208 00e5 0B       		.uleb128 0xb
- 1209 00e6 3B       		.uleb128 0x3b
- 1210 00e7 05       		.uleb128 0x5
- 1211 00e8 49       		.uleb128 0x49
- 1212 00e9 13       		.uleb128 0x13
- 1213 00ea 3F       		.uleb128 0x3f
- 1214 00eb 19       		.uleb128 0x19
- 1215 00ec 3C       		.uleb128 0x3c
- 1216 00ed 19       		.uleb128 0x19
- 1217 00ee 00       		.byte	0
- 1218 00ef 00       		.byte	0
- 1219 00f0 0F       		.uleb128 0xf
- 1220 00f1 35       		.uleb128 0x35
- 1221 00f2 00       		.byte	0
- 1222 00f3 49       		.uleb128 0x49
- 1223 00f4 13       		.uleb128 0x13
- 1224 00f5 00       		.byte	0
- 1225 00f6 00       		.byte	0
- 1226 00f7 10       		.uleb128 0x10
- 1227 00f8 34       		.uleb128 0x34
- 1228 00f9 00       		.byte	0
- 1229 00fa 03       		.uleb128 0x3
- 1230 00fb 0E       		.uleb128 0xe
- 1231 00fc 3A       		.uleb128 0x3a
- 1232 00fd 0B       		.uleb128 0xb
- 1233 00fe 3B       		.uleb128 0x3b
- 1234 00ff 0B       		.uleb128 0xb
- 1235 0100 49       		.uleb128 0x49
- 1236 0101 13       		.uleb128 0x13
- 1237 0102 3F       		.uleb128 0x3f
- 1238 0103 19       		.uleb128 0x19
- 1239 0104 3C       		.uleb128 0x3c
- 1240 0105 19       		.uleb128 0x19
- 1241 0106 00       		.byte	0
- 1242 0107 00       		.byte	0
- 1243 0108 11       		.uleb128 0x11
- 1244 0109 34       		.uleb128 0x34
- 1245 010a 00       		.byte	0
- 1246 010b 03       		.uleb128 0x3
- 1247 010c 0E       		.uleb128 0xe
- 1248 010d 3A       		.uleb128 0x3a
- 1249 010e 0B       		.uleb128 0xb
- 1250 010f 3B       		.uleb128 0x3b
- 1251 0110 0B       		.uleb128 0xb
- 1252 0111 49       		.uleb128 0x49
- 1253 0112 13       		.uleb128 0x13
- 1254 0113 3F       		.uleb128 0x3f
- 1255 0114 19       		.uleb128 0x19
- 1256 0115 02       		.uleb128 0x2
- 1257 0116 18       		.uleb128 0x18
- 1258 0117 00       		.byte	0
- 1259 0118 00       		.byte	0
- 1260 0119 12       		.uleb128 0x12
- 1261 011a 2E       		.uleb128 0x2e
- 1262 011b 00       		.byte	0
- 1263 011c 3F       		.uleb128 0x3f
- 1264 011d 19       		.uleb128 0x19
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 28
+ 1245 00b6 01       		.uleb128 0x1
+ 1246 00b7 13       		.uleb128 0x13
+ 1247 00b8 00       		.byte	0
+ 1248 00b9 00       		.byte	0
+ 1249 00ba 0C       		.uleb128 0xc
+ 1250 00bb 898201   		.uleb128 0x4109
+ 1251 00be 00       		.byte	0
+ 1252 00bf 11       		.uleb128 0x11
+ 1253 00c0 01       		.uleb128 0x1
+ 1254 00c1 31       		.uleb128 0x31
+ 1255 00c2 13       		.uleb128 0x13
+ 1256 00c3 00       		.byte	0
+ 1257 00c4 00       		.byte	0
+ 1258 00c5 0D       		.uleb128 0xd
+ 1259 00c6 2E       		.uleb128 0x2e
+ 1260 00c7 01       		.byte	0x1
+ 1261 00c8 3F       		.uleb128 0x3f
+ 1262 00c9 19       		.uleb128 0x19
+ 1263 00ca 03       		.uleb128 0x3
+ 1264 00cb 0E       		.uleb128 0xe
+ 1265 00cc 3A       		.uleb128 0x3a
+ 1266 00cd 0B       		.uleb128 0xb
+ 1267 00ce 3B       		.uleb128 0x3b
+ 1268 00cf 0B       		.uleb128 0xb
+ 1269 00d0 27       		.uleb128 0x27
+ 1270 00d1 19       		.uleb128 0x19
+ 1271 00d2 11       		.uleb128 0x11
+ 1272 00d3 01       		.uleb128 0x1
+ 1273 00d4 12       		.uleb128 0x12
+ 1274 00d5 06       		.uleb128 0x6
+ 1275 00d6 40       		.uleb128 0x40
+ 1276 00d7 18       		.uleb128 0x18
+ 1277 00d8 9742     		.uleb128 0x2117
+ 1278 00da 19       		.uleb128 0x19
+ 1279 00db 01       		.uleb128 0x1
+ 1280 00dc 13       		.uleb128 0x13
+ 1281 00dd 00       		.byte	0
+ 1282 00de 00       		.byte	0
+ 1283 00df 0E       		.uleb128 0xe
+ 1284 00e0 898201   		.uleb128 0x4109
+ 1285 00e3 01       		.byte	0x1
+ 1286 00e4 11       		.uleb128 0x11
+ 1287 00e5 01       		.uleb128 0x1
+ 1288 00e6 31       		.uleb128 0x31
+ 1289 00e7 13       		.uleb128 0x13
+ 1290 00e8 01       		.uleb128 0x1
+ 1291 00e9 13       		.uleb128 0x13
+ 1292 00ea 00       		.byte	0
+ 1293 00eb 00       		.byte	0
+ 1294 00ec 0F       		.uleb128 0xf
+ 1295 00ed 8A8201   		.uleb128 0x410a
+ 1296 00f0 00       		.byte	0
+ 1297 00f1 02       		.uleb128 0x2
+ 1298 00f2 18       		.uleb128 0x18
+ 1299 00f3 9142     		.uleb128 0x2111
+ 1300 00f5 18       		.uleb128 0x18
+ 1301 00f6 00       		.byte	0
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 29
 
 
- 1265 011e 3C       		.uleb128 0x3c
- 1266 011f 19       		.uleb128 0x19
- 1267 0120 6E       		.uleb128 0x6e
- 1268 0121 0E       		.uleb128 0xe
- 1269 0122 03       		.uleb128 0x3
- 1270 0123 0E       		.uleb128 0xe
- 1271 0124 3A       		.uleb128 0x3a
- 1272 0125 0B       		.uleb128 0xb
- 1273 0126 3B       		.uleb128 0x3b
- 1274 0127 0B       		.uleb128 0xb
- 1275 0128 00       		.byte	0
- 1276 0129 00       		.byte	0
- 1277 012a 00       		.byte	0
- 1278              		.section	.debug_loc,"",%progbits
- 1279              	.Ldebug_loc0:
- 1280              	.LLST0:
- 1281 0000 00000000 		.4byte	.LVL0
- 1282 0004 06000000 		.4byte	.LVL1
- 1283 0008 0100     		.2byte	0x1
- 1284 000a 50       		.byte	0x50
- 1285 000b 06000000 		.4byte	.LVL1
- 1286 000f 0C000000 		.4byte	.LVL2
- 1287 0013 0400     		.2byte	0x4
- 1288 0015 F3       		.byte	0xf3
- 1289 0016 01       		.uleb128 0x1
- 1290 0017 50       		.byte	0x50
- 1291 0018 9F       		.byte	0x9f
- 1292 0019 0C000000 		.4byte	.LVL2
- 1293 001d 0E000000 		.4byte	.LVL3
- 1294 0021 0100     		.2byte	0x1
- 1295 0023 50       		.byte	0x50
- 1296 0024 0E000000 		.4byte	.LVL3
- 1297 0028 10000000 		.4byte	.LFE63
- 1298 002c 0400     		.2byte	0x4
- 1299 002e F3       		.byte	0xf3
- 1300 002f 01       		.uleb128 0x1
- 1301 0030 50       		.byte	0x50
- 1302 0031 9F       		.byte	0x9f
- 1303 0032 00000000 		.4byte	0
- 1304 0036 00000000 		.4byte	0
- 1305              	.LLST1:
- 1306 003a 00000000 		.4byte	.LVL4
- 1307 003e 04000000 		.4byte	.LVL5
- 1308 0042 0100     		.2byte	0x1
- 1309 0044 50       		.byte	0x50
- 1310 0045 04000000 		.4byte	.LVL5
- 1311 0049 14000000 		.4byte	.LFE64
- 1312 004d 0400     		.2byte	0x4
- 1313 004f F3       		.byte	0xf3
- 1314 0050 01       		.uleb128 0x1
- 1315 0051 50       		.byte	0x50
- 1316 0052 9F       		.byte	0x9f
- 1317 0053 00000000 		.4byte	0
- 1318 0057 00000000 		.4byte	0
- 1319              	.LLST2:
- 1320 005b 00000000 		.4byte	.LVL13
- 1321 005f 25000000 		.4byte	.LVL14-1
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 29
+ 1302 00f7 00       		.byte	0
+ 1303 00f8 10       		.uleb128 0x10
+ 1304 00f9 898201   		.uleb128 0x4109
+ 1305 00fc 01       		.byte	0x1
+ 1306 00fd 11       		.uleb128 0x11
+ 1307 00fe 01       		.uleb128 0x1
+ 1308 00ff 31       		.uleb128 0x31
+ 1309 0100 13       		.uleb128 0x13
+ 1310 0101 00       		.byte	0
+ 1311 0102 00       		.byte	0
+ 1312 0103 11       		.uleb128 0x11
+ 1313 0104 34       		.uleb128 0x34
+ 1314 0105 00       		.byte	0
+ 1315 0106 03       		.uleb128 0x3
+ 1316 0107 0E       		.uleb128 0xe
+ 1317 0108 3A       		.uleb128 0x3a
+ 1318 0109 0B       		.uleb128 0xb
+ 1319 010a 3B       		.uleb128 0x3b
+ 1320 010b 05       		.uleb128 0x5
+ 1321 010c 49       		.uleb128 0x49
+ 1322 010d 13       		.uleb128 0x13
+ 1323 010e 3F       		.uleb128 0x3f
+ 1324 010f 19       		.uleb128 0x19
+ 1325 0110 3C       		.uleb128 0x3c
+ 1326 0111 19       		.uleb128 0x19
+ 1327 0112 00       		.byte	0
+ 1328 0113 00       		.byte	0
+ 1329 0114 12       		.uleb128 0x12
+ 1330 0115 35       		.uleb128 0x35
+ 1331 0116 00       		.byte	0
+ 1332 0117 49       		.uleb128 0x49
+ 1333 0118 13       		.uleb128 0x13
+ 1334 0119 00       		.byte	0
+ 1335 011a 00       		.byte	0
+ 1336 011b 13       		.uleb128 0x13
+ 1337 011c 34       		.uleb128 0x34
+ 1338 011d 00       		.byte	0
+ 1339 011e 03       		.uleb128 0x3
+ 1340 011f 0E       		.uleb128 0xe
+ 1341 0120 3A       		.uleb128 0x3a
+ 1342 0121 0B       		.uleb128 0xb
+ 1343 0122 3B       		.uleb128 0x3b
+ 1344 0123 0B       		.uleb128 0xb
+ 1345 0124 49       		.uleb128 0x49
+ 1346 0125 13       		.uleb128 0x13
+ 1347 0126 3F       		.uleb128 0x3f
+ 1348 0127 19       		.uleb128 0x19
+ 1349 0128 3C       		.uleb128 0x3c
+ 1350 0129 19       		.uleb128 0x19
+ 1351 012a 00       		.byte	0
+ 1352 012b 00       		.byte	0
+ 1353 012c 14       		.uleb128 0x14
+ 1354 012d 34       		.uleb128 0x34
+ 1355 012e 00       		.byte	0
+ 1356 012f 03       		.uleb128 0x3
+ 1357 0130 0E       		.uleb128 0xe
+ 1358 0131 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 30
 
 
- 1322 0063 0100     		.2byte	0x1
- 1323 0065 50       		.byte	0x50
- 1324 0066 25000000 		.4byte	.LVL14-1
- 1325 006a 28000000 		.4byte	.LVL15
- 1326 006e 0400     		.2byte	0x4
- 1327 0070 F3       		.byte	0xf3
- 1328 0071 01       		.uleb128 0x1
- 1329 0072 50       		.byte	0x50
- 1330 0073 9F       		.byte	0x9f
- 1331 0074 28000000 		.4byte	.LVL15
- 1332 0078 2B000000 		.4byte	.LVL16-1
- 1333 007c 0100     		.2byte	0x1
- 1334 007e 50       		.byte	0x50
- 1335 007f 2B000000 		.4byte	.LVL16-1
- 1336 0083 98000000 		.4byte	.LFE65
- 1337 0087 0400     		.2byte	0x4
- 1338 0089 F3       		.byte	0xf3
- 1339 008a 01       		.uleb128 0x1
- 1340 008b 50       		.byte	0x50
- 1341 008c 9F       		.byte	0x9f
- 1342 008d 00000000 		.4byte	0
- 1343 0091 00000000 		.4byte	0
- 1344              		.section	.debug_aranges,"",%progbits
- 1345 0000 64000000 		.4byte	0x64
- 1346 0004 0200     		.2byte	0x2
- 1347 0006 00000000 		.4byte	.Ldebug_info0
- 1348 000a 04       		.byte	0x4
- 1349 000b 00       		.byte	0
- 1350 000c 0000     		.2byte	0
- 1351 000e 0000     		.2byte	0
- 1352 0010 00000000 		.4byte	.LFB63
- 1353 0014 10000000 		.4byte	.LFE63-.LFB63
- 1354 0018 00000000 		.4byte	.LFB64
- 1355 001c 14000000 		.4byte	.LFE64-.LFB64
- 1356 0020 00000000 		.4byte	.LFB66
- 1357 0024 10000000 		.4byte	.LFE66-.LFB66
- 1358 0028 00000000 		.4byte	.LFB67
- 1359 002c 08000000 		.4byte	.LFE67-.LFB67
- 1360 0030 00000000 		.4byte	.LFB68
- 1361 0034 54000000 		.4byte	.LFE68-.LFB68
- 1362 0038 00000000 		.4byte	.LFB69
- 1363 003c 30000000 		.4byte	.LFE69-.LFB69
- 1364 0040 00000000 		.4byte	.LFB70
- 1365 0044 34000000 		.4byte	.LFE70-.LFB70
- 1366 0048 00000000 		.4byte	.LFB71
- 1367 004c 40000000 		.4byte	.LFE71-.LFB71
- 1368 0050 00000000 		.4byte	.LFB72
- 1369 0054 60000000 		.4byte	.LFE72-.LFB72
- 1370 0058 00000000 		.4byte	.LFB65
- 1371 005c 98000000 		.4byte	.LFE65-.LFB65
- 1372 0060 00000000 		.4byte	0
- 1373 0064 00000000 		.4byte	0
- 1374              		.section	.debug_ranges,"",%progbits
- 1375              	.Ldebug_ranges0:
- 1376 0000 00000000 		.4byte	.LFB63
- 1377 0004 10000000 		.4byte	.LFE63
- 1378 0008 00000000 		.4byte	.LFB64
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 30
+ 1359 0132 0B       		.uleb128 0xb
+ 1360 0133 3B       		.uleb128 0x3b
+ 1361 0134 0B       		.uleb128 0xb
+ 1362 0135 49       		.uleb128 0x49
+ 1363 0136 13       		.uleb128 0x13
+ 1364 0137 3F       		.uleb128 0x3f
+ 1365 0138 19       		.uleb128 0x19
+ 1366 0139 02       		.uleb128 0x2
+ 1367 013a 18       		.uleb128 0x18
+ 1368 013b 00       		.byte	0
+ 1369 013c 00       		.byte	0
+ 1370 013d 15       		.uleb128 0x15
+ 1371 013e 2E       		.uleb128 0x2e
+ 1372 013f 00       		.byte	0
+ 1373 0140 3F       		.uleb128 0x3f
+ 1374 0141 19       		.uleb128 0x19
+ 1375 0142 3C       		.uleb128 0x3c
+ 1376 0143 19       		.uleb128 0x19
+ 1377 0144 6E       		.uleb128 0x6e
+ 1378 0145 0E       		.uleb128 0xe
+ 1379 0146 03       		.uleb128 0x3
+ 1380 0147 0E       		.uleb128 0xe
+ 1381 0148 3A       		.uleb128 0x3a
+ 1382 0149 0B       		.uleb128 0xb
+ 1383 014a 3B       		.uleb128 0x3b
+ 1384 014b 0B       		.uleb128 0xb
+ 1385 014c 00       		.byte	0
+ 1386 014d 00       		.byte	0
+ 1387 014e 00       		.byte	0
+ 1388              		.section	.debug_loc,"",%progbits
+ 1389              	.Ldebug_loc0:
+ 1390              	.LLST0:
+ 1391 0000 00000000 		.4byte	.LVL0
+ 1392 0004 06000000 		.4byte	.LVL1
+ 1393 0008 0100     		.2byte	0x1
+ 1394 000a 50       		.byte	0x50
+ 1395 000b 06000000 		.4byte	.LVL1
+ 1396 000f 0C000000 		.4byte	.LVL2
+ 1397 0013 0400     		.2byte	0x4
+ 1398 0015 F3       		.byte	0xf3
+ 1399 0016 01       		.uleb128 0x1
+ 1400 0017 50       		.byte	0x50
+ 1401 0018 9F       		.byte	0x9f
+ 1402 0019 0C000000 		.4byte	.LVL2
+ 1403 001d 0E000000 		.4byte	.LVL3
+ 1404 0021 0100     		.2byte	0x1
+ 1405 0023 50       		.byte	0x50
+ 1406 0024 0E000000 		.4byte	.LVL3
+ 1407 0028 10000000 		.4byte	.LFE63
+ 1408 002c 0400     		.2byte	0x4
+ 1409 002e F3       		.byte	0xf3
+ 1410 002f 01       		.uleb128 0x1
+ 1411 0030 50       		.byte	0x50
+ 1412 0031 9F       		.byte	0x9f
+ 1413 0032 00000000 		.4byte	0
+ 1414 0036 00000000 		.4byte	0
+ 1415              	.LLST1:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 31
 
 
- 1379 000c 14000000 		.4byte	.LFE64
- 1380 0010 00000000 		.4byte	.LFB66
- 1381 0014 10000000 		.4byte	.LFE66
- 1382 0018 00000000 		.4byte	.LFB67
- 1383 001c 08000000 		.4byte	.LFE67
- 1384 0020 00000000 		.4byte	.LFB68
- 1385 0024 54000000 		.4byte	.LFE68
- 1386 0028 00000000 		.4byte	.LFB69
- 1387 002c 30000000 		.4byte	.LFE69
- 1388 0030 00000000 		.4byte	.LFB70
- 1389 0034 34000000 		.4byte	.LFE70
- 1390 0038 00000000 		.4byte	.LFB71
- 1391 003c 40000000 		.4byte	.LFE71
- 1392 0040 00000000 		.4byte	.LFB72
- 1393 0044 60000000 		.4byte	.LFE72
- 1394 0048 00000000 		.4byte	.LFB65
- 1395 004c 98000000 		.4byte	.LFE65
- 1396 0050 00000000 		.4byte	0
- 1397 0054 00000000 		.4byte	0
- 1398              		.section	.debug_line,"",%progbits
- 1399              	.Ldebug_line0:
- 1400 0000 A5020000 		.section	.debug_str,"MS",%progbits,1
- 1400      02008301 
- 1400      00000201 
- 1400      FB0E0D00 
- 1400      01010101 
- 1401              	.LASF11:
- 1402 0000 6C6F6E67 		.ascii	"long long int\000"
- 1402      206C6F6E 
- 1402      6720696E 
- 1402      7400
- 1403              	.LASF40:
- 1404 000e 73656C5F 		.ascii	"sel_strategy\000"
- 1404      73747261 
- 1404      74656779 
- 1404      00
- 1405              	.LASF35:
- 1406 001b 5365745F 		.ascii	"Set_Strategy_Launch_Assist\000"
- 1406      53747261 
- 1406      74656779 
- 1406      5F4C6175 
- 1406      6E63685F 
- 1407              	.LASF0:
- 1408 0036 5F5F696E 		.ascii	"__int8_t\000"
- 1408      74385F74 
- 1408      00
- 1409              	.LASF1:
- 1410 003f 5F5F7569 		.ascii	"__uint8_t\000"
- 1410      6E74385F 
- 1410      7400
- 1411              	.LASF32:
- 1412 0049 4D61705F 		.ascii	"Map_Duty_Cycle\000"
- 1412      44757479 
- 1412      5F437963 
- 1412      6C6500
- 1413              	.LASF25:
- 1414 0058 6272616B 		.ascii	"brake_state\000"
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 31
+ 1416 003a 00000000 		.4byte	.LVL4
+ 1417 003e 04000000 		.4byte	.LVL5
+ 1418 0042 0100     		.2byte	0x1
+ 1419 0044 50       		.byte	0x50
+ 1420 0045 04000000 		.4byte	.LVL5
+ 1421 0049 14000000 		.4byte	.LFE64
+ 1422 004d 0400     		.2byte	0x4
+ 1423 004f F3       		.byte	0xf3
+ 1424 0050 01       		.uleb128 0x1
+ 1425 0051 50       		.byte	0x50
+ 1426 0052 9F       		.byte	0x9f
+ 1427 0053 00000000 		.4byte	0
+ 1428 0057 00000000 		.4byte	0
+ 1429              	.LLST2:
+ 1430 005b 00000000 		.4byte	.LVL12
+ 1431 005f 1B000000 		.4byte	.LVL13-1
+ 1432 0063 0100     		.2byte	0x1
+ 1433 0065 50       		.byte	0x50
+ 1434 0066 1B000000 		.4byte	.LVL13-1
+ 1435 006a 1E000000 		.4byte	.LVL14
+ 1436 006e 0400     		.2byte	0x4
+ 1437 0070 F3       		.byte	0xf3
+ 1438 0071 01       		.uleb128 0x1
+ 1439 0072 50       		.byte	0x50
+ 1440 0073 9F       		.byte	0x9f
+ 1441 0074 1E000000 		.4byte	.LVL14
+ 1442 0078 21000000 		.4byte	.LVL15-1
+ 1443 007c 0100     		.2byte	0x1
+ 1444 007e 50       		.byte	0x50
+ 1445 007f 21000000 		.4byte	.LVL15-1
+ 1446 0083 94000000 		.4byte	.LFE66
+ 1447 0087 0400     		.2byte	0x4
+ 1448 0089 F3       		.byte	0xf3
+ 1449 008a 01       		.uleb128 0x1
+ 1450 008b 50       		.byte	0x50
+ 1451 008c 9F       		.byte	0x9f
+ 1452 008d 00000000 		.4byte	0
+ 1453 0091 00000000 		.4byte	0
+ 1454              		.section	.debug_aranges,"",%progbits
+ 1455 0000 6C000000 		.4byte	0x6c
+ 1456 0004 0200     		.2byte	0x2
+ 1457 0006 00000000 		.4byte	.Ldebug_info0
+ 1458 000a 04       		.byte	0x4
+ 1459 000b 00       		.byte	0
+ 1460 000c 0000     		.2byte	0
+ 1461 000e 0000     		.2byte	0
+ 1462 0010 00000000 		.4byte	.LFB63
+ 1463 0014 10000000 		.4byte	.LFE63-.LFB63
+ 1464 0018 00000000 		.4byte	.LFB64
+ 1465 001c 14000000 		.4byte	.LFE64-.LFB64
+ 1466 0020 00000000 		.4byte	.LFB67
+ 1467 0024 10000000 		.4byte	.LFE67-.LFB67
+ 1468 0028 00000000 		.4byte	.LFB68
+ 1469 002c 08000000 		.4byte	.LFE68-.LFB68
+ 1470 0030 00000000 		.4byte	.LFB69
+ 1471 0034 54000000 		.4byte	.LFE69-.LFB69
+ 1472 0038 00000000 		.4byte	.LFB70
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 32
 
 
- 1414      655F7374 
- 1414      61746500 
- 1415              	.LASF4:
- 1416 0064 5F5F696E 		.ascii	"__int16_t\000"
- 1416      7431365F 
- 1416      7400
- 1417              	.LASF8:
- 1418 006e 5F5F696E 		.ascii	"__int32_t\000"
- 1418      7433325F 
- 1418      7400
- 1419              	.LASF48:
- 1420 0078 433A5C55 		.ascii	"C:\\Users\\badea\\Documents\\PSoC Creator\\can_bun\\"
- 1420      73657273 
- 1420      5C626164 
- 1420      65615C44 
- 1420      6F63756D 
- 1421 00a6 48434D5F 		.ascii	"HCM_UPBDrive.cydsn\000"
- 1421      55504244 
- 1421      72697665 
- 1421      2E637964 
- 1421      736E00
- 1422              	.LASF42:
- 1423 00b9 6361725F 		.ascii	"car_state\000"
- 1423      73746174 
- 1423      6500
- 1424              	.LASF49:
- 1425 00c3 5365745F 		.ascii	"Set_Strategy_Freewheel\000"
- 1425      53747261 
- 1425      74656779 
- 1425      5F467265 
- 1425      65776865 
- 1426              	.LASF29:
- 1427 00da 64757479 		.ascii	"duty_cycle_percentage\000"
- 1427      5F637963 
- 1427      6C655F70 
- 1427      65726365 
- 1427      6E746167 
- 1428              	.LASF26:
- 1429 00f0 67656172 		.ascii	"gear\000"
- 1429      00
- 1430              	.LASF14:
- 1431 00f5 696E7438 		.ascii	"int8_t\000"
- 1431      5F7400
- 1432              	.LASF18:
- 1433 00fc 696E7433 		.ascii	"int32_t\000"
- 1433      325F7400 
- 1434              	.LASF19:
- 1435 0104 666C6F61 		.ascii	"float\000"
- 1435      7400
- 1436              	.LASF2:
- 1437 010a 7369676E 		.ascii	"signed char\000"
- 1437      65642063 
- 1437      68617200 
- 1438              	.LASF30:
- 1439 0116 48595F73 		.ascii	"HY_strategy_t\000"
- 1439      74726174 
- 1439      6567795F 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 32
+ 1473 003c 28000000 		.4byte	.LFE70-.LFB70
+ 1474 0040 00000000 		.4byte	.LFB71
+ 1475 0044 34000000 		.4byte	.LFE71-.LFB71
+ 1476 0048 00000000 		.4byte	.LFB72
+ 1477 004c 40000000 		.4byte	.LFE72-.LFB72
+ 1478 0050 00000000 		.4byte	.LFB73
+ 1479 0054 60000000 		.4byte	.LFE73-.LFB73
+ 1480 0058 00000000 		.4byte	.LFB66
+ 1481 005c 94000000 		.4byte	.LFE66-.LFB66
+ 1482 0060 00000000 		.4byte	.LFB65
+ 1483 0064 16000000 		.4byte	.LFE65-.LFB65
+ 1484 0068 00000000 		.4byte	0
+ 1485 006c 00000000 		.4byte	0
+ 1486              		.section	.debug_ranges,"",%progbits
+ 1487              	.Ldebug_ranges0:
+ 1488 0000 00000000 		.4byte	.LFB63
+ 1489 0004 10000000 		.4byte	.LFE63
+ 1490 0008 00000000 		.4byte	.LFB64
+ 1491 000c 14000000 		.4byte	.LFE64
+ 1492 0010 00000000 		.4byte	.LFB67
+ 1493 0014 10000000 		.4byte	.LFE67
+ 1494 0018 00000000 		.4byte	.LFB68
+ 1495 001c 08000000 		.4byte	.LFE68
+ 1496 0020 00000000 		.4byte	.LFB69
+ 1497 0024 54000000 		.4byte	.LFE69
+ 1498 0028 00000000 		.4byte	.LFB70
+ 1499 002c 28000000 		.4byte	.LFE70
+ 1500 0030 00000000 		.4byte	.LFB71
+ 1501 0034 34000000 		.4byte	.LFE71
+ 1502 0038 00000000 		.4byte	.LFB72
+ 1503 003c 40000000 		.4byte	.LFE72
+ 1504 0040 00000000 		.4byte	.LFB73
+ 1505 0044 60000000 		.4byte	.LFE73
+ 1506 0048 00000000 		.4byte	.LFB66
+ 1507 004c 94000000 		.4byte	.LFE66
+ 1508 0050 00000000 		.4byte	.LFB65
+ 1509 0054 16000000 		.4byte	.LFE65
+ 1510 0058 00000000 		.4byte	0
+ 1511 005c 00000000 		.4byte	0
+ 1512              		.section	.debug_line,"",%progbits
+ 1513              	.Ldebug_line0:
+ 1514 0000 D0020000 		.section	.debug_str,"MS",%progbits,1
+ 1514      02009E01 
+ 1514      00000201 
+ 1514      FB0E0D00 
+ 1514      01010101 
+ 1515              	.LASF11:
+ 1516 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1516      206C6F6E 
+ 1516      6720696E 
+ 1516      7400
+ 1517              	.LASF40:
+ 1518 000e 73656C5F 		.ascii	"sel_strategy\000"
+ 1518      73747261 
+ 1518      74656779 
+ 1518      00
+ 1519              	.LASF35:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 33
 
 
- 1439      7400
- 1440              	.LASF3:
- 1441 0124 756E7369 		.ascii	"unsigned char\000"
- 1441      676E6564 
- 1441      20636861 
- 1441      7200
- 1442              	.LASF46:
- 1443 0132 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 1443      43313120 
- 1443      352E342E 
- 1443      31203230 
- 1443      31363036 
- 1444 0165 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
- 1444      20726576 
- 1444      6973696F 
- 1444      6E203233 
- 1444      37373135 
- 1445 0198 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 1445      66756E63 
- 1445      74696F6E 
- 1445      2D736563 
- 1445      74696F6E 
- 1446              	.LASF10:
- 1447 01c0 6C6F6E67 		.ascii	"long unsigned int\000"
- 1447      20756E73 
- 1447      69676E65 
- 1447      6420696E 
- 1447      7400
- 1448              	.LASF7:
- 1449 01d2 73686F72 		.ascii	"short unsigned int\000"
- 1449      7420756E 
- 1449      7369676E 
- 1449      65642069 
- 1449      6E7400
- 1450              	.LASF38:
- 1451 01e5 5365745F 		.ascii	"Set_Strategy_Auto_Always_Regen\000"
- 1451      53747261 
- 1451      74656779 
- 1451      5F417574 
- 1451      6F5F416C 
- 1452              	.LASF28:
- 1453 0204 64726976 		.ascii	"driving_mode\000"
- 1453      696E675F 
- 1453      6D6F6465 
- 1453      00
- 1454              	.LASF6:
- 1455 0211 5F5F7569 		.ascii	"__uint16_t\000"
- 1455      6E743136 
- 1455      5F7400
- 1456              	.LASF20:
- 1457 021c 646F7562 		.ascii	"double\000"
- 1457      6C6500
- 1458              	.LASF5:
- 1459 0223 73686F72 		.ascii	"short int\000"
- 1459      7420696E 
- 1459      7400
- 1460              	.LASF41:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 33
+ 1520 001b 5365745F 		.ascii	"Set_Strategy_Launch_Assist\000"
+ 1520      53747261 
+ 1520      74656779 
+ 1520      5F4C6175 
+ 1520      6E63685F 
+ 1521              	.LASF0:
+ 1522 0036 5F5F696E 		.ascii	"__int8_t\000"
+ 1522      74385F74 
+ 1522      00
+ 1523              	.LASF1:
+ 1524 003f 5F5F7569 		.ascii	"__uint8_t\000"
+ 1524      6E74385F 
+ 1524      7400
+ 1525              	.LASF32:
+ 1526 0049 4D61705F 		.ascii	"Map_Duty_Cycle\000"
+ 1526      44757479 
+ 1526      5F437963 
+ 1526      6C6500
+ 1527              	.LASF26:
+ 1528 0058 6272616B 		.ascii	"brake_state\000"
+ 1528      655F7374 
+ 1528      61746500 
+ 1529              	.LASF4:
+ 1530 0064 5F5F696E 		.ascii	"__int16_t\000"
+ 1530      7431365F 
+ 1530      7400
+ 1531              	.LASF45:
+ 1532 006e 52656164 		.ascii	"Read_Boost_Button\000"
+ 1532      5F426F6F 
+ 1532      73745F42 
+ 1532      7574746F 
+ 1532      6E00
+ 1533              	.LASF8:
+ 1534 0080 5F5F696E 		.ascii	"__int32_t\000"
+ 1534      7433325F 
+ 1534      7400
+ 1535              	.LASF51:
+ 1536 008a 433A5C55 		.ascii	"C:\\Users\\badea\\Documents\\PSoC Creator\\can_bun\\"
+ 1536      73657273 
+ 1536      5C626164 
+ 1536      65615C44 
+ 1536      6F63756D 
+ 1537 00b8 48434D5F 		.ascii	"HCM_UPBDrive.cydsn\000"
+ 1537      55504244 
+ 1537      72697665 
+ 1537      2E637964 
+ 1537      736E00
+ 1538              	.LASF43:
+ 1539 00cb 6361725F 		.ascii	"car_state\000"
+ 1539      73746174 
+ 1539      6500
+ 1540              	.LASF52:
+ 1541 00d5 5365745F 		.ascii	"Set_Strategy_Freewheel\000"
+ 1541      53747261 
+ 1541      74656779 
+ 1541      5F467265 
+ 1541      65776865 
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 34
 
 
- 1461 022d 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 1461      52784275 
- 1461      66666572 
- 1461      00
- 1462              	.LASF13:
- 1463 023a 756E7369 		.ascii	"unsigned int\000"
- 1463      676E6564 
- 1463      20696E74 
- 1463      00
- 1464              	.LASF33:
- 1465 0247 7470735F 		.ascii	"tps_percentage\000"
- 1465      70657263 
- 1465      656E7461 
- 1465      676500
- 1466              	.LASF36:
- 1467 0256 5365745F 		.ascii	"Set_Strategy_Auto_No_Regen\000"
- 1467      53747261 
- 1467      74656779 
- 1467      5F417574 
- 1467      6F5F4E6F 
- 1468              	.LASF12:
- 1469 0271 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1469      206C6F6E 
- 1469      6720756E 
- 1469      7369676E 
- 1469      65642069 
- 1470              	.LASF15:
- 1471 0288 75696E74 		.ascii	"uint8_t\000"
- 1471      385F7400 
- 1472              	.LASF45:
- 1473 0290 43414E5F 		.ascii	"CAN_Transmit_To_ESC\000"
- 1473      5472616E 
- 1473      736D6974 
- 1473      5F546F5F 
- 1473      45534300 
- 1474              	.LASF16:
- 1475 02a4 696E7431 		.ascii	"int16_t\000"
- 1475      365F7400 
- 1476              	.LASF31:
- 1477 02ac 5450535F 		.ascii	"TPS_to_Duty_Cycle_Percentage\000"
- 1477      746F5F44 
- 1477      7574795F 
- 1477      4379636C 
- 1477      655F5065 
- 1478              	.LASF22:
- 1479 02c9 6C6F6E67 		.ascii	"long double\000"
- 1479      20646F75 
- 1479      626C6500 
- 1480              	.LASF23:
- 1481 02d5 73697A65 		.ascii	"sizetype\000"
- 1481      74797065 
- 1481      00
- 1482              	.LASF34:
- 1483 02de 5365745F 		.ascii	"Set_Strategy_Manual\000"
- 1483      53747261 
- 1483      74656779 
- 1483      5F4D616E 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 34
+ 1542              	.LASF29:
+ 1543 00ec 64757479 		.ascii	"duty_cycle_percentage\000"
+ 1543      5F637963 
+ 1543      6C655F70 
+ 1543      65726365 
+ 1543      6E746167 
+ 1544              	.LASF25:
+ 1545 0102 67656172 		.ascii	"gear\000"
+ 1545      00
+ 1546              	.LASF14:
+ 1547 0107 696E7438 		.ascii	"int8_t\000"
+ 1547      5F7400
+ 1548              	.LASF18:
+ 1549 010e 696E7433 		.ascii	"int32_t\000"
+ 1549      325F7400 
+ 1550              	.LASF19:
+ 1551 0116 666C6F61 		.ascii	"float\000"
+ 1551      7400
+ 1552              	.LASF2:
+ 1553 011c 7369676E 		.ascii	"signed char\000"
+ 1553      65642063 
+ 1553      68617200 
+ 1554              	.LASF30:
+ 1555 0128 48595F73 		.ascii	"HY_strategy_t\000"
+ 1555      74726174 
+ 1555      6567795F 
+ 1555      7400
+ 1556              	.LASF3:
+ 1557 0136 756E7369 		.ascii	"unsigned char\000"
+ 1557      676E6564 
+ 1557      20636861 
+ 1557      7200
+ 1558              	.LASF49:
+ 1559 0144 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1559      43313120 
+ 1559      352E342E 
+ 1559      31203230 
+ 1559      31363036 
+ 1560 0177 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1560      20726576 
+ 1560      6973696F 
+ 1560      6E203233 
+ 1560      37373135 
+ 1561 01aa 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1561      66756E63 
+ 1561      74696F6E 
+ 1561      2D736563 
+ 1561      74696F6E 
+ 1562              	.LASF10:
+ 1563 01d2 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1563      20756E73 
+ 1563      69676E65 
+ 1563      6420696E 
+ 1563      7400
+ 1564              	.LASF7:
+ 1565 01e4 73686F72 		.ascii	"short unsigned int\000"
+ 1565      7420756E 
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 35
 
 
- 1483      75616C00 
- 1484              	.LASF37:
- 1485 02f2 5365745F 		.ascii	"Set_Strategy_Auto_Brake_Regen\000"
- 1485      53747261 
- 1485      74656779 
- 1485      5F417574 
- 1485      6F5F4272 
- 1486              	.LASF21:
- 1487 0310 63686172 		.ascii	"char\000"
- 1487      00
- 1488              	.LASF50:
- 1489 0315 5365745F 		.ascii	"Set_Strategy\000"
- 1489      53747261 
- 1489      74656779 
- 1489      00
- 1490              	.LASF17:
- 1491 0322 75696E74 		.ascii	"uint16_t\000"
- 1491      31365F74 
- 1491      00
- 1492              	.LASF43:
- 1493 032b 68796272 		.ascii	"hybrid_state\000"
- 1493      69645F73 
- 1493      74617465 
- 1493      00
- 1494              	.LASF9:
- 1495 0338 6C6F6E67 		.ascii	"long int\000"
- 1495      20696E74 
- 1495      00
- 1496              	.LASF47:
- 1497 0341 7372635C 		.ascii	"src\\hybrid_mode.c\000"
- 1497      68796272 
- 1497      69645F6D 
- 1497      6F64652E 
- 1497      6300
- 1498              	.LASF39:
- 1499 0353 5365745F 		.ascii	"Set_Strategy_Torque_Fill\000"
- 1499      53747261 
- 1499      74656779 
- 1499      5F546F72 
- 1499      7175655F 
- 1500              	.LASF24:
- 1501 036c 656E6769 		.ascii	"engine_state\000"
- 1501      6E655F73 
- 1501      74617465 
- 1501      00
- 1502              	.LASF27:
- 1503 0379 76656869 		.ascii	"vehicle_status_t\000"
- 1503      636C655F 
- 1503      73746174 
- 1503      75735F74 
- 1503      00
- 1504              	.LASF44:
- 1505 038a 52656164 		.ascii	"Read_Boost_Button\000"
- 1505      5F426F6F 
- 1505      73745F42 
- 1505      7574746F 
- 1505      6E00
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTwrajh.s 			page 35
+ 1565      7369676E 
+ 1565      65642069 
+ 1565      6E7400
+ 1566              	.LASF38:
+ 1567 01f7 5365745F 		.ascii	"Set_Strategy_Auto_Always_Regen\000"
+ 1567      53747261 
+ 1567      74656779 
+ 1567      5F417574 
+ 1567      6F5F416C 
+ 1568              	.LASF28:
+ 1569 0216 64726976 		.ascii	"driving_mode\000"
+ 1569      696E675F 
+ 1569      6D6F6465 
+ 1569      00
+ 1570              	.LASF6:
+ 1571 0223 5F5F7569 		.ascii	"__uint16_t\000"
+ 1571      6E743136 
+ 1571      5F7400
+ 1572              	.LASF20:
+ 1573 022e 646F7562 		.ascii	"double\000"
+ 1573      6C6500
+ 1574              	.LASF5:
+ 1575 0235 73686F72 		.ascii	"short int\000"
+ 1575      7420696E 
+ 1575      7400
+ 1576              	.LASF42:
+ 1577 023f 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1577      52784275 
+ 1577      66666572 
+ 1577      00
+ 1578              	.LASF13:
+ 1579 024c 756E7369 		.ascii	"unsigned int\000"
+ 1579      676E6564 
+ 1579      20696E74 
+ 1579      00
+ 1580              	.LASF33:
+ 1581 0259 7470735F 		.ascii	"tps_percentage\000"
+ 1581      70657263 
+ 1581      656E7461 
+ 1581      676500
+ 1582              	.LASF36:
+ 1583 0268 5365745F 		.ascii	"Set_Strategy_Auto_No_Regen\000"
+ 1583      53747261 
+ 1583      74656779 
+ 1583      5F417574 
+ 1583      6F5F4E6F 
+ 1584              	.LASF12:
+ 1585 0283 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1585      206C6F6E 
+ 1585      6720756E 
+ 1585      7369676E 
+ 1585      65642069 
+ 1586              	.LASF15:
+ 1587 029a 75696E74 		.ascii	"uint8_t\000"
+ 1587      385F7400 
+ 1588              	.LASF46:
+ 1589 02a2 43414E5F 		.ascii	"CAN_Transmit_To_ESC\000"
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 36
 
 
- 1506              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 1589      5472616E 
+ 1589      736D6974 
+ 1589      5F546F5F 
+ 1589      45534300 
+ 1590              	.LASF16:
+ 1591 02b6 696E7431 		.ascii	"int16_t\000"
+ 1591      365F7400 
+ 1592              	.LASF31:
+ 1593 02be 5450535F 		.ascii	"TPS_to_Duty_Cycle_Percentage\000"
+ 1593      746F5F44 
+ 1593      7574795F 
+ 1593      4379636C 
+ 1593      655F5065 
+ 1594              	.LASF48:
+ 1595 02db 4149525F 		.ascii	"AIR_enable_Write\000"
+ 1595      656E6162 
+ 1595      6C655F57 
+ 1595      72697465 
+ 1595      00
+ 1596              	.LASF22:
+ 1597 02ec 6C6F6E67 		.ascii	"long double\000"
+ 1597      20646F75 
+ 1597      626C6500 
+ 1598              	.LASF23:
+ 1599 02f8 73697A65 		.ascii	"sizetype\000"
+ 1599      74797065 
+ 1599      00
+ 1600              	.LASF34:
+ 1601 0301 5365745F 		.ascii	"Set_Strategy_Manual\000"
+ 1601      53747261 
+ 1601      74656779 
+ 1601      5F4D616E 
+ 1601      75616C00 
+ 1602              	.LASF37:
+ 1603 0315 5365745F 		.ascii	"Set_Strategy_Auto_Brake_Regen\000"
+ 1603      53747261 
+ 1603      74656779 
+ 1603      5F417574 
+ 1603      6F5F4272 
+ 1604              	.LASF21:
+ 1605 0333 63686172 		.ascii	"char\000"
+ 1605      00
+ 1606              	.LASF53:
+ 1607 0338 5365745F 		.ascii	"Set_Strategy\000"
+ 1607      53747261 
+ 1607      74656779 
+ 1607      00
+ 1608              	.LASF17:
+ 1609 0345 75696E74 		.ascii	"uint16_t\000"
+ 1609      31365F74 
+ 1609      00
+ 1610              	.LASF44:
+ 1611 034e 68796272 		.ascii	"hybrid_state\000"
+ 1611      69645F73 
+ 1611      74617465 
+ 1611      00
+ 1612              	.LASF9:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccTH1fyi.s 			page 37
+
+
+ 1613 035b 6C6F6E67 		.ascii	"long int\000"
+ 1613      20696E74 
+ 1613      00
+ 1614              	.LASF50:
+ 1615 0364 7372635C 		.ascii	"src\\hybrid_mode.c\000"
+ 1615      68796272 
+ 1615      69645F6D 
+ 1615      6F64652E 
+ 1615      6300
+ 1616              	.LASF39:
+ 1617 0376 5365745F 		.ascii	"Set_Strategy_Torque_Fill\000"
+ 1617      53747261 
+ 1617      74656779 
+ 1617      5F546F72 
+ 1617      7175655F 
+ 1618              	.LASF24:
+ 1619 038f 656E6769 		.ascii	"engine_state\000"
+ 1619      6E655F73 
+ 1619      74617465 
+ 1619      00
+ 1620              	.LASF27:
+ 1621 039c 76656869 		.ascii	"vehicle_status_t\000"
+ 1621      636C655F 
+ 1621      73746174 
+ 1621      75735F74 
+ 1621      00
+ 1622              	.LASF41:
+ 1623 03ad 456D6572 		.ascii	"Emergency_Stop\000"
+ 1623      67656E63 
+ 1623      795F5374 
+ 1623      6F7000
+ 1624              	.LASF47:
+ 1625 03bc 43794465 		.ascii	"CyDelay\000"
+ 1625      6C617900 
+ 1626              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

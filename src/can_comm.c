@@ -58,18 +58,18 @@ uint8_t CAN_Read_From_ECU()
         car_state.rpm = CAN_RX_DATA_BYTE1(CAN_RX_MAILBOX_ECU_receive) * RPM_MULTIPLIER;
 
         if (car_state.rpm > RPM_THRESHOLD)
-            car_state.engine_state = 1;
+            car_state.engine_state = STD_ON;
         else
-            car_state.engine_state = 0;
+            car_state.engine_state = STD_OFF;
 
         car_state.gear = CAN_RX_DATA_BYTE2(CAN_RX_MAILBOX_ECU_receive);
         car_state.tps = CAN_RX_DATA_BYTE3(CAN_RX_MAILBOX_ECU_receive);
         car_state.vss = CAN_RX_DATA_BYTE4(CAN_RX_MAILBOX_ECU_receive);
 
         if (CAN_RX_DATA_BYTE5(CAN_RX_MAILBOX_ECU_receive) > BRAKE_THRESHOLD)
-            car_state.brake_state = 1;
+            car_state.brake_state = STD_ON;
         else
-            car_state.brake_state = 0;
+            car_state.brake_state = STD_OFF;
 
         if ((car_state.rpm > MAX_RPM) || (car_state.gear > MAX_GEAR) || (car_state.tps > MAX_TPS) || (car_state.vss > MAX_VSS))
             return 0; // Values out of bounds, failed read from can

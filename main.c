@@ -29,7 +29,6 @@ void init()
 {
     CAN_Start();
     CyIntSetVector(CAN_ISR_NUMBER, ISR_CAN);
-
     CyGlobalIntEnable;
 }
 
@@ -40,32 +39,44 @@ void init()
  */
 int main()
 {
-    uint8_t user_strategy;
+    uint8_t user_strategy, rx_reattempt;
     init(); // Initialize CAN and interrupts
 
     while(1) // Infinite loop
     {
         if (CAN_Read_From_ECU()) // CAN read was successful
         {
+            rx_reattempt = 0;
+            
             if (STD_ON == car_state.engine_state) // ICE is running
             {
-                // Select which function based on HW selector
+                /* Select which function based on HW selector */
                 //user_strategy = Read_Binary_Selector();
-                user_strategy = Read_Rotary_Switch();
-
+                //user_strategy = Read_Rotary_Switch();
+                user_strategy = AUTO_NOREGEN_S;
+                
                 AIR_enable_Write(STD_ON); // Enable the AIR
                 
                 Set_Strategy(user_strategy);
             }
             else // ICE is off
             {
-                Set_Strategy(FREEWHEEL_MODE); // Set the CAN message to freewheel before turn off
-                CyDelay(50u); // Wait 50 ms
-                AIR_enable_Write(STD_OFF); // Disable the AIR
+                Emergency_Stop(); // Stop the motor and disable the AIR
             }
         }
-
-        CyDelay(30u); // Delay for 30 ms
+        else // CAN Read was unsuccessfull
+        {
+            if (rx_reattempt > CAN_MAX_FAILED_ATTEMPTS)
+            {
+                Emergency_Stop(); // Stop the motor and disable the AIR
+            }
+            else
+            {
+                rx_reattempt++;
+            }
+        }
+               
+    CyDelay(50u); // Delay for 50 ms
     }
 }
 

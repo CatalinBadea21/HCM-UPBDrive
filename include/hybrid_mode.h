@@ -30,6 +30,14 @@
 #define STD_ON 1u
 #define STD_OFF 0u
 
+#define FREEWHEEL_S 0u
+#define MANUAL_S 1u
+#define LAUNCH_S 2u
+#define AUTO_NOREGEN_S 3u
+#define AUTO_BRAKEREGEN_S 4u
+#define AUTO_ALLREGEN_S 5u
+#define TORQUE_FILL_S 6u
+
 /**********************************************************************************************************************
 * Typedefs
 ***********************************************************************************************************************/
@@ -48,6 +56,7 @@ extern volatile HY_strategy_t hybrid_state;
 ***********************************************************************************************************************/
 uint8_t TPS_to_Duty_Cycle_Percentage(uint8_t tps_percentage);
 int16_t Map_Duty_Cycle(int8_t duty_cycle_percentage);
+void Emergency_Stop();
 void Set_Strategy(uint8_t sel_strategy);
 void Set_Strategy_Freewheel();
 void Set_Strategy_Manual();

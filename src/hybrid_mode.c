@@ -65,6 +65,17 @@ int16_t Map_Duty_Cycle(int8_t duty_cycle_percentage)
 }
 
 /*
+ * Function:    Emergency_Stop
+ * Description: Sets the hybrid mode to freewheel, then disables the AIR.
+ */
+void Emergency_Stop()
+{
+    Set_Strategy(FREEWHEEL_S); // Set the CAN message to freewheel before turn off
+    CyDelay(50u); // Wait 50 ms for the motor to slow down
+    AIR_enable_Write(STD_OFF); // Disable the AIR
+}
+
+/*
  * Function:    Set_Strategy
  * Description: Applies the appropriate hybrid driving strategy based on selector input,
  *              vehicle state, and driver override.
@@ -82,7 +93,7 @@ int16_t Map_Duty_Cycle(int8_t duty_cycle_percentage)
  */
 void Set_Strategy(uint8_t sel_strategy)
 {
-    if ((car_state.gear == NEUTRAL_GEAR) || (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.vss > MAX_VSS_TO_DEPLOY))
+    if (/*(car_state.gear == NEUTRAL_GEAR) ||*/ (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.vss > MAX_VSS_TO_DEPLOY))
         Set_Strategy_Freewheel();
     else if ((Read_Boost_Button() == STD_ON) && (car_state.brake_state == STD_OFF) && (sel_strategy > 0))
     {
@@ -92,27 +103,31 @@ void Set_Strategy(uint8_t sel_strategy)
     else
         switch (sel_strategy)
         {
-            case 1:
+            case FREEWHEEL_S:
+                Set_Strategy_Freewheel();
+                break;
+                
+            case MANUAL_S:
                 Set_Strategy_Manual();
                 break;
 
-            case 2:
+            case LAUNCH_S:
                 Set_Strategy_Launch_Assist();
                 break;
 
-            case 3:
+            case AUTO_NOREGEN_S:
                 Set_Strategy_Auto_No_Regen();
                 break;
 
-            case 4:
+            case AUTO_BRAKEREGEN_S:
                 Set_Strategy_Auto_Brake_Regen();
                 break;
 
-            case 5:
+            case AUTO_ALLREGEN_S:
                 Set_Strategy_Auto_Always_Regen();
                 break;
 
-            case 6:
+            case TORQUE_FILL_S:
                 Set_Strategy_Torque_Fill();
                 break;
 
@@ -130,7 +145,7 @@ void Set_Strategy(uint8_t sel_strategy)
 void Set_Strategy_Freewheel()
 {
     hybrid_state.driving_mode = FREEWHEEL_MODE;
-    hybrid_state.duty_cycle_percentage = 0;
+    hybrid_state.duty_cycle_percentage = STD_OFF;
 }
 
 /*
@@ -176,10 +191,10 @@ void Set_Strategy_Launch_Assist()
  */
 void Set_Strategy_Auto_No_Regen()
 {
-    if ((car_state.brake_state == STD_OFF))
+    if (car_state.brake_state == STD_OFF)
     {
-        hybrid_state.driving_mode = TORQUE_MODE;
-        hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
+        hybrid_state.driving_mode = SPEED_MODE; //TORQUE_MODE;
+        hybrid_state.duty_cycle_percentage = 10; //TPS_to_Duty_Cycle_Percentage(car_state.tps);
     }
     else
         Set_Strategy_Freewheel();
@@ -192,7 +207,7 @@ void Set_Strategy_Auto_No_Regen()
  */
 void Set_Strategy_Auto_Brake_Regen()
 {
-    if ((car_state.brake_state == STD_OFF))
+    if (car_state.brake_state == STD_OFF)
     {
         hybrid_state.driving_mode = TORQUE_MODE;
         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);

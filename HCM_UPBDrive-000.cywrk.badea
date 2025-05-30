@@ -18,7 +18,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="HCM_UPBDrive-000\HCM_UPBDrive\Header Files\hybrid_mode.h">
 <ExpandedNodeIds>
 <v>HCM_UPBDrive-000</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive</v>
@@ -46,8 +46,6 @@
 <v>HCM_UPBDrive-000\HCM_UPBDrive\Source Files\user_input.c</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5\AIR_enable</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5\Selector_In</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>HCM_UPBDrive-000</v>
@@ -77,15 +75,15 @@
 <v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5\AIR_enable</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5\AIR_enable\AIR_enable.c</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5\AIR_enable\AIR_enable.h</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5\AIR_enable\AIR_enable_aliases.h</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5\Boost_Button</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5\CAN</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5\CAN_RX</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5\CAN_TX</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5\cy_boot</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5\Em_EEPROM_Dynamic</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5\Selector_In</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5\cycodeshareexport.ld</v>
+<v>HCM_UPBDrive-000\HCM_UPBDrive\Generated_Source\PSoC5\cycodeshareimport.ld</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -144,38 +142,6 @@
 <VisibleNodeIds>
 <v>HCM_UPBDrive-000</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\AIR_enable.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\Boost_Button.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\can_comm.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN_INT.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN_PM.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN_RX.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN_TX.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN_TX_RX_func.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\Cm3Start.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CyDmac.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CySpc.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\hybrid_mode.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\main.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\Selector_In.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\user_input.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.elf</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.hex</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.map</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.gpdsc</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.rpt</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive_timing.html</v>
 </VisibleNodeIds>
@@ -215,7 +181,18 @@
 </userData>
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
-<OpenDocs />
+<OpenDocs>
+<name v=".\main.c" />
+<name v=".\include\hybrid_mode.h" />
+<name v=".\src\hybrid_mode.c" />
+</OpenDocs>
+<OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
+
+  Actipro Docking/MDI for WinForms
+  Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
+  http://www.actiprosoftware.com
+
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1027, 420" SelectedTabbedMdiWindow="b63eb615-536e-452a-a256-e27140b235c0"><DocumentWindow Key="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\main.c" Guid="9c229bc1-74db-4d96-8e9b-525b26838272" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="98e47889-b922-4e0c-b86f-3e6aed77fb9c" /><DocumentWindow Key="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\include\hybrid_mode.h" Guid="f121aa5e-afc9-4b5d-bd39-d623b1747f03" /><DocumentWindow Key="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\src\hybrid_mode.c" Guid="b63eb615-536e-452a-a256-e27140b235c0" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
