@@ -142,38 +142,6 @@
 <VisibleNodeIds>
 <v>HCM_UPBDrive-000</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\AIR_enable.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\Boost_Button.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\can_comm.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN_INT.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN_PM.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN_RX.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN_TX.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CAN_TX_RX_func.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\Cm3Start.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CyDmac.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\CySpc.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\hybrid_mode.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\main.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\Selector_In.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\Listing Files\user_input.lst</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.elf</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.hex</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.map</v>
-<v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.gpdsc</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive.rpt</v>
 <v>HCM_UPBDrive-000\HCM_UPBDrive\HCM_UPBDrive_timing.html</v>
 </VisibleNodeIds>

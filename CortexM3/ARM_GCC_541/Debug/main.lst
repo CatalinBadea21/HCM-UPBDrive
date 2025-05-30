@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
   28:main.c        **** void init()
   29:main.c        **** {
   28              		.loc 1 29 0
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 2
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 2
 
 
   29              		.cfi_startproc
@@ -118,115 +118,116 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
   71 0000 10B5     		push	{r4, lr}
   72              		.cfi_def_cfa_offset 8
   73              		.cfi_offset 4, -8
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 3
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 3
 
 
   74              		.cfi_offset 14, -4
   75              	.LVL2:
-  42:main.c        ****     uint8_t user_strategy, rx_reattempt=0;
-  43:main.c        ****     init(); // Initialize CAN and interrupts
-  76              		.loc 1 43 0
+  42:main.c        ****     uint8_t user_strategy, rx_reattempt_ctr = 0;
+  43:main.c        ****     
+  44:main.c        ****     init(); // Initialize CAN and interrupts
+  76              		.loc 1 44 0
   77 0002 FFF7FEFF 		bl	init
   78              	.LVL3:
-  42:main.c        ****     uint8_t user_strategy, rx_reattempt=0;
+  42:main.c        ****     uint8_t user_strategy, rx_reattempt_ctr = 0;
   79              		.loc 1 42 0
   80 0006 0024     		movs	r4, #0
   81              	.LVL4:
   82              	.L10:
-  44:main.c        **** 
-  45:main.c        ****     while(1) // Infinite loop
-  46:main.c        ****     {
-  47:main.c        ****         if (STD_ON == CAN_Read_From_ECU()) // CAN read was successful
-  83              		.loc 1 47 0
+  45:main.c        **** 
+  46:main.c        ****     while(1) // Infinite loop
+  47:main.c        ****     {
+  48:main.c        ****         if (STD_ON == CAN_Read_From_ECU()) // CAN read was successful
+  83              		.loc 1 48 0
   84 0008 FFF7FEFF 		bl	CAN_Read_From_ECU
   85              	.LVL5:
   86 000c 0128     		cmp	r0, #1
   87 000e 0FD1     		bne	.L6
   88              	.LVL6:
-  48:main.c        ****         {
-  49:main.c        ****             rx_reattempt = 0;
-  50:main.c        ****             
-  51:main.c        ****             if (STD_ON == car_state.engine_state) // ICE is running
-  89              		.loc 1 51 0
+  49:main.c        ****         {
+  50:main.c        ****             rx_reattempt_ctr = 0; // Reset the reattempt counter
+  51:main.c        ****             
+  52:main.c        ****             if (STD_ON == car_state.engine_state) // ICE is running
+  89              		.loc 1 52 0
   90 0010 0D4B     		ldr	r3, .L12
   91 0012 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
   92 0014 DBB2     		uxtb	r3, r3
   93 0016 012B     		cmp	r3, #1
   94 0018 06D1     		bne	.L7
   95              	.LVL7:
-  52:main.c        ****             {
-  53:main.c        ****                 /* Select which function based on HW selector */
-  54:main.c        ****                 //user_strategy = Read_Binary_Selector();
-  55:main.c        ****                 //user_strategy = Read_Rotary_Switch();
-  56:main.c        ****                 user_strategy = AUTO_NOREGEN_S;
-  57:main.c        ****                 
-  58:main.c        ****                 AIR_enable_Write(STD_ON); // Enable the AIR
-  96              		.loc 1 58 0
+  53:main.c        ****             {
+  54:main.c        ****                 /* Select which function based on HW selector */
+  55:main.c        ****                 //user_strategy = Read_Binary_Selector();
+  56:main.c        ****                 //user_strategy = Read_Rotary_Switch();
+  57:main.c        ****                 user_strategy = AUTO_NOREGEN_S; // Hard-codded, to be deleted!!
+  58:main.c        ****                 
+  59:main.c        ****                 AIR_enable_Write(STD_ON); // Enable the AIR
+  96              		.loc 1 59 0
   97 001a FFF7FEFF 		bl	AIR_enable_Write
   98              	.LVL8:
-  59:main.c        ****                 
-  60:main.c        ****                 Set_Strategy(user_strategy);
-  99              		.loc 1 60 0
+  60:main.c        ****                 
+  61:main.c        ****                 Set_Strategy(user_strategy);
+  99              		.loc 1 61 0
  100 001e 0320     		movs	r0, #3
  101 0020 FFF7FEFF 		bl	Set_Strategy
  102              	.LVL9:
-  49:main.c        ****             
- 103              		.loc 1 49 0
+  50:main.c        ****             
+ 103              		.loc 1 50 0
  104 0024 0024     		movs	r4, #0
  105 0026 0AE0     		b	.L8
  106              	.LVL10:
  107              	.L7:
-  61:main.c        ****             }
-  62:main.c        ****             else // ICE is off
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 4
+  62:main.c        ****             }
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 4
 
 
-  63:main.c        ****             {
-  64:main.c        ****                 Emergency_Stop(); // Stop the motor and disable the AIR
- 108              		.loc 1 64 0
+  63:main.c        ****             else // ICE is off
+  64:main.c        ****             {
+  65:main.c        ****                 Emergency_Stop(); // Stop the motor and disable the AIR
+ 108              		.loc 1 65 0
  109 0028 FFF7FEFF 		bl	Emergency_Stop
  110              	.LVL11:
-  49:main.c        ****             
- 111              		.loc 1 49 0
+  50:main.c        ****             
+ 111              		.loc 1 50 0
  112 002c 0024     		movs	r4, #0
  113 002e 06E0     		b	.L8
  114              	.LVL12:
  115              	.L6:
-  65:main.c        ****             }
-  66:main.c        ****         }
-  67:main.c        ****         else // CAN Read was unsuccessfull
-  68:main.c        ****         {
-  69:main.c        ****             if (rx_reattempt > CAN_MAX_FAILED_ATTEMPTS)
- 116              		.loc 1 69 0
+  66:main.c        ****             }
+  67:main.c        ****         }
+  68:main.c        ****         else // CAN Read was unsuccessfull
+  69:main.c        ****         {
+  70:main.c        ****             if (rx_reattempt_ctr > CAN_MAX_FAILED_ATTEMPTS) // More reattempts than the limit
+ 116              		.loc 1 70 0
  117 0030 072C     		cmp	r4, #7
  118 0032 02D9     		bls	.L9
-  70:main.c        ****             {
-  71:main.c        ****                 Emergency_Stop(); // Stop the motor and disable the AIR
- 119              		.loc 1 71 0
+  71:main.c        ****             {
+  72:main.c        ****                 Emergency_Stop(); // Stop the motor and disable the AIR
+ 119              		.loc 1 72 0
  120 0034 FFF7FEFF 		bl	Emergency_Stop
  121              	.LVL13:
  122 0038 01E0     		b	.L8
  123              	.L9:
-  72:main.c        ****             }
-  73:main.c        ****             else
-  74:main.c        ****             {
-  75:main.c        ****                 rx_reattempt++;
- 124              		.loc 1 75 0
+  73:main.c        ****             }
+  74:main.c        ****             else
+  75:main.c        ****             {
+  76:main.c        ****                 rx_reattempt_ctr++; // Increase the reattempt counter if CAN RX failed
+ 124              		.loc 1 76 0
  125 003a 0134     		adds	r4, r4, #1
  126              	.LVL14:
  127 003c E4B2     		uxtb	r4, r4
  128              	.LVL15:
  129              	.L8:
-  76:main.c        ****             }
-  77:main.c        ****         }
-  78:main.c        ****                
-  79:main.c        ****     CyDelay(50u); // Delay for 50 ms
- 130              		.loc 1 79 0
+  77:main.c        ****             }
+  78:main.c        ****         }
+  79:main.c        ****                
+  80:main.c        ****     CyDelay(50u); // Delay for 50 ms
+ 130              		.loc 1 80 0
  131 003e 3220     		movs	r0, #50
  132 0040 FFF7FEFF 		bl	CyDelay
  133              	.LVL16:
-  80:main.c        ****     }
- 134              		.loc 1 80 0
+  81:main.c        ****     }
+ 134              		.loc 1 81 0
  135 0044 E0E7     		b	.L10
  136              	.L13:
  137 0046 00BF     		.align	2
@@ -237,10 +238,10 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  142              		.size	main, .-main
  143              		.text
  144              	.Letext0:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 5
+
+
  145              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 5
-
-
  146              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
  147              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
  148              		.file 5 "./include/can_comm.h"
@@ -256,9 +257,9 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  158 0006 00000000 		.4byte	.Ldebug_abbrev0
  159 000a 04       		.byte	0x4
  160 000b 01       		.uleb128 0x1
- 161 000c CC000000 		.4byte	.LASF36
+ 161 000c BF000000 		.4byte	.LASF36
  162 0010 0C       		.byte	0xc
- 163 0011 12020000 		.4byte	.LASF37
+ 163 0011 16020000 		.4byte	.LASF37
  164 0015 41000000 		.4byte	.LASF38
  165 0019 00000000 		.4byte	.Ldebug_ranges0+0
  166 001d 00000000 		.4byte	0
@@ -275,20 +276,20 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  177 0037 02       		.uleb128 0x2
  178 0038 01       		.byte	0x1
  179 0039 08       		.byte	0x8
- 180 003a BE000000 		.4byte	.LASF1
+ 180 003a B1000000 		.4byte	.LASF1
  181 003e 02       		.uleb128 0x2
  182 003f 02       		.byte	0x2
  183 0040 05       		.byte	0x5
- 184 0041 96010000 		.4byte	.LASF2
+ 184 0041 89010000 		.4byte	.LASF2
  185 0045 03       		.uleb128 0x3
- 186 0046 84010000 		.4byte	.LASF4
+ 186 0046 77010000 		.4byte	.LASF4
  187 004a 02       		.byte	0x2
  188 004b 2B       		.byte	0x2b
  189 004c 50000000 		.4byte	0x50
  190 0050 02       		.uleb128 0x2
  191 0051 02       		.byte	0x2
  192 0052 07       		.byte	0x7
- 193 0053 6C010000 		.4byte	.LASF5
+ 193 0053 5F010000 		.4byte	.LASF5
  194 0057 03       		.uleb128 0x3
  195 0058 37000000 		.4byte	.LASF6
  196 005c 02       		.byte	0x2
@@ -297,22 +298,22 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  199 0062 02       		.uleb128 0x2
  200 0063 04       		.byte	0x4
  201 0064 05       		.byte	0x5
- 202 0065 3E020000 		.4byte	.LASF7
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 6
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 6
 
 
+ 202 0065 42020000 		.4byte	.LASF7
  203 0069 02       		.uleb128 0x2
  204 006a 04       		.byte	0x4
  205 006b 07       		.byte	0x7
- 206 006c 5A010000 		.4byte	.LASF8
+ 206 006c 4D010000 		.4byte	.LASF8
  207 0070 02       		.uleb128 0x2
  208 0071 08       		.byte	0x8
  209 0072 05       		.byte	0x5
- 210 0073 04020000 		.4byte	.LASF9
+ 210 0073 08020000 		.4byte	.LASF9
  211 0077 02       		.uleb128 0x2
  212 0078 08       		.byte	0x8
  213 0079 07       		.byte	0x7
- 214 007a BF010000 		.4byte	.LASF10
+ 214 007a C3010000 		.4byte	.LASF10
  215 007e 04       		.uleb128 0x4
  216 007f 04       		.byte	0x4
  217 0080 05       		.byte	0x5
@@ -320,14 +321,14 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  219 0085 02       		.uleb128 0x2
  220 0086 04       		.byte	0x4
  221 0087 07       		.byte	0x7
- 222 0088 B2010000 		.4byte	.LASF11
+ 222 0088 A5010000 		.4byte	.LASF11
  223 008c 03       		.uleb128 0x3
- 224 008d D6010000 		.4byte	.LASF12
+ 224 008d DA010000 		.4byte	.LASF12
  225 0091 03       		.byte	0x3
  226 0092 18       		.byte	0x18
  227 0093 2C000000 		.4byte	0x2c
  228 0097 03       		.uleb128 0x3
- 229 0098 2B020000 		.4byte	.LASF13
+ 229 0098 2F020000 		.4byte	.LASF13
  230 009c 03       		.byte	0x3
  231 009d 24       		.byte	0x24
  232 009e 45000000 		.4byte	0x45
@@ -348,22 +349,22 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  247 00c0 02       		.uleb128 0x2
  248 00c1 08       		.byte	0x8
  249 00c2 04       		.byte	0x4
- 250 00c3 8F010000 		.4byte	.LASF17
+ 250 00c3 82010000 		.4byte	.LASF17
  251 00c7 02       		.uleb128 0x2
  252 00c8 01       		.byte	0x1
  253 00c9 08       		.byte	0x8
- 254 00ca 19020000 		.4byte	.LASF18
+ 254 00ca 1D020000 		.4byte	.LASF18
  255 00ce 02       		.uleb128 0x2
  256 00cf 08       		.byte	0x8
  257 00d0 04       		.byte	0x4
- 258 00d1 EF010000 		.4byte	.LASF19
+ 258 00d1 F3010000 		.4byte	.LASF19
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 7
+
+
  259 00d5 02       		.uleb128 0x2
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 7
-
-
  260 00d6 04       		.byte	0x4
  261 00d7 07       		.byte	0x7
- 262 00d8 FB010000 		.4byte	.LASF20
+ 262 00d8 FF010000 		.4byte	.LASF20
  263 00dc 06       		.uleb128 0x6
  264 00dd 08       		.byte	0x8
  265 00de 05       		.byte	0x5
@@ -376,13 +377,13 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  272 00eb 97000000 		.4byte	0x97
  273 00ef 00       		.byte	0
  274 00f0 08       		.uleb128 0x8
- 275 00f1 64020000 		.4byte	.LASF21
+ 275 00f1 68020000 		.4byte	.LASF21
  276 00f5 05       		.byte	0x5
  277 00f6 26       		.byte	0x26
  278 00f7 8C000000 		.4byte	0x8c
  279 00fb 02       		.byte	0x2
  280 00fc 08       		.uleb128 0x8
- 281 00fd 7F010000 		.4byte	.LASF22
+ 281 00fd 72010000 		.4byte	.LASF22
  282 0101 05       		.byte	0x5
  283 0102 27       		.byte	0x27
  284 0103 8C000000 		.4byte	0x8c
@@ -407,7 +408,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  303 012b 06       		.byte	0x6
  304 012c 00       		.byte	0
  305 012d 03       		.uleb128 0x3
- 306 012e 71020000 		.4byte	.LASF24
+ 306 012e 75020000 		.4byte	.LASF24
  307 0132 05       		.byte	0x5
  308 0133 2B       		.byte	0x2b
  309 0134 DC000000 		.4byte	0xdc
@@ -417,10 +418,10 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  313 013e 1C       		.byte	0x1c
  314 013f 00000000 		.4byte	.LFB64
  315 0143 18000000 		.4byte	.LFE64-.LFB64
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 8
+
+
  316 0147 01       		.uleb128 0x1
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 8
-
-
  317 0148 9C       		.byte	0x9c
  318 0149 66010000 		.4byte	0x166
  319 014d 0A       		.uleb128 0xa
@@ -437,7 +438,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  330 0164 00       		.byte	0
  331 0165 00       		.byte	0
  332 0166 0D       		.uleb128 0xd
- 333 0167 AD010000 		.4byte	.LASF40
+ 333 0167 A0010000 		.4byte	.LASF40
  334 016b 01       		.byte	0x1
  335 016c 28       		.byte	0x28
  336 016d 7E000000 		.4byte	0x7e
@@ -447,13 +448,13 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  340 017a 9C       		.byte	0x9c
  341 017b EE010000 		.4byte	0x1ee
  342 017f 0E       		.uleb128 0xe
- 343 0180 47020000 		.4byte	.LASF25
+ 343 0180 4B020000 		.4byte	.LASF25
  344 0184 01       		.byte	0x1
  345 0185 2A       		.byte	0x2a
  346 0186 8C000000 		.4byte	0x8c
  347 018a 00000000 		.4byte	.LLST0
  348 018e 0E       		.uleb128 0xe
- 349 018f B1000000 		.4byte	.LASF26
+ 349 018f B2010000 		.4byte	.LASF26
  350 0193 01       		.byte	0x1
  351 0194 2A       		.byte	0x2a
  352 0195 8C000000 		.4byte	0x8c
@@ -477,10 +478,10 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  370 01c8 01       		.uleb128 0x1
  371 01c9 33       		.byte	0x33
  372 01ca 00       		.byte	0
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 9
+
+
  373 01cb 0A       		.uleb128 0xa
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 9
-
-
  374 01cc 2C000000 		.4byte	.LVL11
  375 01d0 46020000 		.4byte	0x246
  376 01d4 0A       		.uleb128 0xa
@@ -498,7 +499,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  388 01ec 00       		.byte	0
  389 01ed 00       		.byte	0
  390 01ee 10       		.uleb128 0x10
- 391 01ef A0010000 		.4byte	.LASF27
+ 391 01ef 93010000 		.4byte	.LASF27
  392 01f3 06       		.byte	0x6
  393 01f4 1207     		.2byte	0x712
  394 01f6 FA010000 		.4byte	0x1fa
@@ -512,8 +513,8 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  402 020a 11       		.uleb128 0x11
  403 020b 2D010000 		.4byte	0x12d
  404 020f 13       		.uleb128 0x13
- 405 0210 34020000 		.4byte	.LASF29
- 406 0214 34020000 		.4byte	.LASF29
+ 405 0210 38020000 		.4byte	.LASF29
+ 406 0214 38020000 		.4byte	.LASF29
  407 0218 07       		.byte	0x7
  408 0219 C5       		.byte	0xc5
  409 021a 13       		.uleb128 0x13
@@ -527,26 +528,26 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  417 022e 05       		.byte	0x5
  418 022f 37       		.byte	0x37
  419 0230 13       		.uleb128 0x13
- 420 0231 DE010000 		.4byte	.LASF32
- 421 0235 DE010000 		.4byte	.LASF32
+ 420 0231 E2010000 		.4byte	.LASF32
+ 421 0235 E2010000 		.4byte	.LASF32
  422 0239 09       		.byte	0x9
  423 023a 26       		.byte	0x26
  424 023b 13       		.uleb128 0x13
- 425 023c 1E020000 		.4byte	.LASF33
- 426 0240 1E020000 		.4byte	.LASF33
+ 425 023c 22020000 		.4byte	.LASF33
+ 426 0240 22020000 		.4byte	.LASF33
  427 0244 0A       		.byte	0xa
  428 0245 3C       		.byte	0x3c
  429 0246 13       		.uleb128 0x13
- 430 0247 55020000 		.4byte	.LASF34
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 10
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 10
 
 
- 431 024b 55020000 		.4byte	.LASF34
+ 430 0247 59020000 		.4byte	.LASF34
+ 431 024b 59020000 		.4byte	.LASF34
  432 024f 0A       		.byte	0xa
  433 0250 3B       		.byte	0x3b
  434 0251 13       		.uleb128 0x13
- 435 0252 82020000 		.4byte	.LASF35
- 436 0256 82020000 		.4byte	.LASF35
+ 435 0252 86020000 		.4byte	.LASF35
+ 436 0256 86020000 		.4byte	.LASF35
  437 025a 08       		.byte	0x8
  438 025b 76       		.byte	0x76
  439 025c 00       		.byte	0
@@ -597,10 +598,10 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  484 002a 00       		.byte	0
  485 002b 04       		.uleb128 0x4
  486 002c 24       		.uleb128 0x24
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 11
+
+
  487 002d 00       		.byte	0
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 11
-
-
  488 002e 0B       		.uleb128 0xb
  489 002f 0B       		.uleb128 0xb
  490 0030 3E       		.uleb128 0x3e
@@ -657,10 +658,10 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  541 0063 0E       		.uleb128 0xe
  542 0064 3A       		.uleb128 0x3a
  543 0065 0B       		.uleb128 0xb
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 12
+
+
  544 0066 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 12
-
-
  545 0067 0B       		.uleb128 0xb
  546 0068 49       		.uleb128 0x49
  547 0069 13       		.uleb128 0x13
@@ -717,10 +718,10 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  598 00a3 9142     		.uleb128 0x2111
  599 00a5 18       		.uleb128 0x18
  600 00a6 00       		.byte	0
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 13
+
+
  601 00a7 00       		.byte	0
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 13
-
-
  602 00a8 0D       		.uleb128 0xd
  603 00a9 2E       		.uleb128 0x2e
  604 00aa 01       		.byte	0x1
@@ -777,10 +778,10 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  655 00e1 10       		.uleb128 0x10
  656 00e2 34       		.uleb128 0x34
  657 00e3 00       		.byte	0
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 14
+
+
  658 00e4 03       		.uleb128 0x3
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 14
-
-
  659 00e5 0E       		.uleb128 0xe
  660 00e6 3A       		.uleb128 0x3a
  661 00e7 0B       		.uleb128 0xb
@@ -837,10 +838,10 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  712 011a 00       		.byte	0
  713 011b 00       		.byte	0
  714              		.section	.debug_loc,"",%progbits
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 15
+
+
  715              	.Ldebug_loc0:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 15
-
-
  716              	.LLST0:
  717 0000 1A000000 		.4byte	.LVL7
  718 0004 28000000 		.4byte	.LVL10
@@ -897,10 +898,10 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  769 0010 00000000 		.4byte	0
  770 0014 00000000 		.4byte	0
  771              		.section	.debug_line,"",%progbits
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 16
+
+
  772              	.Ldebug_line0:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 16
-
-
  773 0000 D6010000 		.section	.debug_str,"MS",%progbits,1
  773      02009901 
  773      00000201 
@@ -957,156 +958,157 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 1
  796 009f 666C6F61 		.ascii	"float\000"
  796      7400
  797              	.LASF0:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 17
+
+
  798 00a5 7369676E 		.ascii	"signed char\000"
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 17
-
-
  798      65642063 
  798      68617200 
- 799              	.LASF26:
- 800 00b1 72785F72 		.ascii	"rx_reattempt\000"
- 800      65617474 
- 800      656D7074 
- 800      00
- 801              	.LASF1:
- 802 00be 756E7369 		.ascii	"unsigned char\000"
- 802      676E6564 
- 802      20636861 
- 802      7200
- 803              	.LASF36:
- 804 00cc 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 804      43313120 
- 804      352E342E 
- 804      31203230 
- 804      31363036 
- 805 00ff 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
- 805      20726576 
- 805      6973696F 
- 805      6E203233 
- 805      37373135 
- 806 0132 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 806      66756E63 
- 806      74696F6E 
- 806      2D736563 
- 806      74696F6E 
- 807              	.LASF8:
- 808 015a 6C6F6E67 		.ascii	"long unsigned int\000"
- 808      20756E73 
- 808      69676E65 
- 808      6420696E 
- 808      7400
- 809              	.LASF5:
- 810 016c 73686F72 		.ascii	"short unsigned int\000"
- 810      7420756E 
- 810      7369676E 
- 810      65642069 
- 810      6E7400
- 811              	.LASF22:
- 812 017f 67656172 		.ascii	"gear\000"
- 812      00
- 813              	.LASF4:
- 814 0184 5F5F7569 		.ascii	"__uint16_t\000"
- 814      6E743136 
- 814      5F7400
- 815              	.LASF17:
- 816 018f 646F7562 		.ascii	"double\000"
- 816      6C6500
- 817              	.LASF2:
- 818 0196 73686F72 		.ascii	"short int\000"
- 818      7420696E 
- 818      7400
- 819              	.LASF27:
- 820 01a0 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 820      52784275 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 18
+ 799              	.LASF1:
+ 800 00b1 756E7369 		.ascii	"unsigned char\000"
+ 800      676E6564 
+ 800      20636861 
+ 800      7200
+ 801              	.LASF36:
+ 802 00bf 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 802      43313120 
+ 802      352E342E 
+ 802      31203230 
+ 802      31363036 
+ 803 00f2 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 803      20726576 
+ 803      6973696F 
+ 803      6E203233 
+ 803      37373135 
+ 804 0125 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 804      66756E63 
+ 804      74696F6E 
+ 804      2D736563 
+ 804      74696F6E 
+ 805              	.LASF8:
+ 806 014d 6C6F6E67 		.ascii	"long unsigned int\000"
+ 806      20756E73 
+ 806      69676E65 
+ 806      6420696E 
+ 806      7400
+ 807              	.LASF5:
+ 808 015f 73686F72 		.ascii	"short unsigned int\000"
+ 808      7420756E 
+ 808      7369676E 
+ 808      65642069 
+ 808      6E7400
+ 809              	.LASF22:
+ 810 0172 67656172 		.ascii	"gear\000"
+ 810      00
+ 811              	.LASF4:
+ 812 0177 5F5F7569 		.ascii	"__uint16_t\000"
+ 812      6E743136 
+ 812      5F7400
+ 813              	.LASF17:
+ 814 0182 646F7562 		.ascii	"double\000"
+ 814      6C6500
+ 815              	.LASF2:
+ 816 0189 73686F72 		.ascii	"short int\000"
+ 816      7420696E 
+ 816      7400
+ 817              	.LASF27:
+ 818 0193 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 818      52784275 
+ 818      66666572 
+ 818      00
+ 819              	.LASF40:
+ 820 01a0 6D61696E 		.ascii	"main\000"
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 18
 
 
- 820      66666572 
  820      00
- 821              	.LASF40:
- 822 01ad 6D61696E 		.ascii	"main\000"
+ 821              	.LASF11:
+ 822 01a5 756E7369 		.ascii	"unsigned int\000"
+ 822      676E6564 
+ 822      20696E74 
  822      00
- 823              	.LASF11:
- 824 01b2 756E7369 		.ascii	"unsigned int\000"
- 824      676E6564 
- 824      20696E74 
+ 823              	.LASF26:
+ 824 01b2 72785F72 		.ascii	"rx_reattempt_ctr\000"
+ 824      65617474 
+ 824      656D7074 
+ 824      5F637472 
  824      00
  825              	.LASF10:
- 826 01bf 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 826 01c3 6C6F6E67 		.ascii	"long long unsigned int\000"
  826      206C6F6E 
  826      6720756E 
  826      7369676E 
  826      65642069 
  827              	.LASF12:
- 828 01d6 75696E74 		.ascii	"uint8_t\000"
+ 828 01da 75696E74 		.ascii	"uint8_t\000"
  828      385F7400 
  829              	.LASF32:
- 830 01de 4149525F 		.ascii	"AIR_enable_Write\000"
+ 830 01e2 4149525F 		.ascii	"AIR_enable_Write\000"
  830      656E6162 
  830      6C655F57 
  830      72697465 
  830      00
  831              	.LASF19:
- 832 01ef 6C6F6E67 		.ascii	"long double\000"
+ 832 01f3 6C6F6E67 		.ascii	"long double\000"
  832      20646F75 
  832      626C6500 
  833              	.LASF20:
- 834 01fb 73697A65 		.ascii	"sizetype\000"
+ 834 01ff 73697A65 		.ascii	"sizetype\000"
  834      74797065 
  834      00
  835              	.LASF9:
- 836 0204 6C6F6E67 		.ascii	"long long int\000"
+ 836 0208 6C6F6E67 		.ascii	"long long int\000"
  836      206C6F6E 
  836      6720696E 
  836      7400
  837              	.LASF37:
- 838 0212 6D61696E 		.ascii	"main.c\000"
+ 838 0216 6D61696E 		.ascii	"main.c\000"
  838      2E6300
  839              	.LASF18:
- 840 0219 63686172 		.ascii	"char\000"
+ 840 021d 63686172 		.ascii	"char\000"
  840      00
  841              	.LASF33:
- 842 021e 5365745F 		.ascii	"Set_Strategy\000"
+ 842 0222 5365745F 		.ascii	"Set_Strategy\000"
  842      53747261 
  842      74656779 
  842      00
  843              	.LASF13:
- 844 022b 75696E74 		.ascii	"uint16_t\000"
+ 844 022f 75696E74 		.ascii	"uint16_t\000"
  844      31365F74 
  844      00
  845              	.LASF29:
- 846 0234 43414E5F 		.ascii	"CAN_Start\000"
+ 846 0238 43414E5F 		.ascii	"CAN_Start\000"
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWHXAgm.s 			page 19
+
+
  846      53746172 
  846      7400
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccjxsqjw.s 			page 19
-
-
  847              	.LASF7:
- 848 023e 6C6F6E67 		.ascii	"long int\000"
+ 848 0242 6C6F6E67 		.ascii	"long int\000"
  848      20696E74 
  848      00
  849              	.LASF25:
- 850 0247 75736572 		.ascii	"user_strategy\000"
+ 850 024b 75736572 		.ascii	"user_strategy\000"
  850      5F737472 
  850      61746567 
  850      7900
  851              	.LASF34:
- 852 0255 456D6572 		.ascii	"Emergency_Stop\000"
+ 852 0259 456D6572 		.ascii	"Emergency_Stop\000"
  852      67656E63 
  852      795F5374 
  852      6F7000
  853              	.LASF21:
- 854 0264 656E6769 		.ascii	"engine_state\000"
+ 854 0268 656E6769 		.ascii	"engine_state\000"
  854      6E655F73 
  854      74617465 
  854      00
  855              	.LASF24:
- 856 0271 76656869 		.ascii	"vehicle_status_t\000"
+ 856 0275 76656869 		.ascii	"vehicle_status_t\000"
  856      636C655F 
  856      73746174 
  856      75735F74 
  856      00
  857              	.LASF35:
- 858 0282 43794465 		.ascii	"CyDelay\000"
+ 858 0286 43794465 		.ascii	"CyDelay\000"
  858      6C617900 
  859              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

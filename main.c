@@ -39,21 +39,22 @@ void init()
  */
 int main()
 {
-    uint8_t user_strategy, rx_reattempt = 0;
+    uint8_t user_strategy, rx_reattempt_ctr = 0;
+    
     init(); // Initialize CAN and interrupts
 
     while(1) // Infinite loop
     {
         if (STD_ON == CAN_Read_From_ECU()) // CAN read was successful
         {
-            rx_reattempt = 0;
+            rx_reattempt_ctr = 0; // Reset the reattempt counter
             
             if (STD_ON == car_state.engine_state) // ICE is running
             {
                 /* Select which function based on HW selector */
                 //user_strategy = Read_Binary_Selector();
                 //user_strategy = Read_Rotary_Switch();
-                user_strategy = AUTO_NOREGEN_S;
+                user_strategy = AUTO_NOREGEN_S; // Hard-codded, to be deleted!!
                 
                 AIR_enable_Write(STD_ON); // Enable the AIR
                 
@@ -66,13 +67,13 @@ int main()
         }
         else // CAN Read was unsuccessfull
         {
-            if (rx_reattempt > CAN_MAX_FAILED_ATTEMPTS)
+            if (rx_reattempt_ctr > CAN_MAX_FAILED_ATTEMPTS) // More reattempts than the limit
             {
                 Emergency_Stop(); // Stop the motor and disable the AIR
             }
             else
             {
-                rx_reattempt++;
+                rx_reattempt_ctr++; // Increase the reattempt counter if CAN RX failed
             }
         }
                

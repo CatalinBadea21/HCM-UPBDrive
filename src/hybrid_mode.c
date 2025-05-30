@@ -193,8 +193,8 @@ void Set_Strategy_Auto_No_Regen()
 {
     if (car_state.brake_state == STD_OFF)
     {
-        hybrid_state.driving_mode = SPEED_MODE; //TORQUE_MODE;
-        hybrid_state.duty_cycle_percentage = 10; //TPS_to_Duty_Cycle_Percentage(car_state.tps);
+        hybrid_state.driving_mode = TORQUE_MODE;
+        hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
     }
     else
         Set_Strategy_Freewheel();
