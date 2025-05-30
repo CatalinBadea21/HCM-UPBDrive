@@ -39,12 +39,12 @@ void init()
  */
 int main()
 {
-    uint8_t user_strategy, rx_reattempt;
+    uint8_t user_strategy, rx_reattempt = 0;
     init(); // Initialize CAN and interrupts
 
     while(1) // Infinite loop
     {
-        if (CAN_Read_From_ECU()) // CAN read was successful
+        if (STD_ON == CAN_Read_From_ECU()) // CAN read was successful
         {
             rx_reattempt = 0;
             

@@ -71,7 +71,7 @@ int16_t Map_Duty_Cycle(int8_t duty_cycle_percentage)
 void Emergency_Stop()
 {
     Set_Strategy(FREEWHEEL_S); // Set the CAN message to freewheel before turn off
-    CyDelay(50u); // Wait 50 ms for the motor to slow down
+    CyDelay(500u); // Wait 500 ms for the motor to slow down
     AIR_enable_Write(STD_OFF); // Disable the AIR
 }
 
