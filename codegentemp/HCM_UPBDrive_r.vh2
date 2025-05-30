@@ -1,5 +1,5 @@
 -- Project:   HCM_UPBDrive
--- Generated: 05/30/2025 12:17:16
+-- Generated: 05/30/2025 13:26:15
 -- PSoC Creator  4.4
 
 ENTITY HCM_UPBDrive IS
@@ -408,7 +408,7 @@ BEGIN
 
     Boost_Button:logicalport
         GENERIC MAP(
-            drive_mode => "001",
+            drive_mode => "011",
             ibuf_enabled => "1",
             id => "e354bfdd-69ca-4dda-9171-fd461129aefa",
             init_dr_st => "0",
@@ -588,7 +588,7 @@ BEGIN
 
     Selector_In:logicalport
         GENERIC MAP(
-            drive_mode => "001001001001001001",
+            drive_mode => "011011011011011011",
             ibuf_enabled => "111111",
             id => "8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba",
             init_dr_st => "000000",

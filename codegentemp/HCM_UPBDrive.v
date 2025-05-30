@@ -1,6 +1,6 @@
 // ======================================================================
 // HCM_UPBDrive.v generated from TopDesign.cysch
-// 05/30/2025 at 12:17
+// 05/30/2025 at 13:26
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
@@ -400,7 +400,7 @@ module top ;
 
 	cy_psoc3_pins_v1_10
 		#(.id("e354bfdd-69ca-4dda-9171-fd461129aefa"),
-		  .drive_mode(3'b001),
+		  .drive_mode(3'b011),
 		  .ibuf_enabled(1'b1),
 		  .init_dr_st(1'b0),
 		  .input_clk_en(0),
@@ -549,7 +549,7 @@ module top ;
 
 	cy_psoc3_pins_v1_10
 		#(.id("8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba"),
-		  .drive_mode(18'b001_001_001_001_001_001),
+		  .drive_mode(18'b011_011_011_011_011_011),
 		  .ibuf_enabled(6'b1_1_1_1_1_1),
 		  .init_dr_st(6'b0_0_0_0_0_0),
 		  .input_clk_en(0),

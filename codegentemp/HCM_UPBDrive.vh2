@@ -2,7 +2,7 @@
 --	Conversion of HCM_UPBDrive.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Fri May 30 12:17:15 2025
+--	Fri May 30 13:26:14 2025
 --
 
 USE cypress.cypress.all;
@@ -229,7 +229,7 @@ CAN_TX:cy_psoc3_pins_v1_10
 	PORT MAP(int_signal=>Net_373);
 Boost_Button:cy_psoc3_pins_v1_10
 	GENERIC MAP(id=>"e354bfdd-69ca-4dda-9171-fd461129aefa",
-		drive_mode=>"001",
+		drive_mode=>"011",
 		ibuf_enabled=>"1",
 		init_dr_st=>"0",
 		input_sync=>"0",
@@ -369,7 +369,7 @@ AIR_enable:cy_psoc3_pins_v1_10
 		interrupt=>tmpINTERRUPT_0__AIR_enable_net_0);
 Selector_In:cy_psoc3_pins_v1_10
 	GENERIC MAP(id=>"8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba",
-		drive_mode=>"001001001001001001",
+		drive_mode=>"011011011011011011",
 		ibuf_enabled=>"111111",
 		init_dr_st=>"000000",
 		input_sync=>"000000",

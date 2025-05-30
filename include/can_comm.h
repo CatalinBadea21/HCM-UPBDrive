@@ -23,7 +23,7 @@
 #define MAX_GEAR 5u                 // Gearbox maximum value
 #define MAX_VSS 130u                // Vehicle maximum speed
 #define MAX_TPS 100u                // Maximum throttle since it's percentage
-#define BRAKE_THRESHOLD 80u         // Threshold for brake pedal state
+#define BRAKE_THRESHOLD 0u          // Threshold for brake pedal state
 #define CMD_MODE 0u                 // CAN message command to write to ESC
 #define CAN_MAX_FAILED_ATTEMPTS 7u  // Maximum attempts for failed CAN communication
 // __________ CAN IDs (already set in configuration file) __________

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
   28:src/hybrid_mode.c **** 
   29:src/hybrid_mode.c **** /**************************************************************************************************
   30:src/hybrid_mode.c **** * Global variables
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 2
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 2
 
 
   31:src/hybrid_mode.c **** ***************************************************************************************************
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
   60              	.LFB64:
   53:src/hybrid_mode.c **** 
   54:src/hybrid_mode.c **** /*
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 3
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 3
 
 
   55:src/hybrid_mode.c ****  * Function:    Map_Duty_Cycle
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
   80:src/hybrid_mode.c ****  * Description: Applies the appropriate hybrid driving strategy based on selector input,
   81:src/hybrid_mode.c ****  *              vehicle state, and driver override.
   82:src/hybrid_mode.c ****  *
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 4
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 4
 
 
   83:src/hybrid_mode.c ****  * Parameters:
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  137:src/hybrid_mode.c ****     
  138:src/hybrid_mode.c ****     CAN_Transmit_To_ESC(hybrid_state.driving_mode, hybrid_state.duty_cycle_percentage);
  139:src/hybrid_mode.c **** }
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 5
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 5
 
 
  140:src/hybrid_mode.c **** 
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  159:src/hybrid_mode.c ****      * If the program enters here it means the selector is on manual,
  160:src/hybrid_mode.c ****      * but boost button not pressed -> freewheel
  161:src/hybrid_mode.c ****      */
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 6
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 6
 
 
  162:src/hybrid_mode.c ****     Set_Strategy_Freewheel();
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  163 001c 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
  164 001e DBB2     		uxtb	r3, r3
  165 0020 4F2B     		cmp	r3, #79
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 7
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 7
 
 
  166 0022 0FD9     		bls	.L13
@@ -378,7 +378,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  180:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
  178              		.loc 1 180 0 is_stmt 1
  179 0038 054B     		ldr	r3, .L16+4
- 180 003a 0222     		movs	r2, #2
+ 180 003a 0322     		movs	r2, #3
  181 003c 1A70     		strb	r2, [r3]
  181:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100;
  182              		.loc 1 181 0
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  191:src/hybrid_mode.c ****  */
  192:src/hybrid_mode.c **** void Set_Strategy_Auto_No_Regen()
  193:src/hybrid_mode.c **** {
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 8
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 8
 
 
  207              		.loc 1 193 0
@@ -439,7 +439,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  196:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
  220              		.loc 1 196 0
  221 000c 074C     		ldr	r4, .L22+4
- 222 000e 0223     		movs	r3, #2
+ 222 000e 0323     		movs	r3, #3
  223 0010 2370     		strb	r3, [r4]
  197:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
  224              		.loc 1 197 0
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  202:src/hybrid_mode.c **** 
  203:src/hybrid_mode.c **** /*
  204:src/hybrid_mode.c ****  * Function:    Set_Strategy_Auto_Brake_Regen
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 9
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 9
 
 
  205:src/hybrid_mode.c ****  * Description: Applies torque proportional to TPS when brake is not pressed.
@@ -506,7 +506,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  212:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
  267              		.loc 1 212 0
  268 000c 084C     		ldr	r4, .L29+4
- 269 000e 0223     		movs	r3, #2
+ 269 000e 0323     		movs	r3, #3
  270 0010 2370     		strb	r3, [r4]
  213:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
  271              		.loc 1 213 0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  290              		.loc 1 220 0
  291 002a 7047     		bx	lr
  292              	.L30:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 10
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 10
 
 
  293              		.align	2
@@ -590,7 +590,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  231:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
  328              		.loc 1 231 0
  329 0016 094C     		ldr	r4, .L36+4
- 330 0018 0223     		movs	r3, #2
+ 330 0018 0323     		movs	r3, #3
  331 001a 2370     		strb	r3, [r4]
  232:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
  332              		.loc 1 232 0
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  334 001e 1879     		ldrb	r0, [r3, #4]	@ zero_extendqisi2
  335 0020 FFF7FEFF 		bl	TPS_to_Duty_Cycle_Percentage
  336              	.LVL11:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 11
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 11
 
 
  337 0024 40B2     		sxtb	r0, r0
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  372              		@ frame_needed = 0, uses_anonymous_args = 0
  373 0000 08B5     		push	{r3, lr}
  374              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 12
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 12
 
 
  375              		.cfi_offset 3, -8
@@ -691,7 +691,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  254:src/hybrid_mode.c ****         hybrid_state.driving_mode = TORQUE_MODE;
  400              		.loc 1 254 0 is_stmt 1
  401 002e 0B4B     		ldr	r3, .L43+4
- 402 0030 0222     		movs	r2, #2
+ 402 0030 0322     		movs	r2, #3
  403 0032 1A70     		strb	r2, [r3]
  255:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100u;
  404              		.loc 1 255 0
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  420 004a 6422     		movs	r2, #100
  421 004c 5A70     		strb	r2, [r3, #1]
  422 004e 08BD     		pop	{r3, pc}
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 13
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 13
 
 
  423              	.L41:
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  470 001c 2EE0     		b	.L48
  471              	.LVL15:
  472              	.L47:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 14
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 14
 
 
   98:src/hybrid_mode.c ****     {
@@ -799,7 +799,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  100:src/hybrid_mode.c ****         hybrid_state.duty_cycle_percentage = 100;
  485              		.loc 1 100 0 is_stmt 1
  486 0032 174B     		ldr	r3, .L60+4
- 487 0034 0222     		movs	r2, #2
+ 487 0034 0322     		movs	r2, #3
  488 0036 1A70     		strb	r2, [r3]
  101:src/hybrid_mode.c ****     }
  489              		.loc 1 101 0
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  517              		.loc 1 112 0
  518 0058 10E0     		b	.L48
  519              	.L54:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 15
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 15
 
 
  115:src/hybrid_mode.c ****                 break;
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  562              	.L61:
  563 008a 00BF     		.align	2
  564              	.L60:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 16
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 16
 
 
  565 008c 00000000 		.word	car_state
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  615              		.file 5 "./include/hybrid_mode.h"
  616              		.file 6 "Generated_Source\\PSoC5/core_cm3.h"
  617              		.file 7 "./include/user_input.h"
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 17
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 17
 
 
  618              		.file 8 "Generated_Source\\PSoC5/CyLib.h"
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  672 0072 02       		.byte	0x2
  673 0073 3F       		.byte	0x3f
  674 0074 78000000 		.4byte	0x78
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 18
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 18
 
 
  675 0078 03       		.uleb128 0x3
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  729 00e1 08       		.byte	0x8
  730 00e2 04       		.byte	0x4
  731 00e3 2E020000 		.4byte	.LASF20
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 19
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 19
 
 
  732 00e7 03       		.uleb128 0x3
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  786 014d 02       		.uleb128 0x2
  787 014e 9C030000 		.4byte	.LASF27
  788 0152 04       		.byte	0x4
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 20
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 20
 
 
  789 0153 2B       		.byte	0x2b
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  843 01cb 01       		.byte	0x1
  844 01cc 3E       		.byte	0x3e
  845 01cd A2000000 		.4byte	0xa2
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 21
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 21
 
 
  846 01d1 3A000000 		.4byte	.LLST1
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  900 0252 01       		.byte	0x1
  901 0253 D0       		.byte	0xd0
  902 0254 00000000 		.4byte	.LFB71
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 22
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 22
 
 
  903 0258 34000000 		.4byte	.LFE71-.LFB71
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  957 02dc B6030000 		.4byte	0x3b6
  958 02e0 0C       		.uleb128 0xc
  959 02e1 52000000 		.4byte	.LVL17
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 23
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 23
 
 
  960 02e5 D6010000 		.4byte	0x1d6
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  1014 036c F401     		.2byte	0x1f4
  1015 036e 00       		.byte	0
  1016 036f 10       		.uleb128 0x10
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 24
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 24
 
 
  1017 0370 16000000 		.4byte	.LVL28
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  1071              		.section	.debug_abbrev,"",%progbits
  1072              	.Ldebug_abbrev0:
  1073 0000 01       		.uleb128 0x1
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 25
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 25
 
 
  1074 0001 11       		.uleb128 0x11
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  1128 0037 13       		.uleb128 0x13
  1129 0038 01       		.byte	0x1
  1130 0039 0B       		.uleb128 0xb
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 26
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 26
 
 
  1131 003a 0B       		.uleb128 0xb
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  1185 0070 11       		.uleb128 0x11
  1186 0071 01       		.uleb128 0x1
  1187 0072 12       		.uleb128 0x12
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 27
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 27
 
 
  1188 0073 06       		.uleb128 0x6
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  1242 00ab 3B       		.uleb128 0x3b
  1243 00ac 0B       		.uleb128 0xb
  1244 00ad 11       		.uleb128 0x11
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 28
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 28
 
 
  1245 00ae 01       		.uleb128 0x1
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  1299 00ea 00       		.byte	0
  1300 00eb 00       		.byte	0
  1301 00ec 0F       		.uleb128 0xf
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 29
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 29
 
 
  1302 00ed 8A8201   		.uleb128 0x410a
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  1356 0128 3C       		.uleb128 0x3c
  1357 0129 19       		.uleb128 0x19
  1358 012a 00       		.byte	0
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 30
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 30
 
 
  1359 012b 00       		.byte	0
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  1413 0024 0E000000 		.4byte	.LVL3
  1414 0028 10000000 		.4byte	.LFE63
  1415 002c 0400     		.2byte	0x4
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 31
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 31
 
 
  1416 002e F3       		.byte	0xf3
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  1470 0014 10000000 		.4byte	.LFE63-.LFB63
  1471 0018 00000000 		.4byte	.LFB64
  1472 001c 14000000 		.4byte	.LFE64-.LFB64
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 32
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 32
 
 
  1473 0020 00000000 		.4byte	.LFB67
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  1523 0000 6C6F6E67 		.ascii	"long long int\000"
  1523      206C6F6E 
  1523      6720696E 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 33
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 33
 
 
  1523      7400
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  1545              	.LASF43:
  1546 00cb 6361725F 		.ascii	"car_state\000"
  1546      73746174 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 34
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 34
 
 
  1546      6500
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  1568      74696F6E 
  1569              	.LASF10:
  1570 01d2 6C6F6E67 		.ascii	"long unsigned int\000"
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 35
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 35
 
 
  1570      20756E73 
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  1592 0283 6C6F6E67 		.ascii	"long long unsigned int\000"
  1592      206C6F6E 
  1592      6720756E 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 36
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 36
 
 
  1592      7369676E 
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 1
  1615              	.LASF17:
  1616 0345 75696E74 		.ascii	"uint16_t\000"
  1616      31365F74 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccAQDX8s.s 			page 37
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccB3vxrv.s 			page 37
 
 
  1616      00

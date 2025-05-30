@@ -53,8 +53,8 @@ int main()
             {
                 /* Select which function based on HW selector */
                 //user_strategy = Read_Binary_Selector();
-                //user_strategy = Read_Rotary_Switch();
-                user_strategy = AUTO_NOREGEN_S; // Hard-codded, to be deleted!!
+                user_strategy = Read_Rotary_Switch();
+                //user_strategy = AUTO_NOREGEN_S; // Hard-codded, to be deleted!!
                 
                 AIR_enable_Write(STD_ON); // Enable the AIR
                 
