@@ -11,27 +11,6 @@
 /**********************************************************************************************************************
 * Functions
 ***********************************************************************************************************************/
-/*
- * Function:    Read_Binary_Selector
- * Description: Reads the strategy selector pins as a binary-encoded value and validates
- *              it against the maximum allowed strategy index.
- * Returns:
- *   - Strategy index in the range [0–6], or 0 if out-of-bounds.
- * Notes:
- *   - This function treats the selector value as a direct binary code.
- */
-uint8_t Read_Binary_Selector()
-{
-    uint8_t decoded_strategy;
-    uint8_t coded_strategy = Read_Strategy_Selector();
-
-    if (coded_strategy > 6) // Out of bounds
-        decoded_strategy = 0;
-    else
-        decoded_strategy = coded_strategy;
-
-    return decoded_strategy;
-}
 
 /*
  * Function:    Read_Rotary_Switch
@@ -44,54 +23,40 @@ uint8_t Read_Binary_Selector()
  */
 uint8_t Read_Rotary_Switch()
 {
-    uint8_t decoded_strategy;
-    uint8_t coded_strategy = Read_Strategy_Selector();
+    uint8_t coded_strategy, decoded_strategy;
+    coded_strategy = Selector_In_Read() & 0x3F; // Mask to 6 bits
 
     switch (coded_strategy)
     {
         case 1:
-            decoded_strategy = 1;
+            decoded_strategy = MANUAL_S;
             break;
 
         case 2:
-            decoded_strategy = 2;
+            decoded_strategy = LAUNCH_S;
             break;
 
         case 4:
-            decoded_strategy = 3;
+            decoded_strategy = AUTO_NOREGEN_S;
             break;
 
         case 8:
-            decoded_strategy = 4;
+            decoded_strategy = AUTO_BRAKEREGEN_S;
             break;
 
         case 16:
-            decoded_strategy = 5;
+            decoded_strategy = AUTO_ALLREGEN_S;
             break;
 
         case 32:
-            decoded_strategy = 6;
+            decoded_strategy = TORQUE_FILL_S;
             break;
 
         default:
-            decoded_strategy = 0;
+            decoded_strategy = FREEWHEEL_S;
     }
 
     return decoded_strategy;
-}
-
-/*
- * Function:    Read_Strategy_Selector
- * Description: Reads and decodes the 6-bit strategy selector input from digital pins.
- * Returns:
- *   - An unsigned 6-bit value (range 0–63) representing the user-selected strategy.
- */
-uint8_t Read_Strategy_Selector()
-{
-    uint8_t selected_strategy;
-    selected_strategy = Selector_In_Read() & 0x3F; // Mask to 6 bits
-    
-    return selected_strategy;
 }
 
 /*

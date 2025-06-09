@@ -30,14 +30,6 @@
 #define STD_ON 1u
 #define STD_OFF 0u
 
-#define FREEWHEEL_S 0u
-#define MANUAL_S 1u
-#define LAUNCH_S 2u
-#define AUTO_NOREGEN_S 3u
-#define AUTO_BRAKEREGEN_S 4u
-#define AUTO_ALLREGEN_S 5u
-#define TORQUE_FILL_S 6u
-
 /**********************************************************************************************************************
 * Typedefs
 ***********************************************************************************************************************/

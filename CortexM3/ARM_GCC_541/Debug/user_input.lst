@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 1
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccnkx3SI.s 			page 1
 
 
    1              		.syntax unified
@@ -19,14 +19,14 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 1
   16              		.text
   17              	.Ltext0:
   18              		.cfi_sections	.debug_frame
-  19              		.section	.text.Read_Strategy_Selector,"ax",%progbits
+  19              		.section	.text.Read_Rotary_Switch,"ax",%progbits
   20              		.align	2
-  21              		.global	Read_Strategy_Selector
+  21              		.global	Read_Rotary_Switch
   22              		.thumb
   23              		.thumb_func
-  24              		.type	Read_Strategy_Selector, %function
-  25              	Read_Strategy_Selector:
-  26              	.LFB65:
+  24              		.type	Read_Rotary_Switch, %function
+  25              	Read_Rotary_Switch:
+  26              	.LFB63:
   27              		.file 1 "src\\user_input.c"
    1:src/user_input.c **** /*
    2:src/user_input.c **** * File:        user_input.c
@@ -41,991 +41,829 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 1
   11:src/user_input.c **** /**************************************************************************************************
   12:src/user_input.c **** * Functions
   13:src/user_input.c **** ***************************************************************************************************
-  14:src/user_input.c **** /*
-  15:src/user_input.c ****  * Function:    Read_Binary_Selector
-  16:src/user_input.c ****  * Description: Reads the strategy selector pins as a binary-encoded value and validates
-  17:src/user_input.c ****  *              it against the maximum allowed strategy index.
+  14:src/user_input.c **** 
+  15:src/user_input.c **** /*
+  16:src/user_input.c ****  * Function:    Read_Rotary_Switch
+  17:src/user_input.c ****  * Description: Decodes a single-active-bit selector input from a rotary switch.
   18:src/user_input.c ****  * Returns:
-  19:src/user_input.c ****  *   - Strategy index in the range [0–6], or 0 if out-of-bounds.
+  19:src/user_input.c ****  *   - Strategy index in the range [0–6], where each power-of-two input maps to a unique mode.
   20:src/user_input.c ****  * Notes:
-  21:src/user_input.c ****  *   - This function treats the selector value as a direct binary code.
-  22:src/user_input.c ****  */
-  23:src/user_input.c **** uint8_t Read_Binary_Selector()
-  24:src/user_input.c **** {
-  25:src/user_input.c ****     uint8_t decoded_strategy;
-  26:src/user_input.c ****     uint8_t coded_strategy = Read_Strategy_Selector();
-  27:src/user_input.c **** 
-  28:src/user_input.c ****     if (coded_strategy > 6) // Out of bounds
-  29:src/user_input.c ****         decoded_strategy = 0;
-  30:src/user_input.c ****     else
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 2
-
-
-  31:src/user_input.c ****         decoded_strategy = coded_strategy;
-  32:src/user_input.c **** 
-  33:src/user_input.c ****     return decoded_strategy;
-  34:src/user_input.c **** }
-  35:src/user_input.c **** 
-  36:src/user_input.c **** /*
-  37:src/user_input.c ****  * Function:    Read_Rotary_Switch
-  38:src/user_input.c ****  * Description: Decodes a single-active-bit selector input from a rotary switch.
-  39:src/user_input.c ****  * Returns:
-  40:src/user_input.c ****  *   - Strategy index in the range [0–6], where each power-of-two input maps to a unique mode.
-  41:src/user_input.c ****  * Notes:
-  42:src/user_input.c ****  *   - Assumes only one selector bit is active at a time.
-  43:src/user_input.c ****  *   - Defaults to 0 if input does not match a known pattern.
-  44:src/user_input.c ****  */
-  45:src/user_input.c **** uint8_t Read_Rotary_Switch()
-  46:src/user_input.c **** {
-  47:src/user_input.c ****     uint8_t decoded_strategy;
-  48:src/user_input.c ****     uint8_t coded_strategy = Read_Strategy_Selector();
-  49:src/user_input.c **** 
-  50:src/user_input.c ****     switch (coded_strategy)
-  51:src/user_input.c ****     {
-  52:src/user_input.c ****         case 1:
-  53:src/user_input.c ****             decoded_strategy = 1;
-  54:src/user_input.c ****             break;
-  55:src/user_input.c **** 
-  56:src/user_input.c ****         case 2:
-  57:src/user_input.c ****             decoded_strategy = 2;
-  58:src/user_input.c ****             break;
-  59:src/user_input.c **** 
-  60:src/user_input.c ****         case 4:
-  61:src/user_input.c ****             decoded_strategy = 3;
-  62:src/user_input.c ****             break;
-  63:src/user_input.c **** 
-  64:src/user_input.c ****         case 8:
-  65:src/user_input.c ****             decoded_strategy = 4;
-  66:src/user_input.c ****             break;
-  67:src/user_input.c **** 
-  68:src/user_input.c ****         case 16:
-  69:src/user_input.c ****             decoded_strategy = 5;
-  70:src/user_input.c ****             break;
-  71:src/user_input.c **** 
-  72:src/user_input.c ****         case 32:
-  73:src/user_input.c ****             decoded_strategy = 6;
-  74:src/user_input.c ****             break;
-  75:src/user_input.c **** 
-  76:src/user_input.c ****         default:
-  77:src/user_input.c ****             decoded_strategy = 0;
-  78:src/user_input.c ****     }
-  79:src/user_input.c **** 
-  80:src/user_input.c ****     return decoded_strategy;
-  81:src/user_input.c **** }
-  82:src/user_input.c **** 
-  83:src/user_input.c **** /*
-  84:src/user_input.c ****  * Function:    Read_Strategy_Selector
-  85:src/user_input.c ****  * Description: Reads and decodes the 6-bit strategy selector input from digital pins.
-  86:src/user_input.c ****  * Returns:
-  87:src/user_input.c ****  *   - An unsigned 6-bit value (range 0–63) representing the user-selected strategy.
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 3
-
-
-  88:src/user_input.c ****  */
-  89:src/user_input.c **** uint8_t Read_Strategy_Selector()
-  90:src/user_input.c **** {
-  28              		.loc 1 90 0
+  21:src/user_input.c ****  *   - Assumes only one selector bit is active at a time.
+  22:src/user_input.c ****  *   - Defaults to 0 if input does not match a known pattern.
+  23:src/user_input.c ****  */
+  24:src/user_input.c **** uint8_t Read_Rotary_Switch()
+  25:src/user_input.c **** {
+  28              		.loc 1 25 0
   29              		.cfi_startproc
   30              		@ args = 0, pretend = 0, frame = 0
   31              		@ frame_needed = 0, uses_anonymous_args = 0
   32 0000 08B5     		push	{r3, lr}
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccnkx3SI.s 			page 2
+
+
   33              		.cfi_def_cfa_offset 8
   34              		.cfi_offset 3, -8
   35              		.cfi_offset 14, -4
-  91:src/user_input.c ****     uint8_t selected_strategy;
-  92:src/user_input.c ****     selected_strategy = Selector_In_Read() & 0x3F; // Mask to 6 bits
-  36              		.loc 1 92 0
+  26:src/user_input.c ****     uint8_t coded_strategy, decoded_strategy;
+  27:src/user_input.c ****     coded_strategy = Selector_In_Read() & 0x3F; // Mask to 6 bits
+  36              		.loc 1 27 0
   37 0002 FFF7FEFF 		bl	Selector_In_Read
   38              	.LVL0:
-  93:src/user_input.c ****     
-  94:src/user_input.c ****     return selected_strategy;
-  95:src/user_input.c **** }
-  39              		.loc 1 95 0
-  40 0006 00F03F00 		and	r0, r0, #63
-  41              	.LVL1:
-  42 000a 08BD     		pop	{r3, pc}
-  43              		.cfi_endproc
-  44              	.LFE65:
-  45              		.size	Read_Strategy_Selector, .-Read_Strategy_Selector
-  46              		.section	.text.Read_Binary_Selector,"ax",%progbits
-  47              		.align	2
-  48              		.global	Read_Binary_Selector
-  49              		.thumb
-  50              		.thumb_func
-  51              		.type	Read_Binary_Selector, %function
-  52              	Read_Binary_Selector:
-  53              	.LFB63:
-  24:src/user_input.c ****     uint8_t decoded_strategy;
-  54              		.loc 1 24 0
-  55              		.cfi_startproc
-  56              		@ args = 0, pretend = 0, frame = 0
-  57              		@ frame_needed = 0, uses_anonymous_args = 0
-  58 0000 08B5     		push	{r3, lr}
-  59              		.cfi_def_cfa_offset 8
-  60              		.cfi_offset 3, -8
-  61              		.cfi_offset 14, -4
-  26:src/user_input.c **** 
-  62              		.loc 1 26 0
-  63 0002 FFF7FEFF 		bl	Read_Strategy_Selector
-  64              	.LVL2:
-  28:src/user_input.c ****         decoded_strategy = 0;
-  65              		.loc 1 28 0
-  66 0006 0628     		cmp	r0, #6
-  67 0008 00D9     		bls	.L4
-  29:src/user_input.c ****     else
-  68              		.loc 1 29 0
-  69 000a 0020     		movs	r0, #0
-  70              	.LVL3:
-  71              	.L4:
+  39 0006 00F03F00 		and	r0, r0, #63
+  40              	.LVL1:
+  28:src/user_input.c **** 
+  29:src/user_input.c ****     switch (coded_strategy)
+  41              		.loc 1 29 0
+  42 000a 0138     		subs	r0, r0, #1
+  43              	.LVL2:
+  44 000c 1F28     		cmp	r0, #31
+  45 000e 1BD8     		bhi	.L2
+  46 0010 DFE800F0 		tbb	[pc, r0]
+  47              	.L4:
+  48 0014 10       		.byte	(.L3-.L4)/2
+  49 0015 1C       		.byte	(.L10-.L4)/2
+  50 0016 1A       		.byte	(.L2-.L4)/2
+  51 0017 12       		.byte	(.L6-.L4)/2
+  52 0018 1A       		.byte	(.L2-.L4)/2
+  53 0019 1A       		.byte	(.L2-.L4)/2
+  54 001a 1A       		.byte	(.L2-.L4)/2
+  55 001b 14       		.byte	(.L7-.L4)/2
+  56 001c 1A       		.byte	(.L2-.L4)/2
+  57 001d 1A       		.byte	(.L2-.L4)/2
+  58 001e 1A       		.byte	(.L2-.L4)/2
+  59 001f 1A       		.byte	(.L2-.L4)/2
+  60 0020 1A       		.byte	(.L2-.L4)/2
+  61 0021 1A       		.byte	(.L2-.L4)/2
+  62 0022 1A       		.byte	(.L2-.L4)/2
+  63 0023 16       		.byte	(.L8-.L4)/2
+  64 0024 1A       		.byte	(.L2-.L4)/2
+  65 0025 1A       		.byte	(.L2-.L4)/2
+  66 0026 1A       		.byte	(.L2-.L4)/2
+  67 0027 1A       		.byte	(.L2-.L4)/2
+  68 0028 1A       		.byte	(.L2-.L4)/2
+  69 0029 1A       		.byte	(.L2-.L4)/2
+  70 002a 1A       		.byte	(.L2-.L4)/2
+  71 002b 1A       		.byte	(.L2-.L4)/2
+  72 002c 1A       		.byte	(.L2-.L4)/2
+  73 002d 1A       		.byte	(.L2-.L4)/2
+  74 002e 1A       		.byte	(.L2-.L4)/2
+  75 002f 1A       		.byte	(.L2-.L4)/2
+  76 0030 1A       		.byte	(.L2-.L4)/2
+  77 0031 1A       		.byte	(.L2-.L4)/2
+  78 0032 1A       		.byte	(.L2-.L4)/2
+  79 0033 18       		.byte	(.L9-.L4)/2
+  80              		.p2align 1
+  81              	.L3:
+  30:src/user_input.c ****     {
+  31:src/user_input.c ****         case 1:
+  32:src/user_input.c ****             decoded_strategy = MANUAL_S;
+  82              		.loc 1 32 0
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccnkx3SI.s 			page 3
+
+
+  83 0034 0120     		movs	r0, #1
+  84              	.LVL3:
+  85 0036 08BD     		pop	{r3, pc}
+  86              	.LVL4:
+  87              	.L6:
+  33:src/user_input.c ****             break;
   34:src/user_input.c **** 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 4
-
-
-  72              		.loc 1 34 0
-  73 000c 08BD     		pop	{r3, pc}
-  74              		.cfi_endproc
-  75              	.LFE63:
-  76              		.size	Read_Binary_Selector, .-Read_Binary_Selector
-  77 000e 00BF     		.section	.text.Read_Rotary_Switch,"ax",%progbits
-  78              		.align	2
-  79              		.global	Read_Rotary_Switch
-  80              		.thumb
-  81              		.thumb_func
-  82              		.type	Read_Rotary_Switch, %function
-  83              	Read_Rotary_Switch:
-  84              	.LFB64:
-  46:src/user_input.c ****     uint8_t decoded_strategy;
-  85              		.loc 1 46 0
-  86              		.cfi_startproc
-  87              		@ args = 0, pretend = 0, frame = 0
-  88              		@ frame_needed = 0, uses_anonymous_args = 0
-  89 0000 08B5     		push	{r3, lr}
-  90              		.cfi_def_cfa_offset 8
-  91              		.cfi_offset 3, -8
-  92              		.cfi_offset 14, -4
-  48:src/user_input.c **** 
-  93              		.loc 1 48 0
-  94 0002 FFF7FEFF 		bl	Read_Strategy_Selector
-  95              	.LVL4:
-  50:src/user_input.c ****     {
-  96              		.loc 1 50 0
-  97 0006 0138     		subs	r0, r0, #1
-  98              	.LVL5:
-  99 0008 1F28     		cmp	r0, #31
- 100 000a 1BD8     		bhi	.L7
- 101 000c DFE800F0 		tbb	[pc, r0]
- 102              	.L9:
- 103 0010 10       		.byte	(.L8-.L9)/2
- 104 0011 1C       		.byte	(.L15-.L9)/2
- 105 0012 1A       		.byte	(.L7-.L9)/2
- 106 0013 12       		.byte	(.L11-.L9)/2
- 107 0014 1A       		.byte	(.L7-.L9)/2
- 108 0015 1A       		.byte	(.L7-.L9)/2
- 109 0016 1A       		.byte	(.L7-.L9)/2
- 110 0017 14       		.byte	(.L12-.L9)/2
- 111 0018 1A       		.byte	(.L7-.L9)/2
- 112 0019 1A       		.byte	(.L7-.L9)/2
- 113 001a 1A       		.byte	(.L7-.L9)/2
- 114 001b 1A       		.byte	(.L7-.L9)/2
- 115 001c 1A       		.byte	(.L7-.L9)/2
- 116 001d 1A       		.byte	(.L7-.L9)/2
- 117 001e 1A       		.byte	(.L7-.L9)/2
- 118 001f 16       		.byte	(.L13-.L9)/2
- 119 0020 1A       		.byte	(.L7-.L9)/2
- 120 0021 1A       		.byte	(.L7-.L9)/2
- 121 0022 1A       		.byte	(.L7-.L9)/2
- 122 0023 1A       		.byte	(.L7-.L9)/2
- 123 0024 1A       		.byte	(.L7-.L9)/2
- 124 0025 1A       		.byte	(.L7-.L9)/2
- 125 0026 1A       		.byte	(.L7-.L9)/2
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 5
-
-
- 126 0027 1A       		.byte	(.L7-.L9)/2
- 127 0028 1A       		.byte	(.L7-.L9)/2
- 128 0029 1A       		.byte	(.L7-.L9)/2
- 129 002a 1A       		.byte	(.L7-.L9)/2
- 130 002b 1A       		.byte	(.L7-.L9)/2
- 131 002c 1A       		.byte	(.L7-.L9)/2
- 132 002d 1A       		.byte	(.L7-.L9)/2
- 133 002e 1A       		.byte	(.L7-.L9)/2
- 134 002f 18       		.byte	(.L14-.L9)/2
- 135              		.p2align 1
- 136              	.L8:
+  35:src/user_input.c ****         case 2:
+  36:src/user_input.c ****             decoded_strategy = LAUNCH_S;
+  37:src/user_input.c ****             break;
+  38:src/user_input.c **** 
+  39:src/user_input.c ****         case 4:
+  40:src/user_input.c ****             decoded_strategy = AUTO_NOREGEN_S;
+  88              		.loc 1 40 0
+  89 0038 0320     		movs	r0, #3
+  90              	.LVL5:
+  41:src/user_input.c ****             break;
+  91              		.loc 1 41 0
+  92 003a 08BD     		pop	{r3, pc}
+  93              	.LVL6:
+  94              	.L7:
+  42:src/user_input.c **** 
+  43:src/user_input.c ****         case 8:
+  44:src/user_input.c ****             decoded_strategy = AUTO_BRAKEREGEN_S;
+  95              		.loc 1 44 0
+  96 003c 0420     		movs	r0, #4
+  97              	.LVL7:
+  45:src/user_input.c ****             break;
+  98              		.loc 1 45 0
+  99 003e 08BD     		pop	{r3, pc}
+ 100              	.LVL8:
+ 101              	.L8:
+  46:src/user_input.c **** 
+  47:src/user_input.c ****         case 16:
+  48:src/user_input.c ****             decoded_strategy = AUTO_ALLREGEN_S;
+ 102              		.loc 1 48 0
+ 103 0040 0520     		movs	r0, #5
+ 104              	.LVL9:
+  49:src/user_input.c ****             break;
+ 105              		.loc 1 49 0
+ 106 0042 08BD     		pop	{r3, pc}
+ 107              	.LVL10:
+ 108              	.L9:
+  50:src/user_input.c **** 
+  51:src/user_input.c ****         case 32:
+  52:src/user_input.c ****             decoded_strategy = TORQUE_FILL_S;
+ 109              		.loc 1 52 0
+ 110 0044 0620     		movs	r0, #6
+ 111              	.LVL11:
   53:src/user_input.c ****             break;
- 137              		.loc 1 53 0
- 138 0030 0120     		movs	r0, #1
- 139 0032 08BD     		pop	{r3, pc}
- 140              	.L11:
- 141              	.LVL6:
-  61:src/user_input.c ****             break;
- 142              		.loc 1 61 0
- 143 0034 0320     		movs	r0, #3
-  62:src/user_input.c **** 
- 144              		.loc 1 62 0
- 145 0036 08BD     		pop	{r3, pc}
- 146              	.LVL7:
- 147              	.L12:
-  65:src/user_input.c ****             break;
- 148              		.loc 1 65 0
- 149 0038 0420     		movs	r0, #4
-  66:src/user_input.c **** 
- 150              		.loc 1 66 0
- 151 003a 08BD     		pop	{r3, pc}
- 152              	.LVL8:
- 153              	.L13:
-  69:src/user_input.c ****             break;
- 154              		.loc 1 69 0
- 155 003c 0520     		movs	r0, #5
-  70:src/user_input.c **** 
- 156              		.loc 1 70 0
- 157 003e 08BD     		pop	{r3, pc}
- 158              	.LVL9:
- 159              	.L14:
-  73:src/user_input.c ****             break;
- 160              		.loc 1 73 0
- 161 0040 0620     		movs	r0, #6
-  74:src/user_input.c **** 
- 162              		.loc 1 74 0
- 163 0042 08BD     		pop	{r3, pc}
- 164              	.LVL10:
- 165              	.L7:
-  77:src/user_input.c ****     }
- 166              		.loc 1 77 0
- 167 0044 0020     		movs	r0, #0
- 168 0046 08BD     		pop	{r3, pc}
- 169              	.LVL11:
- 170              	.L15:
-  57:src/user_input.c ****             break;
- 171              		.loc 1 57 0
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 6
+ 112              		.loc 1 53 0
+ 113 0046 08BD     		pop	{r3, pc}
+ 114              	.LVL12:
+ 115              	.L2:
+  54:src/user_input.c **** 
+  55:src/user_input.c ****         default:
+  56:src/user_input.c ****             decoded_strategy = FREEWHEEL_S;
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccnkx3SI.s 			page 4
 
 
- 172 0048 0220     		movs	r0, #2
- 173              	.LVL12:
-  81:src/user_input.c **** 
- 174              		.loc 1 81 0
- 175 004a 08BD     		pop	{r3, pc}
- 176              		.cfi_endproc
- 177              	.LFE64:
- 178              		.size	Read_Rotary_Switch, .-Read_Rotary_Switch
- 179              		.section	.text.Read_Boost_Button,"ax",%progbits
- 180              		.align	2
- 181              		.global	Read_Boost_Button
- 182              		.thumb
- 183              		.thumb_func
- 184              		.type	Read_Boost_Button, %function
- 185              	Read_Boost_Button:
- 186              	.LFB66:
-  96:src/user_input.c **** 
-  97:src/user_input.c **** /*
-  98:src/user_input.c ****  * Function:    Read_Boost_Button
-  99:src/user_input.c ****  * Description: Reads the state of the boost button.
- 100:src/user_input.c ****  * Returns:
- 101:src/user_input.c ****  *   - 1 if the boost button is pressed.
- 102:src/user_input.c ****  *   - 0 otherwise.
- 103:src/user_input.c ****  */
- 104:src/user_input.c **** uint8_t Read_Boost_Button()
- 105:src/user_input.c **** {
- 187              		.loc 1 105 0
- 188              		.cfi_startproc
- 189              		@ args = 0, pretend = 0, frame = 0
- 190              		@ frame_needed = 0, uses_anonymous_args = 0
- 191 0000 08B5     		push	{r3, lr}
- 192              		.cfi_def_cfa_offset 8
- 193              		.cfi_offset 3, -8
- 194              		.cfi_offset 14, -4
- 106:src/user_input.c ****     uint8_t boost_button_state = Boost_Button_Read();
- 195              		.loc 1 106 0
- 196 0002 FFF7FEFF 		bl	Boost_Button_Read
- 197              	.LVL13:
- 107:src/user_input.c **** 
- 108:src/user_input.c ****     return boost_button_state;
- 109:src/user_input.c **** }
- 198              		.loc 1 109 0
- 199 0006 08BD     		pop	{r3, pc}
- 200              		.cfi_endproc
- 201              	.LFE66:
- 202              		.size	Read_Boost_Button, .-Read_Boost_Button
- 203              		.text
- 204              	.Letext0:
- 205              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
- 206              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
- 207              		.file 4 "Generated_Source\\PSoC5/Selector_In.h"
- 208              		.file 5 "Generated_Source\\PSoC5/Boost_Button.h"
- 209              		.file 6 "Generated_Source\\PSoC5/core_cm3.h"
- 210              		.section	.debug_info,"",%progbits
- 211              	.Ldebug_info0:
- 212 0000 C0010000 		.4byte	0x1c0
- 213 0004 0400     		.2byte	0x4
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 7
+ 116              		.loc 1 56 0
+ 117 0048 0020     		movs	r0, #0
+ 118              	.LVL13:
+ 119 004a 08BD     		pop	{r3, pc}
+ 120              	.LVL14:
+ 121              	.L10:
+  36:src/user_input.c ****             break;
+ 122              		.loc 1 36 0
+ 123 004c 0220     		movs	r0, #2
+ 124              	.LVL15:
+  57:src/user_input.c ****     }
+  58:src/user_input.c **** 
+  59:src/user_input.c ****     return decoded_strategy;
+  60:src/user_input.c **** }
+ 125              		.loc 1 60 0
+ 126 004e 08BD     		pop	{r3, pc}
+ 127              		.cfi_endproc
+ 128              	.LFE63:
+ 129              		.size	Read_Rotary_Switch, .-Read_Rotary_Switch
+ 130              		.section	.text.Read_Boost_Button,"ax",%progbits
+ 131              		.align	2
+ 132              		.global	Read_Boost_Button
+ 133              		.thumb
+ 134              		.thumb_func
+ 135              		.type	Read_Boost_Button, %function
+ 136              	Read_Boost_Button:
+ 137              	.LFB64:
+  61:src/user_input.c **** 
+  62:src/user_input.c **** /*
+  63:src/user_input.c ****  * Function:    Read_Boost_Button
+  64:src/user_input.c ****  * Description: Reads the state of the boost button.
+  65:src/user_input.c ****  * Returns:
+  66:src/user_input.c ****  *   - 1 if the boost button is pressed.
+  67:src/user_input.c ****  *   - 0 otherwise.
+  68:src/user_input.c ****  */
+  69:src/user_input.c **** uint8_t Read_Boost_Button()
+  70:src/user_input.c **** {
+ 138              		.loc 1 70 0
+ 139              		.cfi_startproc
+ 140              		@ args = 0, pretend = 0, frame = 0
+ 141              		@ frame_needed = 0, uses_anonymous_args = 0
+ 142 0000 08B5     		push	{r3, lr}
+ 143              		.cfi_def_cfa_offset 8
+ 144              		.cfi_offset 3, -8
+ 145              		.cfi_offset 14, -4
+  71:src/user_input.c ****     uint8_t boost_button_state = Boost_Button_Read();
+ 146              		.loc 1 71 0
+ 147 0002 FFF7FEFF 		bl	Boost_Button_Read
+ 148              	.LVL16:
+  72:src/user_input.c **** 
+  73:src/user_input.c ****     return boost_button_state;
+  74:src/user_input.c **** }
+ 149              		.loc 1 74 0
+ 150 0006 08BD     		pop	{r3, pc}
+ 151              		.cfi_endproc
+ 152              	.LFE64:
+ 153              		.size	Read_Boost_Button, .-Read_Boost_Button
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccnkx3SI.s 			page 5
 
 
- 214 0006 00000000 		.4byte	.Ldebug_abbrev0
- 215 000a 04       		.byte	0x4
- 216 000b 01       		.uleb128 0x1
- 217 000c 6E000000 		.4byte	.LASF28
- 218 0010 0C       		.byte	0xc
- 219 0011 52020000 		.4byte	.LASF29
- 220 0015 11020000 		.4byte	.LASF30
- 221 0019 00000000 		.4byte	.Ldebug_ranges0+0
- 222 001d 00000000 		.4byte	0
- 223 0021 00000000 		.4byte	.Ldebug_line0
- 224 0025 02       		.uleb128 0x2
- 225 0026 01       		.byte	0x1
- 226 0027 06       		.byte	0x6
- 227 0028 50000000 		.4byte	.LASF0
- 228 002c 03       		.uleb128 0x3
- 229 002d 11000000 		.4byte	.LASF4
- 230 0031 02       		.byte	0x2
- 231 0032 1D       		.byte	0x1d
- 232 0033 37000000 		.4byte	0x37
- 233 0037 02       		.uleb128 0x2
- 234 0038 01       		.byte	0x1
- 235 0039 08       		.byte	0x8
- 236 003a 2E010000 		.4byte	.LASF1
- 237 003e 02       		.uleb128 0x2
- 238 003f 02       		.byte	0x2
- 239 0040 05       		.byte	0x5
- 240 0041 F2010000 		.4byte	.LASF2
- 241 0045 02       		.uleb128 0x2
- 242 0046 02       		.byte	0x2
- 243 0047 07       		.byte	0x7
- 244 0048 0E010000 		.4byte	.LASF3
- 245 004c 03       		.uleb128 0x3
- 246 004d 40000000 		.4byte	.LASF5
- 247 0051 02       		.byte	0x2
- 248 0052 3F       		.byte	0x3f
- 249 0053 57000000 		.4byte	0x57
- 250 0057 02       		.uleb128 0x2
- 251 0058 04       		.byte	0x4
- 252 0059 05       		.byte	0x5
- 253 005a FC010000 		.4byte	.LASF6
- 254 005e 02       		.uleb128 0x2
- 255 005f 04       		.byte	0x4
- 256 0060 07       		.byte	0x7
- 257 0061 FC000000 		.4byte	.LASF7
- 258 0065 02       		.uleb128 0x2
- 259 0066 08       		.byte	0x8
- 260 0067 05       		.byte	0x5
- 261 0068 DF010000 		.4byte	.LASF8
- 262 006c 02       		.uleb128 0x2
- 263 006d 08       		.byte	0x8
- 264 006e 07       		.byte	0x7
- 265 006f 87010000 		.4byte	.LASF9
- 266 0073 04       		.uleb128 0x4
- 267 0074 04       		.byte	0x4
- 268 0075 05       		.byte	0x5
- 269 0076 696E7400 		.ascii	"int\000"
- 270 007a 02       		.uleb128 0x2
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 8
+ 154              		.text
+ 155              	.Letext0:
+ 156              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 157              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 158              		.file 4 "Generated_Source\\PSoC5/Selector_In.h"
+ 159              		.file 5 "Generated_Source\\PSoC5/Boost_Button.h"
+ 160              		.file 6 "Generated_Source\\PSoC5/core_cm3.h"
+ 161              		.section	.debug_info,"",%progbits
+ 162              	.Ldebug_info0:
+ 163 0000 4F010000 		.4byte	0x14f
+ 164 0004 0400     		.2byte	0x4
+ 165 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 166 000a 04       		.byte	0x4
+ 167 000b 01       		.uleb128 0x1
+ 168 000c 41000000 		.4byte	.LASF25
+ 169 0010 0C       		.byte	0xc
+ 170 0011 7D010000 		.4byte	.LASF26
+ 171 0015 A7010000 		.4byte	.LASF27
+ 172 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 173 001d 00000000 		.4byte	0
+ 174 0021 00000000 		.4byte	.Ldebug_line0
+ 175 0025 02       		.uleb128 0x2
+ 176 0026 01       		.byte	0x1
+ 177 0027 06       		.byte	0x6
+ 178 0028 9B010000 		.4byte	.LASF0
+ 179 002c 03       		.uleb128 0x3
+ 180 002d 11010000 		.4byte	.LASF4
+ 181 0031 02       		.byte	0x2
+ 182 0032 1D       		.byte	0x1d
+ 183 0033 37000000 		.4byte	0x37
+ 184 0037 02       		.uleb128 0x2
+ 185 0038 01       		.byte	0x1
+ 186 0039 08       		.byte	0x8
+ 187 003a 29010000 		.4byte	.LASF1
+ 188 003e 02       		.uleb128 0x2
+ 189 003f 02       		.byte	0x2
+ 190 0040 05       		.byte	0x5
+ 191 0041 03020000 		.4byte	.LASF2
+ 192 0045 02       		.uleb128 0x2
+ 193 0046 02       		.byte	0x2
+ 194 0047 07       		.byte	0x7
+ 195 0048 0E000000 		.4byte	.LASF3
+ 196 004c 03       		.uleb128 0x3
+ 197 004d E8010000 		.4byte	.LASF5
+ 198 0051 02       		.byte	0x2
+ 199 0052 3F       		.byte	0x3f
+ 200 0053 57000000 		.4byte	0x57
+ 201 0057 02       		.uleb128 0x2
+ 202 0058 04       		.byte	0x4
+ 203 0059 05       		.byte	0x5
+ 204 005a 4F010000 		.4byte	.LASF6
+ 205 005e 02       		.uleb128 0x2
+ 206 005f 04       		.byte	0x4
+ 207 0060 07       		.byte	0x7
+ 208 0061 D7000000 		.4byte	.LASF7
+ 209 0065 02       		.uleb128 0x2
+ 210 0066 08       		.byte	0x8
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccnkx3SI.s 			page 6
 
 
- 271 007b 04       		.byte	0x4
- 272 007c 07       		.byte	0x7
- 273 007d 54010000 		.4byte	.LASF10
- 274 0081 03       		.uleb128 0x3
- 275 0082 9E010000 		.4byte	.LASF11
- 276 0086 03       		.byte	0x3
- 277 0087 18       		.byte	0x18
- 278 0088 2C000000 		.4byte	0x2c
- 279 008c 03       		.uleb128 0x3
- 280 008d BB010000 		.4byte	.LASF12
- 281 0091 03       		.byte	0x3
- 282 0092 2C       		.byte	0x2c
- 283 0093 4C000000 		.4byte	0x4c
- 284 0097 02       		.uleb128 0x2
- 285 0098 04       		.byte	0x4
- 286 0099 04       		.byte	0x4
- 287 009a 4A000000 		.4byte	.LASF13
- 288 009e 02       		.uleb128 0x2
- 289 009f 08       		.byte	0x8
- 290 00a0 04       		.byte	0x4
- 291 00a1 3C010000 		.4byte	.LASF14
- 292 00a5 02       		.uleb128 0x2
- 293 00a6 01       		.byte	0x1
- 294 00a7 08       		.byte	0x8
- 295 00a8 ED010000 		.4byte	.LASF15
- 296 00ac 02       		.uleb128 0x2
- 297 00ad 08       		.byte	0x8
- 298 00ae 04       		.byte	0x4
- 299 00af 05020000 		.4byte	.LASF16
- 300 00b3 02       		.uleb128 0x2
- 301 00b4 04       		.byte	0x4
- 302 00b5 07       		.byte	0x7
- 303 00b6 D6010000 		.4byte	.LASF17
- 304 00ba 05       		.uleb128 0x5
- 305 00bb 70010000 		.4byte	.LASF18
- 306 00bf 01       		.byte	0x1
- 307 00c0 59       		.byte	0x59
- 308 00c1 81000000 		.4byte	0x81
- 309 00c5 00000000 		.4byte	.LFB65
- 310 00c9 0C000000 		.4byte	.LFE65-.LFB65
- 311 00cd 01       		.uleb128 0x1
- 312 00ce 9C       		.byte	0x9c
- 313 00cf EC000000 		.4byte	0xec
- 314 00d3 06       		.uleb128 0x6
- 315 00d4 1B000000 		.4byte	.LASF20
- 316 00d8 01       		.byte	0x1
- 317 00d9 5B       		.byte	0x5b
- 318 00da 81000000 		.4byte	0x81
- 319 00de 00000000 		.4byte	.LLST0
- 320 00e2 07       		.uleb128 0x7
- 321 00e3 06000000 		.4byte	.LVL0
- 322 00e7 AD010000 		.4byte	0x1ad
- 323 00eb 00       		.byte	0
- 324 00ec 05       		.uleb128 0x5
- 325 00ed A6010000 		.4byte	.LASF19
- 326 00f1 01       		.byte	0x1
- 327 00f2 17       		.byte	0x17
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 9
+ 211 0067 05       		.byte	0x5
+ 212 0068 00000000 		.4byte	.LASF8
+ 213 006c 02       		.uleb128 0x2
+ 214 006d 08       		.byte	0x8
+ 215 006e 07       		.byte	0x7
+ 216 006f FA000000 		.4byte	.LASF9
+ 217 0073 04       		.uleb128 0x4
+ 218 0074 04       		.byte	0x4
+ 219 0075 05       		.byte	0x5
+ 220 0076 696E7400 		.ascii	"int\000"
+ 221 007a 02       		.uleb128 0x2
+ 222 007b 04       		.byte	0x4
+ 223 007c 07       		.byte	0x7
+ 224 007d 21000000 		.4byte	.LASF10
+ 225 0081 03       		.uleb128 0x3
+ 226 0082 21010000 		.4byte	.LASF11
+ 227 0086 03       		.byte	0x3
+ 228 0087 18       		.byte	0x18
+ 229 0088 2C000000 		.4byte	0x2c
+ 230 008c 03       		.uleb128 0x3
+ 231 008d CF000000 		.4byte	.LASF12
+ 232 0091 03       		.byte	0x3
+ 233 0092 2C       		.byte	0x2c
+ 234 0093 4C000000 		.4byte	0x4c
+ 235 0097 02       		.uleb128 0x2
+ 236 0098 04       		.byte	0x4
+ 237 0099 04       		.byte	0x4
+ 238 009a 1B010000 		.4byte	.LASF13
+ 239 009e 02       		.uleb128 0x2
+ 240 009f 08       		.byte	0x8
+ 241 00a0 04       		.byte	0x4
+ 242 00a1 6A010000 		.4byte	.LASF14
+ 243 00a5 02       		.uleb128 0x2
+ 244 00a6 01       		.byte	0x1
+ 245 00a7 08       		.byte	0x8
+ 246 00a8 37010000 		.4byte	.LASF15
+ 247 00ac 02       		.uleb128 0x2
+ 248 00ad 08       		.byte	0x8
+ 249 00ae 04       		.byte	0x4
+ 250 00af 71010000 		.4byte	.LASF16
+ 251 00b3 02       		.uleb128 0x2
+ 252 00b4 04       		.byte	0x4
+ 253 00b5 07       		.byte	0x7
+ 254 00b6 2E020000 		.4byte	.LASF17
+ 255 00ba 05       		.uleb128 0x5
+ 256 00bb 3C010000 		.4byte	.LASF20
+ 257 00bf 01       		.byte	0x1
+ 258 00c0 18       		.byte	0x18
+ 259 00c1 81000000 		.4byte	0x81
+ 260 00c5 00000000 		.4byte	.LFB63
+ 261 00c9 50000000 		.4byte	.LFE63-.LFB63
+ 262 00cd 01       		.uleb128 0x1
+ 263 00ce 9C       		.byte	0x9c
+ 264 00cf FB000000 		.4byte	0xfb
+ 265 00d3 06       		.uleb128 0x6
+ 266 00d4 1F020000 		.4byte	.LASF18
+ 267 00d8 01       		.byte	0x1
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccnkx3SI.s 			page 7
 
 
- 328 00f3 81000000 		.4byte	0x81
- 329 00f7 00000000 		.4byte	.LFB63
- 330 00fb 0E000000 		.4byte	.LFE63-.LFB63
- 331 00ff 01       		.uleb128 0x1
- 332 0100 9C       		.byte	0x9c
- 333 0101 2B010000 		.4byte	0x12b
- 334 0105 08       		.uleb128 0x8
- 335 0106 43010000 		.4byte	.LASF21
- 336 010a 01       		.byte	0x1
- 337 010b 19       		.byte	0x19
- 338 010c 81000000 		.4byte	0x81
- 339 0110 01       		.uleb128 0x1
- 340 0111 50       		.byte	0x50
- 341 0112 06       		.uleb128 0x6
- 342 0113 61010000 		.4byte	.LASF22
- 343 0117 01       		.byte	0x1
- 344 0118 1A       		.byte	0x1a
- 345 0119 81000000 		.4byte	0x81
- 346 011d 18000000 		.4byte	.LLST1
- 347 0121 07       		.uleb128 0x7
- 348 0122 06000000 		.4byte	.LVL2
- 349 0126 BA000000 		.4byte	0xba
- 350 012a 00       		.byte	0
- 351 012b 05       		.uleb128 0x5
- 352 012c 2D000000 		.4byte	.LASF23
- 353 0130 01       		.byte	0x1
- 354 0131 2D       		.byte	0x2d
- 355 0132 81000000 		.4byte	0x81
- 356 0136 00000000 		.4byte	.LFB64
- 357 013a 4C000000 		.4byte	.LFE64-.LFB64
- 358 013e 01       		.uleb128 0x1
- 359 013f 9C       		.byte	0x9c
- 360 0140 6C010000 		.4byte	0x16c
- 361 0144 06       		.uleb128 0x6
- 362 0145 43010000 		.4byte	.LASF21
- 363 0149 01       		.byte	0x1
- 364 014a 2F       		.byte	0x2f
- 365 014b 81000000 		.4byte	0x81
- 366 014f 2B000000 		.4byte	.LLST2
- 367 0153 06       		.uleb128 0x6
- 368 0154 61010000 		.4byte	.LASF22
- 369 0158 01       		.byte	0x1
- 370 0159 30       		.byte	0x30
- 371 015a 81000000 		.4byte	0x81
- 372 015e 7A000000 		.4byte	.LLST3
- 373 0162 07       		.uleb128 0x7
- 374 0163 06000000 		.4byte	.LVL4
- 375 0167 BA000000 		.4byte	0xba
- 376 016b 00       		.byte	0
- 377 016c 05       		.uleb128 0x5
- 378 016d 63020000 		.4byte	.LASF24
- 379 0171 01       		.byte	0x1
- 380 0172 68       		.byte	0x68
- 381 0173 81000000 		.4byte	0x81
- 382 0177 00000000 		.4byte	.LFB66
- 383 017b 08000000 		.4byte	.LFE66-.LFB66
- 384 017f 01       		.uleb128 0x1
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 10
+ 268 00d9 1A       		.byte	0x1a
+ 269 00da 81000000 		.4byte	0x81
+ 270 00de 00000000 		.4byte	.LLST0
+ 271 00e2 06       		.uleb128 0x6
+ 272 00e3 F2010000 		.4byte	.LASF19
+ 273 00e7 01       		.byte	0x1
+ 274 00e8 1A       		.byte	0x1a
+ 275 00e9 81000000 		.4byte	0x81
+ 276 00ed 6E000000 		.4byte	.LLST1
+ 277 00f1 07       		.uleb128 0x7
+ 278 00f2 06000000 		.4byte	.LVL0
+ 279 00f6 3C010000 		.4byte	0x13c
+ 280 00fa 00       		.byte	0
+ 281 00fb 05       		.uleb128 0x5
+ 282 00fc 58010000 		.4byte	.LASF21
+ 283 0100 01       		.byte	0x1
+ 284 0101 45       		.byte	0x45
+ 285 0102 81000000 		.4byte	0x81
+ 286 0106 00000000 		.4byte	.LFB64
+ 287 010a 08000000 		.4byte	.LFE64-.LFB64
+ 288 010e 01       		.uleb128 0x1
+ 289 010f 9C       		.byte	0x9c
+ 290 0110 2B010000 		.4byte	0x12b
+ 291 0114 08       		.uleb128 0x8
+ 292 0115 2E000000 		.4byte	.LASF22
+ 293 0119 01       		.byte	0x1
+ 294 011a 47       		.byte	0x47
+ 295 011b 81000000 		.4byte	0x81
+ 296 011f 01       		.uleb128 0x1
+ 297 0120 50       		.byte	0x50
+ 298 0121 07       		.uleb128 0x7
+ 299 0122 06000000 		.4byte	.LVL16
+ 300 0126 47010000 		.4byte	0x147
+ 301 012a 00       		.byte	0
+ 302 012b 09       		.uleb128 0x9
+ 303 012c 8E010000 		.4byte	.LASF28
+ 304 0130 06       		.byte	0x6
+ 305 0131 1207     		.2byte	0x712
+ 306 0133 37010000 		.4byte	0x137
+ 307 0137 0A       		.uleb128 0xa
+ 308 0138 8C000000 		.4byte	0x8c
+ 309 013c 0B       		.uleb128 0xb
+ 310 013d E9000000 		.4byte	.LASF23
+ 311 0141 E9000000 		.4byte	.LASF23
+ 312 0145 04       		.byte	0x4
+ 313 0146 29       		.byte	0x29
+ 314 0147 0B       		.uleb128 0xb
+ 315 0148 0D020000 		.4byte	.LASF24
+ 316 014c 0D020000 		.4byte	.LASF24
+ 317 0150 05       		.byte	0x5
+ 318 0151 29       		.byte	0x29
+ 319 0152 00       		.byte	0
+ 320              		.section	.debug_abbrev,"",%progbits
+ 321              	.Ldebug_abbrev0:
+ 322 0000 01       		.uleb128 0x1
+ 323 0001 11       		.uleb128 0x11
+ 324 0002 01       		.byte	0x1
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccnkx3SI.s 			page 8
 
 
- 385 0180 9C       		.byte	0x9c
- 386 0181 9C010000 		.4byte	0x19c
- 387 0185 08       		.uleb128 0x8
- 388 0186 C3010000 		.4byte	.LASF25
- 389 018a 01       		.byte	0x1
- 390 018b 6A       		.byte	0x6a
- 391 018c 81000000 		.4byte	0x81
- 392 0190 01       		.uleb128 0x1
- 393 0191 50       		.byte	0x50
- 394 0192 07       		.uleb128 0x7
- 395 0193 06000000 		.4byte	.LVL13
- 396 0197 B8010000 		.4byte	0x1b8
- 397 019b 00       		.byte	0
- 398 019c 09       		.uleb128 0x9
- 399 019d 21010000 		.4byte	.LASF31
- 400 01a1 06       		.byte	0x6
- 401 01a2 1207     		.2byte	0x712
- 402 01a4 A8010000 		.4byte	0x1a8
- 403 01a8 0A       		.uleb128 0xa
- 404 01a9 8C000000 		.4byte	0x8c
- 405 01ad 0B       		.uleb128 0xb
- 406 01ae 00000000 		.4byte	.LASF26
- 407 01b2 00000000 		.4byte	.LASF26
- 408 01b6 04       		.byte	0x4
- 409 01b7 29       		.byte	0x29
- 410 01b8 0B       		.uleb128 0xb
- 411 01b9 5C000000 		.4byte	.LASF27
- 412 01bd 5C000000 		.4byte	.LASF27
- 413 01c1 05       		.byte	0x5
- 414 01c2 29       		.byte	0x29
- 415 01c3 00       		.byte	0
- 416              		.section	.debug_abbrev,"",%progbits
- 417              	.Ldebug_abbrev0:
- 418 0000 01       		.uleb128 0x1
- 419 0001 11       		.uleb128 0x11
- 420 0002 01       		.byte	0x1
- 421 0003 25       		.uleb128 0x25
- 422 0004 0E       		.uleb128 0xe
- 423 0005 13       		.uleb128 0x13
- 424 0006 0B       		.uleb128 0xb
- 425 0007 03       		.uleb128 0x3
- 426 0008 0E       		.uleb128 0xe
- 427 0009 1B       		.uleb128 0x1b
- 428 000a 0E       		.uleb128 0xe
- 429 000b 55       		.uleb128 0x55
- 430 000c 17       		.uleb128 0x17
- 431 000d 11       		.uleb128 0x11
- 432 000e 01       		.uleb128 0x1
- 433 000f 10       		.uleb128 0x10
- 434 0010 17       		.uleb128 0x17
- 435 0011 00       		.byte	0
- 436 0012 00       		.byte	0
- 437 0013 02       		.uleb128 0x2
- 438 0014 24       		.uleb128 0x24
- 439 0015 00       		.byte	0
- 440 0016 0B       		.uleb128 0xb
- 441 0017 0B       		.uleb128 0xb
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 11
+ 325 0003 25       		.uleb128 0x25
+ 326 0004 0E       		.uleb128 0xe
+ 327 0005 13       		.uleb128 0x13
+ 328 0006 0B       		.uleb128 0xb
+ 329 0007 03       		.uleb128 0x3
+ 330 0008 0E       		.uleb128 0xe
+ 331 0009 1B       		.uleb128 0x1b
+ 332 000a 0E       		.uleb128 0xe
+ 333 000b 55       		.uleb128 0x55
+ 334 000c 17       		.uleb128 0x17
+ 335 000d 11       		.uleb128 0x11
+ 336 000e 01       		.uleb128 0x1
+ 337 000f 10       		.uleb128 0x10
+ 338 0010 17       		.uleb128 0x17
+ 339 0011 00       		.byte	0
+ 340 0012 00       		.byte	0
+ 341 0013 02       		.uleb128 0x2
+ 342 0014 24       		.uleb128 0x24
+ 343 0015 00       		.byte	0
+ 344 0016 0B       		.uleb128 0xb
+ 345 0017 0B       		.uleb128 0xb
+ 346 0018 3E       		.uleb128 0x3e
+ 347 0019 0B       		.uleb128 0xb
+ 348 001a 03       		.uleb128 0x3
+ 349 001b 0E       		.uleb128 0xe
+ 350 001c 00       		.byte	0
+ 351 001d 00       		.byte	0
+ 352 001e 03       		.uleb128 0x3
+ 353 001f 16       		.uleb128 0x16
+ 354 0020 00       		.byte	0
+ 355 0021 03       		.uleb128 0x3
+ 356 0022 0E       		.uleb128 0xe
+ 357 0023 3A       		.uleb128 0x3a
+ 358 0024 0B       		.uleb128 0xb
+ 359 0025 3B       		.uleb128 0x3b
+ 360 0026 0B       		.uleb128 0xb
+ 361 0027 49       		.uleb128 0x49
+ 362 0028 13       		.uleb128 0x13
+ 363 0029 00       		.byte	0
+ 364 002a 00       		.byte	0
+ 365 002b 04       		.uleb128 0x4
+ 366 002c 24       		.uleb128 0x24
+ 367 002d 00       		.byte	0
+ 368 002e 0B       		.uleb128 0xb
+ 369 002f 0B       		.uleb128 0xb
+ 370 0030 3E       		.uleb128 0x3e
+ 371 0031 0B       		.uleb128 0xb
+ 372 0032 03       		.uleb128 0x3
+ 373 0033 08       		.uleb128 0x8
+ 374 0034 00       		.byte	0
+ 375 0035 00       		.byte	0
+ 376 0036 05       		.uleb128 0x5
+ 377 0037 2E       		.uleb128 0x2e
+ 378 0038 01       		.byte	0x1
+ 379 0039 3F       		.uleb128 0x3f
+ 380 003a 19       		.uleb128 0x19
+ 381 003b 03       		.uleb128 0x3
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccnkx3SI.s 			page 9
 
 
- 442 0018 3E       		.uleb128 0x3e
- 443 0019 0B       		.uleb128 0xb
- 444 001a 03       		.uleb128 0x3
- 445 001b 0E       		.uleb128 0xe
- 446 001c 00       		.byte	0
- 447 001d 00       		.byte	0
- 448 001e 03       		.uleb128 0x3
- 449 001f 16       		.uleb128 0x16
- 450 0020 00       		.byte	0
- 451 0021 03       		.uleb128 0x3
- 452 0022 0E       		.uleb128 0xe
- 453 0023 3A       		.uleb128 0x3a
- 454 0024 0B       		.uleb128 0xb
- 455 0025 3B       		.uleb128 0x3b
- 456 0026 0B       		.uleb128 0xb
- 457 0027 49       		.uleb128 0x49
- 458 0028 13       		.uleb128 0x13
- 459 0029 00       		.byte	0
- 460 002a 00       		.byte	0
- 461 002b 04       		.uleb128 0x4
- 462 002c 24       		.uleb128 0x24
- 463 002d 00       		.byte	0
- 464 002e 0B       		.uleb128 0xb
- 465 002f 0B       		.uleb128 0xb
- 466 0030 3E       		.uleb128 0x3e
- 467 0031 0B       		.uleb128 0xb
- 468 0032 03       		.uleb128 0x3
- 469 0033 08       		.uleb128 0x8
- 470 0034 00       		.byte	0
- 471 0035 00       		.byte	0
- 472 0036 05       		.uleb128 0x5
- 473 0037 2E       		.uleb128 0x2e
- 474 0038 01       		.byte	0x1
- 475 0039 3F       		.uleb128 0x3f
- 476 003a 19       		.uleb128 0x19
- 477 003b 03       		.uleb128 0x3
- 478 003c 0E       		.uleb128 0xe
- 479 003d 3A       		.uleb128 0x3a
- 480 003e 0B       		.uleb128 0xb
- 481 003f 3B       		.uleb128 0x3b
- 482 0040 0B       		.uleb128 0xb
- 483 0041 49       		.uleb128 0x49
- 484 0042 13       		.uleb128 0x13
- 485 0043 11       		.uleb128 0x11
- 486 0044 01       		.uleb128 0x1
- 487 0045 12       		.uleb128 0x12
- 488 0046 06       		.uleb128 0x6
- 489 0047 40       		.uleb128 0x40
- 490 0048 18       		.uleb128 0x18
- 491 0049 9742     		.uleb128 0x2117
- 492 004b 19       		.uleb128 0x19
- 493 004c 01       		.uleb128 0x1
- 494 004d 13       		.uleb128 0x13
- 495 004e 00       		.byte	0
- 496 004f 00       		.byte	0
- 497 0050 06       		.uleb128 0x6
- 498 0051 34       		.uleb128 0x34
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 12
+ 382 003c 0E       		.uleb128 0xe
+ 383 003d 3A       		.uleb128 0x3a
+ 384 003e 0B       		.uleb128 0xb
+ 385 003f 3B       		.uleb128 0x3b
+ 386 0040 0B       		.uleb128 0xb
+ 387 0041 49       		.uleb128 0x49
+ 388 0042 13       		.uleb128 0x13
+ 389 0043 11       		.uleb128 0x11
+ 390 0044 01       		.uleb128 0x1
+ 391 0045 12       		.uleb128 0x12
+ 392 0046 06       		.uleb128 0x6
+ 393 0047 40       		.uleb128 0x40
+ 394 0048 18       		.uleb128 0x18
+ 395 0049 9742     		.uleb128 0x2117
+ 396 004b 19       		.uleb128 0x19
+ 397 004c 01       		.uleb128 0x1
+ 398 004d 13       		.uleb128 0x13
+ 399 004e 00       		.byte	0
+ 400 004f 00       		.byte	0
+ 401 0050 06       		.uleb128 0x6
+ 402 0051 34       		.uleb128 0x34
+ 403 0052 00       		.byte	0
+ 404 0053 03       		.uleb128 0x3
+ 405 0054 0E       		.uleb128 0xe
+ 406 0055 3A       		.uleb128 0x3a
+ 407 0056 0B       		.uleb128 0xb
+ 408 0057 3B       		.uleb128 0x3b
+ 409 0058 0B       		.uleb128 0xb
+ 410 0059 49       		.uleb128 0x49
+ 411 005a 13       		.uleb128 0x13
+ 412 005b 02       		.uleb128 0x2
+ 413 005c 17       		.uleb128 0x17
+ 414 005d 00       		.byte	0
+ 415 005e 00       		.byte	0
+ 416 005f 07       		.uleb128 0x7
+ 417 0060 898201   		.uleb128 0x4109
+ 418 0063 00       		.byte	0
+ 419 0064 11       		.uleb128 0x11
+ 420 0065 01       		.uleb128 0x1
+ 421 0066 31       		.uleb128 0x31
+ 422 0067 13       		.uleb128 0x13
+ 423 0068 00       		.byte	0
+ 424 0069 00       		.byte	0
+ 425 006a 08       		.uleb128 0x8
+ 426 006b 34       		.uleb128 0x34
+ 427 006c 00       		.byte	0
+ 428 006d 03       		.uleb128 0x3
+ 429 006e 0E       		.uleb128 0xe
+ 430 006f 3A       		.uleb128 0x3a
+ 431 0070 0B       		.uleb128 0xb
+ 432 0071 3B       		.uleb128 0x3b
+ 433 0072 0B       		.uleb128 0xb
+ 434 0073 49       		.uleb128 0x49
+ 435 0074 13       		.uleb128 0x13
+ 436 0075 02       		.uleb128 0x2
+ 437 0076 18       		.uleb128 0x18
+ 438 0077 00       		.byte	0
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccnkx3SI.s 			page 10
 
 
- 499 0052 00       		.byte	0
- 500 0053 03       		.uleb128 0x3
- 501 0054 0E       		.uleb128 0xe
- 502 0055 3A       		.uleb128 0x3a
- 503 0056 0B       		.uleb128 0xb
- 504 0057 3B       		.uleb128 0x3b
- 505 0058 0B       		.uleb128 0xb
- 506 0059 49       		.uleb128 0x49
- 507 005a 13       		.uleb128 0x13
- 508 005b 02       		.uleb128 0x2
- 509 005c 17       		.uleb128 0x17
- 510 005d 00       		.byte	0
- 511 005e 00       		.byte	0
- 512 005f 07       		.uleb128 0x7
- 513 0060 898201   		.uleb128 0x4109
- 514 0063 00       		.byte	0
- 515 0064 11       		.uleb128 0x11
- 516 0065 01       		.uleb128 0x1
- 517 0066 31       		.uleb128 0x31
- 518 0067 13       		.uleb128 0x13
- 519 0068 00       		.byte	0
- 520 0069 00       		.byte	0
- 521 006a 08       		.uleb128 0x8
- 522 006b 34       		.uleb128 0x34
- 523 006c 00       		.byte	0
- 524 006d 03       		.uleb128 0x3
- 525 006e 0E       		.uleb128 0xe
- 526 006f 3A       		.uleb128 0x3a
- 527 0070 0B       		.uleb128 0xb
- 528 0071 3B       		.uleb128 0x3b
- 529 0072 0B       		.uleb128 0xb
- 530 0073 49       		.uleb128 0x49
- 531 0074 13       		.uleb128 0x13
- 532 0075 02       		.uleb128 0x2
- 533 0076 18       		.uleb128 0x18
- 534 0077 00       		.byte	0
- 535 0078 00       		.byte	0
- 536 0079 09       		.uleb128 0x9
- 537 007a 34       		.uleb128 0x34
- 538 007b 00       		.byte	0
- 539 007c 03       		.uleb128 0x3
- 540 007d 0E       		.uleb128 0xe
- 541 007e 3A       		.uleb128 0x3a
- 542 007f 0B       		.uleb128 0xb
- 543 0080 3B       		.uleb128 0x3b
- 544 0081 05       		.uleb128 0x5
- 545 0082 49       		.uleb128 0x49
- 546 0083 13       		.uleb128 0x13
- 547 0084 3F       		.uleb128 0x3f
- 548 0085 19       		.uleb128 0x19
- 549 0086 3C       		.uleb128 0x3c
- 550 0087 19       		.uleb128 0x19
- 551 0088 00       		.byte	0
- 552 0089 00       		.byte	0
- 553 008a 0A       		.uleb128 0xa
- 554 008b 35       		.uleb128 0x35
- 555 008c 00       		.byte	0
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 13
+ 439 0078 00       		.byte	0
+ 440 0079 09       		.uleb128 0x9
+ 441 007a 34       		.uleb128 0x34
+ 442 007b 00       		.byte	0
+ 443 007c 03       		.uleb128 0x3
+ 444 007d 0E       		.uleb128 0xe
+ 445 007e 3A       		.uleb128 0x3a
+ 446 007f 0B       		.uleb128 0xb
+ 447 0080 3B       		.uleb128 0x3b
+ 448 0081 05       		.uleb128 0x5
+ 449 0082 49       		.uleb128 0x49
+ 450 0083 13       		.uleb128 0x13
+ 451 0084 3F       		.uleb128 0x3f
+ 452 0085 19       		.uleb128 0x19
+ 453 0086 3C       		.uleb128 0x3c
+ 454 0087 19       		.uleb128 0x19
+ 455 0088 00       		.byte	0
+ 456 0089 00       		.byte	0
+ 457 008a 0A       		.uleb128 0xa
+ 458 008b 35       		.uleb128 0x35
+ 459 008c 00       		.byte	0
+ 460 008d 49       		.uleb128 0x49
+ 461 008e 13       		.uleb128 0x13
+ 462 008f 00       		.byte	0
+ 463 0090 00       		.byte	0
+ 464 0091 0B       		.uleb128 0xb
+ 465 0092 2E       		.uleb128 0x2e
+ 466 0093 00       		.byte	0
+ 467 0094 3F       		.uleb128 0x3f
+ 468 0095 19       		.uleb128 0x19
+ 469 0096 3C       		.uleb128 0x3c
+ 470 0097 19       		.uleb128 0x19
+ 471 0098 6E       		.uleb128 0x6e
+ 472 0099 0E       		.uleb128 0xe
+ 473 009a 03       		.uleb128 0x3
+ 474 009b 0E       		.uleb128 0xe
+ 475 009c 3A       		.uleb128 0x3a
+ 476 009d 0B       		.uleb128 0xb
+ 477 009e 3B       		.uleb128 0x3b
+ 478 009f 0B       		.uleb128 0xb
+ 479 00a0 00       		.byte	0
+ 480 00a1 00       		.byte	0
+ 481 00a2 00       		.byte	0
+ 482              		.section	.debug_loc,"",%progbits
+ 483              	.Ldebug_loc0:
+ 484              	.LLST0:
+ 485 0000 0A000000 		.4byte	.LVL1
+ 486 0004 0C000000 		.4byte	.LVL2
+ 487 0008 0100     		.2byte	0x1
+ 488 000a 50       		.byte	0x50
+ 489 000b 0C000000 		.4byte	.LVL2
+ 490 000f 36000000 		.4byte	.LVL3
+ 491 0013 0300     		.2byte	0x3
+ 492 0015 70       		.byte	0x70
+ 493 0016 01       		.sleb128 1
+ 494 0017 9F       		.byte	0x9f
+ 495 0018 38000000 		.4byte	.LVL4
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccnkx3SI.s 			page 11
 
 
- 556 008d 49       		.uleb128 0x49
- 557 008e 13       		.uleb128 0x13
- 558 008f 00       		.byte	0
- 559 0090 00       		.byte	0
- 560 0091 0B       		.uleb128 0xb
- 561 0092 2E       		.uleb128 0x2e
- 562 0093 00       		.byte	0
- 563 0094 3F       		.uleb128 0x3f
- 564 0095 19       		.uleb128 0x19
- 565 0096 3C       		.uleb128 0x3c
- 566 0097 19       		.uleb128 0x19
- 567 0098 6E       		.uleb128 0x6e
- 568 0099 0E       		.uleb128 0xe
- 569 009a 03       		.uleb128 0x3
- 570 009b 0E       		.uleb128 0xe
- 571 009c 3A       		.uleb128 0x3a
- 572 009d 0B       		.uleb128 0xb
- 573 009e 3B       		.uleb128 0x3b
- 574 009f 0B       		.uleb128 0xb
- 575 00a0 00       		.byte	0
- 576 00a1 00       		.byte	0
- 577 00a2 00       		.byte	0
- 578              		.section	.debug_loc,"",%progbits
- 579              	.Ldebug_loc0:
- 580              	.LLST0:
- 581 0000 06000000 		.4byte	.LVL0
- 582 0004 0A000000 		.4byte	.LVL1
- 583 0008 0600     		.2byte	0x6
- 584 000a 70       		.byte	0x70
- 585 000b 00       		.sleb128 0
- 586 000c 08       		.byte	0x8
- 587 000d 3F       		.byte	0x3f
- 588 000e 1A       		.byte	0x1a
- 589 000f 9F       		.byte	0x9f
- 590 0010 00000000 		.4byte	0
- 591 0014 00000000 		.4byte	0
- 592              	.LLST1:
- 593 0018 06000000 		.4byte	.LVL2
- 594 001c 0C000000 		.4byte	.LVL3
- 595 0020 0100     		.2byte	0x1
- 596 0022 50       		.byte	0x50
- 597 0023 00000000 		.4byte	0
- 598 0027 00000000 		.4byte	0
- 599              	.LLST2:
- 600 002b 34000000 		.4byte	.LVL6
- 601 002f 38000000 		.4byte	.LVL7
- 602 0033 0200     		.2byte	0x2
- 603 0035 33       		.byte	0x33
- 604 0036 9F       		.byte	0x9f
- 605 0037 38000000 		.4byte	.LVL7
- 606 003b 3C000000 		.4byte	.LVL8
- 607 003f 0200     		.2byte	0x2
- 608 0041 34       		.byte	0x34
- 609 0042 9F       		.byte	0x9f
- 610 0043 3C000000 		.4byte	.LVL8
- 611 0047 40000000 		.4byte	.LVL9
- 612 004b 0200     		.2byte	0x2
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 14
+ 496 001c 3A000000 		.4byte	.LVL5
+ 497 0020 0300     		.2byte	0x3
+ 498 0022 70       		.byte	0x70
+ 499 0023 01       		.sleb128 1
+ 500 0024 9F       		.byte	0x9f
+ 501 0025 3C000000 		.4byte	.LVL6
+ 502 0029 3E000000 		.4byte	.LVL7
+ 503 002d 0300     		.2byte	0x3
+ 504 002f 70       		.byte	0x70
+ 505 0030 01       		.sleb128 1
+ 506 0031 9F       		.byte	0x9f
+ 507 0032 40000000 		.4byte	.LVL8
+ 508 0036 42000000 		.4byte	.LVL9
+ 509 003a 0300     		.2byte	0x3
+ 510 003c 70       		.byte	0x70
+ 511 003d 01       		.sleb128 1
+ 512 003e 9F       		.byte	0x9f
+ 513 003f 44000000 		.4byte	.LVL10
+ 514 0043 46000000 		.4byte	.LVL11
+ 515 0047 0300     		.2byte	0x3
+ 516 0049 70       		.byte	0x70
+ 517 004a 01       		.sleb128 1
+ 518 004b 9F       		.byte	0x9f
+ 519 004c 48000000 		.4byte	.LVL12
+ 520 0050 4A000000 		.4byte	.LVL13
+ 521 0054 0300     		.2byte	0x3
+ 522 0056 70       		.byte	0x70
+ 523 0057 01       		.sleb128 1
+ 524 0058 9F       		.byte	0x9f
+ 525 0059 4C000000 		.4byte	.LVL14
+ 526 005d 4E000000 		.4byte	.LVL15
+ 527 0061 0300     		.2byte	0x3
+ 528 0063 70       		.byte	0x70
+ 529 0064 01       		.sleb128 1
+ 530 0065 9F       		.byte	0x9f
+ 531 0066 00000000 		.4byte	0
+ 532 006a 00000000 		.4byte	0
+ 533              	.LLST1:
+ 534 006e 38000000 		.4byte	.LVL4
+ 535 0072 3C000000 		.4byte	.LVL6
+ 536 0076 0200     		.2byte	0x2
+ 537 0078 33       		.byte	0x33
+ 538 0079 9F       		.byte	0x9f
+ 539 007a 3C000000 		.4byte	.LVL6
+ 540 007e 40000000 		.4byte	.LVL8
+ 541 0082 0200     		.2byte	0x2
+ 542 0084 34       		.byte	0x34
+ 543 0085 9F       		.byte	0x9f
+ 544 0086 40000000 		.4byte	.LVL8
+ 545 008a 44000000 		.4byte	.LVL10
+ 546 008e 0200     		.2byte	0x2
+ 547 0090 35       		.byte	0x35
+ 548 0091 9F       		.byte	0x9f
+ 549 0092 44000000 		.4byte	.LVL10
+ 550 0096 48000000 		.4byte	.LVL12
+ 551 009a 0200     		.2byte	0x2
+ 552 009c 36       		.byte	0x36
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccnkx3SI.s 			page 12
 
 
- 613 004d 35       		.byte	0x35
- 614 004e 9F       		.byte	0x9f
- 615 004f 40000000 		.4byte	.LVL9
- 616 0053 44000000 		.4byte	.LVL10
- 617 0057 0200     		.2byte	0x2
- 618 0059 36       		.byte	0x36
- 619 005a 9F       		.byte	0x9f
- 620 005b 44000000 		.4byte	.LVL10
- 621 005f 48000000 		.4byte	.LVL11
- 622 0063 0200     		.2byte	0x2
- 623 0065 30       		.byte	0x30
- 624 0066 9F       		.byte	0x9f
- 625 0067 4A000000 		.4byte	.LVL12
- 626 006b 4C000000 		.4byte	.LFE64
- 627 006f 0100     		.2byte	0x1
- 628 0071 50       		.byte	0x50
- 629 0072 00000000 		.4byte	0
- 630 0076 00000000 		.4byte	0
- 631              	.LLST3:
- 632 007a 06000000 		.4byte	.LVL4
- 633 007e 08000000 		.4byte	.LVL5
- 634 0082 0100     		.2byte	0x1
- 635 0084 50       		.byte	0x50
- 636 0085 00000000 		.4byte	0
- 637 0089 00000000 		.4byte	0
- 638              		.section	.debug_aranges,"",%progbits
- 639 0000 34000000 		.4byte	0x34
- 640 0004 0200     		.2byte	0x2
- 641 0006 00000000 		.4byte	.Ldebug_info0
- 642 000a 04       		.byte	0x4
- 643 000b 00       		.byte	0
- 644 000c 0000     		.2byte	0
- 645 000e 0000     		.2byte	0
- 646 0010 00000000 		.4byte	.LFB65
- 647 0014 0C000000 		.4byte	.LFE65-.LFB65
- 648 0018 00000000 		.4byte	.LFB63
- 649 001c 0E000000 		.4byte	.LFE63-.LFB63
- 650 0020 00000000 		.4byte	.LFB64
- 651 0024 4C000000 		.4byte	.LFE64-.LFB64
- 652 0028 00000000 		.4byte	.LFB66
- 653 002c 08000000 		.4byte	.LFE66-.LFB66
- 654 0030 00000000 		.4byte	0
- 655 0034 00000000 		.4byte	0
- 656              		.section	.debug_ranges,"",%progbits
- 657              	.Ldebug_ranges0:
- 658 0000 00000000 		.4byte	.LFB65
- 659 0004 0C000000 		.4byte	.LFE65
- 660 0008 00000000 		.4byte	.LFB63
- 661 000c 0E000000 		.4byte	.LFE63
- 662 0010 00000000 		.4byte	.LFB64
- 663 0014 4C000000 		.4byte	.LFE64
- 664 0018 00000000 		.4byte	.LFB66
- 665 001c 08000000 		.4byte	.LFE66
- 666 0020 00000000 		.4byte	0
- 667 0024 00000000 		.4byte	0
- 668              		.section	.debug_line,"",%progbits
- 669              	.Ldebug_line0:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 15
+ 553 009d 9F       		.byte	0x9f
+ 554 009e 48000000 		.4byte	.LVL12
+ 555 00a2 4C000000 		.4byte	.LVL14
+ 556 00a6 0200     		.2byte	0x2
+ 557 00a8 30       		.byte	0x30
+ 558 00a9 9F       		.byte	0x9f
+ 559 00aa 4E000000 		.4byte	.LVL15
+ 560 00ae 50000000 		.4byte	.LFE63
+ 561 00b2 0100     		.2byte	0x1
+ 562 00b4 50       		.byte	0x50
+ 563 00b5 00000000 		.4byte	0
+ 564 00b9 00000000 		.4byte	0
+ 565              		.section	.debug_aranges,"",%progbits
+ 566 0000 24000000 		.4byte	0x24
+ 567 0004 0200     		.2byte	0x2
+ 568 0006 00000000 		.4byte	.Ldebug_info0
+ 569 000a 04       		.byte	0x4
+ 570 000b 00       		.byte	0
+ 571 000c 0000     		.2byte	0
+ 572 000e 0000     		.2byte	0
+ 573 0010 00000000 		.4byte	.LFB63
+ 574 0014 50000000 		.4byte	.LFE63-.LFB63
+ 575 0018 00000000 		.4byte	.LFB64
+ 576 001c 08000000 		.4byte	.LFE64-.LFB64
+ 577 0020 00000000 		.4byte	0
+ 578 0024 00000000 		.4byte	0
+ 579              		.section	.debug_ranges,"",%progbits
+ 580              	.Ldebug_ranges0:
+ 581 0000 00000000 		.4byte	.LFB63
+ 582 0004 50000000 		.4byte	.LFE63
+ 583 0008 00000000 		.4byte	.LFB64
+ 584 000c 08000000 		.4byte	.LFE64
+ 585 0010 00000000 		.4byte	0
+ 586 0014 00000000 		.4byte	0
+ 587              		.section	.debug_line,"",%progbits
+ 588              	.Ldebug_line0:
+ 589 0000 A6010000 		.section	.debug_str,"MS",%progbits,1
+ 589      02006C01 
+ 589      00000201 
+ 589      FB0E0D00 
+ 589      01010101 
+ 590              	.LASF8:
+ 591 0000 6C6F6E67 		.ascii	"long long int\000"
+ 591      206C6F6E 
+ 591      6720696E 
+ 591      7400
+ 592              	.LASF3:
+ 593 000e 73686F72 		.ascii	"short unsigned int\000"
+ 593      7420756E 
+ 593      7369676E 
+ 593      65642069 
+ 593      6E7400
+ 594              	.LASF10:
+ 595 0021 756E7369 		.ascii	"unsigned int\000"
+ 595      676E6564 
+ 595      20696E74 
+ 595      00
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccnkx3SI.s 			page 13
 
 
- 670 0000 CB010000 		.section	.debug_str,"MS",%progbits,1
- 670      02006C01 
- 670      00000201 
- 670      FB0E0D00 
- 670      01010101 
- 671              	.LASF26:
- 672 0000 53656C65 		.ascii	"Selector_In_Read\000"
- 672      63746F72 
- 672      5F496E5F 
- 672      52656164 
- 672      00
- 673              	.LASF4:
- 674 0011 5F5F7569 		.ascii	"__uint8_t\000"
- 674      6E74385F 
- 674      7400
- 675              	.LASF20:
- 676 001b 73656C65 		.ascii	"selected_strategy\000"
- 676      63746564 
- 676      5F737472 
- 676      61746567 
- 676      7900
- 677              	.LASF23:
- 678 002d 52656164 		.ascii	"Read_Rotary_Switch\000"
- 678      5F526F74 
- 678      6172795F 
- 678      53776974 
- 678      636800
- 679              	.LASF5:
- 680 0040 5F5F696E 		.ascii	"__int32_t\000"
- 680      7433325F 
- 680      7400
- 681              	.LASF13:
- 682 004a 666C6F61 		.ascii	"float\000"
- 682      7400
- 683              	.LASF0:
- 684 0050 7369676E 		.ascii	"signed char\000"
- 684      65642063 
- 684      68617200 
- 685              	.LASF27:
- 686 005c 426F6F73 		.ascii	"Boost_Button_Read\000"
- 686      745F4275 
- 686      74746F6E 
- 686      5F526561 
- 686      6400
- 687              	.LASF28:
- 688 006e 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 688      43313120 
- 688      352E342E 
- 688      31203230 
- 688      31363036 
- 689 00a1 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
- 689      20726576 
- 689      6973696F 
- 689      6E203233 
- 689      37373135 
- 690 00d4 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 690      66756E63 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 16
+ 596              	.LASF22:
+ 597 002e 626F6F73 		.ascii	"boost_button_state\000"
+ 597      745F6275 
+ 597      74746F6E 
+ 597      5F737461 
+ 597      746500
+ 598              	.LASF25:
+ 599 0041 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 599      43313120 
+ 599      352E342E 
+ 599      31203230 
+ 599      31363036 
+ 600 0074 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 600      20726576 
+ 600      6973696F 
+ 600      6E203233 
+ 600      37373135 
+ 601 00a7 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 601      66756E63 
+ 601      74696F6E 
+ 601      2D736563 
+ 601      74696F6E 
+ 602              	.LASF12:
+ 603 00cf 696E7433 		.ascii	"int32_t\000"
+ 603      325F7400 
+ 604              	.LASF7:
+ 605 00d7 6C6F6E67 		.ascii	"long unsigned int\000"
+ 605      20756E73 
+ 605      69676E65 
+ 605      6420696E 
+ 605      7400
+ 606              	.LASF23:
+ 607 00e9 53656C65 		.ascii	"Selector_In_Read\000"
+ 607      63746F72 
+ 607      5F496E5F 
+ 607      52656164 
+ 607      00
+ 608              	.LASF9:
+ 609 00fa 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 609      206C6F6E 
+ 609      6720756E 
+ 609      7369676E 
+ 609      65642069 
+ 610              	.LASF4:
+ 611 0111 5F5F7569 		.ascii	"__uint8_t\000"
+ 611      6E74385F 
+ 611      7400
+ 612              	.LASF13:
+ 613 011b 666C6F61 		.ascii	"float\000"
+ 613      7400
+ 614              	.LASF11:
+ 615 0121 75696E74 		.ascii	"uint8_t\000"
+ 615      385F7400 
+ 616              	.LASF1:
+ 617 0129 756E7369 		.ascii	"unsigned char\000"
+ 617      676E6564 
+ 617      20636861 
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccnkx3SI.s 			page 14
 
 
- 690      74696F6E 
- 690      2D736563 
- 690      74696F6E 
- 691              	.LASF7:
- 692 00fc 6C6F6E67 		.ascii	"long unsigned int\000"
- 692      20756E73 
- 692      69676E65 
- 692      6420696E 
- 692      7400
- 693              	.LASF3:
- 694 010e 73686F72 		.ascii	"short unsigned int\000"
- 694      7420756E 
- 694      7369676E 
- 694      65642069 
- 694      6E7400
- 695              	.LASF31:
- 696 0121 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 696      52784275 
- 696      66666572 
- 696      00
- 697              	.LASF1:
- 698 012e 756E7369 		.ascii	"unsigned char\000"
- 698      676E6564 
- 698      20636861 
- 698      7200
- 699              	.LASF14:
- 700 013c 646F7562 		.ascii	"double\000"
- 700      6C6500
- 701              	.LASF21:
- 702 0143 6465636F 		.ascii	"decoded_strategy\000"
- 702      6465645F 
- 702      73747261 
- 702      74656779 
- 702      00
- 703              	.LASF10:
- 704 0154 756E7369 		.ascii	"unsigned int\000"
- 704      676E6564 
- 704      20696E74 
- 704      00
- 705              	.LASF22:
- 706 0161 636F6465 		.ascii	"coded_strategy\000"
- 706      645F7374 
- 706      72617465 
- 706      677900
- 707              	.LASF18:
- 708 0170 52656164 		.ascii	"Read_Strategy_Selector\000"
- 708      5F537472 
- 708      61746567 
- 708      795F5365 
- 708      6C656374 
- 709              	.LASF9:
- 710 0187 6C6F6E67 		.ascii	"long long unsigned int\000"
- 710      206C6F6E 
- 710      6720756E 
- 710      7369676E 
- 710      65642069 
- 711              	.LASF11:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 17
+ 617      7200
+ 618              	.LASF15:
+ 619 0137 63686172 		.ascii	"char\000"
+ 619      00
+ 620              	.LASF20:
+ 621 013c 52656164 		.ascii	"Read_Rotary_Switch\000"
+ 621      5F526F74 
+ 621      6172795F 
+ 621      53776974 
+ 621      636800
+ 622              	.LASF6:
+ 623 014f 6C6F6E67 		.ascii	"long int\000"
+ 623      20696E74 
+ 623      00
+ 624              	.LASF21:
+ 625 0158 52656164 		.ascii	"Read_Boost_Button\000"
+ 625      5F426F6F 
+ 625      73745F42 
+ 625      7574746F 
+ 625      6E00
+ 626              	.LASF14:
+ 627 016a 646F7562 		.ascii	"double\000"
+ 627      6C6500
+ 628              	.LASF16:
+ 629 0171 6C6F6E67 		.ascii	"long double\000"
+ 629      20646F75 
+ 629      626C6500 
+ 630              	.LASF26:
+ 631 017d 7372635C 		.ascii	"src\\user_input.c\000"
+ 631      75736572 
+ 631      5F696E70 
+ 631      75742E63 
+ 631      00
+ 632              	.LASF28:
+ 633 018e 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 633      52784275 
+ 633      66666572 
+ 633      00
+ 634              	.LASF0:
+ 635 019b 7369676E 		.ascii	"signed char\000"
+ 635      65642063 
+ 635      68617200 
+ 636              	.LASF27:
+ 637 01a7 433A5C55 		.ascii	"C:\\Users\\badea\\Documents\\PSoC Creator\\can_bun\\"
+ 637      73657273 
+ 637      5C626164 
+ 637      65615C44 
+ 637      6F63756D 
+ 638 01d5 48434D5F 		.ascii	"HCM_UPBDrive.cydsn\000"
+ 638      55504244 
+ 638      72697665 
+ 638      2E637964 
+ 638      736E00
+ 639              	.LASF5:
+ 640 01e8 5F5F696E 		.ascii	"__int32_t\000"
+ 640      7433325F 
+ 640      7400
+ARM GAS  C:\Users\badea\AppData\Local\Temp\ccnkx3SI.s 			page 15
 
 
- 712 019e 75696E74 		.ascii	"uint8_t\000"
- 712      385F7400 
- 713              	.LASF19:
- 714 01a6 52656164 		.ascii	"Read_Binary_Selector\000"
- 714      5F42696E 
- 714      6172795F 
- 714      53656C65 
- 714      63746F72 
- 715              	.LASF12:
- 716 01bb 696E7433 		.ascii	"int32_t\000"
- 716      325F7400 
- 717              	.LASF25:
- 718 01c3 626F6F73 		.ascii	"boost_button_state\000"
- 718      745F6275 
- 718      74746F6E 
- 718      5F737461 
- 718      746500
- 719              	.LASF17:
- 720 01d6 73697A65 		.ascii	"sizetype\000"
- 720      74797065 
- 720      00
- 721              	.LASF8:
- 722 01df 6C6F6E67 		.ascii	"long long int\000"
- 722      206C6F6E 
- 722      6720696E 
- 722      7400
- 723              	.LASF15:
- 724 01ed 63686172 		.ascii	"char\000"
- 724      00
- 725              	.LASF2:
- 726 01f2 73686F72 		.ascii	"short int\000"
- 726      7420696E 
- 726      7400
- 727              	.LASF6:
- 728 01fc 6C6F6E67 		.ascii	"long int\000"
- 728      20696E74 
- 728      00
- 729              	.LASF16:
- 730 0205 6C6F6E67 		.ascii	"long double\000"
- 730      20646F75 
- 730      626C6500 
- 731              	.LASF30:
- 732 0211 433A5C55 		.ascii	"C:\\Users\\badea\\Documents\\PSoC Creator\\can_bun\\"
- 732      73657273 
- 732      5C626164 
- 732      65615C44 
- 732      6F63756D 
- 733 023f 48434D5F 		.ascii	"HCM_UPBDrive.cydsn\000"
- 733      55504244 
- 733      72697665 
- 733      2E637964 
- 733      736E00
- 734              	.LASF29:
- 735 0252 7372635C 		.ascii	"src\\user_input.c\000"
- 735      75736572 
- 735      5F696E70 
- 735      75742E63 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccNCOHQp.s 			page 18
-
-
- 735      00
- 736              	.LASF24:
- 737 0263 52656164 		.ascii	"Read_Boost_Button\000"
- 737      5F426F6F 
- 737      73745F42 
- 737      7574746F 
- 737      6E00
- 738              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 641              	.LASF19:
+ 642 01f2 6465636F 		.ascii	"decoded_strategy\000"
+ 642      6465645F 
+ 642      73747261 
+ 642      74656779 
+ 642      00
+ 643              	.LASF2:
+ 644 0203 73686F72 		.ascii	"short int\000"
+ 644      7420696E 
+ 644      7400
+ 645              	.LASF24:
+ 646 020d 426F6F73 		.ascii	"Boost_Button_Read\000"
+ 646      745F4275 
+ 646      74746F6E 
+ 646      5F526561 
+ 646      6400
+ 647              	.LASF18:
+ 648 021f 636F6465 		.ascii	"coded_strategy\000"
+ 648      645F7374 
+ 648      72617465 
+ 648      677900
+ 649              	.LASF17:
+ 650 022e 73697A65 		.ascii	"sizetype\000"
+ 650      74797065 
+ 650      00
+ 651              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

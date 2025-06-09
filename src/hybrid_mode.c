@@ -242,7 +242,7 @@ void Set_Strategy_Auto_Always_Regen()
  * Function:    Set_Strategy_Torque_Fill
  * Description: Provides full torque when:
  *              - TPS > 50
- *              - RPM ∈ [2000, 8000]
+ *              - RPM between [2000, 8000]
  *              - Brake is not pressed
  *              Applies regenerative braking when brake is pressed.
  *              Falls back to Freewheel otherwise.

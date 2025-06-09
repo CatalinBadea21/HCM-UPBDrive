@@ -52,9 +52,7 @@ int main()
             if (STD_ON == car_state.engine_state) // ICE is running
             {
                 /* Select which function based on HW selector */
-                //user_strategy = Read_Binary_Selector();
                 user_strategy = Read_Rotary_Switch();
-                //user_strategy = AUTO_NOREGEN_S; // Hard-codded, to be deleted!!
                 
                 AIR_enable_Write(STD_ON); // Enable the AIR
                 
@@ -80,5 +78,4 @@ int main()
     CyDelay(50u); // Delay for 50 ms
     }
 }
-
 /* [] END OF FILE */

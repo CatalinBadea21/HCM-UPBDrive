@@ -17,11 +17,20 @@
 #include <Boost_Button.h>
 
 /**********************************************************************************************************************
+* Defines
+***********************************************************************************************************************/
+#define FREEWHEEL_S 0u
+#define MANUAL_S 1u
+#define LAUNCH_S 2u
+#define AUTO_NOREGEN_S 3u
+#define AUTO_BRAKEREGEN_S 4u
+#define AUTO_ALLREGEN_S 5u
+#define TORQUE_FILL_S 6u
+    
+/**********************************************************************************************************************
 * Function declarations
 ***********************************************************************************************************************/
 uint8_t Read_Rotary_Switch();
-uint8_t Read_Binary_Selector();
-uint8_t Read_Strategy_Selector();
 uint8_t Read_Boost_Button();
 
 #endif /* USER_INPUT_H */
