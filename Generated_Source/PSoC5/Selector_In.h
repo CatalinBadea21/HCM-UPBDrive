@@ -68,7 +68,7 @@ uint8   Selector_In_ClearInterrupt(void);
 /* Digital Port Constants */
 #define Selector_In_MASK               Selector_In__MASK
 #define Selector_In_SHIFT              Selector_In__SHIFT
-#define Selector_In_WIDTH              6u
+#define Selector_In_WIDTH              5u
 
 /* Interrupt constants */
 #if defined(Selector_In__INTSTAT)
@@ -159,7 +159,6 @@ uint8   Selector_In_ClearInterrupt(void);
 	#define Selector_In_2_INTTYPE_REG 		(* (reg8 *) Selector_In__2__INTTYPE)
 	#define Selector_In_3_INTTYPE_REG 		(* (reg8 *) Selector_In__3__INTTYPE)
 	#define Selector_In_4_INTTYPE_REG 		(* (reg8 *) Selector_In__4__INTTYPE)
-	#define Selector_In_5_INTTYPE_REG 		(* (reg8 *) Selector_In__5__INTTYPE)
 #endif /* (Selector_In__INTSTAT) */
 
 #endif /* CY_PSOC5A... */

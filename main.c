@@ -39,10 +39,10 @@ void init()
  */
 int main()
 {
-    uint8_t user_strategy, rx_reattempt_ctr = 0;
+    volatile uint8_t user_strategy, rx_reattempt_ctr = 0;
     
     init(); // Initialize CAN and interrupts
-
+    
     while(1) // Infinite loop
     {
         if (STD_ON == CAN_Read_From_ECU()) // CAN read was successful
@@ -74,7 +74,7 @@ int main()
                 rx_reattempt_ctr++; // Increase the reattempt counter if CAN RX failed
             }
         }
-               
+              
     CyDelay(50u); // Delay for 50 ms
     }
 }

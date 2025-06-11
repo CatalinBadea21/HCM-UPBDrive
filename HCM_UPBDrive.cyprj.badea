@@ -11,154 +11,6 @@
 <CyGuid_f44455c5-3770-4452-b988-0a7a7ff46256 type_name="CyDesigner.Common.ProjMgmt.Model.CyConfigDependencies" version="1">
 <dependency_info name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3" xml_contents_version="2">
 <CyGuid_1173175f-1b9b-4ad4-a065-754a48a27021 type_name="CyDesigner.Common.Base.CyFileDeps" version="1">
-<file name=".\CortexM3\ARM_GCC_541\Debug\main.o">
-<dep name=".\Generated_Source\PSoC5\AIR_enable.h" />
-<dep name=".\Generated_Source\PSoC5\AIR_enable_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\Boost_Button.h" />
-<dep name=".\Generated_Source\PSoC5\Boost_Button_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\CAN.h" />
-<dep name=".\Generated_Source\PSoC5\CAN_RX.h" />
-<dep name=".\Generated_Source\PSoC5\CAN_RX_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\CAN_TX.h" />
-<dep name=".\Generated_Source\PSoC5\CAN_TX_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\CyDmac.h" />
-<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
-<dep name=".\Generated_Source\PSoC5\CyLib.h" />
-<dep name=".\Generated_Source\PSoC5\CySpc.h" />
-<dep name=".\Generated_Source\PSoC5\Selector_In.h" />
-<dep name=".\Generated_Source\PSoC5\Selector_In_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\cmsis_armcc.h" />
-<dep name=".\Generated_Source\PSoC5\cmsis_compiler.h" />
-<dep name=".\Generated_Source\PSoC5\cmsis_gcc.h" />
-<dep name=".\Generated_Source\PSoC5\core_cm3.h" />
-<dep name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
-<dep name=".\Generated_Source\PSoC5\cyPm.h" />
-<dep name=".\Generated_Source\PSoC5\cy_em_eeprom.h" />
-<dep name=".\Generated_Source\PSoC5\cydevice.h" />
-<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
-<dep name=".\Generated_Source\PSoC5\cydisabledsheets.h" />
-<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
-<dep name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
-<dep name=".\Generated_Source\PSoC5\cypins.h" />
-<dep name=".\Generated_Source\PSoC5\cytypes.h" />
-<dep name=".\Generated_Source\PSoC5\project.h" />
-<dep name=".\cyapicallbacks.h" />
-<dep name=".\include\can_comm.h" />
-<dep name=".\include\hybrid_mode.h" />
-<dep name=".\include\user_input.h" />
-<dep name=".\main.c" />
-</file>
-<file name=".\Generated_Source\PSoC5\AIR_enable.h" />
-<file name=".\Generated_Source\PSoC5\AIR_enable_aliases.h" />
-<file name=".\Generated_Source\PSoC5\Boost_Button.h" />
-<file name=".\Generated_Source\PSoC5\Boost_Button_aliases.h" />
-<file name=".\Generated_Source\PSoC5\CAN.h" />
-<file name=".\Generated_Source\PSoC5\CAN_RX.h" />
-<file name=".\Generated_Source\PSoC5\CAN_RX_aliases.h" />
-<file name=".\Generated_Source\PSoC5\CAN_TX.h" />
-<file name=".\Generated_Source\PSoC5\CAN_TX_aliases.h" />
-<file name=".\Generated_Source\PSoC5\CyDmac.h" />
-<file name=".\Generated_Source\PSoC5\CyFlash.h" />
-<file name=".\Generated_Source\PSoC5\CyLib.h" />
-<file name=".\Generated_Source\PSoC5\CySpc.h" />
-<file name=".\Generated_Source\PSoC5\Selector_In.h" />
-<file name=".\Generated_Source\PSoC5\Selector_In_aliases.h" />
-<file name=".\Generated_Source\PSoC5\cmsis_armcc.h" />
-<file name=".\Generated_Source\PSoC5\cmsis_compiler.h" />
-<file name=".\Generated_Source\PSoC5\cmsis_gcc.h" />
-<file name=".\Generated_Source\PSoC5\core_cm3.h" />
-<file name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
-<file name=".\Generated_Source\PSoC5\cyPm.h" />
-<file name=".\Generated_Source\PSoC5\cy_em_eeprom.h" />
-<file name=".\Generated_Source\PSoC5\cydevice.h" />
-<file name=".\Generated_Source\PSoC5\cydevice_trm.h" />
-<file name=".\Generated_Source\PSoC5\cydisabledsheets.h" />
-<file name=".\Generated_Source\PSoC5\cyfitter.h" />
-<file name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
-<file name=".\Generated_Source\PSoC5\cypins.h" />
-<file name=".\Generated_Source\PSoC5\cytypes.h" />
-<file name=".\Generated_Source\PSoC5\project.h" />
-<file name=".\cyapicallbacks.h" />
-<file name=".\include\can_comm.h" />
-<file name=".\include\hybrid_mode.h" />
-<file name=".\include\user_input.h" />
-<file name=".\main.c" />
-<file name=".\CortexM3\ARM_GCC_541\Debug\can_comm.o">
-<dep name=".\Generated_Source\PSoC5\AIR_enable.h" />
-<dep name=".\Generated_Source\PSoC5\AIR_enable_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\Boost_Button.h" />
-<dep name=".\Generated_Source\PSoC5\Boost_Button_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\CAN.h" />
-<dep name=".\Generated_Source\PSoC5\CAN_RX.h" />
-<dep name=".\Generated_Source\PSoC5\CAN_RX_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\CAN_TX.h" />
-<dep name=".\Generated_Source\PSoC5\CAN_TX_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\CyDmac.h" />
-<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
-<dep name=".\Generated_Source\PSoC5\CyLib.h" />
-<dep name=".\Generated_Source\PSoC5\CySpc.h" />
-<dep name=".\Generated_Source\PSoC5\Selector_In.h" />
-<dep name=".\Generated_Source\PSoC5\Selector_In_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\cmsis_armcc.h" />
-<dep name=".\Generated_Source\PSoC5\cmsis_compiler.h" />
-<dep name=".\Generated_Source\PSoC5\cmsis_gcc.h" />
-<dep name=".\Generated_Source\PSoC5\core_cm3.h" />
-<dep name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
-<dep name=".\Generated_Source\PSoC5\cyPm.h" />
-<dep name=".\Generated_Source\PSoC5\cy_em_eeprom.h" />
-<dep name=".\Generated_Source\PSoC5\cydevice.h" />
-<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
-<dep name=".\Generated_Source\PSoC5\cydisabledsheets.h" />
-<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
-<dep name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
-<dep name=".\Generated_Source\PSoC5\cypins.h" />
-<dep name=".\Generated_Source\PSoC5\cytypes.h" />
-<dep name=".\Generated_Source\PSoC5\project.h" />
-<dep name=".\cyapicallbacks.h" />
-<dep name=".\include\can_comm.h" />
-<dep name=".\include\hybrid_mode.h" />
-<dep name=".\include\user_input.h" />
-<dep name=".\src\can_comm.c" />
-</file>
-<file name=".\src\can_comm.c" />
-<file name=".\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o">
-<dep name=".\Generated_Source\PSoC5\AIR_enable.h" />
-<dep name=".\Generated_Source\PSoC5\AIR_enable_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\Boost_Button.h" />
-<dep name=".\Generated_Source\PSoC5\Boost_Button_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\CAN.h" />
-<dep name=".\Generated_Source\PSoC5\CAN_RX.h" />
-<dep name=".\Generated_Source\PSoC5\CAN_RX_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\CAN_TX.h" />
-<dep name=".\Generated_Source\PSoC5\CAN_TX_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\CyDmac.h" />
-<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
-<dep name=".\Generated_Source\PSoC5\CyLib.h" />
-<dep name=".\Generated_Source\PSoC5\CySpc.h" />
-<dep name=".\Generated_Source\PSoC5\Selector_In.h" />
-<dep name=".\Generated_Source\PSoC5\Selector_In_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\cmsis_armcc.h" />
-<dep name=".\Generated_Source\PSoC5\cmsis_compiler.h" />
-<dep name=".\Generated_Source\PSoC5\cmsis_gcc.h" />
-<dep name=".\Generated_Source\PSoC5\core_cm3.h" />
-<dep name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
-<dep name=".\Generated_Source\PSoC5\cyPm.h" />
-<dep name=".\Generated_Source\PSoC5\cy_em_eeprom.h" />
-<dep name=".\Generated_Source\PSoC5\cydevice.h" />
-<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
-<dep name=".\Generated_Source\PSoC5\cydisabledsheets.h" />
-<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
-<dep name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
-<dep name=".\Generated_Source\PSoC5\cypins.h" />
-<dep name=".\Generated_Source\PSoC5\cytypes.h" />
-<dep name=".\Generated_Source\PSoC5\project.h" />
-<dep name=".\cyapicallbacks.h" />
-<dep name=".\include\can_comm.h" />
-<dep name=".\include\hybrid_mode.h" />
-<dep name=".\include\user_input.h" />
-<dep name=".\src\hybrid_mode.c" />
-</file>
-<file name=".\src\hybrid_mode.c" />
 <file name=".\CortexM3\ARM_GCC_541\Debug\user_input.o">
 <dep name=".\Generated_Source\PSoC5\AIR_enable.h" />
 <dep name=".\Generated_Source\PSoC5\AIR_enable_aliases.h" />
@@ -173,8 +25,16 @@
 <dep name=".\Generated_Source\PSoC5\CyFlash.h" />
 <dep name=".\Generated_Source\PSoC5\CyLib.h" />
 <dep name=".\Generated_Source\PSoC5\CySpc.h" />
-<dep name=".\Generated_Source\PSoC5\Selector_In.h" />
-<dep name=".\Generated_Source\PSoC5\Selector_In_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_1.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_1_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_2.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_2_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_3.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_3_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_4.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_4_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_5.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_5_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\cmsis_armcc.h" />
 <dep name=".\Generated_Source\PSoC5\cmsis_compiler.h" />
 <dep name=".\Generated_Source\PSoC5\cmsis_gcc.h" />
@@ -194,11 +54,47 @@
 <dep name=".\include\user_input.h" />
 <dep name=".\src\user_input.c" />
 </file>
+<file name=".\Generated_Source\PSoC5\AIR_enable.h" />
+<file name=".\Generated_Source\PSoC5\AIR_enable_aliases.h" />
+<file name=".\Generated_Source\PSoC5\Boost_Button.h" />
+<file name=".\Generated_Source\PSoC5\Boost_Button_aliases.h" />
+<file name=".\Generated_Source\PSoC5\CAN.h" />
+<file name=".\Generated_Source\PSoC5\CAN_RX.h" />
+<file name=".\Generated_Source\PSoC5\CAN_RX_aliases.h" />
+<file name=".\Generated_Source\PSoC5\CAN_TX.h" />
+<file name=".\Generated_Source\PSoC5\CAN_TX_aliases.h" />
+<file name=".\Generated_Source\PSoC5\CyDmac.h" />
+<file name=".\Generated_Source\PSoC5\CyFlash.h" />
+<file name=".\Generated_Source\PSoC5\CyLib.h" />
+<file name=".\Generated_Source\PSoC5\CySpc.h" />
+<file name=".\Generated_Source\PSoC5\Selector_In_1.h" />
+<file name=".\Generated_Source\PSoC5\Selector_In_1_aliases.h" />
+<file name=".\Generated_Source\PSoC5\Selector_In_2.h" />
+<file name=".\Generated_Source\PSoC5\Selector_In_2_aliases.h" />
+<file name=".\Generated_Source\PSoC5\Selector_In_3.h" />
+<file name=".\Generated_Source\PSoC5\Selector_In_3_aliases.h" />
+<file name=".\Generated_Source\PSoC5\Selector_In_4.h" />
+<file name=".\Generated_Source\PSoC5\Selector_In_4_aliases.h" />
+<file name=".\Generated_Source\PSoC5\Selector_In_5.h" />
+<file name=".\Generated_Source\PSoC5\Selector_In_5_aliases.h" />
+<file name=".\Generated_Source\PSoC5\cmsis_armcc.h" />
+<file name=".\Generated_Source\PSoC5\cmsis_compiler.h" />
+<file name=".\Generated_Source\PSoC5\cmsis_gcc.h" />
+<file name=".\Generated_Source\PSoC5\core_cm3.h" />
+<file name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
+<file name=".\Generated_Source\PSoC5\cyPm.h" />
+<file name=".\Generated_Source\PSoC5\cy_em_eeprom.h" />
+<file name=".\Generated_Source\PSoC5\cydevice.h" />
+<file name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<file name=".\Generated_Source\PSoC5\cydisabledsheets.h" />
+<file name=".\Generated_Source\PSoC5\cyfitter.h" />
+<file name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
+<file name=".\Generated_Source\PSoC5\cypins.h" />
+<file name=".\Generated_Source\PSoC5\cytypes.h" />
+<file name=".\Generated_Source\PSoC5\project.h" />
+<file name=".\cyapicallbacks.h" />
+<file name=".\include\user_input.h" />
 <file name=".\src\user_input.c" />
-<file name=".\CortexM3\ARM_GCC_541\Debug\cymetadata.o">
-<dep name=".\Generated_Source\PSoC5\cymetadata.c" />
-</file>
-<file name=".\Generated_Source\PSoC5\cymetadata.c" />
 <file name=".\CortexM3\ARM_GCC_541\Debug\AIR_enable.o">
 <dep name=".\Generated_Source\PSoC5\AIR_enable.c" />
 <dep name=".\Generated_Source\PSoC5\AIR_enable.h" />
@@ -363,17 +259,61 @@
 <dep name=".\Generated_Source\PSoC5\cytypes.h" />
 </file>
 <file name=".\Generated_Source\PSoC5\CySpc.c" />
-<file name=".\CortexM3\ARM_GCC_541\Debug\Selector_In.o">
-<dep name=".\Generated_Source\PSoC5\Selector_In.c" />
-<dep name=".\Generated_Source\PSoC5\Selector_In.h" />
-<dep name=".\Generated_Source\PSoC5\Selector_In_aliases.h" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\Selector_In_1.o">
+<dep name=".\Generated_Source\PSoC5\Selector_In_1.c" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_1.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\cydevice.h" />
 <dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
 <dep name=".\Generated_Source\PSoC5\cyfitter.h" />
 <dep name=".\Generated_Source\PSoC5\cypins.h" />
 <dep name=".\Generated_Source\PSoC5\cytypes.h" />
 </file>
-<file name=".\Generated_Source\PSoC5\Selector_In.c" />
+<file name=".\Generated_Source\PSoC5\Selector_In_1.c" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\Selector_In_2.o">
+<dep name=".\Generated_Source\PSoC5\Selector_In_2.c" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_2.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_2_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cypins.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+</file>
+<file name=".\Generated_Source\PSoC5\Selector_In_2.c" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\Selector_In_3.o">
+<dep name=".\Generated_Source\PSoC5\Selector_In_3.c" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_3.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_3_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cypins.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+</file>
+<file name=".\Generated_Source\PSoC5\Selector_In_3.c" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\Selector_In_4.o">
+<dep name=".\Generated_Source\PSoC5\Selector_In_4.c" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_4.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_4_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cypins.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+</file>
+<file name=".\Generated_Source\PSoC5\Selector_In_4.c" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\Selector_In_5.o">
+<dep name=".\Generated_Source\PSoC5\Selector_In_5.c" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_5.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_5_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cypins.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+</file>
+<file name=".\Generated_Source\PSoC5\Selector_In_5.c" />
 <file name=".\CortexM3\ARM_GCC_541\Debug\cyPm.o">
 <dep name=".\Generated_Source\PSoC5\CyFlash.h" />
 <dep name=".\Generated_Source\PSoC5\CyLib.h" />
@@ -414,6 +354,10 @@
 <dep name=".\cyapicallbacks.h" />
 </file>
 <file name=".\Generated_Source\PSoC5\cyfitter_cfg.c" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\cymetadata.o">
+<dep name=".\Generated_Source\PSoC5\cymetadata.c" />
+</file>
+<file name=".\Generated_Source\PSoC5\cymetadata.c" />
 <file name=".\CortexM3\ARM_GCC_541\Debug\cyutils.o">
 <dep name=".\Generated_Source\PSoC5\cydevice.h" />
 <dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
@@ -422,6 +366,146 @@
 <dep name=".\Generated_Source\PSoC5\cyutils.c" />
 </file>
 <file name=".\Generated_Source\PSoC5\cyutils.c" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\main.o">
+<dep name=".\Generated_Source\PSoC5\cmsis_armcc.h" />
+<dep name=".\Generated_Source\PSoC5\cmsis_compiler.h" />
+<dep name=".\Generated_Source\PSoC5\cmsis_gcc.h" />
+<dep name=".\Generated_Source\PSoC5\core_cm3.h" />
+<dep name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
+<dep name=".\Generated_Source\PSoC5\cydisabledsheets.h" />
+<dep name=".\Generated_Source\PSoC5\project.h" />
+<dep name=".\Generated_Source\PSoC5\AIR_enable.h" />
+<dep name=".\Generated_Source\PSoC5\AIR_enable_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Boost_Button.h" />
+<dep name=".\Generated_Source\PSoC5\Boost_Button_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\CAN.h" />
+<dep name=".\Generated_Source\PSoC5\CAN_RX.h" />
+<dep name=".\Generated_Source\PSoC5\CAN_RX_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\CAN_TX.h" />
+<dep name=".\Generated_Source\PSoC5\CAN_TX_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\CyDmac.h" />
+<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
+<dep name=".\Generated_Source\PSoC5\CyLib.h" />
+<dep name=".\Generated_Source\PSoC5\CySpc.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_1.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_1_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_2.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_2_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_3.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_3_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_4.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_4_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_5.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_5_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\cyPm.h" />
+<dep name=".\Generated_Source\PSoC5\cy_em_eeprom.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
+<dep name=".\Generated_Source\PSoC5\cypins.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+<dep name=".\cyapicallbacks.h" />
+<dep name=".\include\can_comm.h" />
+<dep name=".\include\hybrid_mode.h" />
+<dep name=".\include\user_input.h" />
+<dep name=".\main.c" />
+</file>
+<file name=".\include\can_comm.h" />
+<file name=".\include\hybrid_mode.h" />
+<file name=".\main.c" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\can_comm.o">
+<dep name=".\Generated_Source\PSoC5\cmsis_armcc.h" />
+<dep name=".\Generated_Source\PSoC5\cmsis_compiler.h" />
+<dep name=".\Generated_Source\PSoC5\cmsis_gcc.h" />
+<dep name=".\Generated_Source\PSoC5\core_cm3.h" />
+<dep name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
+<dep name=".\Generated_Source\PSoC5\cydisabledsheets.h" />
+<dep name=".\Generated_Source\PSoC5\project.h" />
+<dep name=".\Generated_Source\PSoC5\AIR_enable.h" />
+<dep name=".\Generated_Source\PSoC5\AIR_enable_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Boost_Button.h" />
+<dep name=".\Generated_Source\PSoC5\Boost_Button_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\CAN.h" />
+<dep name=".\Generated_Source\PSoC5\CAN_RX.h" />
+<dep name=".\Generated_Source\PSoC5\CAN_RX_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\CAN_TX.h" />
+<dep name=".\Generated_Source\PSoC5\CAN_TX_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\CyDmac.h" />
+<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
+<dep name=".\Generated_Source\PSoC5\CyLib.h" />
+<dep name=".\Generated_Source\PSoC5\CySpc.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_1.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_1_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_2.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_2_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_3.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_3_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_4.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_4_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_5.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_5_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\cyPm.h" />
+<dep name=".\Generated_Source\PSoC5\cy_em_eeprom.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
+<dep name=".\Generated_Source\PSoC5\cypins.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+<dep name=".\cyapicallbacks.h" />
+<dep name=".\include\can_comm.h" />
+<dep name=".\include\hybrid_mode.h" />
+<dep name=".\include\user_input.h" />
+<dep name=".\src\can_comm.c" />
+</file>
+<file name=".\src\can_comm.c" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\hybrid_mode.o">
+<dep name=".\Generated_Source\PSoC5\cmsis_armcc.h" />
+<dep name=".\Generated_Source\PSoC5\cmsis_compiler.h" />
+<dep name=".\Generated_Source\PSoC5\cmsis_gcc.h" />
+<dep name=".\Generated_Source\PSoC5\core_cm3.h" />
+<dep name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
+<dep name=".\Generated_Source\PSoC5\cydisabledsheets.h" />
+<dep name=".\Generated_Source\PSoC5\project.h" />
+<dep name=".\Generated_Source\PSoC5\AIR_enable.h" />
+<dep name=".\Generated_Source\PSoC5\AIR_enable_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Boost_Button.h" />
+<dep name=".\Generated_Source\PSoC5\Boost_Button_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\CAN.h" />
+<dep name=".\Generated_Source\PSoC5\CAN_RX.h" />
+<dep name=".\Generated_Source\PSoC5\CAN_RX_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\CAN_TX.h" />
+<dep name=".\Generated_Source\PSoC5\CAN_TX_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\CyDmac.h" />
+<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
+<dep name=".\Generated_Source\PSoC5\CyLib.h" />
+<dep name=".\Generated_Source\PSoC5\CySpc.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_1.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_1_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_2.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_2_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_3.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_3_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_4.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_4_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_5.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_5_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\cyPm.h" />
+<dep name=".\Generated_Source\PSoC5\cy_em_eeprom.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
+<dep name=".\Generated_Source\PSoC5\cypins.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+<dep name=".\cyapicallbacks.h" />
+<dep name=".\include\can_comm.h" />
+<dep name=".\include\hybrid_mode.h" />
+<dep name=".\include\user_input.h" />
+<dep name=".\src\hybrid_mode.c" />
+</file>
+<file name=".\src\hybrid_mode.c" />
 <file name=".\CortexM3\ARM_GCC_541\Debug\CyBootAsmGnu.o">
 <dep name=".\Generated_Source\PSoC5\CyBootAsmGnu.s" />
 <dep name=".\Generated_Source\PSoC5\cydevicegnu.inc" />
@@ -432,6 +516,45 @@
 <file name=".\Generated_Source\PSoC5\cydevicegnu.inc" />
 <file name=".\Generated_Source\PSoC5\cydevicegnu_trm.inc" />
 <file name=".\Generated_Source\PSoC5\cyfittergnu.inc" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\Selector_In.o">
+<dep name=".\Generated_Source\PSoC5\Selector_In.c" />
+<dep name=".\Generated_Source\PSoC5\Selector_In.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cypins.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+</file>
+<file name=".\Generated_Source\PSoC5\Selector_In.c" />
+<file name=".\Generated_Source\PSoC5\Selector_In.h" />
+<file name=".\Generated_Source\PSoC5\Selector_In_aliases.h" />
+<file name=".\Generated_Source\PSoC5\Selector_In_0.h" />
+<file name=".\Generated_Source\PSoC5\Selector_In_0_aliases.h" />
+<file name=".\Generated_Source\PSoC5\test.h" />
+<file name=".\Generated_Source\PSoC5\test_aliases.h" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\Selector_In_0.o">
+<dep name=".\Generated_Source\PSoC5\Selector_In_0.c" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_0.h" />
+<dep name=".\Generated_Source\PSoC5\Selector_In_0_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cypins.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+</file>
+<file name=".\Generated_Source\PSoC5\Selector_In_0.c" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\test.o">
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cypins.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+<dep name=".\Generated_Source\PSoC5\test.c" />
+<dep name=".\Generated_Source\PSoC5\test.h" />
+<dep name=".\Generated_Source\PSoC5\test_aliases.h" />
+</file>
+<file name=".\Generated_Source\PSoC5\test.c" />
 <file name=".\CortexM3\ARM_GCC_541\Debug\UART_1.o">
 <dep name=".\Generated_Source\PSoC5\CyFlash.h" />
 <dep name=".\Generated_Source\PSoC5\CyLib.h" />
@@ -538,10 +661,14 @@
 <dep name=".\CortexM3\ARM_GCC_541\Debug\user_input.o" />
 <dep name=".\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o" />
 <dep name=".\CortexM3\ARM_GCC_541\Debug\cymetadata.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\CAN_RX.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\CAN_TX.o" />
 <dep name=".\CortexM3\ARM_GCC_541\Debug\CAN.o" />
 <dep name=".\CortexM3\ARM_GCC_541\Debug\CAN_INT.o" />
 <dep name=".\CortexM3\ARM_GCC_541\Debug\CAN_PM.o" />
 <dep name=".\CortexM3\ARM_GCC_541\Debug\CAN_TX_RX_func.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\Boost_Button.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\AIR_enable.o" />
 <dep name=".\CortexM3\ARM_GCC_541\Debug\Cm3Start.o" />
 <dep name=".\CortexM3\ARM_GCC_541\Debug\CyBootAsmGnu.o" />
 <dep name=".\CortexM3\ARM_GCC_541\Debug\CyDmac.o" />
@@ -551,11 +678,11 @@
 <dep name=".\CortexM3\ARM_GCC_541\Debug\CySpc.o" />
 <dep name=".\CortexM3\ARM_GCC_541\Debug\cyutils.o" />
 <dep name=".\CortexM3\ARM_GCC_541\Debug\cy_em_eeprom.o" />
-<dep name=".\CortexM3\ARM_GCC_541\Debug\CAN_RX.o" />
-<dep name=".\CortexM3\ARM_GCC_541\Debug\CAN_TX.o" />
-<dep name=".\CortexM3\ARM_GCC_541\Debug\Selector_In.o" />
-<dep name=".\CortexM3\ARM_GCC_541\Debug\Boost_Button.o" />
-<dep name=".\CortexM3\ARM_GCC_541\Debug\AIR_enable.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\Selector_In_1.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\Selector_In_2.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\Selector_In_5.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\Selector_In_4.o" />
+<dep name=".\CortexM3\ARM_GCC_541\Debug\Selector_In_3.o" />
 <dep name=".\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.a" />
 <dep name="${CyRoot}\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_541\Debug\CyComponentLibrary.a" />
 </file>
@@ -569,38 +696,45 @@
 <CyGuid_b0374e30-ce3a-47f2-ad85-821643292c68 type_name="CyDesigner.Common.ProjMgmt.Common.CyCmdLineData" version="2">
 <genericCmdLineData>
 <name v="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3">
-<name_val_pair name="main.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\cyfitter_cfg.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\cymetadata.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="main.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\cyfitter_cfg.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\cymetadata.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
 <name_val_pair name="Generated_Source\PSoC5\RX.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
 <name_val_pair name="Generated_Source\PSoC5\TX.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\CAN.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\CAN_INT.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\CAN_PM.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\CAN_TX_RX_func.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\Cm3Start.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="Generated_Source\PSoC5\CAN.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\CAN_INT.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\CAN_PM.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\CAN_TX_RX_func.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\Cm3Start.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
 <name_val_pair name="Generated_Source\PSoC5\CyBootAsmGnu.s" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -alh=${OutputDir}/${CompileFile}.lst -g -W" />
-<name_val_pair name="Generated_Source\PSoC5\CyDmac.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\CyFlash.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\CyLib.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\cyPm.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\CySpc.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\cyutils.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\cy_em_eeprom.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.hex" v="-mcpu=cortex-m3 -mthumb -L Generated_Source\PSoC5 -Wl,-Map,${OutputDir}/${ProjectShortName}.map -T Generated_Source\PSoC5\cm3gcc.ld -specs=nano.specs -Wl,--gc-sections -g -ffunction-sections -Og -ffat-lto-objects" />
-<name_val_pair name="Generated_Source\PSoC5\CAN_RX.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\CAN_TX.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\Selector_In.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\Boost_Button.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="Generated_Source\PSoC5\AIR_enable.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="src\can_comm.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="src\hybrid_mode.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-<name_val_pair name="src\user_input.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="Generated_Source\PSoC5\CyDmac.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\CyFlash.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\CyLib.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\cyPm.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\CySpc.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\cyutils.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\cy_em_eeprom.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\CortexM3\ARM_GCC_541\Debug\HCM_UPBDrive.hex" v="-mcpu=cortex-m3 -mthumb -L Generated_Source\PSoC5 -Wl,-Map,${OutputDir}/${ProjectShortName}.map -T Generated_Source\PSoC5\cm3gcc.ld -specs=nano.specs -g -ffunction-sections -O0 -ffat-lto-objects" />
+<name_val_pair name="Generated_Source\PSoC5\CAN_RX.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\CAN_TX.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\Selector_In.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\Boost_Button.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\AIR_enable.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="src\can_comm.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="src\hybrid_mode.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="src\user_input.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
 <name_val_pair name="Generated_Source\PSoC5\UART_1.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
 <name_val_pair name="Generated_Source\PSoC5\UART_1_PM.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
 <name_val_pair name="Generated_Source\PSoC5\UART_1_INT.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
 <name_val_pair name="Generated_Source\PSoC5\UART_1_BOOT.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
 <name_val_pair name="Generated_Source\PSoC5\UART_1_IntClock.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="Generated_Source\PSoC5\Selector_In_0.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\Selector_In_1.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\Selector_In_2.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\Selector_In_3.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\Selector_In_4.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\test.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\Selector_In_5.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
 </name>
 </genericCmdLineData>
 <codeGenCmdLineTag v="-.appdatapath &quot;C:\Users\badea\AppData\Local\Cypress Semiconductor\PSoC Creator\4.4&quot; -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -.fdsreffile=referenced_files.txt -p &quot;C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\HCM_UPBDrive.cyprj&quot; -d CY8C5888LTI-LP097 -s &quot;C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\Generated_Source\PSoC5&quot; -- -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE" />
@@ -614,7 +748,7 @@
 <dataGuid v="769d31ea-68b1-4f0c-b90a-7c10a43ee563">
 <CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563 type_name="CyDesigner.Common.ProjMgmt.Model.CyLinkCustomData" version="1">
 <link_deps_times>
-<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3" v="133939511788003233" />
+<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3" v="133939812453703359" />
 </link_deps_times>
 </CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563>
 </dataGuid>
@@ -625,11 +759,13 @@
 <v>Off-Chip</v>
 </tree_states_tab_names>
 <tree_states>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Cypress Component Catalog\Analog">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Cypress Component Catalog\Digital\Functions\Shift Register [v2.30]">
 <ExpandedNodeIds>
 <v>Cypress Component Catalog</v>
 <v>Cypress Component Catalog\Analog\ADC</v>
 <v>Cypress Component Catalog\Digital</v>
+<v>Cypress Component Catalog\Digital\Functions</v>
+<v>Cypress Component Catalog\Digital\Logic</v>
 <v>Cypress Component Catalog\Ports and Pins</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
@@ -639,19 +775,23 @@
 <v>Cypress Component Catalog\Communications</v>
 <v>Cypress Component Catalog\Digital</v>
 <v>Cypress Component Catalog\Digital\Functions</v>
+<v>Cypress Component Catalog\Digital\Functions\Counter [v3.0]</v>
+<v>Cypress Component Catalog\Digital\Functions\CRC [v2.50]</v>
+<v>Cypress Component Catalog\Digital\Functions\PrISM [v2.20]</v>
+<v>Cypress Component Catalog\Digital\Functions\PRS [v2.40]</v>
+<v>Cypress Component Catalog\Digital\Functions\PWM [v3.30]</v>
+<v>Cypress Component Catalog\Digital\Functions\Quadrature Decoder [v3.0]</v>
+<v>Cypress Component Catalog\Digital\Functions\Shift Register [v2.30]</v>
+<v>Cypress Component Catalog\Digital\Functions\Timer [v2.80]</v>
 <v>Cypress Component Catalog\Digital\Logic</v>
-<v>Cypress Component Catalog\Digital\Registers</v>
-<v>Cypress Component Catalog\Digital\Utility</v>
-<v>Cypress Component Catalog\Display</v>
-<v>Cypress Component Catalog\Filters</v>
-<v>Cypress Component Catalog\Ports and Pins</v>
-<v>Cypress Component Catalog\Ports and Pins\Analog Pin [v2.20]</v>
-<v>Cypress Component Catalog\Ports and Pins\Digital Bidirectional Pin [v2.20]</v>
-<v>Cypress Component Catalog\Ports and Pins\Digital Input Pin [v2.20]</v>
-<v>Cypress Component Catalog\Ports and Pins\Digital Output Pin [v2.20]</v>
-<v>Cypress Component Catalog\Power Supervision</v>
-<v>Cypress Component Catalog\System</v>
-<v>Cypress Component Catalog\Thermal Management</v>
+<v>Cypress Component Catalog\Digital\Logic\And [v1.0]</v>
+<v>Cypress Component Catalog\Digital\Logic\Bufoe [v1.10]</v>
+<v>Cypress Component Catalog\Digital\Logic\D Flip Flop [v1.30]</v>
+<v>Cypress Component Catalog\Digital\Logic\D Flip Flop w/ Enable [v1.0]</v>
+<v>Cypress Component Catalog\Digital\Logic\De-Multiplexer [v1.10]</v>
+<v>Cypress Component Catalog\Digital\Logic\Digital Constant [v1.0]</v>
+<v>Cypress Component Catalog\Digital\Logic\Logic High '1' [v1.0]</v>
+<v>Cypress Component Catalog\Digital\Logic\Logic Low '0' [v1.0]</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -684,7 +824,9 @@
 <debugger_watch_list>
 <CyGuid_ccf7a56e-c00d-460c-82dd-56c8f54feb7f type_name="CyDesigner.Common.Debugger.CyWatchedVariableList+CyWatchedItem" version="1" window="0" name="car_state" radix="Default" />
 <CyGuid_ccf7a56e-c00d-460c-82dd-56c8f54feb7f type_name="CyDesigner.Common.Debugger.CyWatchedVariableList+CyWatchedItem" version="1" window="0" name="hybrid_state" radix="Default" />
+<CyGuid_ccf7a56e-c00d-460c-82dd-56c8f54feb7f type_name="CyDesigner.Common.Debugger.CyWatchedVariableList+CyWatchedItem" version="1" window="0" name="selector_stragy" radix="Default" />
 <CyGuid_ccf7a56e-c00d-460c-82dd-56c8f54feb7f type_name="CyDesigner.Common.Debugger.CyWatchedVariableList+CyWatchedItem" version="1" window="0" name="boost_button_state" radix="Default" />
+<CyGuid_ccf7a56e-c00d-460c-82dd-56c8f54feb7f type_name="CyDesigner.Common.Debugger.CyWatchedVariableList+CyWatchedItem" version="1" window="0" name="user_strategy" radix="Default" />
 </debugger_watch_list>
 </CyGuid_bf610382-39c6-441f-80b8-b04622ea7845>
 </dataGuid>
@@ -822,20 +964,26 @@
 <v>Generated_Source\PSoC5\cyfitteriar.inc</v>
 <v>Generated_Source\PSoC5\cyfitter.h</v>
 <v>Generated_Source\PSoC5\cydisabledsheets.h</v>
-<v>Generated_Source\PSoC5\RX_aliases.h</v>
-<v>Generated_Source\PSoC5\RX.c</v>
-<v>Generated_Source\PSoC5\RX.h</v>
-<v>Generated_Source\PSoC5\TX_aliases.h</v>
-<v>Generated_Source\PSoC5\TX.c</v>
-<v>Generated_Source\PSoC5\TX.h</v>
+<v>Generated_Source\PSoC5\CAN_RX_aliases.h</v>
+<v>Generated_Source\PSoC5\CAN_RX.c</v>
+<v>Generated_Source\PSoC5\CAN_RX.h</v>
+<v>Generated_Source\PSoC5\CAN_TX_aliases.h</v>
+<v>Generated_Source\PSoC5\CAN_TX.c</v>
+<v>Generated_Source\PSoC5\CAN_TX.h</v>
 <v>Generated_Source\PSoC5\CAN.c</v>
 <v>Generated_Source\PSoC5\CAN.h</v>
 <v>Generated_Source\PSoC5\CAN_INT.c</v>
 <v>Generated_Source\PSoC5\CAN_PM.c</v>
 <v>Generated_Source\PSoC5\CAN_TX_RX_func.c</v>
-<v>Generated_Source\PSoC5\TX_EN_aliases.h</v>
-<v>Generated_Source\PSoC5\TX_EN.c</v>
-<v>Generated_Source\PSoC5\TX_EN.h</v>
+<v>Generated_Source\PSoC5\Boost_Button_aliases.h</v>
+<v>Generated_Source\PSoC5\Boost_Button.c</v>
+<v>Generated_Source\PSoC5\Boost_Button.h</v>
+<v>Generated_Source\PSoC5\AIR_enable_aliases.h</v>
+<v>Generated_Source\PSoC5\AIR_enable.c</v>
+<v>Generated_Source\PSoC5\AIR_enable.h</v>
+<v>Generated_Source\PSoC5\Selector_In_aliases.h</v>
+<v>Generated_Source\PSoC5\Selector_In.c</v>
+<v>Generated_Source\PSoC5\Selector_In.h</v>
 <v>Generated_Source\PSoC5\cm3gcc.ld</v>
 <v>Generated_Source\PSoC5\Cm3RealView.scat</v>
 <v>Generated_Source\PSoC5\Cm3Start.c</v>
@@ -869,38 +1017,28 @@
 <v>Generated_Source\PSoC5\cycodeshareimport.ld</v>
 <v>Generated_Source\PSoC5\cycodeshareexport.ld</v>
 <v>Generated_Source\PSoC5\cycodeshareimport.scat</v>
-<v>Generated_Source\PSoC5\CAN_RX_aliases.h</v>
-<v>Generated_Source\PSoC5\CAN_RX.c</v>
-<v>Generated_Source\PSoC5\CAN_RX.h</v>
-<v>Generated_Source\PSoC5\CAN_TX_aliases.h</v>
-<v>Generated_Source\PSoC5\CAN_TX.c</v>
-<v>Generated_Source\PSoC5\CAN_TX.h</v>
-<v>Generated_Source\PSoC5\Pin_1_aliases.h</v>
-<v>Generated_Source\PSoC5\Pin_1.c</v>
-<v>Generated_Source\PSoC5\Pin_1.h</v>
-<v>Generated_Source\PSoC5\Selector_In_aliases.h</v>
-<v>Generated_Source\PSoC5\Selector_In.c</v>
-<v>Generated_Source\PSoC5\Selector_In.h</v>
-<v>Generated_Source\PSoC5\Boost_Button_aliases.h</v>
-<v>Generated_Source\PSoC5\Boost_Button.c</v>
-<v>Generated_Source\PSoC5\Boost_Button.h</v>
-<v>Generated_Source\PSoC5\AIR_enable_aliases.h</v>
-<v>Generated_Source\PSoC5\AIR_enable.c</v>
-<v>Generated_Source\PSoC5\AIR_enable.h</v>
-<v>Generated_Source\PSoC5\UART_1.c</v>
-<v>Generated_Source\PSoC5\UART_1.h</v>
-<v>Generated_Source\PSoC5\UART_1_PM.c</v>
-<v>Generated_Source\PSoC5\UART_1_INT.c</v>
-<v>Generated_Source\PSoC5\UART_1_BOOT.c</v>
-<v>Generated_Source\PSoC5\UART_1_IntClock.c</v>
-<v>Generated_Source\PSoC5\UART_1_IntClock.h</v>
+<v>Generated_Source\PSoC5\Selector_In_1_aliases.h</v>
+<v>Generated_Source\PSoC5\Selector_In_1.c</v>
+<v>Generated_Source\PSoC5\Selector_In_1.h</v>
+<v>Generated_Source\PSoC5\Selector_In_2_aliases.h</v>
+<v>Generated_Source\PSoC5\Selector_In_2.c</v>
+<v>Generated_Source\PSoC5\Selector_In_2.h</v>
+<v>Generated_Source\PSoC5\Selector_In_5_aliases.h</v>
+<v>Generated_Source\PSoC5\Selector_In_5.c</v>
+<v>Generated_Source\PSoC5\Selector_In_5.h</v>
+<v>Generated_Source\PSoC5\Selector_In_4_aliases.h</v>
+<v>Generated_Source\PSoC5\Selector_In_4.c</v>
+<v>Generated_Source\PSoC5\Selector_In_4.h</v>
+<v>Generated_Source\PSoC5\Selector_In_3_aliases.h</v>
+<v>Generated_Source\PSoC5\Selector_In_3.c</v>
+<v>Generated_Source\PSoC5\Selector_In_3.h</v>
 </gen_list>
 <warp_dep>
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\warp\lib\ieee\work\stdlogic.vif</v>
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\warp\lib\common\stdlogic\mod_genv.vif</v>
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\warp\lib\common\stdlogic\rtlpkg.vif</v>
 </warp_dep>
-<deps_time v="133930743817031043" />
+<deps_time v="133939810825310431" />
 <top_block v="TopDesign" />
 <last_generation v="15" />
 <pdl_path v="" />

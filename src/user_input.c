@@ -16,47 +16,42 @@
  * Function:    Read_Rotary_Switch
  * Description: Decodes a single-active-bit selector input from a rotary switch.
  * Returns:
- *   - Strategy index in the range [0–6], where each power-of-two input maps to a unique mode.
+ *   - Strategy index in the range [0–5], where each power-of-two input maps to a unique mode.
  * Notes:
  *   - Assumes only one selector bit is active at a time.
  *   - Defaults to 0 if input does not match a known pattern.
  */
 uint8_t Read_Rotary_Switch()
 {
-    uint8_t coded_strategy, decoded_strategy;
-    coded_strategy = Selector_In_Read() & 0x3F; // Mask to 6 bits
-
-    switch (coded_strategy)
+    uint8_t selector_stragy;
+    
+    // Read each pin individually
+    if (Selector_In_1_Read() == ACTIVE_LOW)
     {
-        case 1:
-            decoded_strategy = MANUAL_S;
-            break;
-
-        case 2:
-            decoded_strategy = LAUNCH_S;
-            break;
-
-        case 4:
-            decoded_strategy = AUTO_NOREGEN_S;
-            break;
-
-        case 8:
-            decoded_strategy = AUTO_BRAKEREGEN_S;
-            break;
-
-        case 16:
-            decoded_strategy = AUTO_ALLREGEN_S;
-            break;
-
-        case 32:
-            decoded_strategy = TORQUE_FILL_S;
-            break;
-
-        default:
-            decoded_strategy = FREEWHEEL_S;
+        selector_stragy = MANUAL_S;
+    }
+    else if (Selector_In_2_Read() == ACTIVE_LOW)
+    {
+        selector_stragy = LAUNCH_S;
+    }
+    else if (Selector_In_3_Read() == ACTIVE_LOW)
+    {
+        selector_stragy = AUTO_NOREGEN_S;
+    }
+    else if (Selector_In_4_Read() == ACTIVE_LOW)
+    {
+        selector_stragy = AUTO_BRAKEREGEN_S;
+    }
+    else if (Selector_In_5_Read() == ACTIVE_LOW)
+    {
+        selector_stragy = AUTO_ALLREGEN_S;
+    }
+    else // No strategy selected or out of bounds
+    {
+        selector_stragy = FREEWHEEL_S;
     }
 
-    return decoded_strategy;
+    return selector_stragy;
 }
 
 /*
@@ -68,7 +63,8 @@ uint8_t Read_Rotary_Switch()
  */
 uint8_t Read_Boost_Button()
 {
-    uint8_t boost_button_state = Boost_Button_Read();
+    // Read pin and invert logic due to active-low configuration
+    uint8_t boost_button_state = (uint8_t)(!Boost_Button_Read());
 
     return boost_button_state;
 }

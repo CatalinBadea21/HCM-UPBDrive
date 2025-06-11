@@ -19,16 +19,17 @@
 /**********************************************************************************************************************
 * Defines
 ***********************************************************************************************************************/
-#define FREEWHEEL_MODE 0u
-#define TORQUE_MODE 2u
-#define SPEED_MODE 3u
-#define BRAKE_MODE 8u
 #define MAX_VALUE_15BIT 32767u
 #define NEUTRAL_GEAR 0u
 #define MIN_VSS_TO_DEPLOY 5u
 #define MAX_VSS_TO_DEPLOY 90u
 #define STD_ON 1u
 #define STD_OFF 0u
+// __________ ESC MODES __________
+#define FREEWHEEL_MODE 0u
+#define TORQUE_MODE 2u
+#define SPEED_MODE 3u
+#define BRAKE_MODE 8u
 
 /**********************************************************************************************************************
 * Typedefs

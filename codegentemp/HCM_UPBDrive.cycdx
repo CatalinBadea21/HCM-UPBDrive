@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <blockRegMap version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cypress.com/xsd/cyblockregmap cyblockregmap.xsd" xmlns="http://cypress.com/xsd/cyblockregmap">
-  <block name="Selector_In" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="AIR_enable" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Selector_In_4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Selector_In_5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Selector_In_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="Em_EEPROM_Dynamic" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="cy_boot" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="CAN_TX" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="CAN_RX" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="Boost_Button" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Selector_In_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="CAN" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
     <block name="CanIP" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
     <block name="Clock" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
@@ -292,4 +291,9 @@
       <field name="DATA_LOW" from="31" to="0" access="RW" resetVal="" desc="Lower Data Bytes" hidden="false" />
     </register>
   </block>
+  <block name="CAN_TX" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="CAN_RX" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Selector_In_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="AIR_enable" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Boost_Button" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
 </blockRegMap>

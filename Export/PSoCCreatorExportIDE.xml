@@ -6,8 +6,8 @@
     <Toolchain Name="ARM GCC Generic" Selected="True">
       <Tool Name="prebuild" Command="" Options="" />
       <Tool Name="assembler" Command="arm-none-eabi-as.exe" Options="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -alh=${OutputDir}/${CompileFile}.lst -g -W" />
-      <Tool Name="compiler" Command="arm-none-eabi-gcc.exe" Options="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
-      <Tool Name="linker" Command="arm-none-eabi-gcc.exe" Options="-mcpu=cortex-m3 -mthumb -L Generated_Source\PSoC5 -Wl,-Map,${OutputDir}/${ProjectShortName}.map -T Generated_Source\PSoC5\cm3gcc.ld -specs=nano.specs -Wl,--gc-sections -g -ffunction-sections -Og -ffat-lto-objects" />
+      <Tool Name="compiler" Command="arm-none-eabi-gcc.exe" Options="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -O0" />
+      <Tool Name="linker" Command="arm-none-eabi-gcc.exe" Options="-mcpu=cortex-m3 -mthumb -L Generated_Source\PSoC5 -Wl,-Map,${OutputDir}/${ProjectShortName}.map -T Generated_Source\PSoC5\cm3gcc.ld -specs=nano.specs -g -ffunction-sections -O0 -ffat-lto-objects" />
       <Tool Name="postbuild" Command="" Options="" />
     </Toolchain>
     <Toolchain Name="ARM MDK Generic" Selected="False">
@@ -64,11 +64,23 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cyfitteriar.inc</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cyfitter.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cydisabledsheets.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN_RX_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN_RX.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN_RX.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN_TX_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN_TX.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN_TX.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN_INT.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN_PM.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN_TX_RX_func.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Boost_Button_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Boost_Button.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Boost_Button.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\AIR_enable_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\AIR_enable.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\AIR_enable.h</File>
           <File BuildType="BUILD" Toolchain="ARM GCC Generic">Generated_Source\PSoC5\cm3gcc.ld</File>
           <File BuildType="BUILD" Toolchain="ARM MDK Generic">Generated_Source\PSoC5\Cm3RealView.scat</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Cm3Start.c</File>
@@ -102,21 +114,21 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cycodeshareimport.ld</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cycodeshareexport.ld</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\cycodeshareimport.scat</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN_RX_aliases.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN_RX.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN_RX.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN_TX_aliases.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN_TX.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\CAN_TX.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In_aliases.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Boost_Button_aliases.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Boost_Button.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Boost_Button.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\AIR_enable_aliases.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\AIR_enable.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\AIR_enable.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In_1_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In_1.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In_1.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In_2_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In_2.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In_2.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In_5_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In_5.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In_5.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In_4_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In_4.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In_4.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In_3_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In_3.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Selector_In_3.h</File>
         </Files>
       </Folder>
       <Folder BuildType="STRICT" Path="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\Export\ARM_GCC_Generic">

@@ -35,9 +35,21 @@
   <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\AIR_enable_aliases.h" value="HEADER;;;;;AIR_enable" />
   <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\AIR_enable.c" value="SOURCE_C;CortexM3;;;;AIR_enable" />
   <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\AIR_enable.h" value="HEADER;;;;;AIR_enable" />
-  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In_aliases.h" value="HEADER;;;;;Selector_In" />
-  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In.c" value="SOURCE_C;CortexM3;;;;Selector_In" />
-  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In.h" value="HEADER;;;;;Selector_In" />
+  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In_1_aliases.h" value="HEADER;;;;;Selector_In_1" />
+  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In_1.c" value="SOURCE_C;CortexM3;;;;Selector_In_1" />
+  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In_1.h" value="HEADER;;;;;Selector_In_1" />
+  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In_2_aliases.h" value="HEADER;;;;;Selector_In_2" />
+  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In_2.c" value="SOURCE_C;CortexM3;;;;Selector_In_2" />
+  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In_2.h" value="HEADER;;;;;Selector_In_2" />
+  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In_5_aliases.h" value="HEADER;;;;;Selector_In_5" />
+  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In_5.c" value="SOURCE_C;CortexM3;;;;Selector_In_5" />
+  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In_5.h" value="HEADER;;;;;Selector_In_5" />
+  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In_4_aliases.h" value="HEADER;;;;;Selector_In_4" />
+  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In_4.c" value="SOURCE_C;CortexM3;;;;Selector_In_4" />
+  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In_4.h" value="HEADER;;;;;Selector_In_4" />
+  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In_3_aliases.h" value="HEADER;;;;;Selector_In_3" />
+  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In_3.c" value="SOURCE_C;CortexM3;;;;Selector_In_3" />
+  <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Selector_In_3.h" value="HEADER;;;;;Selector_In_3" />
   <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\cm3gcc.ld" value="LINKER_SCRIPT;;;b98f980c-3bd1-4fc7-a887-c56a20a46fdd;;cy_boot" />
   <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Cm3RealView.scat" value="LINKER_SCRIPT;;;fdb8e1ae-f83a-46cf-9446-1d703716f38a;;cy_boot" />
   <file name="C:\Users\badea\Documents\PSoC Creator\can_bun\HCM_UPBDrive.cydsn\codegentemp\Cm3Start.c" value="SOURCE_C;CortexM3;;;;cy_boot" />

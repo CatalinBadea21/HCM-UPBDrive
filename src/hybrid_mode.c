@@ -93,7 +93,7 @@ void Emergency_Stop()
  */
 void Set_Strategy(uint8_t sel_strategy)
 {
-    if (/*(car_state.gear == NEUTRAL_GEAR) ||*/ (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.vss > MAX_VSS_TO_DEPLOY))
+    if ((car_state.gear == NEUTRAL_GEAR) || (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.vss > MAX_VSS_TO_DEPLOY))
         Set_Strategy_Freewheel();
     else if ((Read_Boost_Button() == STD_ON) && (car_state.brake_state == STD_OFF) && (sel_strategy > 0))
     {
@@ -157,7 +157,7 @@ void Set_Strategy_Manual()
 {
     /* The logic for the boost button is in the main Set_Strategy() function;
      * If the program enters here it means the selector is on manual,
-     * but boost button not pressed -> freewheel
+     * but boost button is not pressed -> freewheel
      */
     Set_Strategy_Freewheel();
 }
