@@ -21,11 +21,21 @@
 ***********************************************************************************************************************/
 #define MAX_VALUE_15BIT 32767u
 #define NEUTRAL_GEAR 0u
-#define MIN_VSS_TO_DEPLOY 5u
-#define MAX_VSS_TO_DEPLOY 90u
 #define STD_ON 1u
 #define STD_OFF 0u
-// __________ ESC MODES __________
+#define BOOST_TORQUE_PERCENTAGE 100u
+#define LAUNCH_TORQUE_PERCENTAGE 100u
+#define BRAKE_REGEN_INTENSITY_PERCENTAGE 100u
+#define COASTING_REGEN_INTENSITY_PERCENTAGE 70u
+/* __________ THRESHOLDS __________ */
+#define MIN_VSS_TO_DEPLOY 3u
+#define MAX_VSS_TO_DEPLOY 90u
+#define LAUNCH_MAX_RPM 7500u
+#define LAUNCH_MAX_VSS 45u
+#define LAUNCH_MIN_TPS 80u
+#define ALWAYS_REGEN_TPS_THRESHOLD 50u
+#define MAPPING_TPS_THRESHOLD 50u
+/* __________ ESC MODES __________ */
 #define FREEWHEEL_MODE 0u
 #define TORQUE_MODE 2u
 #define SPEED_MODE 3u
@@ -57,7 +67,6 @@ void Set_Strategy_Launch_Assist();
 void Set_Strategy_Auto_No_Regen();
 void Set_Strategy_Auto_Brake_Regen();
 void Set_Strategy_Auto_Always_Regen();
-void Set_Strategy_Torque_Fill();
 
 #endif /* HYBRID_MODE_H */
 /* [] */

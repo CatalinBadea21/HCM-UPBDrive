@@ -20,14 +20,13 @@
 ***********************************************************************************************************************/
 #define ACTIVE_LOW 0u
 #define ACTIVE_HIGH 1u
-// __________ DRIVING STRATEGIES __________
+/* __________ DRIVING STRATEGIES __________ */
 #define FREEWHEEL_S 0u
 #define MANUAL_S 1u
 #define LAUNCH_S 2u
 #define AUTO_NOREGEN_S 3u
 #define AUTO_BRAKEREGEN_S 4u
 #define AUTO_ALLREGEN_S 5u
-#define TORQUE_FILL_S 6u
     
 /**********************************************************************************************************************
 * Function declarations

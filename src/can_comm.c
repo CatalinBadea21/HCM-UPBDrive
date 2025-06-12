@@ -33,8 +33,8 @@ void CAN_Transmit_To_ESC(uint8_t driving_mode, int8_t duty_cycle)
 
     CAN_TX_DATA_BYTE1(CAN_TX_MAILBOX_ESC_control) = CMD_MODE;
     CAN_TX_DATA_BYTE2(CAN_TX_MAILBOX_ESC_control) = driving_mode;
-    CAN_TX_DATA_BYTE3(CAN_TX_MAILBOX_ESC_control) = (duty_cycle_15bit >> 8) & 0x7F; // Dutycycle MSB; mask with 7 bits
-    CAN_TX_DATA_BYTE4(CAN_TX_MAILBOX_ESC_control) = duty_cycle_15bit & 0xFF;        // Dutycycle LSB; mask with 8 bits
+    CAN_TX_DATA_BYTE3(CAN_TX_MAILBOX_ESC_control) = (duty_cycle_15bit >> 8) & MASK_7_BITS; /* Dutycycle MSB; mask with 7 bits */
+    CAN_TX_DATA_BYTE4(CAN_TX_MAILBOX_ESC_control) = duty_cycle_15bit & MASK_8_BITS;        /* Dutycycle LSB; mask with 8 bits */
 
     CAN_SendMsgESC_control();
 }
@@ -72,9 +72,9 @@ uint8_t CAN_Read_From_ECU()
             car_state.brake_state = STD_OFF;
 
         if ((car_state.rpm > MAX_RPM) || (car_state.gear > MAX_GEAR) || (car_state.tps > MAX_TPS) || (car_state.vss > MAX_VSS))
-            return 0; // Values out of bounds, failed read from can
+            return 0; /* Values out of bounds, failed can reading */
         
-        CANisrFlag = 0; // Clear interrupt flag
+        CANisrFlag = 0; /* Clear interrupt flag */
 
         return 1;
     }

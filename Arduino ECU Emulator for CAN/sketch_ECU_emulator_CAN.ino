@@ -1,13 +1,13 @@
 #include <mcp_can.h>
 #include <SPI.h>
 
-#define CAN_CS_PIN 10     // MCP2515 CS pin
-#define BRAKE_PIN 3       // Brake button input
-#define RPM_POT A0        // RPM potentiometer input
-#define TPS_POT A1        // TPS potentiometer input
-#define VSS_VALUE 50      // Vehicle speed sensor value (byte)
-#define GEAR_VALUE 1      // Current gear (byte)
-#define CAN_ID 0x3E8      // EMU sending CAN ID
+#define CAN_CS_PIN 10     /* MCP2515 CS pin */
+#define BRAKE_PIN 3       /* Brake button input */
+#define RPM_POT A0        /* RPM potentiometer input */
+#define TPS_POT A1        /* TPS potentiometer input */
+#define VSS_VALUE 50      /* Vehicle speed sensor value (byte) */
+#define GEAR_VALUE 1      /* Current gear (byte) */
+#define CAN_ID 0x3E8      /* EMU sending CAN ID */
 
 MCP_CAN CAN(CAN_CS_PIN);
 
@@ -41,12 +41,12 @@ void loop()
   uint8_t brake = brakePressed ? 1 : 0;
 
   uint8_t data[8] = {0};
-  data[0] = rpmScaled;    // RPM (Potentiometer)
-  data[1] = GEAR_VALUE;   // Gear (fixed)
-  data[2] = tps;          // TPS (Potentiometer)
-  data[3] = VSS_VALUE;    // VSS (fixed)
-  data[4] = brake;        // Brake (button)
-  data[5] = 0; data[6] = 0; data[7] = 0;  // Reserved zero bytes
+  data[0] = rpmScaled;    /* RPM (Potentiometer) */
+  data[1] = GEAR_VALUE;   /* Gear (fixed) */
+  data[2] = tps;          /* TPS (Potentiometer) */
+  data[3] = VSS_VALUE;    /* VSS (fixed) */
+  data[4] = brake;        /* Brake (button) */
+  data[5] = 0; data[6] = 0; data[7] = 0;  /* Reserved zero bytes */
 
   byte sendStatus = CAN.sendMsgBuf(CAN_ID, 0, 8, data);
   if (sendStatus == CAN_OK)
@@ -60,5 +60,5 @@ void loop()
   Serial.print("%    VSS: "); Serial.print(data[3]);
   Serial.print("km/h    Brake: "); Serial.println(data[4]);
 
-  delay(50); // Send every 50ms
+  delay(50); /* Send every 50ms */
 }
