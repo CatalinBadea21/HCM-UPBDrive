@@ -18,12 +18,11 @@
   | 2  | Launch Assist         | Active at low RPM, low speed, high TPS, gear 1        |
   | 3  | Auto No Regen         | Proportional torque, no regen                         |
   | 4  | Auto Brake Regen      | Regen on brake press                                  |
-  | 5  | Auto TPS-Based Regen  | Regen when TPS < 50% or braking                       |
-  | 6  | Torque Fill           | Full torque between 2000–8000 RPM, regen on brake     |
+  | 5  | Auto TPS-Based Regen  | Regen when TPS < threshold or braking                 |
   |----|-----------------------|-------------------------------------------------------|
   *
-  * Auto mode is mapping TPS from 50 to 100
-  * ! Boost button overrides auto mode
+  * Auto mode is mapping TPS from a threshold to 100
+  * ! Boost button overrides any mode, as long as the strategy is not set to Freewheel (Hybrid OFF)
 */
 
 /**********************************************************************************************************************
@@ -36,12 +35,12 @@ volatile HY_strategy_t hybrid_state = {0, 0};
 ***********************************************************************************************************************/
 /*
  * Function:    TPS_to_Duty_Cycle_Percentage
- * Description: Converts the TPS value (50–100%) to a proportional duty cycle.
+ * Description: Converts the TPS value (over a threshold) to a proportional duty cycle.
  * Parameters:
  *   - tps_percentage: Throttle position sensor value from ECU [0–100].
  * Returns:
- *   - A duty cycle percentage [0–100], mapped linearly for TPS ≥ 50.
- *     Returns 0 for TPS < 50.
+ *   - A duty cycle percentage [0–100], mapped linearly for TPS ≥ threshold.
+ *     Returns 0 for TPS < threshold.
  */
 uint8_t TPS_to_Duty_Cycle_Percentage(uint8_t tps_percentage)
 {
@@ -70,9 +69,9 @@ int16_t Map_Duty_Cycle(int8_t duty_cycle_percentage)
  */
 void Emergency_Stop()
 {
-    Set_Strategy(FREEWHEEL_S); // Set the ESC to freewheel before power off
-    CyDelay(500u); // Wait 500 ms for the motor to slow down
-    AIR_enable_Write(STD_OFF); // Disable the AIR
+    Set_Strategy(FREEWHEEL_S); /* Set the ESC to freewheel before power off */
+    CyDelay(500u); /* Wait 500 ms for the motor to slow down */
+    AIR_enable_Write(STD_OFF); /* Disable the AIR */
 }
 
 /*
@@ -160,9 +159,8 @@ void Set_Strategy_Manual()
 /*
  * Function:    Set_Strategy_Launch_Assist
  * Description: Engages full torque at launch under these conditions:
- *              - RPM ≤ 7500
- *              - VSS ≤ 45 km/h
- *              - TPS ≥ 80%
+ *              - RPM and VSS under a set threshold
+ *              - TPS over a set threshold
  *              - Gear = 1
  *              - Brake not pressed
  *              Falls back to Freewheel otherwise.
@@ -173,7 +171,7 @@ void Set_Strategy_Launch_Assist()
         && (car_state.gear == 1) && (car_state.brake_state == STD_OFF))
     {
         hybrid_state.driving_mode = TORQUE_MODE;
-        hybrid_state.duty_cycle_percentage = 100;
+        hybrid_state.duty_cycle_percentage = LAUNCH_TORQUE_PERCENTAGE;
     }
     else
         Set_Strategy_Freewheel();
@@ -210,7 +208,7 @@ void Set_Strategy_Auto_Brake_Regen()
     else /* Braking */
     {
         hybrid_state.driving_mode = BRAKE_MODE;
-        hybrid_state.duty_cycle_percentage = BRAKE_INTENSITY_PERCENTAGE;
+        hybrid_state.duty_cycle_percentage = BRAKE_REGEN_INTENSITY_PERCENTAGE;
     }
 }
 
@@ -226,15 +224,15 @@ void Set_Strategy_Auto_Always_Regen()
         hybrid_state.driving_mode = TORQUE_MODE;
         hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
     }
-    else if (car_state.brake_state == STD_OFF) // TPS under threshold, brake not pressed
+    else if (car_state.brake_state == STD_OFF) /* TPS under threshold, brake not pressed */
     {
         hybrid_state.driving_mode = BRAKE_MODE;
         hybrid_state.duty_cycle_percentage = COASTING_REGEN_INTENSITY_PERCENTAGE;
     }
-    else
+    else /* Brake pressed */
     {
         hybrid_state.driving_mode = BRAKE_MODE;
-        hybrid_state.duty_cycle_percentage = BRAKE_INTENSITY_PERCENTAGE;
+        hybrid_state.duty_cycle_percentage = BRAKE_REGEN_INTENSITY_PERCENTAGE;
     }
 }
 

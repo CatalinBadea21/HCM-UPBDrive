@@ -22,7 +22,7 @@
 #include "cyfitter.h"
 #include "cytypes.h"
 #include "CyLib.h"
-#include "cyapicallbacks.h"
+
 
 /* Check to see if required defines such as CY_PSOC5LP are available */
 /* They are defined starting with cy_boot v3.0 */

@@ -40,7 +40,6 @@
           <File BuildType="BUILD" Toolchain="">src\can_comm.c</File>
           <File BuildType="BUILD" Toolchain="">src\hybrid_mode.c</File>
           <File BuildType="BUILD" Toolchain="">src\user_input.c</File>
-          <File BuildType="BUILD" Toolchain="">cyapicallbacks.h</File>
           <File BuildType="BUILD" Toolchain="">include\can_comm.h</File>
           <File BuildType="BUILD" Toolchain="">include\hybrid_mode.h</File>
           <File BuildType="BUILD" Toolchain="">include\user_input.h</File>
