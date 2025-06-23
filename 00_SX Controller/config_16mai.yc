@@ -1,0 +1,32 @@
+# emgui version: 3.0.3
+# time generated: 2025-05-16, 17:46:50
+#
+# basename: 'SX-felix'
+# hwid: 'esc5-sx1d_24dxa1060-C00'
+# swid: 'VECTOR_LYNX_generic v5.4.0 Jan  7 2025'
+# s/n: '704U2P0E3C21'
+# uuid: '203730345532500E003C0021'
+# class: '0D:SX'
+
+
+# type : 'parameter' (non-default value)
+"/acc/asc/lpf" : "0.0"
+"/acc/asc/max" : "4500"
+"/acc/asc/min" : "200"
+"/driver/limiter/ibneg" : "-20.0"
+"/driver/limiter/ibpos" : "150.0"
+"/driver/limiter/ppos" : "5000.0"
+"/driver/limiter/rneg" : "0.0"
+"/driver/limiter/ubmax" : "47.0"
+"/driver/limiter/ubmin" : "35.0"
+"/driver/motor/Ld" : "1.33328e-5"
+"/driver/motor/Lq" : "1.54559e-5"
+"/driver/motor/pp" : "14"
+"/driver/motor/psi" : "0.004473"
+"/driver/motor/Rt" : "0.007787"
+"/driver/rest/rangle" : "-0.260967"
+"/driver/prest" : "1"
+"/driver/rref" : "0.0"
+"/maps/map1/pwr" : "5000.0"
+"/maps/map1/trqlvl" : "1.0"
+"/maps/mapcnt" : "2"
