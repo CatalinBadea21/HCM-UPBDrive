@@ -84,7 +84,7 @@ void Emergency_Stop()
  *
  * Logic:
  *   - If gear is neutral or speed is too low/high -> Freewheel.
- *   - If boost button is pressed, brake is not, and sel_strategy > 0 -> Full torque.
+ *   - If boost button is pressed, brake is not, and sel_strategy > 0 -> Full torque (also when speed < threshold).
  *   - Otherwise, applies strategy based on sel_strategy.
  *   - Defaults to Freewheel if sel_strategy is invalid.
  *
@@ -92,14 +92,21 @@ void Emergency_Stop()
  */
 void Set_Strategy(uint8_t sel_strategy)
 {
-    if ((car_state.gear == NEUTRAL_GEAR) || (car_state.vss <= MIN_VSS_TO_DEPLOY) || (car_state.vss > MAX_VSS_TO_DEPLOY))
+    if (car_state.gear == NEUTRAL_GEAR || car_state.vss > MAX_VSS_TO_DEPLOY)
+    {
         Set_Strategy_Freewheel();
+    }
+    else if (car_state.vss < MIN_VSS_TO_DEPLOY && sel_strategy != MANUAL_S)
+    {
+        Set_Strategy_Freewheel();
+    }
     else if ((Read_Boost_Button() == STD_ON) && (car_state.brake_state == STD_OFF) && (sel_strategy > 0))
     {
         hybrid_state.driving_mode = TORQUE_MODE;
         hybrid_state.duty_cycle_percentage = BOOST_TORQUE_PERCENTAGE;
     }
     else
+    {
         switch (sel_strategy)
         {
             case FREEWHEEL_S:
@@ -129,6 +136,7 @@ void Set_Strategy(uint8_t sel_strategy)
             default:
                 Set_Strategy_Freewheel();
         }
+    }
     
     CAN_Transmit_To_ESC(hybrid_state.driving_mode, hybrid_state.duty_cycle_percentage);
 }
