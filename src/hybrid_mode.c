@@ -193,9 +193,17 @@ void Set_Strategy_Launch_Assist()
 void Set_Strategy_Auto_No_Regen()
 {
     if (car_state.brake_state == STD_OFF)
-    {
-        hybrid_state.driving_mode = TORQUE_MODE;
-        hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
+    {        
+        if (car_state.tps < MAPPING_TPS_THRESHOLD)
+        {
+            hybrid_state.driving_mode = FREEWHEEL_MODE;
+            hybrid_state.duty_cycle_percentage = STD_OFF;
+        }
+        else
+        {
+            hybrid_state.driving_mode = TORQUE_MODE;
+            hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
+        }
     }
     else
         Set_Strategy_Freewheel();
@@ -210,8 +218,16 @@ void Set_Strategy_Auto_Brake_Regen()
 {
     if (car_state.brake_state == STD_OFF)
     {
-        hybrid_state.driving_mode = TORQUE_MODE;
-        hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
+        if (car_state.tps < MAPPING_TPS_THRESHOLD)
+        {
+            hybrid_state.driving_mode = FREEWHEEL_MODE;
+            hybrid_state.duty_cycle_percentage = STD_OFF;
+        }
+        else
+        {
+            hybrid_state.driving_mode = TORQUE_MODE;
+            hybrid_state.duty_cycle_percentage = TPS_to_Duty_Cycle_Percentage(car_state.tps);
+        }
     }
     else /* Braking */
     {
