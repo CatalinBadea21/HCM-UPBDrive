@@ -70,7 +70,7 @@ int16_t Map_Duty_Cycle(int8_t duty_cycle_percentage)
 void Emergency_Stop()
 {
     Set_Strategy(FREEWHEEL_S); /* Set the ESC to freewheel before power off */
-    CyDelay(500u); /* Wait 500 ms for the motor to slow down */
+    CyDelay(100u); /* Wait 100 ms for the motor to slow down */
     AIR_enable_Write(STD_OFF); /* Disable the AIR */
 }
 
@@ -195,10 +195,7 @@ void Set_Strategy_Auto_No_Regen()
     if (car_state.brake_state == STD_OFF)
     {        
         if (car_state.tps < MAPPING_TPS_THRESHOLD)
-        {
-            hybrid_state.driving_mode = FREEWHEEL_MODE;
-            hybrid_state.duty_cycle_percentage = STD_OFF;
-        }
+            Set_Strategy_Freewheel();
         else
         {
             hybrid_state.driving_mode = TORQUE_MODE;
@@ -219,10 +216,7 @@ void Set_Strategy_Auto_Brake_Regen()
     if (car_state.brake_state == STD_OFF)
     {
         if (car_state.tps < MAPPING_TPS_THRESHOLD)
-        {
-            hybrid_state.driving_mode = FREEWHEEL_MODE;
-            hybrid_state.duty_cycle_percentage = STD_OFF;
-        }
+            Set_Strategy_Freewheel();
         else
         {
             hybrid_state.driving_mode = TORQUE_MODE;
