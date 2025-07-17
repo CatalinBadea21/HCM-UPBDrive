@@ -15,10 +15,10 @@
   |----|-----------------------|-------------------------------------------------------|
   | 0  | Freewheel             | Default idle mode                                     |
   | 1  | Manual (Boost)        | Full torque if boost button is active                 |
-  | 2  | Launch Assist         | Active at low RPM, low speed, high TPS, gear 1        |
-  | 3  | Auto No Regen         | Proportional torque, no regen                         |
-  | 4  | Auto Brake Regen      | Regen on brake press                                  |
-  | 5  | Auto TPS-Based Regen  | Regen when TPS < threshold or braking                 |
+  | 2  | Auto No Regen         | Proportional torque, no regen                         |
+  | 3  | Auto Brake Regen      | Regen on brake press                                  |
+  | 4  | Auto TPS-Based Regen  | Regen when TPS < threshold or braking                 |
+  | 5  | Launch Assist         | Active at low RPM, low speed, high TPS, gear 1        |
   |----|-----------------------|-------------------------------------------------------|
   *
   * Auto mode is mapping TPS from a threshold to 100
@@ -113,12 +113,8 @@ void Set_Strategy(uint8_t sel_strategy)
                 Set_Strategy_Freewheel();
                 break;
                 
-            case MANUAL_S:
+            case MANUAL_S: /* Serves as placeholder, logic already handled above */
                 Set_Strategy_Manual();
-                break;
-
-            case LAUNCH_S:
-                Set_Strategy_Launch_Assist();
                 break;
 
             case AUTO_NOREGEN_S:
@@ -131,6 +127,10 @@ void Set_Strategy(uint8_t sel_strategy)
 
             case AUTO_ALLREGEN_S:
                 Set_Strategy_Auto_Always_Regen();
+                break;
+
+            case LAUNCH_S:
+                Set_Strategy_Launch_Assist();
                 break;
 
             default:
@@ -162,27 +162,6 @@ void Set_Strategy_Manual()
      * If the program enters here it means the selector is on manual,
      * but boost button is not pressed -> freewheel */
     Set_Strategy_Freewheel();
-}
-
-/*
- * Function:    Set_Strategy_Launch_Assist
- * Description: Engages full torque at launch under these conditions:
- *              - RPM and VSS under a set threshold
- *              - TPS over a set threshold
- *              - Gear = 1
- *              - Brake not pressed
- *              Falls back to Freewheel otherwise.
- */
-void Set_Strategy_Launch_Assist()
-{
-    if ((car_state.rpm <= LAUNCH_MAX_RPM) && (car_state.vss <= LAUNCH_MAX_VSS) && (car_state.tps >= LAUNCH_MIN_TPS) \
-        && (car_state.gear == 1) && (car_state.brake_state == STD_OFF))
-    {
-        hybrid_state.driving_mode = TORQUE_MODE;
-        hybrid_state.duty_cycle_percentage = LAUNCH_TORQUE_PERCENTAGE;
-    }
-    else
-        Set_Strategy_Freewheel();
 }
 
 /*
@@ -252,6 +231,27 @@ void Set_Strategy_Auto_Always_Regen()
         hybrid_state.driving_mode = BRAKE_MODE;
         hybrid_state.duty_cycle_percentage = BRAKE_REGEN_INTENSITY_PERCENTAGE;
     }
+}
+
+/*
+ * Function:    Set_Strategy_Launch_Assist
+ * Description: Engages full torque at launch under these conditions:
+ *              - RPM and VSS under a set threshold
+ *              - TPS over a set threshold
+ *              - Gear = 1
+ *              - Brake not pressed
+ *              Falls back to Freewheel otherwise.
+ */
+void Set_Strategy_Launch_Assist()
+{
+    if ((car_state.rpm <= LAUNCH_MAX_RPM) && (car_state.vss <= LAUNCH_MAX_VSS) && (car_state.tps >= LAUNCH_MIN_TPS) \
+        && (car_state.gear == 1) && (car_state.brake_state == STD_OFF))
+    {
+        hybrid_state.driving_mode = TORQUE_MODE;
+        hybrid_state.duty_cycle_percentage = LAUNCH_TORQUE_PERCENTAGE;
+    }
+    else
+        Set_Strategy_Freewheel();
 }
 
 /* [] END OF FILE */

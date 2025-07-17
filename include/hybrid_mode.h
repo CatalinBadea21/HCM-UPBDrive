@@ -28,10 +28,10 @@
 #define BRAKE_REGEN_INTENSITY_PERCENTAGE 100u
 #define COASTING_REGEN_INTENSITY_PERCENTAGE 50u
 /* __________ THRESHOLDS __________ */
-#define MIN_VSS_TO_DEPLOY 3u
-#define MAX_VSS_TO_DEPLOY 90u
+#define MIN_VSS_TO_DEPLOY 5u
+#define MAX_VSS_TO_DEPLOY 85u
 #define LAUNCH_MAX_RPM 7500u
-#define LAUNCH_MAX_VSS 45u
+#define LAUNCH_MAX_VSS 50u
 #define LAUNCH_MIN_TPS 80u
 #define ALWAYS_REGEN_TPS_THRESHOLD 50u
 #define MAPPING_TPS_THRESHOLD 50u
@@ -63,10 +63,10 @@ void Emergency_Stop();
 void Set_Strategy(uint8_t sel_strategy);
 void Set_Strategy_Freewheel();
 void Set_Strategy_Manual();
-void Set_Strategy_Launch_Assist();
 void Set_Strategy_Auto_No_Regen();
 void Set_Strategy_Auto_Brake_Regen();
 void Set_Strategy_Auto_Always_Regen();
+void Set_Strategy_Launch_Assist();
 
 #endif /* HYBRID_MODE_H */
 /* [] */
