@@ -32,19 +32,19 @@ uint8_t Read_Rotary_Switch()
     }
     else if (Selector_In_2_Read() == ACTIVE_LOW)
     {
-        selector_stragy = LAUNCH_S;
+        selector_stragy = AUTO_NOREGEN_S;
     }
     else if (Selector_In_3_Read() == ACTIVE_LOW)
     {
-        selector_stragy = AUTO_NOREGEN_S;
+        selector_stragy = AUTO_BRAKEREGEN_S;
     }
     else if (Selector_In_4_Read() == ACTIVE_LOW)
     {
-        selector_stragy = AUTO_BRAKEREGEN_S;
+        selector_stragy = AUTO_ALLREGEN_S;
     }
     else if (Selector_In_5_Read() == ACTIVE_LOW)
     {
-        selector_stragy = AUTO_ALLREGEN_S;
+        selector_stragy = LAUNCH_S;
     }
     else // No strategy selected or out of bounds
     {

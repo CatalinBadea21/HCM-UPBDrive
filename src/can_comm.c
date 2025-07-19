@@ -72,7 +72,7 @@ uint8_t CAN_Read_From_ECU()
             car_state.brake_state = STD_OFF;
 
         if ((car_state.rpm > MAX_RPM) || (car_state.gear > MAX_GEAR) || (car_state.tps > MAX_TPS) || (car_state.vss > MAX_VSS))
-            return 0; /* Values out of bounds, failed can reading */
+            return 0; /* Values out of bounds, corrupted CAN message */
         
         CANisrFlag = 0; /* Clear interrupt flag */
 
