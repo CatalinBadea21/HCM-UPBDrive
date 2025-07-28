@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 1
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 1
   15:src/can_comm.c **** volatile vehicle_status_t car_state = {0, 0, 0, 0, 0, 0};
   16:src/can_comm.c **** 
   17:src/can_comm.c **** /**************************************************************************************************
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 2
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 2
 
 
   18:src/can_comm.c **** * Functions
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 1
   75 0030 1B12     		asrs	r3, r3, #8
   76 0032 1BB2     		sxth	r3, r3
   77 0034 DBB2     		uxtb	r3, r3
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 3
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 3
 
 
   78 0036 03F07F03 		and	r3, r3, #127
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 1
  113              		.cfi_startproc
  114              		@ args = 0, pretend = 0, frame = 0
  115              		@ frame_needed = 1, uses_anonymous_args = 0
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 4
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 4
 
 
  116              		@ link register save eliminated.
@@ -189,15 +189,15 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 1
  121              		.cfi_def_cfa_register 7
   56:src/can_comm.c ****     if (CANisrFlag)
  122              		.loc 1 56 0
- 123 0004 2A4B     		ldr	r3, .L11
+ 123 0004 2B4B     		ldr	r3, .L11
  124 0006 1B78     		ldrb	r3, [r3]
  125 0008 DBB2     		uxtb	r3, r3
  126 000a 002B     		cmp	r3, #0
- 127 000c 4AD0     		beq	.L5
+ 127 000c 4CD0     		beq	.L5
   57:src/can_comm.c ****     {
   58:src/can_comm.c ****         car_state.rpm = CAN_RX_DATA_BYTE1(CAN_RX_MAILBOX_ECU_receive) * RPM_MULTIPLIER;
  128              		.loc 1 58 0
- 129 000e 294B     		ldr	r3, .L11+4
+ 129 000e 2A4B     		ldr	r3, .L11+4
  130 0010 DB7A     		ldrb	r3, [r3, #11]
  131 0012 DBB2     		uxtb	r3, r3
  132 0014 9BB2     		uxth	r3, r3
@@ -211,1220 +211,1220 @@ ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 1
  140 0024 1344     		add	r3, r3, r2
  141 0026 9B00     		lsls	r3, r3, #2
  142 0028 9AB2     		uxth	r2, r3
- 143 002a 234B     		ldr	r3, .L11+8
+ 143 002a 244B     		ldr	r3, .L11+8
  144 002c 1A80     		strh	r2, [r3]	@ movhi
   59:src/can_comm.c **** 
-  60:src/can_comm.c ****         /*
-  61:src/can_comm.c ****         if (car_state.rpm > RPM_THRESHOLD)
-  62:src/can_comm.c ****             car_state.engine_state = STD_ON;
-  63:src/can_comm.c ****         else
-  64:src/can_comm.c ****             car_state.engine_state = STD_OFF;
-  65:src/can_comm.c ****         */
-  66:src/can_comm.c ****         car_state.engine_state = STD_ON;
- 145              		.loc 1 66 0
- 146 002e 224B     		ldr	r3, .L11+8
- 147 0030 0122     		movs	r2, #1
- 148 0032 9A70     		strb	r2, [r3, #2]
-  67:src/can_comm.c **** 
-  68:src/can_comm.c ****         car_state.gear = CAN_RX_DATA_BYTE2(CAN_RX_MAILBOX_ECU_receive);
- 149              		.loc 1 68 0
- 150 0034 1F4B     		ldr	r3, .L11+4
- 151 0036 9B7A     		ldrb	r3, [r3, #10]
- 152 0038 DAB2     		uxtb	r2, r3
- 153 003a 1F4B     		ldr	r3, .L11+8
- 154 003c DA70     		strb	r2, [r3, #3]
-  69:src/can_comm.c ****         car_state.tps = CAN_RX_DATA_BYTE3(CAN_RX_MAILBOX_ECU_receive);
- 155              		.loc 1 69 0
- 156 003e 1D4B     		ldr	r3, .L11+4
- 157 0040 5B7A     		ldrb	r3, [r3, #9]
- 158 0042 DAB2     		uxtb	r2, r3
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 5
+  60:src/can_comm.c ****         if (car_state.rpm >= RPM_THRESHOLD)
+ 145              		.loc 1 60 0
+ 146 002e 234B     		ldr	r3, .L11+8
+ 147 0030 1B88     		ldrh	r3, [r3]	@ movhi
+  61:src/can_comm.c ****             car_state.engine_state = STD_ON;
+ 148              		.loc 1 61 0
+ 149 0032 224B     		ldr	r3, .L11+8
+ 150 0034 0122     		movs	r2, #1
+ 151 0036 9A70     		strb	r2, [r3, #2]
+  62:src/can_comm.c ****         else
+  63:src/can_comm.c ****             car_state.engine_state = STD_OFF;
+  64:src/can_comm.c **** 
+  65:src/can_comm.c ****         car_state.gear = CAN_RX_DATA_BYTE2(CAN_RX_MAILBOX_ECU_receive);
+ 152              		.loc 1 65 0
+ 153 0038 1F4B     		ldr	r3, .L11+4
+ 154 003a 9B7A     		ldrb	r3, [r3, #10]
+ 155 003c DAB2     		uxtb	r2, r3
+ 156 003e 1F4B     		ldr	r3, .L11+8
+ 157 0040 DA70     		strb	r2, [r3, #3]
+  66:src/can_comm.c ****         car_state.tps = CAN_RX_DATA_BYTE3(CAN_RX_MAILBOX_ECU_receive);
+ 158              		.loc 1 66 0
+ 159 0042 1D4B     		ldr	r3, .L11+4
+ 160 0044 5B7A     		ldrb	r3, [r3, #9]
+ 161 0046 DAB2     		uxtb	r2, r3
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 5
 
 
- 159 0044 1C4B     		ldr	r3, .L11+8
- 160 0046 1A71     		strb	r2, [r3, #4]
-  70:src/can_comm.c ****         car_state.vss = CAN_RX_DATA_BYTE4(CAN_RX_MAILBOX_ECU_receive);
- 161              		.loc 1 70 0
- 162 0048 1A4B     		ldr	r3, .L11+4
- 163 004a 1B7A     		ldrb	r3, [r3, #8]
- 164 004c DAB2     		uxtb	r2, r3
- 165 004e 1A4B     		ldr	r3, .L11+8
- 166 0050 5A71     		strb	r2, [r3, #5]
-  71:src/can_comm.c **** 
-  72:src/can_comm.c ****         if (CAN_RX_DATA_BYTE5(CAN_RX_MAILBOX_ECU_receive) > BRAKE_THRESHOLD)
- 167              		.loc 1 72 0
- 168 0052 184B     		ldr	r3, .L11+4
- 169 0054 DB7B     		ldrb	r3, [r3, #15]
- 170 0056 DBB2     		uxtb	r3, r3
- 171 0058 002B     		cmp	r3, #0
- 172 005a 03D0     		beq	.L6
-  73:src/can_comm.c ****             car_state.brake_state = STD_ON;
- 173              		.loc 1 73 0
- 174 005c 164B     		ldr	r3, .L11+8
- 175 005e 0122     		movs	r2, #1
- 176 0060 9A71     		strb	r2, [r3, #6]
- 177 0062 02E0     		b	.L7
- 178              	.L6:
-  74:src/can_comm.c ****         else
-  75:src/can_comm.c ****             car_state.brake_state = STD_OFF;
- 179              		.loc 1 75 0
- 180 0064 144B     		ldr	r3, .L11+8
- 181 0066 0022     		movs	r2, #0
- 182 0068 9A71     		strb	r2, [r3, #6]
- 183              	.L7:
-  76:src/can_comm.c **** 
-  77:src/can_comm.c ****         if ((car_state.rpm > MAX_RPM) || (car_state.gear > MAX_GEAR) || (car_state.tps > MAX_TPS) |
- 184              		.loc 1 77 0
- 185 006a 134B     		ldr	r3, .L11+8
- 186 006c 1B88     		ldrh	r3, [r3]	@ movhi
- 187 006e 9BB2     		uxth	r3, r3
- 188 0070 43F2B062 		movw	r2, #14000
- 189 0074 9342     		cmp	r3, r2
- 190 0076 0ED8     		bhi	.L8
- 191              		.loc 1 77 0 is_stmt 0 discriminator 1
- 192 0078 0F4B     		ldr	r3, .L11+8
- 193 007a DB78     		ldrb	r3, [r3, #3]
- 194 007c DBB2     		uxtb	r3, r3
- 195 007e 052B     		cmp	r3, #5
- 196 0080 09D8     		bhi	.L8
- 197              		.loc 1 77 0 discriminator 2
- 198 0082 0D4B     		ldr	r3, .L11+8
- 199 0084 1B79     		ldrb	r3, [r3, #4]
- 200 0086 DBB2     		uxtb	r3, r3
- 201 0088 642B     		cmp	r3, #100
- 202 008a 04D8     		bhi	.L8
- 203              		.loc 1 77 0 discriminator 3
- 204 008c 0A4B     		ldr	r3, .L11+8
- 205 008e 5B79     		ldrb	r3, [r3, #5]
- 206 0090 DBB2     		uxtb	r3, r3
- 207 0092 822B     		cmp	r3, #130
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 6
+ 162 0048 1C4B     		ldr	r3, .L11+8
+ 163 004a 1A71     		strb	r2, [r3, #4]
+  67:src/can_comm.c ****         car_state.vss = CAN_RX_DATA_BYTE4(CAN_RX_MAILBOX_ECU_receive);
+ 164              		.loc 1 67 0
+ 165 004c 1A4B     		ldr	r3, .L11+4
+ 166 004e 1B7A     		ldrb	r3, [r3, #8]
+ 167 0050 DAB2     		uxtb	r2, r3
+ 168 0052 1A4B     		ldr	r3, .L11+8
+ 169 0054 5A71     		strb	r2, [r3, #5]
+  68:src/can_comm.c **** 
+  69:src/can_comm.c ****         if (CAN_RX_DATA_BYTE5(CAN_RX_MAILBOX_ECU_receive) > BRAKE_THRESHOLD)
+ 170              		.loc 1 69 0
+ 171 0056 184B     		ldr	r3, .L11+4
+ 172 0058 DB7B     		ldrb	r3, [r3, #15]
+ 173 005a DBB2     		uxtb	r3, r3
+ 174 005c 002B     		cmp	r3, #0
+ 175 005e 03D0     		beq	.L6
+  70:src/can_comm.c ****             car_state.brake_state = STD_ON;
+ 176              		.loc 1 70 0
+ 177 0060 164B     		ldr	r3, .L11+8
+ 178 0062 0122     		movs	r2, #1
+ 179 0064 9A71     		strb	r2, [r3, #6]
+ 180 0066 02E0     		b	.L7
+ 181              	.L6:
+  71:src/can_comm.c ****         else
+  72:src/can_comm.c ****             car_state.brake_state = STD_OFF;
+ 182              		.loc 1 72 0
+ 183 0068 144B     		ldr	r3, .L11+8
+ 184 006a 0022     		movs	r2, #0
+ 185 006c 9A71     		strb	r2, [r3, #6]
+ 186              	.L7:
+  73:src/can_comm.c **** 
+  74:src/can_comm.c ****         if ((car_state.rpm > MAX_RPM) || (car_state.gear > MAX_GEAR) || (car_state.tps > MAX_TPS) |
+ 187              		.loc 1 74 0
+ 188 006e 134B     		ldr	r3, .L11+8
+ 189 0070 1B88     		ldrh	r3, [r3]	@ movhi
+ 190 0072 9BB2     		uxth	r3, r3
+ 191 0074 43F2B062 		movw	r2, #14000
+ 192 0078 9342     		cmp	r3, r2
+ 193 007a 0ED8     		bhi	.L8
+ 194              		.loc 1 74 0 is_stmt 0 discriminator 1
+ 195 007c 0F4B     		ldr	r3, .L11+8
+ 196 007e DB78     		ldrb	r3, [r3, #3]
+ 197 0080 DBB2     		uxtb	r3, r3
+ 198 0082 052B     		cmp	r3, #5
+ 199 0084 09D8     		bhi	.L8
+ 200              		.loc 1 74 0 discriminator 2
+ 201 0086 0D4B     		ldr	r3, .L11+8
+ 202 0088 1B79     		ldrb	r3, [r3, #4]
+ 203 008a DBB2     		uxtb	r3, r3
+ 204 008c 642B     		cmp	r3, #100
+ 205 008e 04D8     		bhi	.L8
+ 206              		.loc 1 74 0 discriminator 3
+ 207 0090 0A4B     		ldr	r3, .L11+8
+ 208 0092 5B79     		ldrb	r3, [r3, #5]
+ 209 0094 DBB2     		uxtb	r3, r3
+ 210 0096 822B     		cmp	r3, #130
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 6
 
 
- 208 0094 01D9     		bls	.L9
- 209              	.L8:
-  78:src/can_comm.c ****             return 0; /* Values out of bounds, corrupted CAN message */
- 210              		.loc 1 78 0 is_stmt 1
- 211 0096 0023     		movs	r3, #0
- 212 0098 05E0     		b	.L10
- 213              	.L9:
-  79:src/can_comm.c ****         
-  80:src/can_comm.c ****         CANisrFlag = 0; /* Clear interrupt flag */
- 214              		.loc 1 80 0
- 215 009a 054B     		ldr	r3, .L11
- 216 009c 0022     		movs	r2, #0
- 217 009e 1A70     		strb	r2, [r3]
-  81:src/can_comm.c **** 
-  82:src/can_comm.c ****         return 1;
- 218              		.loc 1 82 0
- 219 00a0 0123     		movs	r3, #1
- 220 00a2 00E0     		b	.L10
- 221              	.L5:
-  83:src/can_comm.c ****     }
-  84:src/can_comm.c ****     else
-  85:src/can_comm.c ****         return 0;
- 222              		.loc 1 85 0
- 223 00a4 0023     		movs	r3, #0
- 224              	.L10:
-  86:src/can_comm.c **** }
- 225              		.loc 1 86 0
- 226 00a6 1846     		mov	r0, r3
- 227 00a8 BD46     		mov	sp, r7
- 228              		.cfi_def_cfa_register 13
- 229              		@ sp needed
- 230 00aa 80BC     		pop	{r7}
- 231              		.cfi_restore 7
- 232              		.cfi_def_cfa_offset 0
- 233 00ac 7047     		bx	lr
- 234              	.L12:
- 235 00ae 00BF     		.align	2
- 236              	.L11:
- 237 00b0 00000000 		.word	CANisrFlag
- 238 00b4 A0A00040 		.word	1073782944
- 239 00b8 00000000 		.word	car_state
- 240              		.cfi_endproc
- 241              	.LFE64:
- 242              		.size	CAN_Read_From_ECU, .-CAN_Read_From_ECU
- 243              		.section	.text.ISR_CAN,"ax",%progbits
- 244              		.align	2
- 245              		.global	ISR_CAN
- 246              		.thumb
- 247              		.thumb_func
- 248              		.type	ISR_CAN, %function
- 249              	ISR_CAN:
- 250              	.LFB65:
-  87:src/can_comm.c **** 
-  88:src/can_comm.c **** /*
-  89:src/can_comm.c ****  * Function:    ISR_CAN
-  90:src/can_comm.c ****  * Description: Interrupt Service Routine triggered on CAN receive event.
-  91:src/can_comm.c ****  * Actions:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 7
+ 211 0098 01D9     		bls	.L9
+ 212              	.L8:
+  75:src/can_comm.c ****             return 0; /* Values out of bounds, corrupted CAN message */
+ 213              		.loc 1 75 0 is_stmt 1
+ 214 009a 0023     		movs	r3, #0
+ 215 009c 05E0     		b	.L10
+ 216              	.L9:
+  76:src/can_comm.c ****         
+  77:src/can_comm.c ****         CANisrFlag = 0; /* Clear interrupt flag */
+ 217              		.loc 1 77 0
+ 218 009e 054B     		ldr	r3, .L11
+ 219 00a0 0022     		movs	r2, #0
+ 220 00a2 1A70     		strb	r2, [r3]
+  78:src/can_comm.c **** 
+  79:src/can_comm.c ****         return 1;
+ 221              		.loc 1 79 0
+ 222 00a4 0123     		movs	r3, #1
+ 223 00a6 00E0     		b	.L10
+ 224              	.L5:
+  80:src/can_comm.c ****     }
+  81:src/can_comm.c ****     else
+  82:src/can_comm.c ****         return 0;
+ 225              		.loc 1 82 0
+ 226 00a8 0023     		movs	r3, #0
+ 227              	.L10:
+  83:src/can_comm.c **** }
+ 228              		.loc 1 83 0
+ 229 00aa 1846     		mov	r0, r3
+ 230 00ac BD46     		mov	sp, r7
+ 231              		.cfi_def_cfa_register 13
+ 232              		@ sp needed
+ 233 00ae 80BC     		pop	{r7}
+ 234              		.cfi_restore 7
+ 235              		.cfi_def_cfa_offset 0
+ 236 00b0 7047     		bx	lr
+ 237              	.L12:
+ 238 00b2 00BF     		.align	2
+ 239              	.L11:
+ 240 00b4 00000000 		.word	CANisrFlag
+ 241 00b8 A0A00040 		.word	1073782944
+ 242 00bc 00000000 		.word	car_state
+ 243              		.cfi_endproc
+ 244              	.LFE64:
+ 245              		.size	CAN_Read_From_ECU, .-CAN_Read_From_ECU
+ 246              		.section	.text.ISR_CAN,"ax",%progbits
+ 247              		.align	2
+ 248              		.global	ISR_CAN
+ 249              		.thumb
+ 250              		.thumb_func
+ 251              		.type	ISR_CAN, %function
+ 252              	ISR_CAN:
+ 253              	.LFB65:
+  84:src/can_comm.c **** 
+  85:src/can_comm.c **** /*
+  86:src/can_comm.c ****  * Function:    ISR_CAN
+  87:src/can_comm.c ****  * Description: Interrupt Service Routine triggered on CAN receive event.
+  88:src/can_comm.c ****  * Actions:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 7
 
 
-  92:src/can_comm.c ****  *   - Clears the receive interrupt flag.
-  93:src/can_comm.c ****  *   - Sets the global CANisrFlag to signal that new data is available.
-  94:src/can_comm.c ****  *   - Acknowledges the received message in the ECU receive mailbox.
-  95:src/can_comm.c ****  */
-  96:src/can_comm.c **** CY_ISR(ISR_CAN)
-  97:src/can_comm.c **** {
- 251              		.loc 1 97 0
- 252              		.cfi_startproc
- 253              		@ args = 0, pretend = 0, frame = 0
- 254              		@ frame_needed = 1, uses_anonymous_args = 0
- 255              		@ link register save eliminated.
- 256 0000 80B4     		push	{r7}
- 257              		.cfi_def_cfa_offset 4
- 258              		.cfi_offset 7, -4
- 259 0002 00AF     		add	r7, sp, #0
- 260              		.cfi_def_cfa_register 7
-  98:src/can_comm.c ****     CAN_INT_SR_REG.byte[1u] = CAN_RX_MESSAGE_MASK; // Clear Receive Message flag
- 261              		.loc 1 98 0
- 262 0004 084B     		ldr	r3, .L14
- 263 0006 1022     		movs	r2, #16
- 264 0008 5A70     		strb	r2, [r3, #1]
-  99:src/can_comm.c ****     CANisrFlag = 1u; // Set interrupt flag
- 265              		.loc 1 99 0
- 266 000a 084B     		ldr	r3, .L14+4
- 267 000c 0122     		movs	r2, #1
- 268 000e 1A70     		strb	r2, [r3]
- 100:src/can_comm.c ****     CAN_RX_ACK_MESSAGE(CAN_RX_MAILBOX_ECU_receive); // RX ACK
- 269              		.loc 1 100 0
- 270 0010 074A     		ldr	r2, .L14+8
- 271 0012 074B     		ldr	r3, .L14+8
- 272 0014 1B78     		ldrb	r3, [r3]
- 273 0016 DBB2     		uxtb	r3, r3
- 274 0018 43F00103 		orr	r3, r3, #1
- 275 001c DBB2     		uxtb	r3, r3
- 276 001e 1370     		strb	r3, [r2]
- 101:src/can_comm.c **** }
- 277              		.loc 1 101 0
- 278 0020 00BF     		nop
- 279 0022 BD46     		mov	sp, r7
- 280              		.cfi_def_cfa_register 13
- 281              		@ sp needed
- 282 0024 80BC     		pop	{r7}
- 283              		.cfi_restore 7
- 284              		.cfi_def_cfa_offset 0
- 285 0026 7047     		bx	lr
- 286              	.L15:
- 287              		.align	2
- 288              	.L14:
- 289 0028 00A00040 		.word	1073782784
- 290 002c 00000000 		.word	CANisrFlag
- 291 0030 A0A00040 		.word	1073782944
- 292              		.cfi_endproc
- 293              	.LFE65:
- 294              		.size	ISR_CAN, .-ISR_CAN
- 295              		.text
- 296              	.Letext0:
- 297              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 8
+  89:src/can_comm.c ****  *   - Clears the receive interrupt flag.
+  90:src/can_comm.c ****  *   - Sets the global CANisrFlag to signal that new data is available.
+  91:src/can_comm.c ****  *   - Acknowledges the received message in the ECU receive mailbox.
+  92:src/can_comm.c ****  */
+  93:src/can_comm.c **** CY_ISR(ISR_CAN)
+  94:src/can_comm.c **** {
+ 254              		.loc 1 94 0
+ 255              		.cfi_startproc
+ 256              		@ args = 0, pretend = 0, frame = 0
+ 257              		@ frame_needed = 1, uses_anonymous_args = 0
+ 258              		@ link register save eliminated.
+ 259 0000 80B4     		push	{r7}
+ 260              		.cfi_def_cfa_offset 4
+ 261              		.cfi_offset 7, -4
+ 262 0002 00AF     		add	r7, sp, #0
+ 263              		.cfi_def_cfa_register 7
+  95:src/can_comm.c ****     CAN_INT_SR_REG.byte[1u] = CAN_RX_MESSAGE_MASK; // Clear Receive Message flag
+ 264              		.loc 1 95 0
+ 265 0004 084B     		ldr	r3, .L14
+ 266 0006 1022     		movs	r2, #16
+ 267 0008 5A70     		strb	r2, [r3, #1]
+  96:src/can_comm.c ****     CANisrFlag = 1u; // Set interrupt flag
+ 268              		.loc 1 96 0
+ 269 000a 084B     		ldr	r3, .L14+4
+ 270 000c 0122     		movs	r2, #1
+ 271 000e 1A70     		strb	r2, [r3]
+  97:src/can_comm.c ****     CAN_RX_ACK_MESSAGE(CAN_RX_MAILBOX_ECU_receive); // RX ACK
+ 272              		.loc 1 97 0
+ 273 0010 074A     		ldr	r2, .L14+8
+ 274 0012 074B     		ldr	r3, .L14+8
+ 275 0014 1B78     		ldrb	r3, [r3]
+ 276 0016 DBB2     		uxtb	r3, r3
+ 277 0018 43F00103 		orr	r3, r3, #1
+ 278 001c DBB2     		uxtb	r3, r3
+ 279 001e 1370     		strb	r3, [r2]
+  98:src/can_comm.c **** }
+ 280              		.loc 1 98 0
+ 281 0020 00BF     		nop
+ 282 0022 BD46     		mov	sp, r7
+ 283              		.cfi_def_cfa_register 13
+ 284              		@ sp needed
+ 285 0024 80BC     		pop	{r7}
+ 286              		.cfi_restore 7
+ 287              		.cfi_def_cfa_offset 0
+ 288 0026 7047     		bx	lr
+ 289              	.L15:
+ 290              		.align	2
+ 291              	.L14:
+ 292 0028 00A00040 		.word	1073782784
+ 293 002c 00000000 		.word	CANisrFlag
+ 294 0030 A0A00040 		.word	1073782944
+ 295              		.cfi_endproc
+ 296              	.LFE65:
+ 297              		.size	ISR_CAN, .-ISR_CAN
+ 298              		.text
+ 299              	.Letext0:
+ 300              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 8
 
 
- 298              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
- 299              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
- 300              		.file 5 "Generated_Source\\PSoC5/CAN.h"
- 301              		.file 6 "./include/can_comm.h"
- 302              		.file 7 "Generated_Source\\PSoC5/core_cm3.h"
- 303              		.section	.debug_info,"",%progbits
- 304              	.Ldebug_info0:
- 305 0000 24030000 		.4byte	0x324
- 306 0004 0400     		.2byte	0x4
- 307 0006 00000000 		.4byte	.Ldebug_abbrev0
- 308 000a 04       		.byte	0x4
- 309 000b 01       		.uleb128 0x1
- 310 000c 36000000 		.4byte	.LASF52
- 311 0010 0C       		.byte	0xc
- 312 0011 68010000 		.4byte	.LASF53
- 313 0015 DE000000 		.4byte	.LASF54
- 314 0019 00000000 		.4byte	.Ldebug_ranges0+0
- 315 001d 00000000 		.4byte	0
- 316 0021 00000000 		.4byte	.Ldebug_line0
- 317 0025 02       		.uleb128 0x2
- 318 0026 DC020000 		.4byte	.LASF0
- 319 002a 02       		.byte	0x2
- 320 002b 1B       		.byte	0x1b
- 321 002c 30000000 		.4byte	0x30
- 322 0030 03       		.uleb128 0x3
- 323 0031 01       		.byte	0x1
- 324 0032 06       		.byte	0x6
- 325 0033 7D010000 		.4byte	.LASF2
- 326 0037 02       		.uleb128 0x2
- 327 0038 1D000000 		.4byte	.LASF1
- 328 003c 02       		.byte	0x2
- 329 003d 1D       		.byte	0x1d
- 330 003e 42000000 		.4byte	0x42
- 331 0042 03       		.uleb128 0x3
- 332 0043 01       		.byte	0x1
- 333 0044 08       		.byte	0x8
- 334 0045 9D010000 		.4byte	.LASF3
- 335 0049 02       		.uleb128 0x2
- 336 004a C4000000 		.4byte	.LASF4
- 337 004e 02       		.byte	0x2
- 338 004f 29       		.byte	0x29
- 339 0050 54000000 		.4byte	0x54
- 340 0054 03       		.uleb128 0x3
- 341 0055 02       		.byte	0x2
- 342 0056 05       		.byte	0x5
- 343 0057 11020000 		.4byte	.LASF5
- 344 005b 02       		.uleb128 0x2
- 345 005c F4010000 		.4byte	.LASF6
- 346 0060 02       		.byte	0x2
- 347 0061 2B       		.byte	0x2b
- 348 0062 66000000 		.4byte	0x66
- 349 0066 03       		.uleb128 0x3
- 350 0067 02       		.byte	0x2
- 351 0068 07       		.byte	0x7
- 352 0069 1F010000 		.4byte	.LASF7
- 353 006d 02       		.uleb128 0x2
- 354 006e D4000000 		.4byte	.LASF8
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 9
+ 301              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 302              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 303              		.file 5 "Generated_Source\\PSoC5/CAN.h"
+ 304              		.file 6 "./include/can_comm.h"
+ 305              		.file 7 "Generated_Source\\PSoC5/core_cm3.h"
+ 306              		.section	.debug_info,"",%progbits
+ 307              	.Ldebug_info0:
+ 308 0000 24030000 		.4byte	0x324
+ 309 0004 0400     		.2byte	0x4
+ 310 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 311 000a 04       		.byte	0x4
+ 312 000b 01       		.uleb128 0x1
+ 313 000c 36000000 		.4byte	.LASF52
+ 314 0010 0C       		.byte	0xc
+ 315 0011 68010000 		.4byte	.LASF53
+ 316 0015 DE000000 		.4byte	.LASF54
+ 317 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 318 001d 00000000 		.4byte	0
+ 319 0021 00000000 		.4byte	.Ldebug_line0
+ 320 0025 02       		.uleb128 0x2
+ 321 0026 DC020000 		.4byte	.LASF0
+ 322 002a 02       		.byte	0x2
+ 323 002b 1B       		.byte	0x1b
+ 324 002c 30000000 		.4byte	0x30
+ 325 0030 03       		.uleb128 0x3
+ 326 0031 01       		.byte	0x1
+ 327 0032 06       		.byte	0x6
+ 328 0033 7D010000 		.4byte	.LASF2
+ 329 0037 02       		.uleb128 0x2
+ 330 0038 1D000000 		.4byte	.LASF1
+ 331 003c 02       		.byte	0x2
+ 332 003d 1D       		.byte	0x1d
+ 333 003e 42000000 		.4byte	0x42
+ 334 0042 03       		.uleb128 0x3
+ 335 0043 01       		.byte	0x1
+ 336 0044 08       		.byte	0x8
+ 337 0045 9D010000 		.4byte	.LASF3
+ 338 0049 02       		.uleb128 0x2
+ 339 004a C4000000 		.4byte	.LASF4
+ 340 004e 02       		.byte	0x2
+ 341 004f 29       		.byte	0x29
+ 342 0050 54000000 		.4byte	0x54
+ 343 0054 03       		.uleb128 0x3
+ 344 0055 02       		.byte	0x2
+ 345 0056 05       		.byte	0x5
+ 346 0057 11020000 		.4byte	.LASF5
+ 347 005b 02       		.uleb128 0x2
+ 348 005c F4010000 		.4byte	.LASF6
+ 349 0060 02       		.byte	0x2
+ 350 0061 2B       		.byte	0x2b
+ 351 0062 66000000 		.4byte	0x66
+ 352 0066 03       		.uleb128 0x3
+ 353 0067 02       		.byte	0x2
+ 354 0068 07       		.byte	0x7
+ 355 0069 1F010000 		.4byte	.LASF7
+ 356 006d 02       		.uleb128 0x2
+ 357 006e D4000000 		.4byte	.LASF8
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 9
 
 
- 355 0072 02       		.byte	0x2
- 356 0073 3F       		.byte	0x3f
- 357 0074 78000000 		.4byte	0x78
- 358 0078 03       		.uleb128 0x3
- 359 0079 04       		.byte	0x4
- 360 007a 05       		.byte	0x5
- 361 007b D3020000 		.4byte	.LASF9
- 362 007f 03       		.uleb128 0x3
- 363 0080 04       		.byte	0x4
- 364 0081 07       		.byte	0x7
- 365 0082 FF010000 		.4byte	.LASF10
- 366 0086 03       		.uleb128 0x3
- 367 0087 08       		.byte	0x8
- 368 0088 05       		.byte	0x5
- 369 0089 B1020000 		.4byte	.LASF11
- 370 008d 03       		.uleb128 0x3
- 371 008e 08       		.byte	0x8
- 372 008f 07       		.byte	0x7
- 373 0090 40020000 		.4byte	.LASF12
- 374 0094 04       		.uleb128 0x4
- 375 0095 04       		.byte	0x4
- 376 0096 05       		.byte	0x5
- 377 0097 696E7400 		.ascii	"int\000"
- 378 009b 03       		.uleb128 0x3
- 379 009c 04       		.byte	0x4
- 380 009d 07       		.byte	0x7
- 381 009e 33020000 		.4byte	.LASF13
- 382 00a2 02       		.uleb128 0x2
- 383 00a3 5A010000 		.4byte	.LASF14
- 384 00a7 03       		.byte	0x3
- 385 00a8 14       		.byte	0x14
- 386 00a9 25000000 		.4byte	0x25
- 387 00ad 02       		.uleb128 0x2
- 388 00ae 57020000 		.4byte	.LASF15
- 389 00b2 03       		.byte	0x3
- 390 00b3 18       		.byte	0x18
- 391 00b4 37000000 		.4byte	0x37
- 392 00b8 02       		.uleb128 0x2
- 393 00b9 73020000 		.4byte	.LASF16
- 394 00bd 03       		.byte	0x3
- 395 00be 20       		.byte	0x20
- 396 00bf 49000000 		.4byte	0x49
- 397 00c3 02       		.uleb128 0x2
- 398 00c4 CA020000 		.4byte	.LASF17
- 399 00c8 03       		.byte	0x3
- 400 00c9 24       		.byte	0x24
- 401 00ca 5B000000 		.4byte	0x5b
- 402 00ce 02       		.uleb128 0x2
- 403 00cf B5010000 		.4byte	.LASF18
- 404 00d3 03       		.byte	0x3
- 405 00d4 2C       		.byte	0x2c
- 406 00d5 6D000000 		.4byte	0x6d
- 407 00d9 05       		.uleb128 0x5
- 408 00da 7B020000 		.4byte	.LASF19
- 409 00de 04       		.byte	0x4
- 410 00df 9201     		.2byte	0x192
- 411 00e1 42000000 		.4byte	0x42
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 10
+ 358 0072 02       		.byte	0x2
+ 359 0073 3F       		.byte	0x3f
+ 360 0074 78000000 		.4byte	0x78
+ 361 0078 03       		.uleb128 0x3
+ 362 0079 04       		.byte	0x4
+ 363 007a 05       		.byte	0x5
+ 364 007b D3020000 		.4byte	.LASF9
+ 365 007f 03       		.uleb128 0x3
+ 366 0080 04       		.byte	0x4
+ 367 0081 07       		.byte	0x7
+ 368 0082 FF010000 		.4byte	.LASF10
+ 369 0086 03       		.uleb128 0x3
+ 370 0087 08       		.byte	0x8
+ 371 0088 05       		.byte	0x5
+ 372 0089 B1020000 		.4byte	.LASF11
+ 373 008d 03       		.uleb128 0x3
+ 374 008e 08       		.byte	0x8
+ 375 008f 07       		.byte	0x7
+ 376 0090 40020000 		.4byte	.LASF12
+ 377 0094 04       		.uleb128 0x4
+ 378 0095 04       		.byte	0x4
+ 379 0096 05       		.byte	0x5
+ 380 0097 696E7400 		.ascii	"int\000"
+ 381 009b 03       		.uleb128 0x3
+ 382 009c 04       		.byte	0x4
+ 383 009d 07       		.byte	0x7
+ 384 009e 33020000 		.4byte	.LASF13
+ 385 00a2 02       		.uleb128 0x2
+ 386 00a3 5A010000 		.4byte	.LASF14
+ 387 00a7 03       		.byte	0x3
+ 388 00a8 14       		.byte	0x14
+ 389 00a9 25000000 		.4byte	0x25
+ 390 00ad 02       		.uleb128 0x2
+ 391 00ae 57020000 		.4byte	.LASF15
+ 392 00b2 03       		.byte	0x3
+ 393 00b3 18       		.byte	0x18
+ 394 00b4 37000000 		.4byte	0x37
+ 395 00b8 02       		.uleb128 0x2
+ 396 00b9 73020000 		.4byte	.LASF16
+ 397 00bd 03       		.byte	0x3
+ 398 00be 20       		.byte	0x20
+ 399 00bf 49000000 		.4byte	0x49
+ 400 00c3 02       		.uleb128 0x2
+ 401 00c4 CA020000 		.4byte	.LASF17
+ 402 00c8 03       		.byte	0x3
+ 403 00c9 24       		.byte	0x24
+ 404 00ca 5B000000 		.4byte	0x5b
+ 405 00ce 02       		.uleb128 0x2
+ 406 00cf B5010000 		.4byte	.LASF18
+ 407 00d3 03       		.byte	0x3
+ 408 00d4 2C       		.byte	0x2c
+ 409 00d5 6D000000 		.4byte	0x6d
+ 410 00d9 05       		.uleb128 0x5
+ 411 00da 7B020000 		.4byte	.LASF19
+ 412 00de 04       		.byte	0x4
+ 413 00df 9201     		.2byte	0x192
+ 414 00e1 42000000 		.4byte	0x42
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 10
 
 
- 412 00e5 03       		.uleb128 0x3
- 413 00e6 04       		.byte	0x4
- 414 00e7 04       		.byte	0x4
- 415 00e8 77010000 		.4byte	.LASF20
- 416 00ec 03       		.uleb128 0x3
- 417 00ed 08       		.byte	0x8
- 418 00ee 04       		.byte	0x4
- 419 00ef 42010000 		.4byte	.LASF21
- 420 00f3 03       		.uleb128 0x3
- 421 00f4 01       		.byte	0x1
- 422 00f5 08       		.byte	0x8
- 423 00f6 BF020000 		.4byte	.LASF22
- 424 00fa 05       		.uleb128 0x5
- 425 00fb B0010000 		.4byte	.LASF23
- 426 00ff 04       		.byte	0x4
- 427 0100 3C02     		.2byte	0x23c
- 428 0102 06010000 		.4byte	0x106
- 429 0106 06       		.uleb128 0x6
- 430 0107 D9000000 		.4byte	0xd9
- 431 010b 03       		.uleb128 0x3
- 432 010c 08       		.byte	0x8
- 433 010d 04       		.byte	0x4
- 434 010e 95020000 		.4byte	.LASF24
- 435 0112 03       		.uleb128 0x3
- 436 0113 04       		.byte	0x4
- 437 0114 07       		.byte	0x7
- 438 0115 A1020000 		.4byte	.LASF25
- 439 0119 07       		.uleb128 0x7
- 440 011a 08       		.byte	0x8
- 441 011b 05       		.byte	0x5
- 442 011c 75       		.byte	0x75
- 443 011d 2E010000 		.4byte	0x12e
- 444 0121 08       		.uleb128 0x8
- 445 0122 49010000 		.4byte	.LASF27
- 446 0126 05       		.byte	0x5
- 447 0127 77       		.byte	0x77
- 448 0128 3E010000 		.4byte	0x13e
- 449 012c 00       		.byte	0
- 450 012d 00       		.byte	0
- 451 012e 09       		.uleb128 0x9
- 452 012f FA000000 		.4byte	0xfa
- 453 0133 3E010000 		.4byte	0x13e
- 454 0137 0A       		.uleb128 0xa
- 455 0138 12010000 		.4byte	0x112
- 456 013c 07       		.byte	0x7
- 457 013d 00       		.byte	0
- 458 013e 06       		.uleb128 0x6
- 459 013f 2E010000 		.4byte	0x12e
- 460 0143 02       		.uleb128 0x2
- 461 0144 27000000 		.4byte	.LASF26
- 462 0148 05       		.byte	0x5
- 463 0149 78       		.byte	0x78
- 464 014a 19010000 		.4byte	0x119
- 465 014e 07       		.uleb128 0x7
- 466 014f 04       		.byte	0x4
- 467 0150 05       		.byte	0x5
- 468 0151 7B       		.byte	0x7b
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 11
+ 415 00e5 03       		.uleb128 0x3
+ 416 00e6 04       		.byte	0x4
+ 417 00e7 04       		.byte	0x4
+ 418 00e8 77010000 		.4byte	.LASF20
+ 419 00ec 03       		.uleb128 0x3
+ 420 00ed 08       		.byte	0x8
+ 421 00ee 04       		.byte	0x4
+ 422 00ef 42010000 		.4byte	.LASF21
+ 423 00f3 03       		.uleb128 0x3
+ 424 00f4 01       		.byte	0x1
+ 425 00f5 08       		.byte	0x8
+ 426 00f6 BF020000 		.4byte	.LASF22
+ 427 00fa 05       		.uleb128 0x5
+ 428 00fb B0010000 		.4byte	.LASF23
+ 429 00ff 04       		.byte	0x4
+ 430 0100 3C02     		.2byte	0x23c
+ 431 0102 06010000 		.4byte	0x106
+ 432 0106 06       		.uleb128 0x6
+ 433 0107 D9000000 		.4byte	0xd9
+ 434 010b 03       		.uleb128 0x3
+ 435 010c 08       		.byte	0x8
+ 436 010d 04       		.byte	0x4
+ 437 010e 95020000 		.4byte	.LASF24
+ 438 0112 03       		.uleb128 0x3
+ 439 0113 04       		.byte	0x4
+ 440 0114 07       		.byte	0x7
+ 441 0115 A1020000 		.4byte	.LASF25
+ 442 0119 07       		.uleb128 0x7
+ 443 011a 08       		.byte	0x8
+ 444 011b 05       		.byte	0x5
+ 445 011c 75       		.byte	0x75
+ 446 011d 2E010000 		.4byte	0x12e
+ 447 0121 08       		.uleb128 0x8
+ 448 0122 49010000 		.4byte	.LASF27
+ 449 0126 05       		.byte	0x5
+ 450 0127 77       		.byte	0x77
+ 451 0128 3E010000 		.4byte	0x13e
+ 452 012c 00       		.byte	0
+ 453 012d 00       		.byte	0
+ 454 012e 09       		.uleb128 0x9
+ 455 012f FA000000 		.4byte	0xfa
+ 456 0133 3E010000 		.4byte	0x13e
+ 457 0137 0A       		.uleb128 0xa
+ 458 0138 12010000 		.4byte	0x112
+ 459 013c 07       		.byte	0x7
+ 460 013d 00       		.byte	0
+ 461 013e 06       		.uleb128 0x6
+ 462 013f 2E010000 		.4byte	0x12e
+ 463 0143 02       		.uleb128 0x2
+ 464 0144 27000000 		.4byte	.LASF26
+ 465 0148 05       		.byte	0x5
+ 466 0149 78       		.byte	0x78
+ 467 014a 19010000 		.4byte	0x119
+ 468 014e 07       		.uleb128 0x7
+ 469 014f 04       		.byte	0x4
+ 470 0150 05       		.byte	0x5
+ 471 0151 7B       		.byte	0x7b
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 11
 
 
- 469 0152 63010000 		.4byte	0x163
- 470 0156 08       		.uleb128 0x8
- 471 0157 49010000 		.4byte	.LASF27
- 472 015b 05       		.byte	0x5
- 473 015c 7D       		.byte	0x7d
- 474 015d 73010000 		.4byte	0x173
- 475 0161 00       		.byte	0
- 476 0162 00       		.byte	0
- 477 0163 09       		.uleb128 0x9
- 478 0164 FA000000 		.4byte	0xfa
- 479 0168 73010000 		.4byte	0x173
- 480 016c 0A       		.uleb128 0xa
- 481 016d 12010000 		.4byte	0x112
- 482 0171 03       		.byte	0x3
- 483 0172 00       		.byte	0
- 484 0173 06       		.uleb128 0x6
- 485 0174 63010000 		.4byte	0x163
- 486 0178 02       		.uleb128 0x2
- 487 0179 00000000 		.4byte	.LASF28
- 488 017d 05       		.byte	0x5
- 489 017e 7E       		.byte	0x7e
- 490 017f 4E010000 		.4byte	0x14e
- 491 0183 07       		.uleb128 0x7
- 492 0184 20       		.byte	0x20
- 493 0185 05       		.byte	0x5
- 494 0186 A0       		.byte	0xa0
- 495 0187 E0010000 		.4byte	0x1e0
- 496 018b 08       		.uleb128 0x8
- 497 018c 8F020000 		.4byte	.LASF29
- 498 0190 05       		.byte	0x5
- 499 0191 A2       		.byte	0xa2
- 500 0192 78010000 		.4byte	0x178
- 501 0196 00       		.byte	0
- 502 0197 08       		.uleb128 0x8
- 503 0198 AB010000 		.4byte	.LASF30
- 504 019c 05       		.byte	0x5
- 505 019d A3       		.byte	0xa3
- 506 019e 78010000 		.4byte	0x178
- 507 01a2 04       		.byte	0x4
- 508 01a3 08       		.uleb128 0x8
- 509 01a4 4E010000 		.4byte	.LASF31
- 510 01a8 05       		.byte	0x5
- 511 01a9 A4       		.byte	0xa4
- 512 01aa 43010000 		.4byte	0x143
- 513 01ae 08       		.byte	0x8
- 514 01af 08       		.uleb128 0x8
- 515 01b0 CE000000 		.4byte	.LASF32
- 516 01b4 05       		.byte	0x5
- 517 01b5 A5       		.byte	0xa5
- 518 01b6 78010000 		.4byte	0x178
- 519 01ba 10       		.byte	0x10
- 520 01bb 08       		.uleb128 0x8
- 521 01bc C4020000 		.4byte	.LASF33
- 522 01c0 05       		.byte	0x5
- 523 01c1 A6       		.byte	0xa6
- 524 01c2 78010000 		.4byte	0x178
- 525 01c6 14       		.byte	0x14
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 12
+ 472 0152 63010000 		.4byte	0x163
+ 473 0156 08       		.uleb128 0x8
+ 474 0157 49010000 		.4byte	.LASF27
+ 475 015b 05       		.byte	0x5
+ 476 015c 7D       		.byte	0x7d
+ 477 015d 73010000 		.4byte	0x173
+ 478 0161 00       		.byte	0
+ 479 0162 00       		.byte	0
+ 480 0163 09       		.uleb128 0x9
+ 481 0164 FA000000 		.4byte	0xfa
+ 482 0168 73010000 		.4byte	0x173
+ 483 016c 0A       		.uleb128 0xa
+ 484 016d 12010000 		.4byte	0x112
+ 485 0171 03       		.byte	0x3
+ 486 0172 00       		.byte	0
+ 487 0173 06       		.uleb128 0x6
+ 488 0174 63010000 		.4byte	0x163
+ 489 0178 02       		.uleb128 0x2
+ 490 0179 00000000 		.4byte	.LASF28
+ 491 017d 05       		.byte	0x5
+ 492 017e 7E       		.byte	0x7e
+ 493 017f 4E010000 		.4byte	0x14e
+ 494 0183 07       		.uleb128 0x7
+ 495 0184 20       		.byte	0x20
+ 496 0185 05       		.byte	0x5
+ 497 0186 A0       		.byte	0xa0
+ 498 0187 E0010000 		.4byte	0x1e0
+ 499 018b 08       		.uleb128 0x8
+ 500 018c 8F020000 		.4byte	.LASF29
+ 501 0190 05       		.byte	0x5
+ 502 0191 A2       		.byte	0xa2
+ 503 0192 78010000 		.4byte	0x178
+ 504 0196 00       		.byte	0
+ 505 0197 08       		.uleb128 0x8
+ 506 0198 AB010000 		.4byte	.LASF30
+ 507 019c 05       		.byte	0x5
+ 508 019d A3       		.byte	0xa3
+ 509 019e 78010000 		.4byte	0x178
+ 510 01a2 04       		.byte	0x4
+ 511 01a3 08       		.uleb128 0x8
+ 512 01a4 4E010000 		.4byte	.LASF31
+ 513 01a8 05       		.byte	0x5
+ 514 01a9 A4       		.byte	0xa4
+ 515 01aa 43010000 		.4byte	0x143
+ 516 01ae 08       		.byte	0x8
+ 517 01af 08       		.uleb128 0x8
+ 518 01b0 CE000000 		.4byte	.LASF32
+ 519 01b4 05       		.byte	0x5
+ 520 01b5 A5       		.byte	0xa5
+ 521 01b6 78010000 		.4byte	0x178
+ 522 01ba 10       		.byte	0x10
+ 523 01bb 08       		.uleb128 0x8
+ 524 01bc C4020000 		.4byte	.LASF33
+ 525 01c0 05       		.byte	0x5
+ 526 01c1 A6       		.byte	0xa6
+ 527 01c2 78010000 		.4byte	0x178
+ 528 01c6 14       		.byte	0x14
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 12
 
 
- 526 01c7 08       		.uleb128 0x8
- 527 01c8 AA020000 		.4byte	.LASF34
- 528 01cc 05       		.byte	0x5
- 529 01cd A7       		.byte	0xa7
- 530 01ce 78010000 		.4byte	0x178
- 531 01d2 18       		.byte	0x18
- 532 01d3 08       		.uleb128 0x8
- 533 01d4 61010000 		.4byte	.LASF35
- 534 01d8 05       		.byte	0x5
- 535 01d9 A8       		.byte	0xa8
- 536 01da 78010000 		.4byte	0x178
- 537 01de 1C       		.byte	0x1c
- 538 01df 00       		.byte	0
- 539 01e0 02       		.uleb128 0x2
- 540 01e1 81020000 		.4byte	.LASF36
- 541 01e5 05       		.byte	0x5
- 542 01e6 A9       		.byte	0xa9
- 543 01e7 83010000 		.4byte	0x183
- 544 01eb 07       		.uleb128 0x7
- 545 01ec 10       		.byte	0x10
- 546 01ed 05       		.byte	0x5
- 547 01ee AC       		.byte	0xac
- 548 01ef 18020000 		.4byte	0x218
- 549 01f3 08       		.uleb128 0x8
- 550 01f4 32010000 		.4byte	.LASF37
- 551 01f8 05       		.byte	0x5
- 552 01f9 AE       		.byte	0xae
- 553 01fa 78010000 		.4byte	0x178
- 554 01fe 00       		.byte	0
- 555 01ff 08       		.uleb128 0x8
- 556 0200 0A030000 		.4byte	.LASF38
- 557 0204 05       		.byte	0x5
- 558 0205 AF       		.byte	0xaf
- 559 0206 78010000 		.4byte	0x178
- 560 020a 04       		.byte	0x4
- 561 020b 08       		.uleb128 0x8
- 562 020c F2020000 		.4byte	.LASF39
- 563 0210 05       		.byte	0x5
- 564 0211 B0       		.byte	0xb0
- 565 0212 43010000 		.4byte	0x143
- 566 0216 08       		.byte	0x8
- 567 0217 00       		.byte	0
- 568 0218 02       		.uleb128 0x2
- 569 0219 E6010000 		.4byte	.LASF40
- 570 021d 05       		.byte	0x5
- 571 021e B1       		.byte	0xb1
- 572 021f EB010000 		.4byte	0x1eb
- 573 0223 06       		.uleb128 0x6
- 574 0224 AD000000 		.4byte	0xad
- 575 0228 07       		.uleb128 0x7
- 576 0229 08       		.byte	0x8
- 577 022a 06       		.byte	0x6
- 578 022b 23       		.byte	0x23
- 579 022c 79020000 		.4byte	0x279
- 580 0230 0B       		.uleb128 0xb
- 581 0231 72706D00 		.ascii	"rpm\000"
- 582 0235 06       		.byte	0x6
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 13
+ 529 01c7 08       		.uleb128 0x8
+ 530 01c8 AA020000 		.4byte	.LASF34
+ 531 01cc 05       		.byte	0x5
+ 532 01cd A7       		.byte	0xa7
+ 533 01ce 78010000 		.4byte	0x178
+ 534 01d2 18       		.byte	0x18
+ 535 01d3 08       		.uleb128 0x8
+ 536 01d4 61010000 		.4byte	.LASF35
+ 537 01d8 05       		.byte	0x5
+ 538 01d9 A8       		.byte	0xa8
+ 539 01da 78010000 		.4byte	0x178
+ 540 01de 1C       		.byte	0x1c
+ 541 01df 00       		.byte	0
+ 542 01e0 02       		.uleb128 0x2
+ 543 01e1 81020000 		.4byte	.LASF36
+ 544 01e5 05       		.byte	0x5
+ 545 01e6 A9       		.byte	0xa9
+ 546 01e7 83010000 		.4byte	0x183
+ 547 01eb 07       		.uleb128 0x7
+ 548 01ec 10       		.byte	0x10
+ 549 01ed 05       		.byte	0x5
+ 550 01ee AC       		.byte	0xac
+ 551 01ef 18020000 		.4byte	0x218
+ 552 01f3 08       		.uleb128 0x8
+ 553 01f4 32010000 		.4byte	.LASF37
+ 554 01f8 05       		.byte	0x5
+ 555 01f9 AE       		.byte	0xae
+ 556 01fa 78010000 		.4byte	0x178
+ 557 01fe 00       		.byte	0
+ 558 01ff 08       		.uleb128 0x8
+ 559 0200 0A030000 		.4byte	.LASF38
+ 560 0204 05       		.byte	0x5
+ 561 0205 AF       		.byte	0xaf
+ 562 0206 78010000 		.4byte	0x178
+ 563 020a 04       		.byte	0x4
+ 564 020b 08       		.uleb128 0x8
+ 565 020c F2020000 		.4byte	.LASF39
+ 566 0210 05       		.byte	0x5
+ 567 0211 B0       		.byte	0xb0
+ 568 0212 43010000 		.4byte	0x143
+ 569 0216 08       		.byte	0x8
+ 570 0217 00       		.byte	0
+ 571 0218 02       		.uleb128 0x2
+ 572 0219 E6010000 		.4byte	.LASF40
+ 573 021d 05       		.byte	0x5
+ 574 021e B1       		.byte	0xb1
+ 575 021f EB010000 		.4byte	0x1eb
+ 576 0223 06       		.uleb128 0x6
+ 577 0224 AD000000 		.4byte	0xad
+ 578 0228 07       		.uleb128 0x7
+ 579 0229 08       		.byte	0x8
+ 580 022a 06       		.byte	0x6
+ 581 022b 23       		.byte	0x23
+ 582 022c 79020000 		.4byte	0x279
+ 583 0230 0B       		.uleb128 0xb
+ 584 0231 72706D00 		.ascii	"rpm\000"
+ 585 0235 06       		.byte	0x6
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 13
 
 
- 583 0236 24       		.byte	0x24
- 584 0237 C3000000 		.4byte	0xc3
- 585 023b 00       		.byte	0
- 586 023c 08       		.uleb128 0x8
- 587 023d E5020000 		.4byte	.LASF41
- 588 0241 06       		.byte	0x6
- 589 0242 25       		.byte	0x25
- 590 0243 AD000000 		.4byte	0xad
- 591 0247 02       		.byte	0x2
- 592 0248 08       		.uleb128 0x8
- 593 0249 55010000 		.4byte	.LASF42
- 594 024d 06       		.byte	0x6
- 595 024e 26       		.byte	0x26
- 596 024f AD000000 		.4byte	0xad
- 597 0253 03       		.byte	0x3
- 598 0254 0B       		.uleb128 0xb
- 599 0255 74707300 		.ascii	"tps\000"
- 600 0259 06       		.byte	0x6
- 601 025a 27       		.byte	0x27
- 602 025b AD000000 		.4byte	0xad
- 603 025f 04       		.byte	0x4
- 604 0260 0B       		.uleb128 0xb
- 605 0261 76737300 		.ascii	"vss\000"
- 606 0265 06       		.byte	0x6
- 607 0266 28       		.byte	0x28
- 608 0267 AD000000 		.4byte	0xad
- 609 026b 05       		.byte	0x5
- 610 026c 08       		.uleb128 0x8
- 611 026d 89010000 		.4byte	.LASF43
- 612 0271 06       		.byte	0x6
- 613 0272 29       		.byte	0x29
- 614 0273 AD000000 		.4byte	0xad
- 615 0277 06       		.byte	0x6
- 616 0278 00       		.byte	0
- 617 0279 02       		.uleb128 0x2
- 618 027a F9020000 		.4byte	.LASF44
- 619 027e 06       		.byte	0x6
- 620 027f 2A       		.byte	0x2a
- 621 0280 28020000 		.4byte	0x228
- 622 0284 0C       		.uleb128 0xc
- 623 0285 5F020000 		.4byte	.LASF55
- 624 0289 01       		.byte	0x1
- 625 028a 1E       		.byte	0x1e
- 626 028b 00000000 		.4byte	.LFB63
- 627 028f 58000000 		.4byte	.LFE63-.LFB63
- 628 0293 01       		.uleb128 0x1
- 629 0294 9C       		.byte	0x9c
- 630 0295 C4020000 		.4byte	0x2c4
- 631 0299 0D       		.uleb128 0xd
- 632 029a D9010000 		.4byte	.LASF45
- 633 029e 01       		.byte	0x1
- 634 029f 1E       		.byte	0x1e
- 635 02a0 AD000000 		.4byte	0xad
- 636 02a4 02       		.uleb128 0x2
- 637 02a5 91       		.byte	0x91
- 638 02a6 6F       		.sleb128 -17
- 639 02a7 0D       		.uleb128 0xd
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 14
+ 586 0236 24       		.byte	0x24
+ 587 0237 C3000000 		.4byte	0xc3
+ 588 023b 00       		.byte	0
+ 589 023c 08       		.uleb128 0x8
+ 590 023d E5020000 		.4byte	.LASF41
+ 591 0241 06       		.byte	0x6
+ 592 0242 25       		.byte	0x25
+ 593 0243 AD000000 		.4byte	0xad
+ 594 0247 02       		.byte	0x2
+ 595 0248 08       		.uleb128 0x8
+ 596 0249 55010000 		.4byte	.LASF42
+ 597 024d 06       		.byte	0x6
+ 598 024e 26       		.byte	0x26
+ 599 024f AD000000 		.4byte	0xad
+ 600 0253 03       		.byte	0x3
+ 601 0254 0B       		.uleb128 0xb
+ 602 0255 74707300 		.ascii	"tps\000"
+ 603 0259 06       		.byte	0x6
+ 604 025a 27       		.byte	0x27
+ 605 025b AD000000 		.4byte	0xad
+ 606 025f 04       		.byte	0x4
+ 607 0260 0B       		.uleb128 0xb
+ 608 0261 76737300 		.ascii	"vss\000"
+ 609 0265 06       		.byte	0x6
+ 610 0266 28       		.byte	0x28
+ 611 0267 AD000000 		.4byte	0xad
+ 612 026b 05       		.byte	0x5
+ 613 026c 08       		.uleb128 0x8
+ 614 026d 89010000 		.4byte	.LASF43
+ 615 0271 06       		.byte	0x6
+ 616 0272 29       		.byte	0x29
+ 617 0273 AD000000 		.4byte	0xad
+ 618 0277 06       		.byte	0x6
+ 619 0278 00       		.byte	0
+ 620 0279 02       		.uleb128 0x2
+ 621 027a F9020000 		.4byte	.LASF44
+ 622 027e 06       		.byte	0x6
+ 623 027f 2A       		.byte	0x2a
+ 624 0280 28020000 		.4byte	0x228
+ 625 0284 0C       		.uleb128 0xc
+ 626 0285 5F020000 		.4byte	.LASF55
+ 627 0289 01       		.byte	0x1
+ 628 028a 1E       		.byte	0x1e
+ 629 028b 00000000 		.4byte	.LFB63
+ 630 028f 58000000 		.4byte	.LFE63-.LFB63
+ 631 0293 01       		.uleb128 0x1
+ 632 0294 9C       		.byte	0x9c
+ 633 0295 C4020000 		.4byte	0x2c4
+ 634 0299 0D       		.uleb128 0xd
+ 635 029a D9010000 		.4byte	.LASF45
+ 636 029e 01       		.byte	0x1
+ 637 029f 1E       		.byte	0x1e
+ 638 02a0 AD000000 		.4byte	0xad
+ 639 02a4 02       		.uleb128 0x2
+ 640 02a5 91       		.byte	0x91
+ 641 02a6 6F       		.sleb128 -17
+ 642 02a7 0D       		.uleb128 0xd
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 14
 
 
- 640 02a8 28020000 		.4byte	.LASF46
- 641 02ac 01       		.byte	0x1
- 642 02ad 1E       		.byte	0x1e
- 643 02ae A2000000 		.4byte	0xa2
- 644 02b2 02       		.uleb128 0x2
- 645 02b3 91       		.byte	0x91
- 646 02b4 6E       		.sleb128 -18
- 647 02b5 0E       		.uleb128 0xe
- 648 02b6 C8010000 		.4byte	.LASF56
- 649 02ba 01       		.byte	0x1
- 650 02bb 20       		.byte	0x20
- 651 02bc C4020000 		.4byte	0x2c4
- 652 02c0 02       		.uleb128 0x2
- 653 02c1 91       		.byte	0x91
- 654 02c2 76       		.sleb128 -10
- 655 02c3 00       		.byte	0
- 656 02c4 06       		.uleb128 0x6
- 657 02c5 B8000000 		.4byte	0xb8
- 658 02c9 0F       		.uleb128 0xf
- 659 02ca 0B000000 		.4byte	.LASF47
- 660 02ce 01       		.byte	0x1
- 661 02cf 36       		.byte	0x36
- 662 02d0 AD000000 		.4byte	0xad
- 663 02d4 00000000 		.4byte	.LFB64
- 664 02d8 BC000000 		.4byte	.LFE64-.LFB64
- 665 02dc 01       		.uleb128 0x1
- 666 02dd 9C       		.byte	0x9c
- 667 02de 10       		.uleb128 0x10
- 668 02df 95010000 		.4byte	.LASF48
- 669 02e3 01       		.byte	0x1
- 670 02e4 60       		.byte	0x60
- 671 02e5 00000000 		.4byte	.LFB65
- 672 02e9 34000000 		.4byte	.LFE65-.LFB65
- 673 02ed 01       		.uleb128 0x1
- 674 02ee 9C       		.byte	0x9c
- 675 02ef 11       		.uleb128 0x11
- 676 02f0 1B020000 		.4byte	.LASF49
- 677 02f4 07       		.byte	0x7
- 678 02f5 1207     		.2byte	0x712
- 679 02f7 FB020000 		.4byte	0x2fb
- 680 02fb 06       		.uleb128 0x6
- 681 02fc CE000000 		.4byte	0xce
- 682 0300 12       		.uleb128 0x12
- 683 0301 BD010000 		.4byte	.LASF50
- 684 0305 01       		.byte	0x1
- 685 0306 0E       		.byte	0xe
- 686 0307 23020000 		.4byte	0x223
- 687 030b 05       		.uleb128 0x5
- 688 030c 03       		.byte	0x3
- 689 030d 00000000 		.4byte	CANisrFlag
- 690 0311 12       		.uleb128 0x12
- 691 0312 38010000 		.4byte	.LASF51
- 692 0316 01       		.byte	0x1
- 693 0317 0F       		.byte	0xf
- 694 0318 22030000 		.4byte	0x322
- 695 031c 05       		.uleb128 0x5
- 696 031d 03       		.byte	0x3
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 15
+ 643 02a8 28020000 		.4byte	.LASF46
+ 644 02ac 01       		.byte	0x1
+ 645 02ad 1E       		.byte	0x1e
+ 646 02ae A2000000 		.4byte	0xa2
+ 647 02b2 02       		.uleb128 0x2
+ 648 02b3 91       		.byte	0x91
+ 649 02b4 6E       		.sleb128 -18
+ 650 02b5 0E       		.uleb128 0xe
+ 651 02b6 C8010000 		.4byte	.LASF56
+ 652 02ba 01       		.byte	0x1
+ 653 02bb 20       		.byte	0x20
+ 654 02bc C4020000 		.4byte	0x2c4
+ 655 02c0 02       		.uleb128 0x2
+ 656 02c1 91       		.byte	0x91
+ 657 02c2 76       		.sleb128 -10
+ 658 02c3 00       		.byte	0
+ 659 02c4 06       		.uleb128 0x6
+ 660 02c5 B8000000 		.4byte	0xb8
+ 661 02c9 0F       		.uleb128 0xf
+ 662 02ca 0B000000 		.4byte	.LASF47
+ 663 02ce 01       		.byte	0x1
+ 664 02cf 36       		.byte	0x36
+ 665 02d0 AD000000 		.4byte	0xad
+ 666 02d4 00000000 		.4byte	.LFB64
+ 667 02d8 C0000000 		.4byte	.LFE64-.LFB64
+ 668 02dc 01       		.uleb128 0x1
+ 669 02dd 9C       		.byte	0x9c
+ 670 02de 10       		.uleb128 0x10
+ 671 02df 95010000 		.4byte	.LASF48
+ 672 02e3 01       		.byte	0x1
+ 673 02e4 5D       		.byte	0x5d
+ 674 02e5 00000000 		.4byte	.LFB65
+ 675 02e9 34000000 		.4byte	.LFE65-.LFB65
+ 676 02ed 01       		.uleb128 0x1
+ 677 02ee 9C       		.byte	0x9c
+ 678 02ef 11       		.uleb128 0x11
+ 679 02f0 1B020000 		.4byte	.LASF49
+ 680 02f4 07       		.byte	0x7
+ 681 02f5 1207     		.2byte	0x712
+ 682 02f7 FB020000 		.4byte	0x2fb
+ 683 02fb 06       		.uleb128 0x6
+ 684 02fc CE000000 		.4byte	0xce
+ 685 0300 12       		.uleb128 0x12
+ 686 0301 BD010000 		.4byte	.LASF50
+ 687 0305 01       		.byte	0x1
+ 688 0306 0E       		.byte	0xe
+ 689 0307 23020000 		.4byte	0x223
+ 690 030b 05       		.uleb128 0x5
+ 691 030c 03       		.byte	0x3
+ 692 030d 00000000 		.4byte	CANisrFlag
+ 693 0311 12       		.uleb128 0x12
+ 694 0312 38010000 		.4byte	.LASF51
+ 695 0316 01       		.byte	0x1
+ 696 0317 0F       		.byte	0xf
+ 697 0318 22030000 		.4byte	0x322
+ 698 031c 05       		.uleb128 0x5
+ 699 031d 03       		.byte	0x3
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 15
 
 
- 697 031e 00000000 		.4byte	car_state
- 698 0322 06       		.uleb128 0x6
- 699 0323 79020000 		.4byte	0x279
- 700 0327 00       		.byte	0
- 701              		.section	.debug_abbrev,"",%progbits
- 702              	.Ldebug_abbrev0:
- 703 0000 01       		.uleb128 0x1
- 704 0001 11       		.uleb128 0x11
- 705 0002 01       		.byte	0x1
- 706 0003 25       		.uleb128 0x25
- 707 0004 0E       		.uleb128 0xe
- 708 0005 13       		.uleb128 0x13
- 709 0006 0B       		.uleb128 0xb
- 710 0007 03       		.uleb128 0x3
- 711 0008 0E       		.uleb128 0xe
- 712 0009 1B       		.uleb128 0x1b
- 713 000a 0E       		.uleb128 0xe
- 714 000b 55       		.uleb128 0x55
- 715 000c 17       		.uleb128 0x17
- 716 000d 11       		.uleb128 0x11
- 717 000e 01       		.uleb128 0x1
- 718 000f 10       		.uleb128 0x10
- 719 0010 17       		.uleb128 0x17
- 720 0011 00       		.byte	0
- 721 0012 00       		.byte	0
- 722 0013 02       		.uleb128 0x2
- 723 0014 16       		.uleb128 0x16
- 724 0015 00       		.byte	0
- 725 0016 03       		.uleb128 0x3
- 726 0017 0E       		.uleb128 0xe
- 727 0018 3A       		.uleb128 0x3a
- 728 0019 0B       		.uleb128 0xb
- 729 001a 3B       		.uleb128 0x3b
- 730 001b 0B       		.uleb128 0xb
- 731 001c 49       		.uleb128 0x49
- 732 001d 13       		.uleb128 0x13
- 733 001e 00       		.byte	0
- 734 001f 00       		.byte	0
- 735 0020 03       		.uleb128 0x3
- 736 0021 24       		.uleb128 0x24
- 737 0022 00       		.byte	0
- 738 0023 0B       		.uleb128 0xb
- 739 0024 0B       		.uleb128 0xb
- 740 0025 3E       		.uleb128 0x3e
- 741 0026 0B       		.uleb128 0xb
- 742 0027 03       		.uleb128 0x3
- 743 0028 0E       		.uleb128 0xe
- 744 0029 00       		.byte	0
- 745 002a 00       		.byte	0
- 746 002b 04       		.uleb128 0x4
- 747 002c 24       		.uleb128 0x24
- 748 002d 00       		.byte	0
- 749 002e 0B       		.uleb128 0xb
- 750 002f 0B       		.uleb128 0xb
- 751 0030 3E       		.uleb128 0x3e
- 752 0031 0B       		.uleb128 0xb
- 753 0032 03       		.uleb128 0x3
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 16
+ 700 031e 00000000 		.4byte	car_state
+ 701 0322 06       		.uleb128 0x6
+ 702 0323 79020000 		.4byte	0x279
+ 703 0327 00       		.byte	0
+ 704              		.section	.debug_abbrev,"",%progbits
+ 705              	.Ldebug_abbrev0:
+ 706 0000 01       		.uleb128 0x1
+ 707 0001 11       		.uleb128 0x11
+ 708 0002 01       		.byte	0x1
+ 709 0003 25       		.uleb128 0x25
+ 710 0004 0E       		.uleb128 0xe
+ 711 0005 13       		.uleb128 0x13
+ 712 0006 0B       		.uleb128 0xb
+ 713 0007 03       		.uleb128 0x3
+ 714 0008 0E       		.uleb128 0xe
+ 715 0009 1B       		.uleb128 0x1b
+ 716 000a 0E       		.uleb128 0xe
+ 717 000b 55       		.uleb128 0x55
+ 718 000c 17       		.uleb128 0x17
+ 719 000d 11       		.uleb128 0x11
+ 720 000e 01       		.uleb128 0x1
+ 721 000f 10       		.uleb128 0x10
+ 722 0010 17       		.uleb128 0x17
+ 723 0011 00       		.byte	0
+ 724 0012 00       		.byte	0
+ 725 0013 02       		.uleb128 0x2
+ 726 0014 16       		.uleb128 0x16
+ 727 0015 00       		.byte	0
+ 728 0016 03       		.uleb128 0x3
+ 729 0017 0E       		.uleb128 0xe
+ 730 0018 3A       		.uleb128 0x3a
+ 731 0019 0B       		.uleb128 0xb
+ 732 001a 3B       		.uleb128 0x3b
+ 733 001b 0B       		.uleb128 0xb
+ 734 001c 49       		.uleb128 0x49
+ 735 001d 13       		.uleb128 0x13
+ 736 001e 00       		.byte	0
+ 737 001f 00       		.byte	0
+ 738 0020 03       		.uleb128 0x3
+ 739 0021 24       		.uleb128 0x24
+ 740 0022 00       		.byte	0
+ 741 0023 0B       		.uleb128 0xb
+ 742 0024 0B       		.uleb128 0xb
+ 743 0025 3E       		.uleb128 0x3e
+ 744 0026 0B       		.uleb128 0xb
+ 745 0027 03       		.uleb128 0x3
+ 746 0028 0E       		.uleb128 0xe
+ 747 0029 00       		.byte	0
+ 748 002a 00       		.byte	0
+ 749 002b 04       		.uleb128 0x4
+ 750 002c 24       		.uleb128 0x24
+ 751 002d 00       		.byte	0
+ 752 002e 0B       		.uleb128 0xb
+ 753 002f 0B       		.uleb128 0xb
+ 754 0030 3E       		.uleb128 0x3e
+ 755 0031 0B       		.uleb128 0xb
+ 756 0032 03       		.uleb128 0x3
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 16
 
 
- 754 0033 08       		.uleb128 0x8
- 755 0034 00       		.byte	0
- 756 0035 00       		.byte	0
- 757 0036 05       		.uleb128 0x5
- 758 0037 16       		.uleb128 0x16
- 759 0038 00       		.byte	0
- 760 0039 03       		.uleb128 0x3
- 761 003a 0E       		.uleb128 0xe
- 762 003b 3A       		.uleb128 0x3a
- 763 003c 0B       		.uleb128 0xb
- 764 003d 3B       		.uleb128 0x3b
- 765 003e 05       		.uleb128 0x5
- 766 003f 49       		.uleb128 0x49
- 767 0040 13       		.uleb128 0x13
- 768 0041 00       		.byte	0
- 769 0042 00       		.byte	0
- 770 0043 06       		.uleb128 0x6
- 771 0044 35       		.uleb128 0x35
- 772 0045 00       		.byte	0
- 773 0046 49       		.uleb128 0x49
- 774 0047 13       		.uleb128 0x13
- 775 0048 00       		.byte	0
- 776 0049 00       		.byte	0
- 777 004a 07       		.uleb128 0x7
- 778 004b 13       		.uleb128 0x13
- 779 004c 01       		.byte	0x1
- 780 004d 0B       		.uleb128 0xb
- 781 004e 0B       		.uleb128 0xb
- 782 004f 3A       		.uleb128 0x3a
- 783 0050 0B       		.uleb128 0xb
- 784 0051 3B       		.uleb128 0x3b
- 785 0052 0B       		.uleb128 0xb
- 786 0053 01       		.uleb128 0x1
- 787 0054 13       		.uleb128 0x13
- 788 0055 00       		.byte	0
- 789 0056 00       		.byte	0
- 790 0057 08       		.uleb128 0x8
- 791 0058 0D       		.uleb128 0xd
- 792 0059 00       		.byte	0
- 793 005a 03       		.uleb128 0x3
- 794 005b 0E       		.uleb128 0xe
- 795 005c 3A       		.uleb128 0x3a
- 796 005d 0B       		.uleb128 0xb
- 797 005e 3B       		.uleb128 0x3b
- 798 005f 0B       		.uleb128 0xb
- 799 0060 49       		.uleb128 0x49
- 800 0061 13       		.uleb128 0x13
- 801 0062 38       		.uleb128 0x38
- 802 0063 0B       		.uleb128 0xb
- 803 0064 00       		.byte	0
- 804 0065 00       		.byte	0
- 805 0066 09       		.uleb128 0x9
- 806 0067 01       		.uleb128 0x1
- 807 0068 01       		.byte	0x1
- 808 0069 49       		.uleb128 0x49
- 809 006a 13       		.uleb128 0x13
- 810 006b 01       		.uleb128 0x1
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 17
+ 757 0033 08       		.uleb128 0x8
+ 758 0034 00       		.byte	0
+ 759 0035 00       		.byte	0
+ 760 0036 05       		.uleb128 0x5
+ 761 0037 16       		.uleb128 0x16
+ 762 0038 00       		.byte	0
+ 763 0039 03       		.uleb128 0x3
+ 764 003a 0E       		.uleb128 0xe
+ 765 003b 3A       		.uleb128 0x3a
+ 766 003c 0B       		.uleb128 0xb
+ 767 003d 3B       		.uleb128 0x3b
+ 768 003e 05       		.uleb128 0x5
+ 769 003f 49       		.uleb128 0x49
+ 770 0040 13       		.uleb128 0x13
+ 771 0041 00       		.byte	0
+ 772 0042 00       		.byte	0
+ 773 0043 06       		.uleb128 0x6
+ 774 0044 35       		.uleb128 0x35
+ 775 0045 00       		.byte	0
+ 776 0046 49       		.uleb128 0x49
+ 777 0047 13       		.uleb128 0x13
+ 778 0048 00       		.byte	0
+ 779 0049 00       		.byte	0
+ 780 004a 07       		.uleb128 0x7
+ 781 004b 13       		.uleb128 0x13
+ 782 004c 01       		.byte	0x1
+ 783 004d 0B       		.uleb128 0xb
+ 784 004e 0B       		.uleb128 0xb
+ 785 004f 3A       		.uleb128 0x3a
+ 786 0050 0B       		.uleb128 0xb
+ 787 0051 3B       		.uleb128 0x3b
+ 788 0052 0B       		.uleb128 0xb
+ 789 0053 01       		.uleb128 0x1
+ 790 0054 13       		.uleb128 0x13
+ 791 0055 00       		.byte	0
+ 792 0056 00       		.byte	0
+ 793 0057 08       		.uleb128 0x8
+ 794 0058 0D       		.uleb128 0xd
+ 795 0059 00       		.byte	0
+ 796 005a 03       		.uleb128 0x3
+ 797 005b 0E       		.uleb128 0xe
+ 798 005c 3A       		.uleb128 0x3a
+ 799 005d 0B       		.uleb128 0xb
+ 800 005e 3B       		.uleb128 0x3b
+ 801 005f 0B       		.uleb128 0xb
+ 802 0060 49       		.uleb128 0x49
+ 803 0061 13       		.uleb128 0x13
+ 804 0062 38       		.uleb128 0x38
+ 805 0063 0B       		.uleb128 0xb
+ 806 0064 00       		.byte	0
+ 807 0065 00       		.byte	0
+ 808 0066 09       		.uleb128 0x9
+ 809 0067 01       		.uleb128 0x1
+ 810 0068 01       		.byte	0x1
+ 811 0069 49       		.uleb128 0x49
+ 812 006a 13       		.uleb128 0x13
+ 813 006b 01       		.uleb128 0x1
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 17
 
 
- 811 006c 13       		.uleb128 0x13
- 812 006d 00       		.byte	0
- 813 006e 00       		.byte	0
- 814 006f 0A       		.uleb128 0xa
- 815 0070 21       		.uleb128 0x21
- 816 0071 00       		.byte	0
- 817 0072 49       		.uleb128 0x49
- 818 0073 13       		.uleb128 0x13
- 819 0074 2F       		.uleb128 0x2f
- 820 0075 0B       		.uleb128 0xb
- 821 0076 00       		.byte	0
- 822 0077 00       		.byte	0
- 823 0078 0B       		.uleb128 0xb
- 824 0079 0D       		.uleb128 0xd
- 825 007a 00       		.byte	0
- 826 007b 03       		.uleb128 0x3
- 827 007c 08       		.uleb128 0x8
- 828 007d 3A       		.uleb128 0x3a
- 829 007e 0B       		.uleb128 0xb
- 830 007f 3B       		.uleb128 0x3b
- 831 0080 0B       		.uleb128 0xb
- 832 0081 49       		.uleb128 0x49
- 833 0082 13       		.uleb128 0x13
- 834 0083 38       		.uleb128 0x38
- 835 0084 0B       		.uleb128 0xb
- 836 0085 00       		.byte	0
- 837 0086 00       		.byte	0
- 838 0087 0C       		.uleb128 0xc
- 839 0088 2E       		.uleb128 0x2e
- 840 0089 01       		.byte	0x1
- 841 008a 3F       		.uleb128 0x3f
- 842 008b 19       		.uleb128 0x19
- 843 008c 03       		.uleb128 0x3
- 844 008d 0E       		.uleb128 0xe
- 845 008e 3A       		.uleb128 0x3a
- 846 008f 0B       		.uleb128 0xb
- 847 0090 3B       		.uleb128 0x3b
- 848 0091 0B       		.uleb128 0xb
- 849 0092 27       		.uleb128 0x27
- 850 0093 19       		.uleb128 0x19
- 851 0094 11       		.uleb128 0x11
- 852 0095 01       		.uleb128 0x1
- 853 0096 12       		.uleb128 0x12
- 854 0097 06       		.uleb128 0x6
- 855 0098 40       		.uleb128 0x40
- 856 0099 18       		.uleb128 0x18
- 857 009a 9642     		.uleb128 0x2116
- 858 009c 19       		.uleb128 0x19
- 859 009d 01       		.uleb128 0x1
- 860 009e 13       		.uleb128 0x13
- 861 009f 00       		.byte	0
- 862 00a0 00       		.byte	0
- 863 00a1 0D       		.uleb128 0xd
- 864 00a2 05       		.uleb128 0x5
- 865 00a3 00       		.byte	0
- 866 00a4 03       		.uleb128 0x3
- 867 00a5 0E       		.uleb128 0xe
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 18
+ 814 006c 13       		.uleb128 0x13
+ 815 006d 00       		.byte	0
+ 816 006e 00       		.byte	0
+ 817 006f 0A       		.uleb128 0xa
+ 818 0070 21       		.uleb128 0x21
+ 819 0071 00       		.byte	0
+ 820 0072 49       		.uleb128 0x49
+ 821 0073 13       		.uleb128 0x13
+ 822 0074 2F       		.uleb128 0x2f
+ 823 0075 0B       		.uleb128 0xb
+ 824 0076 00       		.byte	0
+ 825 0077 00       		.byte	0
+ 826 0078 0B       		.uleb128 0xb
+ 827 0079 0D       		.uleb128 0xd
+ 828 007a 00       		.byte	0
+ 829 007b 03       		.uleb128 0x3
+ 830 007c 08       		.uleb128 0x8
+ 831 007d 3A       		.uleb128 0x3a
+ 832 007e 0B       		.uleb128 0xb
+ 833 007f 3B       		.uleb128 0x3b
+ 834 0080 0B       		.uleb128 0xb
+ 835 0081 49       		.uleb128 0x49
+ 836 0082 13       		.uleb128 0x13
+ 837 0083 38       		.uleb128 0x38
+ 838 0084 0B       		.uleb128 0xb
+ 839 0085 00       		.byte	0
+ 840 0086 00       		.byte	0
+ 841 0087 0C       		.uleb128 0xc
+ 842 0088 2E       		.uleb128 0x2e
+ 843 0089 01       		.byte	0x1
+ 844 008a 3F       		.uleb128 0x3f
+ 845 008b 19       		.uleb128 0x19
+ 846 008c 03       		.uleb128 0x3
+ 847 008d 0E       		.uleb128 0xe
+ 848 008e 3A       		.uleb128 0x3a
+ 849 008f 0B       		.uleb128 0xb
+ 850 0090 3B       		.uleb128 0x3b
+ 851 0091 0B       		.uleb128 0xb
+ 852 0092 27       		.uleb128 0x27
+ 853 0093 19       		.uleb128 0x19
+ 854 0094 11       		.uleb128 0x11
+ 855 0095 01       		.uleb128 0x1
+ 856 0096 12       		.uleb128 0x12
+ 857 0097 06       		.uleb128 0x6
+ 858 0098 40       		.uleb128 0x40
+ 859 0099 18       		.uleb128 0x18
+ 860 009a 9642     		.uleb128 0x2116
+ 861 009c 19       		.uleb128 0x19
+ 862 009d 01       		.uleb128 0x1
+ 863 009e 13       		.uleb128 0x13
+ 864 009f 00       		.byte	0
+ 865 00a0 00       		.byte	0
+ 866 00a1 0D       		.uleb128 0xd
+ 867 00a2 05       		.uleb128 0x5
+ 868 00a3 00       		.byte	0
+ 869 00a4 03       		.uleb128 0x3
+ 870 00a5 0E       		.uleb128 0xe
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 18
 
 
- 868 00a6 3A       		.uleb128 0x3a
- 869 00a7 0B       		.uleb128 0xb
- 870 00a8 3B       		.uleb128 0x3b
- 871 00a9 0B       		.uleb128 0xb
- 872 00aa 49       		.uleb128 0x49
- 873 00ab 13       		.uleb128 0x13
- 874 00ac 02       		.uleb128 0x2
- 875 00ad 18       		.uleb128 0x18
- 876 00ae 00       		.byte	0
- 877 00af 00       		.byte	0
- 878 00b0 0E       		.uleb128 0xe
- 879 00b1 34       		.uleb128 0x34
- 880 00b2 00       		.byte	0
- 881 00b3 03       		.uleb128 0x3
- 882 00b4 0E       		.uleb128 0xe
- 883 00b5 3A       		.uleb128 0x3a
- 884 00b6 0B       		.uleb128 0xb
- 885 00b7 3B       		.uleb128 0x3b
- 886 00b8 0B       		.uleb128 0xb
- 887 00b9 49       		.uleb128 0x49
- 888 00ba 13       		.uleb128 0x13
- 889 00bb 02       		.uleb128 0x2
- 890 00bc 18       		.uleb128 0x18
- 891 00bd 00       		.byte	0
- 892 00be 00       		.byte	0
- 893 00bf 0F       		.uleb128 0xf
- 894 00c0 2E       		.uleb128 0x2e
- 895 00c1 00       		.byte	0
- 896 00c2 3F       		.uleb128 0x3f
- 897 00c3 19       		.uleb128 0x19
- 898 00c4 03       		.uleb128 0x3
- 899 00c5 0E       		.uleb128 0xe
- 900 00c6 3A       		.uleb128 0x3a
- 901 00c7 0B       		.uleb128 0xb
- 902 00c8 3B       		.uleb128 0x3b
- 903 00c9 0B       		.uleb128 0xb
- 904 00ca 49       		.uleb128 0x49
- 905 00cb 13       		.uleb128 0x13
- 906 00cc 11       		.uleb128 0x11
- 907 00cd 01       		.uleb128 0x1
- 908 00ce 12       		.uleb128 0x12
- 909 00cf 06       		.uleb128 0x6
- 910 00d0 40       		.uleb128 0x40
- 911 00d1 18       		.uleb128 0x18
- 912 00d2 9742     		.uleb128 0x2117
- 913 00d4 19       		.uleb128 0x19
- 914 00d5 00       		.byte	0
- 915 00d6 00       		.byte	0
- 916 00d7 10       		.uleb128 0x10
- 917 00d8 2E       		.uleb128 0x2e
- 918 00d9 00       		.byte	0
- 919 00da 3F       		.uleb128 0x3f
- 920 00db 19       		.uleb128 0x19
- 921 00dc 03       		.uleb128 0x3
- 922 00dd 0E       		.uleb128 0xe
- 923 00de 3A       		.uleb128 0x3a
- 924 00df 0B       		.uleb128 0xb
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 19
+ 871 00a6 3A       		.uleb128 0x3a
+ 872 00a7 0B       		.uleb128 0xb
+ 873 00a8 3B       		.uleb128 0x3b
+ 874 00a9 0B       		.uleb128 0xb
+ 875 00aa 49       		.uleb128 0x49
+ 876 00ab 13       		.uleb128 0x13
+ 877 00ac 02       		.uleb128 0x2
+ 878 00ad 18       		.uleb128 0x18
+ 879 00ae 00       		.byte	0
+ 880 00af 00       		.byte	0
+ 881 00b0 0E       		.uleb128 0xe
+ 882 00b1 34       		.uleb128 0x34
+ 883 00b2 00       		.byte	0
+ 884 00b3 03       		.uleb128 0x3
+ 885 00b4 0E       		.uleb128 0xe
+ 886 00b5 3A       		.uleb128 0x3a
+ 887 00b6 0B       		.uleb128 0xb
+ 888 00b7 3B       		.uleb128 0x3b
+ 889 00b8 0B       		.uleb128 0xb
+ 890 00b9 49       		.uleb128 0x49
+ 891 00ba 13       		.uleb128 0x13
+ 892 00bb 02       		.uleb128 0x2
+ 893 00bc 18       		.uleb128 0x18
+ 894 00bd 00       		.byte	0
+ 895 00be 00       		.byte	0
+ 896 00bf 0F       		.uleb128 0xf
+ 897 00c0 2E       		.uleb128 0x2e
+ 898 00c1 00       		.byte	0
+ 899 00c2 3F       		.uleb128 0x3f
+ 900 00c3 19       		.uleb128 0x19
+ 901 00c4 03       		.uleb128 0x3
+ 902 00c5 0E       		.uleb128 0xe
+ 903 00c6 3A       		.uleb128 0x3a
+ 904 00c7 0B       		.uleb128 0xb
+ 905 00c8 3B       		.uleb128 0x3b
+ 906 00c9 0B       		.uleb128 0xb
+ 907 00ca 49       		.uleb128 0x49
+ 908 00cb 13       		.uleb128 0x13
+ 909 00cc 11       		.uleb128 0x11
+ 910 00cd 01       		.uleb128 0x1
+ 911 00ce 12       		.uleb128 0x12
+ 912 00cf 06       		.uleb128 0x6
+ 913 00d0 40       		.uleb128 0x40
+ 914 00d1 18       		.uleb128 0x18
+ 915 00d2 9742     		.uleb128 0x2117
+ 916 00d4 19       		.uleb128 0x19
+ 917 00d5 00       		.byte	0
+ 918 00d6 00       		.byte	0
+ 919 00d7 10       		.uleb128 0x10
+ 920 00d8 2E       		.uleb128 0x2e
+ 921 00d9 00       		.byte	0
+ 922 00da 3F       		.uleb128 0x3f
+ 923 00db 19       		.uleb128 0x19
+ 924 00dc 03       		.uleb128 0x3
+ 925 00dd 0E       		.uleb128 0xe
+ 926 00de 3A       		.uleb128 0x3a
+ 927 00df 0B       		.uleb128 0xb
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 19
 
 
- 925 00e0 3B       		.uleb128 0x3b
- 926 00e1 0B       		.uleb128 0xb
- 927 00e2 27       		.uleb128 0x27
- 928 00e3 19       		.uleb128 0x19
- 929 00e4 11       		.uleb128 0x11
- 930 00e5 01       		.uleb128 0x1
- 931 00e6 12       		.uleb128 0x12
- 932 00e7 06       		.uleb128 0x6
- 933 00e8 40       		.uleb128 0x40
- 934 00e9 18       		.uleb128 0x18
- 935 00ea 9742     		.uleb128 0x2117
- 936 00ec 19       		.uleb128 0x19
- 937 00ed 00       		.byte	0
- 938 00ee 00       		.byte	0
- 939 00ef 11       		.uleb128 0x11
- 940 00f0 34       		.uleb128 0x34
- 941 00f1 00       		.byte	0
- 942 00f2 03       		.uleb128 0x3
- 943 00f3 0E       		.uleb128 0xe
- 944 00f4 3A       		.uleb128 0x3a
- 945 00f5 0B       		.uleb128 0xb
- 946 00f6 3B       		.uleb128 0x3b
- 947 00f7 05       		.uleb128 0x5
- 948 00f8 49       		.uleb128 0x49
- 949 00f9 13       		.uleb128 0x13
- 950 00fa 3F       		.uleb128 0x3f
- 951 00fb 19       		.uleb128 0x19
- 952 00fc 3C       		.uleb128 0x3c
- 953 00fd 19       		.uleb128 0x19
- 954 00fe 00       		.byte	0
- 955 00ff 00       		.byte	0
- 956 0100 12       		.uleb128 0x12
- 957 0101 34       		.uleb128 0x34
- 958 0102 00       		.byte	0
- 959 0103 03       		.uleb128 0x3
- 960 0104 0E       		.uleb128 0xe
- 961 0105 3A       		.uleb128 0x3a
- 962 0106 0B       		.uleb128 0xb
- 963 0107 3B       		.uleb128 0x3b
- 964 0108 0B       		.uleb128 0xb
- 965 0109 49       		.uleb128 0x49
- 966 010a 13       		.uleb128 0x13
- 967 010b 3F       		.uleb128 0x3f
- 968 010c 19       		.uleb128 0x19
- 969 010d 02       		.uleb128 0x2
- 970 010e 18       		.uleb128 0x18
- 971 010f 00       		.byte	0
- 972 0110 00       		.byte	0
- 973 0111 00       		.byte	0
- 974              		.section	.debug_aranges,"",%progbits
- 975 0000 2C000000 		.4byte	0x2c
- 976 0004 0200     		.2byte	0x2
- 977 0006 00000000 		.4byte	.Ldebug_info0
- 978 000a 04       		.byte	0x4
- 979 000b 00       		.byte	0
- 980 000c 0000     		.2byte	0
- 981 000e 0000     		.2byte	0
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 20
+ 928 00e0 3B       		.uleb128 0x3b
+ 929 00e1 0B       		.uleb128 0xb
+ 930 00e2 27       		.uleb128 0x27
+ 931 00e3 19       		.uleb128 0x19
+ 932 00e4 11       		.uleb128 0x11
+ 933 00e5 01       		.uleb128 0x1
+ 934 00e6 12       		.uleb128 0x12
+ 935 00e7 06       		.uleb128 0x6
+ 936 00e8 40       		.uleb128 0x40
+ 937 00e9 18       		.uleb128 0x18
+ 938 00ea 9742     		.uleb128 0x2117
+ 939 00ec 19       		.uleb128 0x19
+ 940 00ed 00       		.byte	0
+ 941 00ee 00       		.byte	0
+ 942 00ef 11       		.uleb128 0x11
+ 943 00f0 34       		.uleb128 0x34
+ 944 00f1 00       		.byte	0
+ 945 00f2 03       		.uleb128 0x3
+ 946 00f3 0E       		.uleb128 0xe
+ 947 00f4 3A       		.uleb128 0x3a
+ 948 00f5 0B       		.uleb128 0xb
+ 949 00f6 3B       		.uleb128 0x3b
+ 950 00f7 05       		.uleb128 0x5
+ 951 00f8 49       		.uleb128 0x49
+ 952 00f9 13       		.uleb128 0x13
+ 953 00fa 3F       		.uleb128 0x3f
+ 954 00fb 19       		.uleb128 0x19
+ 955 00fc 3C       		.uleb128 0x3c
+ 956 00fd 19       		.uleb128 0x19
+ 957 00fe 00       		.byte	0
+ 958 00ff 00       		.byte	0
+ 959 0100 12       		.uleb128 0x12
+ 960 0101 34       		.uleb128 0x34
+ 961 0102 00       		.byte	0
+ 962 0103 03       		.uleb128 0x3
+ 963 0104 0E       		.uleb128 0xe
+ 964 0105 3A       		.uleb128 0x3a
+ 965 0106 0B       		.uleb128 0xb
+ 966 0107 3B       		.uleb128 0x3b
+ 967 0108 0B       		.uleb128 0xb
+ 968 0109 49       		.uleb128 0x49
+ 969 010a 13       		.uleb128 0x13
+ 970 010b 3F       		.uleb128 0x3f
+ 971 010c 19       		.uleb128 0x19
+ 972 010d 02       		.uleb128 0x2
+ 973 010e 18       		.uleb128 0x18
+ 974 010f 00       		.byte	0
+ 975 0110 00       		.byte	0
+ 976 0111 00       		.byte	0
+ 977              		.section	.debug_aranges,"",%progbits
+ 978 0000 2C000000 		.4byte	0x2c
+ 979 0004 0200     		.2byte	0x2
+ 980 0006 00000000 		.4byte	.Ldebug_info0
+ 981 000a 04       		.byte	0x4
+ 982 000b 00       		.byte	0
+ 983 000c 0000     		.2byte	0
+ 984 000e 0000     		.2byte	0
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 20
 
 
- 982 0010 00000000 		.4byte	.LFB63
- 983 0014 58000000 		.4byte	.LFE63-.LFB63
- 984 0018 00000000 		.4byte	.LFB64
- 985 001c BC000000 		.4byte	.LFE64-.LFB64
- 986 0020 00000000 		.4byte	.LFB65
- 987 0024 34000000 		.4byte	.LFE65-.LFB65
- 988 0028 00000000 		.4byte	0
- 989 002c 00000000 		.4byte	0
- 990              		.section	.debug_ranges,"",%progbits
- 991              	.Ldebug_ranges0:
- 992 0000 00000000 		.4byte	.LFB63
- 993 0004 58000000 		.4byte	.LFE63
- 994 0008 00000000 		.4byte	.LFB64
- 995 000c BC000000 		.4byte	.LFE64
- 996 0010 00000000 		.4byte	.LFB65
- 997 0014 34000000 		.4byte	.LFE65
- 998 0018 00000000 		.4byte	0
- 999 001c 00000000 		.4byte	0
- 1000              		.section	.debug_line,"",%progbits
- 1001              	.Ldebug_line0:
- 1002 0000 D4010000 		.section	.debug_str,"MS",%progbits,1
- 1002      02007501 
- 1002      00000201 
- 1002      FB0E0D00 
- 1002      01010101 
- 1003              	.LASF28:
- 1004 0000 43414E5F 		.ascii	"CAN_REG_32\000"
- 1004      5245475F 
- 1004      333200
- 1005              	.LASF47:
- 1006 000b 43414E5F 		.ascii	"CAN_Read_From_ECU\000"
- 1006      52656164 
- 1006      5F46726F 
- 1006      6D5F4543 
- 1006      5500
- 1007              	.LASF1:
- 1008 001d 5F5F7569 		.ascii	"__uint8_t\000"
- 1008      6E74385F 
- 1008      7400
- 1009              	.LASF26:
- 1010 0027 43414E5F 		.ascii	"CAN_DATA_BYTES\000"
- 1010      44415441 
- 1010      5F425954 
- 1010      455300
- 1011              	.LASF52:
- 1012 0036 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 1012      43313120 
- 1012      352E342E 
- 1012      31203230 
- 1012      31363036 
- 1013 0069 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
- 1013      20726576 
- 1013      6973696F 
- 1013      6E203233 
- 1013      37373135 
- 1014 009c 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
- 1014      66756E63 
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 21
+ 985 0010 00000000 		.4byte	.LFB63
+ 986 0014 58000000 		.4byte	.LFE63-.LFB63
+ 987 0018 00000000 		.4byte	.LFB64
+ 988 001c C0000000 		.4byte	.LFE64-.LFB64
+ 989 0020 00000000 		.4byte	.LFB65
+ 990 0024 34000000 		.4byte	.LFE65-.LFB65
+ 991 0028 00000000 		.4byte	0
+ 992 002c 00000000 		.4byte	0
+ 993              		.section	.debug_ranges,"",%progbits
+ 994              	.Ldebug_ranges0:
+ 995 0000 00000000 		.4byte	.LFB63
+ 996 0004 58000000 		.4byte	.LFE63
+ 997 0008 00000000 		.4byte	.LFB64
+ 998 000c C0000000 		.4byte	.LFE64
+ 999 0010 00000000 		.4byte	.LFB65
+ 1000 0014 34000000 		.4byte	.LFE65
+ 1001 0018 00000000 		.4byte	0
+ 1002 001c 00000000 		.4byte	0
+ 1003              		.section	.debug_line,"",%progbits
+ 1004              	.Ldebug_line0:
+ 1005 0000 D5010000 		.section	.debug_str,"MS",%progbits,1
+ 1005      02007501 
+ 1005      00000201 
+ 1005      FB0E0D00 
+ 1005      01010101 
+ 1006              	.LASF28:
+ 1007 0000 43414E5F 		.ascii	"CAN_REG_32\000"
+ 1007      5245475F 
+ 1007      333200
+ 1008              	.LASF47:
+ 1009 000b 43414E5F 		.ascii	"CAN_Read_From_ECU\000"
+ 1009      52656164 
+ 1009      5F46726F 
+ 1009      6D5F4543 
+ 1009      5500
+ 1010              	.LASF1:
+ 1011 001d 5F5F7569 		.ascii	"__uint8_t\000"
+ 1011      6E74385F 
+ 1011      7400
+ 1012              	.LASF26:
+ 1013 0027 43414E5F 		.ascii	"CAN_DATA_BYTES\000"
+ 1013      44415441 
+ 1013      5F425954 
+ 1013      455300
+ 1014              	.LASF52:
+ 1015 0036 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1015      43313120 
+ 1015      352E342E 
+ 1015      31203230 
+ 1015      31363036 
+ 1016 0069 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1016      20726576 
+ 1016      6973696F 
+ 1016      6E203233 
+ 1016      37373135 
+ 1017 009c 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1017      66756E63 
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 21
 
 
- 1014      74696F6E 
- 1014      2D736563 
- 1014      74696F6E 
- 1015              	.LASF4:
- 1016 00c4 5F5F696E 		.ascii	"__int16_t\000"
- 1016      7431365F 
- 1016      7400
- 1017              	.LASF32:
- 1018 00ce 7278616D 		.ascii	"rxamr\000"
- 1018      7200
- 1019              	.LASF8:
- 1020 00d4 5F5F696E 		.ascii	"__int32_t\000"
- 1020      7433325F 
- 1020      7400
- 1021              	.LASF54:
- 1022 00de 433A5C55 		.ascii	"C:\\Users\\badea\\Documents\\PSoC Creator\\can_bun\\"
- 1022      73657273 
- 1022      5C626164 
- 1022      65615C44 
- 1022      6F63756D 
- 1023 010c 48434D5F 		.ascii	"HCM_UPBDrive.cydsn\000"
- 1023      55504244 
- 1023      72697665 
- 1023      2E637964 
- 1023      736E00
- 1024              	.LASF7:
- 1025 011f 73686F72 		.ascii	"short unsigned int\000"
- 1025      7420756E 
- 1025      7369676E 
- 1025      65642069 
- 1025      6E7400
- 1026              	.LASF37:
- 1027 0132 7478636D 		.ascii	"txcmd\000"
- 1027      6400
- 1028              	.LASF51:
- 1029 0138 6361725F 		.ascii	"car_state\000"
- 1029      73746174 
- 1029      6500
- 1030              	.LASF21:
- 1031 0142 646F7562 		.ascii	"double\000"
- 1031      6C6500
- 1032              	.LASF27:
- 1033 0149 62797465 		.ascii	"byte\000"
- 1033      00
- 1034              	.LASF31:
- 1035 014e 72786461 		.ascii	"rxdata\000"
- 1035      746100
- 1036              	.LASF42:
- 1037 0155 67656172 		.ascii	"gear\000"
- 1037      00
- 1038              	.LASF14:
- 1039 015a 696E7438 		.ascii	"int8_t\000"
- 1039      5F7400
- 1040              	.LASF35:
- 1041 0161 72786163 		.ascii	"rxacrd\000"
- 1041      726400
- 1042              	.LASF53:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 22
+ 1017      74696F6E 
+ 1017      2D736563 
+ 1017      74696F6E 
+ 1018              	.LASF4:
+ 1019 00c4 5F5F696E 		.ascii	"__int16_t\000"
+ 1019      7431365F 
+ 1019      7400
+ 1020              	.LASF32:
+ 1021 00ce 7278616D 		.ascii	"rxamr\000"
+ 1021      7200
+ 1022              	.LASF8:
+ 1023 00d4 5F5F696E 		.ascii	"__int32_t\000"
+ 1023      7433325F 
+ 1023      7400
+ 1024              	.LASF54:
+ 1025 00de 433A5C55 		.ascii	"C:\\Users\\badea\\Documents\\PSoC Creator\\can_bun\\"
+ 1025      73657273 
+ 1025      5C626164 
+ 1025      65615C44 
+ 1025      6F63756D 
+ 1026 010c 48434D5F 		.ascii	"HCM_UPBDrive.cydsn\000"
+ 1026      55504244 
+ 1026      72697665 
+ 1026      2E637964 
+ 1026      736E00
+ 1027              	.LASF7:
+ 1028 011f 73686F72 		.ascii	"short unsigned int\000"
+ 1028      7420756E 
+ 1028      7369676E 
+ 1028      65642069 
+ 1028      6E7400
+ 1029              	.LASF37:
+ 1030 0132 7478636D 		.ascii	"txcmd\000"
+ 1030      6400
+ 1031              	.LASF51:
+ 1032 0138 6361725F 		.ascii	"car_state\000"
+ 1032      73746174 
+ 1032      6500
+ 1033              	.LASF21:
+ 1034 0142 646F7562 		.ascii	"double\000"
+ 1034      6C6500
+ 1035              	.LASF27:
+ 1036 0149 62797465 		.ascii	"byte\000"
+ 1036      00
+ 1037              	.LASF31:
+ 1038 014e 72786461 		.ascii	"rxdata\000"
+ 1038      746100
+ 1039              	.LASF42:
+ 1040 0155 67656172 		.ascii	"gear\000"
+ 1040      00
+ 1041              	.LASF14:
+ 1042 015a 696E7438 		.ascii	"int8_t\000"
+ 1042      5F7400
+ 1043              	.LASF35:
+ 1044 0161 72786163 		.ascii	"rxacrd\000"
+ 1044      726400
+ 1045              	.LASF53:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 22
 
 
- 1043 0168 7372635C 		.ascii	"src\\can_comm.c\000"
- 1043      63616E5F 
- 1043      636F6D6D 
- 1043      2E6300
- 1044              	.LASF20:
- 1045 0177 666C6F61 		.ascii	"float\000"
- 1045      7400
- 1046              	.LASF2:
- 1047 017d 7369676E 		.ascii	"signed char\000"
- 1047      65642063 
- 1047      68617200 
- 1048              	.LASF43:
- 1049 0189 6272616B 		.ascii	"brake_state\000"
- 1049      655F7374 
- 1049      61746500 
- 1050              	.LASF48:
- 1051 0195 4953525F 		.ascii	"ISR_CAN\000"
- 1051      43414E00 
- 1052              	.LASF3:
- 1053 019d 756E7369 		.ascii	"unsigned char\000"
- 1053      676E6564 
- 1053      20636861 
- 1053      7200
- 1054              	.LASF30:
- 1055 01ab 72786964 		.ascii	"rxid\000"
- 1055      00
- 1056              	.LASF23:
- 1057 01b0 72656738 		.ascii	"reg8\000"
- 1057      00
- 1058              	.LASF18:
- 1059 01b5 696E7433 		.ascii	"int32_t\000"
- 1059      325F7400 
- 1060              	.LASF50:
- 1061 01bd 43414E69 		.ascii	"CANisrFlag\000"
- 1061      7372466C 
- 1061      616700
- 1062              	.LASF56:
- 1063 01c8 64757479 		.ascii	"duty_cycle_15bit\000"
- 1063      5F637963 
- 1063      6C655F31 
- 1063      35626974 
- 1063      00
- 1064              	.LASF45:
- 1065 01d9 64726976 		.ascii	"driving_mode\000"
- 1065      696E675F 
- 1065      6D6F6465 
- 1065      00
- 1066              	.LASF40:
- 1067 01e6 43414E5F 		.ascii	"CAN_TX_STRUCT\000"
- 1067      54585F53 
- 1067      54525543 
- 1067      5400
- 1068              	.LASF6:
- 1069 01f4 5F5F7569 		.ascii	"__uint16_t\000"
- 1069      6E743136 
- 1069      5F7400
- 1070              	.LASF10:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 23
+ 1046 0168 7372635C 		.ascii	"src\\can_comm.c\000"
+ 1046      63616E5F 
+ 1046      636F6D6D 
+ 1046      2E6300
+ 1047              	.LASF20:
+ 1048 0177 666C6F61 		.ascii	"float\000"
+ 1048      7400
+ 1049              	.LASF2:
+ 1050 017d 7369676E 		.ascii	"signed char\000"
+ 1050      65642063 
+ 1050      68617200 
+ 1051              	.LASF43:
+ 1052 0189 6272616B 		.ascii	"brake_state\000"
+ 1052      655F7374 
+ 1052      61746500 
+ 1053              	.LASF48:
+ 1054 0195 4953525F 		.ascii	"ISR_CAN\000"
+ 1054      43414E00 
+ 1055              	.LASF3:
+ 1056 019d 756E7369 		.ascii	"unsigned char\000"
+ 1056      676E6564 
+ 1056      20636861 
+ 1056      7200
+ 1057              	.LASF30:
+ 1058 01ab 72786964 		.ascii	"rxid\000"
+ 1058      00
+ 1059              	.LASF23:
+ 1060 01b0 72656738 		.ascii	"reg8\000"
+ 1060      00
+ 1061              	.LASF18:
+ 1062 01b5 696E7433 		.ascii	"int32_t\000"
+ 1062      325F7400 
+ 1063              	.LASF50:
+ 1064 01bd 43414E69 		.ascii	"CANisrFlag\000"
+ 1064      7372466C 
+ 1064      616700
+ 1065              	.LASF56:
+ 1066 01c8 64757479 		.ascii	"duty_cycle_15bit\000"
+ 1066      5F637963 
+ 1066      6C655F31 
+ 1066      35626974 
+ 1066      00
+ 1067              	.LASF45:
+ 1068 01d9 64726976 		.ascii	"driving_mode\000"
+ 1068      696E675F 
+ 1068      6D6F6465 
+ 1068      00
+ 1069              	.LASF40:
+ 1070 01e6 43414E5F 		.ascii	"CAN_TX_STRUCT\000"
+ 1070      54585F53 
+ 1070      54525543 
+ 1070      5400
+ 1071              	.LASF6:
+ 1072 01f4 5F5F7569 		.ascii	"__uint16_t\000"
+ 1072      6E743136 
+ 1072      5F7400
+ 1073              	.LASF10:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 23
 
 
- 1071 01ff 6C6F6E67 		.ascii	"long unsigned int\000"
- 1071      20756E73 
- 1071      69676E65 
- 1071      6420696E 
- 1071      7400
- 1072              	.LASF5:
- 1073 0211 73686F72 		.ascii	"short int\000"
- 1073      7420696E 
- 1073      7400
- 1074              	.LASF49:
- 1075 021b 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 1075      52784275 
- 1075      66666572 
- 1075      00
- 1076              	.LASF46:
- 1077 0228 64757479 		.ascii	"duty_cycle\000"
- 1077      5F637963 
- 1077      6C6500
- 1078              	.LASF13:
- 1079 0233 756E7369 		.ascii	"unsigned int\000"
- 1079      676E6564 
- 1079      20696E74 
- 1079      00
- 1080              	.LASF12:
- 1081 0240 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1081      206C6F6E 
- 1081      6720756E 
- 1081      7369676E 
- 1081      65642069 
- 1082              	.LASF15:
- 1083 0257 75696E74 		.ascii	"uint8_t\000"
- 1083      385F7400 
- 1084              	.LASF55:
- 1085 025f 43414E5F 		.ascii	"CAN_Transmit_To_ESC\000"
- 1085      5472616E 
- 1085      736D6974 
- 1085      5F546F5F 
- 1085      45534300 
- 1086              	.LASF16:
- 1087 0273 696E7431 		.ascii	"int16_t\000"
- 1087      365F7400 
- 1088              	.LASF19:
- 1089 027b 75696E74 		.ascii	"uint8\000"
- 1089      3800
- 1090              	.LASF36:
- 1091 0281 43414E5F 		.ascii	"CAN_RX_STRUCT\000"
- 1091      52585F53 
- 1091      54525543 
- 1091      5400
- 1092              	.LASF29:
- 1093 028f 7278636D 		.ascii	"rxcmd\000"
- 1093      6400
- 1094              	.LASF24:
- 1095 0295 6C6F6E67 		.ascii	"long double\000"
- 1095      20646F75 
- 1095      626C6500 
- 1096              	.LASF25:
-ARM GAS  C:\Users\badea\AppData\Local\Temp\ccWAbr33.s 			page 24
+ 1074 01ff 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1074      20756E73 
+ 1074      69676E65 
+ 1074      6420696E 
+ 1074      7400
+ 1075              	.LASF5:
+ 1076 0211 73686F72 		.ascii	"short int\000"
+ 1076      7420696E 
+ 1076      7400
+ 1077              	.LASF49:
+ 1078 021b 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1078      52784275 
+ 1078      66666572 
+ 1078      00
+ 1079              	.LASF46:
+ 1080 0228 64757479 		.ascii	"duty_cycle\000"
+ 1080      5F637963 
+ 1080      6C6500
+ 1081              	.LASF13:
+ 1082 0233 756E7369 		.ascii	"unsigned int\000"
+ 1082      676E6564 
+ 1082      20696E74 
+ 1082      00
+ 1083              	.LASF12:
+ 1084 0240 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1084      206C6F6E 
+ 1084      6720756E 
+ 1084      7369676E 
+ 1084      65642069 
+ 1085              	.LASF15:
+ 1086 0257 75696E74 		.ascii	"uint8_t\000"
+ 1086      385F7400 
+ 1087              	.LASF55:
+ 1088 025f 43414E5F 		.ascii	"CAN_Transmit_To_ESC\000"
+ 1088      5472616E 
+ 1088      736D6974 
+ 1088      5F546F5F 
+ 1088      45534300 
+ 1089              	.LASF16:
+ 1090 0273 696E7431 		.ascii	"int16_t\000"
+ 1090      365F7400 
+ 1091              	.LASF19:
+ 1092 027b 75696E74 		.ascii	"uint8\000"
+ 1092      3800
+ 1093              	.LASF36:
+ 1094 0281 43414E5F 		.ascii	"CAN_RX_STRUCT\000"
+ 1094      52585F53 
+ 1094      54525543 
+ 1094      5400
+ 1095              	.LASF29:
+ 1096 028f 7278636D 		.ascii	"rxcmd\000"
+ 1096      6400
+ 1097              	.LASF24:
+ 1098 0295 6C6F6E67 		.ascii	"long double\000"
+ 1098      20646F75 
+ 1098      626C6500 
+ 1099              	.LASF25:
+ARM GAS  C:\Users\badea\AppData\Local\Temp\cc3aNbgk.s 			page 24
 
 
- 1097 02a1 73697A65 		.ascii	"sizetype\000"
- 1097      74797065 
- 1097      00
- 1098              	.LASF34:
- 1099 02aa 7278616D 		.ascii	"rxamrd\000"
- 1099      726400
- 1100              	.LASF11:
- 1101 02b1 6C6F6E67 		.ascii	"long long int\000"
- 1101      206C6F6E 
- 1101      6720696E 
- 1101      7400
- 1102              	.LASF22:
- 1103 02bf 63686172 		.ascii	"char\000"
- 1103      00
- 1104              	.LASF33:
- 1105 02c4 72786163 		.ascii	"rxacr\000"
- 1105      7200
- 1106              	.LASF17:
- 1107 02ca 75696E74 		.ascii	"uint16_t\000"
- 1107      31365F74 
- 1107      00
- 1108              	.LASF9:
- 1109 02d3 6C6F6E67 		.ascii	"long int\000"
- 1109      20696E74 
- 1109      00
- 1110              	.LASF0:
- 1111 02dc 5F5F696E 		.ascii	"__int8_t\000"
- 1111      74385F74 
- 1111      00
- 1112              	.LASF41:
- 1113 02e5 656E6769 		.ascii	"engine_state\000"
- 1113      6E655F73 
- 1113      74617465 
- 1113      00
- 1114              	.LASF39:
- 1115 02f2 74786461 		.ascii	"txdata\000"
- 1115      746100
- 1116              	.LASF44:
- 1117 02f9 76656869 		.ascii	"vehicle_status_t\000"
- 1117      636C655F 
- 1117      73746174 
- 1117      75735F74 
- 1117      00
- 1118              	.LASF38:
- 1119 030a 74786964 		.ascii	"txid\000"
- 1119      00
- 1120              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 1100 02a1 73697A65 		.ascii	"sizetype\000"
+ 1100      74797065 
+ 1100      00
+ 1101              	.LASF34:
+ 1102 02aa 7278616D 		.ascii	"rxamrd\000"
+ 1102      726400
+ 1103              	.LASF11:
+ 1104 02b1 6C6F6E67 		.ascii	"long long int\000"
+ 1104      206C6F6E 
+ 1104      6720696E 
+ 1104      7400
+ 1105              	.LASF22:
+ 1106 02bf 63686172 		.ascii	"char\000"
+ 1106      00
+ 1107              	.LASF33:
+ 1108 02c4 72786163 		.ascii	"rxacr\000"
+ 1108      7200
+ 1109              	.LASF17:
+ 1110 02ca 75696E74 		.ascii	"uint16_t\000"
+ 1110      31365F74 
+ 1110      00
+ 1111              	.LASF9:
+ 1112 02d3 6C6F6E67 		.ascii	"long int\000"
+ 1112      20696E74 
+ 1112      00
+ 1113              	.LASF0:
+ 1114 02dc 5F5F696E 		.ascii	"__int8_t\000"
+ 1114      74385F74 
+ 1114      00
+ 1115              	.LASF41:
+ 1116 02e5 656E6769 		.ascii	"engine_state\000"
+ 1116      6E655F73 
+ 1116      74617465 
+ 1116      00
+ 1117              	.LASF39:
+ 1118 02f2 74786461 		.ascii	"txdata\000"
+ 1118      746100
+ 1119              	.LASF44:
+ 1120 02f9 76656869 		.ascii	"vehicle_status_t\000"
+ 1120      636C655F 
+ 1120      73746174 
+ 1120      75735F74 
+ 1120      00
+ 1121              	.LASF38:
+ 1122 030a 74786964 		.ascii	"txid\000"
+ 1122      00
+ 1123              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

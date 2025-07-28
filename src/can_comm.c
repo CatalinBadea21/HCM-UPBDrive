@@ -57,7 +57,7 @@ uint8_t CAN_Read_From_ECU()
     {
         car_state.rpm = CAN_RX_DATA_BYTE1(CAN_RX_MAILBOX_ECU_receive) * RPM_MULTIPLIER;
 
-        if (car_state.rpm > RPM_THRESHOLD)
+        if (car_state.rpm >= RPM_THRESHOLD)
             car_state.engine_state = STD_ON;
         else
             car_state.engine_state = STD_OFF;

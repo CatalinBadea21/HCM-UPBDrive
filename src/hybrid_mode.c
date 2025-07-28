@@ -92,7 +92,7 @@ void Emergency_Stop()
  */
 void Set_Strategy(uint8_t sel_strategy)
 {
-    if (car_state.gear == NEUTRAL_GEAR || car_state.vss > MAX_VSS_TO_DEPLOY)
+    if (car_state.vss > MAX_VSS_TO_DEPLOY) //(car_state.gear == NEUTRAL_GEAR || car_state.vss > MAX_VSS_TO_DEPLOY)
     {
         Set_Strategy_Freewheel();
     }
